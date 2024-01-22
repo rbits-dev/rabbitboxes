@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { HttpApiService } from 'src/app/services/http-api.service';
 import { WalletConnectService } from 'src/app/services/wallet-connect.service';
 import { Title } from '@angular/platform-browser';
 import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CollectionOverviewComponent } from 'src/app/components/base/dialogs/collection-overview/collection-overview.component';
 import { AddUserDialogComponent } from '../add-user-dialog/add-user-dialog.component';
 import { WalletConnectComponent } from 'src/app/components/base/wallet/connect/connect.component';
-
+import { TimerPopUPComponent } from './timer-pop-up/timer-pop-up.component';
+import {Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 enum DROPS_CATEGORY {
   RECENT = 0,
   LIVE = 1,
@@ -34,13 +36,12 @@ const applicationData = {
   templateUrl: './upcoming.component.html',
   styleUrls: ['./upcoming.component.scss']
 })
-export class UpcomingComponent implements OnInit {
+export class UpcomingComponent implements OnInit,OnDestroy {
   static readonly routeName: string = 'upcoming';
 
   public dropsCategory = DROPS_CATEGORY;
   list = null;
   currentCategory: number;
-
   NSFWToggleState = false;
 
   lootBoxDetails = [];
@@ -55,6 +56,7 @@ export class UpcomingComponent implements OnInit {
   artistData: any;
 
   isCollectionDataLoading: boolean = false;
+  isShowPriceAvailability : boolean = true;
 
   constructor(
     private httpService: HttpApiService,
@@ -64,8 +66,12 @@ export class UpcomingComponent implements OnInit {
     private title: Title,
     private location: Location,
     public dialog: MatDialog,
+    public router:Router
   ) {
     this.walletConnectService.init();
+    this.router.routeReuseStrategy.shouldReuseRoute = function(){return false;};
+  }
+  ngOnDestroy(): void {
   }
 
   ngOnInit(): void {
@@ -82,26 +88,41 @@ export class UpcomingComponent implements OnInit {
       switch (url[0].path) {
         case 'recent':
           this.currentCategory = DROPS_CATEGORY.RECENT;
-          this.title.setTitle('Moonbox drops - recent');
+          this.title.setTitle('RBITS drops - recent');
+          this.isShowPriceAvailability = false;
           break;
         case 'live':
           this.currentCategory = DROPS_CATEGORY.LIVE;
-          this.title.setTitle('Moonbox drops - live');
+          this.title.setTitle('RBITS drops - live');
+          this.isShowPriceAvailability = true;
           break;
         case 'upcoming':
           this.currentCategory = DROPS_CATEGORY.UPCOMING;
-          this.title.setTitle('Moonbox drops - upcoming');
+          this.title.setTitle('RBITS drops - upcoming');
+          this.isShowPriceAvailability = true;
           break;
       }
     })
+
+  
+
   }
+
+  isTimerUp(event:any){
+    if(event.isShowPopUp){
+    this.dialog.open(TimerPopUPComponent,{data:event.nftDetails})
+    }
+  }
+
+
 
   changeTab(tabIndex: DROPS_CATEGORY) {
     this.clearLootboxDetails();
     this.currentCategory = tabIndex;
 
     const categoryName = (Object.values(DROPS_CATEGORY)[tabIndex]).toString().toLowerCase();
-    this.title.setTitle(`Moonbox drops - ${categoryName}`);
+    categoryName == 'recent' ?  this.isShowPriceAvailability = false : this.isShowPriceAvailability = true;
+    this.title.setTitle(`RBITS drops - ${categoryName}`);
     this.location.go(`/${categoryName}`);
   }
 
@@ -136,7 +157,6 @@ export class UpcomingComponent implements OnInit {
             tempList[DROPS_CATEGORY.UPCOMING] = response.data;
             tempList[DROPS_CATEGORY.UPCOMING].push( applicationData );
           }
-    
           this.list = tempList;
         });
       }
@@ -210,7 +230,7 @@ export class UpcomingComponent implements OnInit {
 
   openDialoagOfAddUser(){
     let wallet =  this.localStorage.getWallet();
-    if(wallet == 1){
+    if(wallet == 1 || wallet == 2){
       this.dialog.open(AddUserDialogComponent,{width:'500px',disableClose:true}).afterClosed().subscribe({
         next:(res:any)=>{}
       })

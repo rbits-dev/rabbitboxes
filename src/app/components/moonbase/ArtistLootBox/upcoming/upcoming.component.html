@@ -8,7 +8,7 @@
                 <div class="flex flex-col">
                     <div class="flex">
                         <div class="flex flex-col w100 flex-center">
-                            <p class="flex1 flex justify-center p30d24m orbitron bold flex-row flex1 mb30">MoonBox Drops</p>
+                            <p class="flex1 flex justify-center p30d24m orbitron bold flex-row flex1 mb30">RBITS Drops</p>
                             <div class="tabs-container flex flex-xs-col mb30">
                                 <a class="tab" [ngClass]="getButtonType(dropsCategory.RECENT)" (click)="changeTab(dropsCategory.RECENT)">Recent</a>
                                 <a class="tab" [ngClass]="getButtonType(dropsCategory.LIVE)" (click)="changeTab(dropsCategory.LIVE)">Live</a>
@@ -27,6 +27,9 @@
                                     <div class="relative res-box upcoming-img" [style.background]="'url('+item.filePath+')'"></div>
                                 </a>
 
+                                <!-- <a *ngIf="item.revealDate === 'Application form'" rel="noopener noreferrer"  href="{{item.url}}" target="_blank" class="flex1 nft_img flex-center">
+                                    <div class="relative res-box upcoming-img" [style.background]="'url('+item.filePath+')'"></div>
+                                </a> -->
                                 <a *ngIf="item.revealDate === 'Application form'" rel="noopener noreferrer" (click)="openDialoagOfAddUser()" class="flex1 nft_img flex-center">
                                     <div class="relative res-box upcoming-img" [style.background]="'url('+item.filePath+')'"></div>
                                 </a>
@@ -39,10 +42,13 @@
                                         </div>
                                     </div>
 
-                                    <div class="border-top-bottom mt10 mb20">
+                                    <div class="border-top-bottom mt10 mb20" *ngIf="isShowPriceAvailability">
                                         <div class="flex justify-space-between">
                                             <p class="color-primary mb10 mt10">Price</p>
-                                            <p class="color-primary mb10 mt10">{{getMinPrice(item)}} {{item.tokenName}}</p>
+                                            <!-- <p class="color-primary mb10 mt10">{{getMinPrice(item)}} {{item.tokenName}}</p> -->
+                                            <p class="color-primary mb10 mt10"*ngIf="item?.is_free_mint">#Free ({{item?.free_mint_user}}/{{item?.free_nft_quantity}})</p>
+                                            <p class="color-primary mb10 mt10" *ngIf="!item?.is_free_mint">{{getMinPrice(item)}} {{item.tokenName}}</p>
+                                            
                                         </div>
                                         <div class="flex justify-space-between">
                                             <p class="color-primary mb10">Availability</p>
@@ -55,7 +61,7 @@
                                             <div class="row">Available soon</div>
                                         </div>
                                         <img src="assets/media/icons/drops/coundown.svg" alt="coundown-button">
-                                        <app-countdown-timer [date]="item.revealDate"></app-countdown-timer>
+                                        <app-countdown-timer [date]="item.revealDate" [nftData]="item" (timerUp)="isTimerUp($event)"></app-countdown-timer>
                                     </div>
 
                                     <!-- <a *ngIf="currentCategory === dropsCategory.UPCOMING && item.revealDate === 'Application form'" rel="noopener noreferrer" href="{{item.url}}" target="_blank" class="pointer button text-inherit mb20 coundown-button">
@@ -70,7 +76,7 @@
                                     </a>
 
 
-                                    <a *ngIf="currentCategory === dropsCategory.LIVE" class="button text-inherit mb20" [routerLink]="['/artist',item.walletAddress]">Buy MoonBoxes</a>
+                                    <a *ngIf="currentCategory === dropsCategory.LIVE" class="button text-inherit mb20" [routerLink]="['/artist',item.walletAddress]">Buy Rabbit Boxes</a>
                                     <a [class.disabled]="item.revealDate === 'Application form'" class="outlined-button mb20 text-inherit" (click)="viewDetails(item)">Collection info</a>
                                 </div>
                             </div>
@@ -85,3 +91,5 @@
 
     </section>
 </div>
+
+

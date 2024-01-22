@@ -1,6 +1,6 @@
-<section id="landing-nfts" class="landing-nfts">
+<section id="landing-nfts" class="landing-nfts" style="margin: auto;">
     <!-- This is the 3D Owl Carousel -->
-    <section class="landing-carousel">
+    <section class="landing-carousel"  >
         <swiper *ngIf="slides.length !== 0" [config]="config" (activeIndexChange)="onIndexChange($event)" (slideChange)="onIndexChange($event)" (realIndexChange)="onIndexChange($event)">
             <ng-container *ngFor="let slide of slides; index as i">
                 <ng-template swiperSlide>
@@ -19,12 +19,12 @@
 
     <div class="detail-container">
         <div class="heading-container top futuristic-container bottom-only">
-            <p class="p-white-span-primary p34 orbitron">MoonBoxes.io<br><span>your base to <br class="break-line-desktop">purchase NFTs</span></p>
+            <p class="p-white-span-primary p34 orbitron">RBITS.io<br><span>Rabbit Boxes your  <br class="break-line-desktop">hub to Rabbits NFTs & Games</span></p>
         </div>
         <div class="description-container">
             <div class="bottom flex pv20">
                 <div class="bottom-only no-padding ">
-                    <p class="mb20  info-text"><a href="http://moonboxes.io/">MoonBoxes.io</a> offers you a complete overview of upcoming, active and recent NFT drops.<br><br> <a href="http://moonboxes.io/" target="_blank">MoonBoxes.io</a> will be home to collectors and amazing
+                    <p class="mb20  info-text"><a href="http://rbits.xyz/">RBITS.io</a> offers you a complete overview of upcoming, active and recent NFT drops.<br><br> <a href="http://rbits.xyz/" target="_blank">RBITS.io</a> will be home to collectors and amazing
                         NFT artists.
                     </p>
                 </div>
@@ -36,4 +36,8 @@
             </div>
         </div>
     </div>
+    
 </section>
+<div style="width: 70%; margin:0rem auto 8rem ;">
+    <img src="assets/media/images/moonbox/Stick.png" alt="" width="100%"  >
+</div>

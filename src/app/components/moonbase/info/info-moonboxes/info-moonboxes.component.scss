@@ -99,7 +99,7 @@ section.info-moonboxes {
     line-height: 1.2;
     letter-spacing: normal;
     text-align: left;
-    color: #d5a642;
+    color: #ed1651;
     border-top: 3px solid $primary;
     max-width: 370px;
     width: 100%;
@@ -115,7 +115,7 @@ section.info-moonboxes {
   .description-container {
     display: flex;
     flex-direction: column;
-    max-width: 340px;
+    // max-width: 340px;
     width: 100%;
     justify-content: center;
     align-items: center;
@@ -152,7 +152,7 @@ section.info-moonboxes {
     .button,
     .outlined-button {
       min-width: 170px;
-      width: 100%;
+      width: auto;
       font-size: 16px;
       height: 51px;
       padding: 0px 15px;
@@ -164,6 +164,7 @@ section.info-moonboxes {
       font-weight: bold;
       line-height: 1.69;
       text-align: center;
+      margin: auto;
     }
   }
 

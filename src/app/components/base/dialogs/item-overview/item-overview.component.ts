@@ -5,6 +5,7 @@ import { Observable, Observer } from 'rxjs';
 import { SocialShareComponent } from 'src/app/components/moonbase/modal-for-transaction/social-share/social-share.component';
 import { WalletConnectService } from 'src/app/services/wallet-connect.service';
 import { environment } from 'src/environments/environment';
+import openseaLink from '../../../../../assets/abis/openseaLink.json'
 
 @Component({
   selector: 'app-item-overview',
@@ -16,7 +17,9 @@ export class ItemOverviewComponent implements OnInit {
   item: any;
   chainId: number;
   moonseaChainId: number;
-
+  openseaList :any[] = openseaLink;
+  link :any='';
+  notAvailableNetworkonOpnenSea = [287,4,568,1285,2000,1]
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog,
@@ -29,15 +32,25 @@ export class ItemOverviewComponent implements OnInit {
     this.walletConnectService.init();
     this.walletConnectService.getChainId().subscribe((data) => {
       this.chainId = data;
+      openseaLink.forEach((element)=>{
+        if(element.chainId == this.chainId){
+          this.link = `${element.link}${this.item.ArtistNFTAddress}/${this.item.nftId}${this.notAvailableNetworkonOpnenSea.includes(this.chainId) ? +'/'+ this.moonseaChainId : ''}`;
+        }
+      })
+
+      // console.log(this.link);
+
+      // 
+      
       if (environment.chainId.indexOf(this.chainId) == -1) {
         this.moonseaChainId=1;
-        debugger
+        //
       }
       else
       {
         let index = environment.chainId.indexOf(this.chainId);
         this.moonseaChainId=environment.moonSeaChinIds[index];
-        debugger
+        //
       }
     });
   }

@@ -37,7 +37,7 @@ export class HttpApiService {
     private httpClient: HttpClient,
     private toastrService: ToastrService
   ) {
-    // debugger
+    // //
     this.chainId = localStorage.getItem('manual_chainId') ?? "56";
 
     this.headers = new HttpHeaders()
@@ -125,16 +125,28 @@ export class HttpApiService {
     return this.httpClient.get(url, { headers: this.headers, params }).toPromise();
   }
 
-  getArtistMoonboxData(artistWalletAddress: string, userAddress: string): Observable<ArtistMoonbox> {
+  getArtistMoonboxData(artistWalletAddress: string, userAddress: string): Promise<any> {
     const params = { artistWalletAddress, userAddress };
     const url = `${baseURL}getArtistMoonboxData`;
+    let promise = new Promise((resolve, reject) => {
+      this.httpClient.get(url, { headers: this.headers, params })
+        .pipe(map((r: Response) => plainToClass(ArtistMoonbox, r))).subscribe({
+          next: (res: any) => {
+            resolve(res)
+          },
+          error:(err)=>{
+            reject(err)
+          }
+        });
+    })
 
-    return this.httpClient.get(url, { headers: this.headers, params })
-      .pipe(map((r: Response) => plainToClass(ArtistMoonbox, r)));
+    return promise;
+
   }
 
   getRandomCollectionImageListFromArtist(artistAddress: string): Promise<any> {
     const params = { artistAddress: artistAddress };
+    // 
     const url = `${baseURL}randCollectionImageListArtist`;
 
     return this.httpClient.get(url, { headers: this.headers, params }).toPromise();
@@ -207,7 +219,7 @@ export class HttpApiService {
     return this.httpClient.post(url, body, { headers: this.headers });
   }
 
-  
+
 
 
 }

@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { WindowRefService } from './window-ref.service';
-import { ethers } from 'ethers';
+import { ethers, Wallet } from 'ethers';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from './local-storage.service';
 import Web3 from 'web3';
 import Web3Modal from "web3modal";
-
+const SID = require('@siddomains/sidjs').default      
+const SIDfunctions = require('@siddomains/sidjs')
 
 const providerMainNetURL = environment.providerMainNetURL;
 const providerTestNetURL = environment.providerTestNetURL;
@@ -73,6 +74,10 @@ export class WalletConnectService {
   chainId: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   private selectedChainId: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
+  public $timerUp = new BehaviorSubject({});
+
+
+
   private readonly ACCOUNTS_CHANGED: string = 'accountsChanged';
   private readonly CHAIN_CHANGED: string = 'chainChanged';
   private readonly DISCONNECT: string = 'disconnect';
@@ -115,7 +120,7 @@ export class WalletConnectService {
 
     try {
       // await this.localStorageService.getAddress();
-      var web3Provider = new Web3.providers.HttpProvider(environment.providerTestNetURL);
+      var web3Provider = new Web3.providers.HttpProvider(environment.providerURL);
       var web3 = new Web3(web3Provider);
       this.SilverContract = new web3.eth.Contract(silverTokenAbi, environment.tokenContractAddress);
       this.LootBoxContractGet = new web3.eth.Contract(lootBoxAbi, environment.lootBoxAddress);
@@ -182,6 +187,10 @@ export class WalletConnectService {
 
           if (this.ChainId != currentNetwork.chainId) {
             this.toastrService.error('You are on the wrong network please Connect with ' + this.chainConfigs[this.ChainId]?.name ?? '');
+          console.warn('PPPPPPPPPPPPPPPPPPPPPPPPPPPPP')
+           
+            this.setWalletDisconnected();
+            window.location.reload();
           }
         }
 
@@ -232,7 +241,7 @@ export class WalletConnectService {
         rpc: {
           1: "https://eth-mainnet.public.blastapi.io",
           56: "https://bsc-dataseed.binance.org",
-          137: "https://rpc-mainnet.matic.network",
+          137: "https://polygon.llamarpc.com",
           1285: "https://rpc.api.moonriver.moonbeam.network",
         },
       })
@@ -279,17 +288,17 @@ export class WalletConnectService {
   }
 
   async getAccountAddress() {
-    this.signer = this.provider.getSigner();
-    const address = await this.signer.getAddress();
-    const network = await this.provider.getNetwork();
+    this.signer = this.provider?.getSigner();
+    const address = await this.signer?.getAddress();
+    const network = await this.provider?.getNetwork();
     var chainId = await this.chainId.value;
 
     this.localStorageService.setAddress(address);
-    this.updateSelectedChainId(network.chainId);
+    this.updateSelectedChainId(network?.chainId);
 
-    if (network.chainId == chainId) {
+    if (network?.chainId == chainId) {
       let index = environment.chainId.indexOf(chainId ?? 56);
-      if ((network.chainId == 56 || network.chainId == 97)) {
+      if ((network?.chainId == 56 || network?.chainId == 97)) {
         this.LootboxContract = new ethers.Contract(environment.lootBoxAddress, lootBoxAbi, this.signer);
         this.swapContract = new ethers.Contract(config[environment.configFile][index].ArtistMoonBoxNftSwap, swapContractAbi, this.signer);
       }
@@ -297,7 +306,7 @@ export class WalletConnectService {
       this.artistLootBoxContract = new ethers.Contract(config[environment.configFile][index].artistLootBoxAddress, ArtistNFTAbi, this.signer);
       this.registorContractAddressObj = new ethers.Contract(config[environment.configFile][index].RegisterMoonboxAddress,registorAbi,this.signer)
    
-      debugger
+      //
     }
 
 
@@ -320,9 +329,23 @@ export class WalletConnectService {
   }
 
 
-  async registorCheck(data:{name:string,symbol:string,username:string,collectionName:string}){
+
+  sid :any; 
+
+  async spaceAddress(address:any) {
+    let chainId = localStorage.getItem('chainId');
+    let rpc = this.chainConfigs[chainId].config.params[0].rpcUrls[0];
+    const provider = new Web3.providers.HttpProvider(rpc)
+    this.sid = new SID({ provider, sidAddress: SIDfunctions.getSidAddress(chainId) })
+     return await this.sid.getName(address);                                                                            
+  
+  } 
+
+
+
+  async registorCheck(data:{name:string,symbol:string,username:string,collectionName:string,walletAddress:string}){
     try {
-      let transaction = await this.registorContractAddressObj.register(environment.lootBoxAddress,environment.lootBoxAddress,data.name,data.collectionName,data.symbol,data.username )
+      let transaction = await this.registorContractAddressObj.register(environment.lootBoxAddress,data.name,data.collectionName,data.symbol,data.username,data.walletAddress)
        return {status:true,hash:transaction};
     } catch (error) {
       this.toastrService.error(error.message)
@@ -443,10 +466,10 @@ export class WalletConnectService {
   }
 
   async redeemBulkTransaction(lootBoxId: any, price: any, noOfBets: number, userAddress: string) {
-debugger
+//
 
     try {
-      debugger
+      //
       let txn: any = await this.LootboxContract.submitBet(lootBoxId, price, noOfBets, { value: (price * noOfBets).toString(),gasLimit:1000000000000000,gasPrice:110 });
       return { hash: txn.hash, status: true };
 
@@ -462,7 +485,7 @@ debugger
     const spliSign = ethers.utils.splitSignature(signature);
     if (isArtist) {
       try {
-debugger
+//
         let txn: any = await this.artistLootBoxContract.redeemBulk(nftAddress, id, nftAmount, artistAddress, bet, spliSign.v, spliSign.r, spliSign.s)
         await txn.wait(1)
         return { hash: txn.hash, status: true };
@@ -506,7 +529,7 @@ debugger
       params = ((10 ** decimals) * price).toString();
     }
     try {
-      debugger
+      //
       gas = await this.artistLootBoxContract.estimateGas.submitBet(lootBoxId, params, artistAddress, noOfBets, betlimit, tokenAddress, spliSign.v, spliSign.r, spliSign.s, {
         value: callValue
       }
@@ -516,7 +539,7 @@ debugger
     }
 
     try {
-    debugger
+    //
       let txn: any = await this.artistLootBoxContract.submitBet(lootBoxId, params, artistAddress, noOfBets, betlimit, tokenAddress, spliSign.v, spliSign.r, spliSign.s, {
         value: callValue,
         // gasPrice: 100,
@@ -545,7 +568,7 @@ debugger
   }
 
   updateSelectedChainId(data: number): void {
-    localStorage.setItem('chainId', data.toString());
+    localStorage.setItem('chainId', data?.toString());
     this.selectedChainId.next(data);
   }
 

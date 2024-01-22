@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ArtistMoonbox } from 'src/app/models/artist-moonbox.model';
+import { ArtistMoonboxRouteComponent } from './artist-moonbox-route/artist-moonbox-route.component';
 import { ArtistMoonboxComponent } from './ArtistLootBox/artist-moonbox/artist-moonbox.component';
 import { UpcomingComponent } from './ArtistLootBox/upcoming/upcoming.component';
 import { HistoryComponent } from './history/history.component';
@@ -10,6 +12,7 @@ import { LandingComponent } from './landing/landing.component';
 import { MoonbaseComponent } from './moonbase.component';
 import { PrizePoolComponent } from './prize-pool/prize-pool.component';
 import { RarityComponent } from './rarity/rarity.component';
+import { NFTCollectionsComponent } from './nftcollections/nftcollections.component';
 
 const routes: Routes = [
   {
@@ -19,6 +22,10 @@ const routes: Routes = [
       {
         path: LandingComponent.routeName,
         component: LandingComponent
+      },
+      {
+        path: 'nfcollections',
+        component: NFTCollectionsComponent
       },
       {
         path: 'application',
@@ -41,9 +48,19 @@ const routes: Routes = [
         path: InventoryComponent.routeName,
         component: InventoryComponent
       },
+      ///////////////////////////////////////////////original Route
       {
         path: ArtistMoonboxComponent.routeName,
         component: ArtistMoonboxComponent
+      },
+      ///////////////////////////////////////////////
+      {
+        path:ArtistMoonboxRouteComponent.artistOptionalRoute,
+        component:ArtistMoonboxRouteComponent
+      },
+      {
+        path:ArtistMoonboxRouteComponent.artistOptionalRoute,
+        component:ArtistMoonboxRouteComponent
       },
       {
         path: UpcomingComponent.routeName,

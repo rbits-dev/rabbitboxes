@@ -13,7 +13,7 @@ section.landing-intro {
 }
 
 section.landing-carousel {
-    max-width: 470px !important;
+    max-width: 432px !important;
     max-height: 470px !important;
     width: 100%;
     height: 100%;
@@ -36,7 +36,7 @@ swiper {
     max-width: 470px;
     width: 100%;
     height: 100%;
-    background: black;
+    background: transparent;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -56,20 +56,21 @@ swiper {
 
 .landing-into-nft-image-container {
     position: relative;
-    margin-left: -75px;
-    max-width: 470px;
-    max-height: 470px;
+    margin-left: 19px;
+    min-width: 470px;
+    min-height: 470px;
     background: transparent;
     width: 100%;
     height: 100%;
     z-index: -1;
+    // border: 2px solid green;
 }
 
 .info {
     flex: none;
     max-width: 370px;
     border-top: 3px solid $primary;
-    margin-top: 80px;
+    margin-top: 0;
     position: relative;
     width: 100%;
     z-index: 1;

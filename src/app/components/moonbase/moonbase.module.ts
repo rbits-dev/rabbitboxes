@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SwiperModule } from 'swiper/angular';
-
+import {RouterModule} from '@angular/router';
 import { MoonbaseRoutingModule } from './moonbase-routing.module';
 import { MoonbaseComponent } from './moonbase.component';
 import { NavModule } from './nav/nav.module';
@@ -39,6 +39,9 @@ import { NftMigrationComponent } from './dialogs/nft-migration/nft-migration.com
 import { MaterialModule } from './material/material.module';
 import { DisconnectWalletComponent } from './dialogs/disconnect-wallet/disconnect-wallet.component';
 import { AddUserDialogComponent } from './ArtistLootBox/add-user-dialog/add-user-dialog.component';
+import { TimerPopUPComponent } from './ArtistLootBox/upcoming/timer-pop-up/timer-pop-up.component';
+import { ArtistMoonboxRouteComponent } from './artist-moonbox-route/artist-moonbox-route.component';
+import { NFTCollectionsComponent } from './nftcollections/nftcollections.component';
 
 
 @NgModule({
@@ -46,6 +49,7 @@ import { AddUserDialogComponent } from './ArtistLootBox/add-user-dialog/add-user
     MoonbaseComponent,
     IntroComponent,
     PrizePoolComponent,
+    NFTCollectionsComponent,
     CountdownTimerComponent,
     HistoryComponent,
     InventoryComponent,
@@ -67,6 +71,8 @@ import { AddUserDialogComponent } from './ArtistLootBox/add-user-dialog/add-user
     NftMigrationComponent,
     DisconnectWalletComponent,
     AddUserDialogComponent,
+    TimerPopUPComponent,
+    ArtistMoonboxRouteComponent,
   ],
   imports: [
     MatIconModule,
@@ -84,7 +90,8 @@ import { AddUserDialogComponent } from './ArtistLootBox/add-user-dialog/add-user
     SwiperModule,
     UiSwitchModule,
     ClipboardModule,
-    MaterialModule
+    MaterialModule,
+    RouterModule
   ]
 })
 export class MoonbaseModule { }

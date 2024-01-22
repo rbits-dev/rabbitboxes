@@ -65,7 +65,7 @@ export class NavComponent implements OnInit {
       icon: 'assets/media/icons/moonbase/nav/Menu_inventory_black.svg',
       alt: 'inventory',
       tooltip:
-        'This is your wallet inventory. An overview of all NFTs you received out of the MoonBoxes.',
+        'This is your wallet inventory. An overview of all NFTs you received out of the RBITS.',
       click: null,
       routerLink: ['/inventory'],
       route: '/inventory',
@@ -73,7 +73,7 @@ export class NavComponent implements OnInit {
     {
       icon: 'assets/media/icons/moonbase/nav/Menu_history_black.svg',
       alt: 'history',
-      tooltip: 'This is your history. An overview of your MoonBox NFT claims.',
+      tooltip: 'This is your history. An overview of your RBIT NFT claims.',
       click: null,
       routerLink: ['/history'],
       route: '/history',
@@ -81,10 +81,18 @@ export class NavComponent implements OnInit {
     {
       icon: 'assets/media/icons/moonbase/nav/Menu_info_black.svg',
       alt: 'info',
-      tooltip: 'Here you can find more information about the MoonBoxes tiers.',
+      tooltip: 'Here you can find more information about the RBITS tiers.',
       click: null,
       routerLink: ['/info'],
       route: '/info',
+    },
+    {
+      icon: 'assets/media/icons/game-hub.svg',
+      alt: 'game',
+      tooltip: 'Game Hub',
+      click: null,
+      routerLink: ['/nfcollections'],
+      route: '/nfcollections',
     },
   ];
 
@@ -303,13 +311,11 @@ export class NavComponent implements OnInit {
 
         this.walletConnectService.updateChainId(this.chains[index]);
         this.toastrService.success(`You are connected to the ${this.chainConfigs[this.chains[index] ?? 97].name}`, "NETWORK");
-        // debugger
         window.location.reload();
       } catch (error) {
 
         console.log(error);
-
-        this.toastrService.error("You selected an unsupported Network!\n" + error.message, "NETWORK")
+        this.toastrService.error(`${error.message}`)
       }
     }
   }

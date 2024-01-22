@@ -15,7 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { LocalStorageService } from './services/local-storage.service';
 import { UserDetailsProvider } from './services/user-details.provider';
-import { ItemOverviewComponent } from './components/base/dialogs/item-overview/item-overview.component';
+
 import { CollectionOverviewComponent } from './components/base/dialogs/collection-overview/collection-overview.component';
 import { SwiperModule } from 'swiper/angular';
 import { CollectionOverviewModule } from './components/base/dialogs/collection-overview/collection-overview.module';
@@ -35,7 +35,7 @@ export class HammerConfig extends HammerGestureConfig {
 @NgModule({
   declarations: [
     AppComponent,
-    ItemOverviewComponent,
+    
     CollectionOverviewComponent,
     MigrationDialogComponent,
   ],

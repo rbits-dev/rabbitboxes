@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, TemplateRef } from '@angular/core';
 import { WalletConnectService } from 'src/app/services/wallet-connect.service';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpApiService } from 'src/app/services/http-api.service';
@@ -25,8 +25,8 @@ export class ArtistMoonboxComponent implements OnInit {
 
   slides: any[] = [];
   artistData: any;
-  removeitemIndex:any[]=[];
-  isgetMaxSupplyCall=false;
+  removeitemIndex: any[] = [];
+  isgetMaxSupplyCall = false;
 
   swiperConfig: SwiperOptions = {
     slidesPerView: 1,
@@ -102,7 +102,7 @@ export class ArtistMoonboxComponent implements OnInit {
   readonly messages = MESSAGES;
   mainMessage: string = MESSAGES.IDLE;
 
-  readonly boxTypes = ["wood", "silver", "gold", "diamond"]
+   boxTypes = ["wood", "silver", "gold", "diamond"]
 
   current = 0;
   supply: number[] = [];
@@ -121,30 +121,32 @@ export class ArtistMoonboxComponent implements OnInit {
   public infoHoverList: any[] = [
     {
       "isHovered": false,
-      "tooltipText": "You need 0 Moonshot token\nto open a Wood MoonBox."
+      "tooltipText": "You need 0 RBITS token\nto open a Wood MoonBox."
     },
     {
       "isHovered": false,
-      "tooltipText": "You need 75,000,000,000 Moonshot tokens to open a Silver MoonBox."
+      "tooltipText": "You need 75,000,000,000 RBITS tokens to open a Silver MoonBox."
     },
     {
       "isHovered": false,
-      "tooltipText": "You need 150,000,000,000 Moonshot tokens to open a Gold MoonBox."
+      "tooltipText": "You need 150,000,000,000 RBITS tokens to open a Gold MoonBox."
     },
     {
       "isHovered": false,
-      "tooltipText": "You need 250,000,000,000 Moonshot tokens to open a Diamond MoonBox."
+      "tooltipText": "You need 250,000,000,000 RBITS tokens to open a Diamond MoonBox."
     },
   ];
   chainId: number;
 
+  pageLoader :boolean =false;
   constructor(
     public walletConnectService: WalletConnectService,
     private toastrService: ToastrService,
     public dialog: MatDialog,
     public httpApi: HttpApiService,
     private activatedRoute: ActivatedRoute,
-    private userProvider: UserDetailsProvider
+    private userProvider: UserDetailsProvider,
+    private changeDetectionRef: ChangeDetectorRef
   ) {
     this.lootBoxDetails = httpApi.lootBoxDetails;
 
@@ -178,12 +180,15 @@ export class ArtistMoonboxComponent implements OnInit {
 
       this.balance = userData.balance;
 
-      this.getMaxSupply();
+
 
       this.getMoonboxTierLimits();
     }, (error) => { console.log(error); });
 
-    if (!this.isConnected) this.getMaxSupply();
+    if (!this.isConnected) {
+
+    }
+    this.getMaxSupply();
   }
 
   hasEnoughMoonshots(index: number) {
@@ -200,8 +205,8 @@ export class ArtistMoonboxComponent implements OnInit {
 
       this.moonBoxLimitDetails = await this.walletConnectService.getDetailsMoonboxlimit(this.artistDetails.walletAddress == environment.ownerAddress ? false : true);
       // console.log(this.moonBoxLimitDetails.length)
-      for(let i=0;i<4;i++){
-          this.infoHoverList[i].tooltipText = "You need "+(this.moonBoxLimitDetails[i]/1e18).toLocaleString('en-us', {minimumFractionDigits: 0})+" Moonshot token\nto open a "+this.boxTypes[i]+" MoonBox.";
+      for (let i = 0; i < 4; i++) {
+        this.infoHoverList[i].tooltipText = "You need " + (this.moonBoxLimitDetails[i] / 1e18).toLocaleString('en-us', { minimumFractionDigits: 0 }) + " Moonshot token\nto open a " + this.boxTypes[i] + " MoonBox.";
       }
     }
 
@@ -231,55 +236,55 @@ export class ArtistMoonboxComponent implements OnInit {
     });
   }
 
-  getMaxSupply() {
+  async getMaxSupply() {
 
-    this.httpApi.getArtistMoonboxData(
+  await  this.httpApi.getArtistMoonboxData(
       this.activatedRoute.snapshot.params['artistAddress'],
       this.data?.address
-    ).subscribe((response: ArtistMoonbox) => {
+    ).then((response: ArtistMoonbox) => {
       if (response.isSuccess) {
+  
         this.artistDetails = response;
         this.supplyDetails = this.artistDetails.data;
         this.supplyDetails.forEach((item: Supply) => {
-          if(!item.isminted)
-          {
-            const index = this.boxTypes.findIndex(box =>box.toLocaleLowerCase() == item.type.toLocaleLowerCase());
+          if (!item.isminted) {
+            const index = this.boxTypes.findIndex(box => box.toLocaleLowerCase() == item.type.toLocaleLowerCase());
             this.removeitemIndex.push(index);
-            // this.removeitem(item.type);
+           
           }
           this.supply.push(item.hasSupply() ? 1 : 0);
-        });
-        if(this.removeitemIndex.length>0)
-        {
-          // this.removeitemIndex.forEach((item: any) => {
+          
 
-            if(!this.isgetMaxSupplyCall)
-            {
-              this.removeitem(this.removeitemIndex);
-            }
-          // });
+        });
+       
+        if (this.removeitemIndex.length > 0) {
+        
+          if (!this.isgetMaxSupplyCall) {
+            this.removeitem(this.removeitemIndex);
+          }
         }
       } else {
         this.mainMessage = MESSAGES.NO_SUPPLY;
       }
     })
+    this.pageLoader=true;
+    this.changeDetectionRef.detectChanges();
   }
-  removeitem(removeValFromIndex:any)
-{
-// this.boxTypes.splice(index, 1);
-// this.supplyDetails.splice(index, 1);
-for (var i = removeValFromIndex.length -1; i >= 0; i--)
-{
-  this.boxTypes.splice(removeValFromIndex[i],1);
-  this.supplyDetails.splice(removeValFromIndex[i],1);
-}
-this.isgetMaxSupplyCall=true;
-}
+
+
+  removeitem(removeValFromIndex: any) {
+   
+    for (var i = removeValFromIndex.length - 1; i >= 0; i--) {
+      this.boxTypes.splice(removeValFromIndex[i], 1);
+      this.supplyDetails.splice(removeValFromIndex[i], 1);
+      this.supply.splice(removeValFromIndex[i], 1);
+    }
+    this.isgetMaxSupplyCall = true;
+  }
 
   buyMoonBase(index: number) {
 
-    if(!this.hasEnoughMoonshots(index) || this.supply[index] === 0)
-    {
+    if (!this.hasEnoughMoonshots(index) || this.supply[index] === 0) {
       return false
     }
     else if (this.data === undefined || this.data.address === undefined)
@@ -287,7 +292,7 @@ this.isgetMaxSupplyCall=true;
     else
       this.submitBetToContract(index);
 
-      return false;
+    return false;
   }
 
   async submitBetToContract(index: number) {
@@ -309,7 +314,7 @@ this.isgetMaxSupplyCall=true;
     // if (this.supplyDetails[index]?.isUpcoming) return false;
     this.invisible = true;
     this.fadeOut = true;
-    let dialogRef = this.dialog.open(ModalForTransactionComponent, {
+    this.dialog.open(ModalForTransactionComponent, {
       width: 'auto',
       disableClose: true,
       data: {
@@ -330,22 +335,39 @@ this.isgetMaxSupplyCall=true;
         }
       },
       panelClass: 'custom-modalbox'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
+    }).afterClosed().subscribe(async result => {
+      this.pageLoader = false;
       this.userProvider.onReceive().subscribe((userData: any) => {
         this.balance = userData.balance;
-        this.getMaxSupply();
+        // this.getMaxSupply();
+        // this.getMoonboxTierLimits();
+        // console.log(userData);
+      }, (error) => {
 
-        this.getMoonboxTierLimits();
-      }, (error) => { console.log(error); });
+      });
       this.invisible = false;
       this.fadeOut = result;
       this.popupClosed = true;
-    });
+      this.getMoonboxTierLimits();
+      this.resetMaxSupplyCalldata();
+       await this.getMaxSupply()
+      this.pageLoader = true;
+      this.walletConnectService.getAccountAddress();
+
+    }
+
+    );
 
 
     return true;
+  }
+
+  resetMaxSupplyCalldata()
+  {
+    this.boxTypes = ["wood", "silver", "gold", "diamond"];
+    this.isgetMaxSupplyCall = false;
+    this.supply=[];
+    this.removeitemIndex=[];
   }
 
   openDialogWithTemplateRef(templateRef: TemplateRef<any>) {
@@ -382,3 +404,4 @@ this.isgetMaxSupplyCall=true;
     });
 
 }
+
