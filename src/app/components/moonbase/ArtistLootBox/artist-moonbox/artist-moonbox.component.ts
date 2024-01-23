@@ -121,19 +121,19 @@ export class ArtistMoonboxComponent implements OnInit {
   public infoHoverList: any[] = [
     {
       "isHovered": false,
-      "tooltipText": "You need 0 Moonshot token\nto open a Wood MoonBox."
+      "tooltipText": "You need 0 RBITS token\nto open a Wood MoonBox."
     },
     {
       "isHovered": false,
-      "tooltipText": "You need 75,000,000,000 Moonshot tokens to open a Silver MoonBox."
+      "tooltipText": "You need 75,000,000,000 RBITS tokens to open a Silver MoonBox."
     },
     {
       "isHovered": false,
-      "tooltipText": "You need 150,000,000,000 Moonshot tokens to open a Gold MoonBox."
+      "tooltipText": "You need 150,000,000,000 RBITS tokens to open a Gold MoonBox."
     },
     {
       "isHovered": false,
-      "tooltipText": "You need 250,000,000,000 Moonshot tokens to open a Diamond MoonBox."
+      "tooltipText": "You need 250,000,000,000 RBITS tokens to open a Diamond MoonBox."
     },
   ];
   chainId: number;
@@ -253,12 +253,12 @@ export class ArtistMoonboxComponent implements OnInit {
            
           }
           this.supply.push(item.hasSupply() ? 1 : 0);
-          debugger
+          
 
         });
-       debugger
+       
         if (this.removeitemIndex.length > 0) {
-        debugger
+        
           if (!this.isgetMaxSupplyCall) {
             this.removeitem(this.removeitemIndex);
           }
@@ -273,7 +273,7 @@ export class ArtistMoonboxComponent implements OnInit {
 
 
   removeitem(removeValFromIndex: any) {
-   debugger
+   
     for (var i = removeValFromIndex.length - 1; i >= 0; i--) {
       this.boxTypes.splice(removeValFromIndex[i], 1);
       this.supplyDetails.splice(removeValFromIndex[i], 1);

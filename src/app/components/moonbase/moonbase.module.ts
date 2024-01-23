@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SwiperModule } from 'swiper/angular';
-
+import {RouterModule} from '@angular/router';
 import { MoonbaseRoutingModule } from './moonbase-routing.module';
 import { MoonbaseComponent } from './moonbase.component';
 import { NavModule } from './nav/nav.module';
@@ -41,6 +41,7 @@ import { DisconnectWalletComponent } from './dialogs/disconnect-wallet/disconnec
 import { AddUserDialogComponent } from './ArtistLootBox/add-user-dialog/add-user-dialog.component';
 import { TimerPopUPComponent } from './ArtistLootBox/upcoming/timer-pop-up/timer-pop-up.component';
 import { ArtistMoonboxRouteComponent } from './artist-moonbox-route/artist-moonbox-route.component';
+import { NFTCollectionsComponent } from './nftcollections/nftcollections.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { ArtistMoonboxRouteComponent } from './artist-moonbox-route/artist-moonb
     MoonbaseComponent,
     IntroComponent,
     PrizePoolComponent,
+    NFTCollectionsComponent,
     CountdownTimerComponent,
     HistoryComponent,
     InventoryComponent,
@@ -88,7 +90,8 @@ import { ArtistMoonboxRouteComponent } from './artist-moonbox-route/artist-moonb
     SwiperModule,
     UiSwitchModule,
     ClipboardModule,
-    MaterialModule
+    MaterialModule,
+    RouterModule
   ]
 })
 export class MoonbaseModule { }
