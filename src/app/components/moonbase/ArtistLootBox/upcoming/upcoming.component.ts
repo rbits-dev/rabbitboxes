@@ -88,17 +88,17 @@ export class UpcomingComponent implements OnInit,OnDestroy {
       switch (url[0].path) {
         case 'recent':
           this.currentCategory = DROPS_CATEGORY.RECENT;
-          this.title.setTitle('RBITS drops - recent');
+          this.title.setTitle('Moonbox drops - recent');
           this.isShowPriceAvailability = false;
           break;
         case 'live':
           this.currentCategory = DROPS_CATEGORY.LIVE;
-          this.title.setTitle('RBITS drops - live');
+          this.title.setTitle('Moonbox drops - live');
           this.isShowPriceAvailability = true;
           break;
         case 'upcoming':
           this.currentCategory = DROPS_CATEGORY.UPCOMING;
-          this.title.setTitle('RBITS drops - upcoming');
+          this.title.setTitle('Moonbox drops - upcoming');
           this.isShowPriceAvailability = true;
           break;
       }
@@ -122,7 +122,7 @@ export class UpcomingComponent implements OnInit,OnDestroy {
 
     const categoryName = (Object.values(DROPS_CATEGORY)[tabIndex]).toString().toLowerCase();
     categoryName == 'recent' ?  this.isShowPriceAvailability = false : this.isShowPriceAvailability = true;
-    this.title.setTitle(`RBITS drops - ${categoryName}`);
+    this.title.setTitle(`Moonbox drops - ${categoryName}`);
     this.location.go(`/${categoryName}`);
   }
 
