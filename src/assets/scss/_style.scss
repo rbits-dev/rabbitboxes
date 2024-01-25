@@ -73,7 +73,7 @@ ul {
 }
 
 .text-primary {
-    color: #ed1651;
+    color: #5e2466;
 }
 
 .bold {
@@ -93,7 +93,7 @@ ul {
 }
 
 .pri-color {
-    color: $primary;
+    color: $text-color;
 }
 
 .mobile-only {
@@ -757,7 +757,7 @@ ul {
 }
 
 .color-primary {
-    color: $primary;
+    color: $text-color;
 }
 
 .text-center {
@@ -840,7 +840,7 @@ ul {
     height: fit-content;
     min-width: 200px;
     border-radius: 25px;
-    color: $primary;
+    color: $text-color;
     font-family: $font-family-base;
     font-weight: $bold;
     background-color: transparent;
@@ -1017,12 +1017,12 @@ ul {
 }
 
 .ngx-pagination .current {
-    background: #ed1651 !important;
+    background: #5e2466 !important;
 }
 
 .ngx-pagination a:hover,
 .ngx-pagination button:hover {
-    background: #ed1651 !important;
+    background: #5e2466 !important;
 }
 
 
@@ -1268,7 +1268,7 @@ svg#moonbox_icon path {
 }
 
 svg#closenft path {
-    fill: #ed1651;
+    fill: #5e2466;
 }
 
 .opacity0 {

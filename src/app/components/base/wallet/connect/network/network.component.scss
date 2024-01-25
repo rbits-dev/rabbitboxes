@@ -6,7 +6,7 @@ section.multi-chain {
     justify-content: center;
     align-items: center;
     background: #090d16;
-    border-top: 7px solid #ed1651;
+    border-top: 7px solid #5e2466;
     padding: 10px 20px;
     margin: 0 auto;
 }
@@ -20,7 +20,7 @@ section.multi-chain {
     width: 100%;
 
     p {
-        color: #ed1651;
+        color: #5e2466;
         font-size: 16px;
     }
 
@@ -35,7 +35,7 @@ section.multi-chain {
     justify-content: flex-start;
     align-items: center;
     width: 100%;
-    color: #ed1651;
+    color: #5e2466;
     padding-left: 0px;
 
     :last-child {
@@ -52,7 +52,7 @@ section.multi-chain {
         align-items: center;
         width: 100%;
         height: 60px;
-        border-bottom: 1px solid #ed1651;
+        border-bottom: 1px solid #5e2466;
         padding: 10px 0px;
         cursor: pointer;
 
@@ -70,7 +70,7 @@ section.multi-chain {
             height: 40px;
             width: 40px;
             border-radius: 30px;
-            border: 1px solid #ed1651;
+            border: 1px solid #5e2466;
             padding: 8px;
             object-fit: contain;
         }

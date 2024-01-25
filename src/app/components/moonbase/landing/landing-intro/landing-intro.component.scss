@@ -88,7 +88,7 @@ swiper {
         line-height: 1.69;
         letter-spacing: normal;
         text-align: left;
-        color: $primary;
+        color: $text-color;
     }
     .bottom {
         margin-right: 100px;
@@ -139,7 +139,7 @@ swiper {
             color: $secondary;
             font-size: 20px;
             &:first-child {
-                color: $primary;
+                color: $text-color;
                 margin-bottom: 20px;
                 font-size: 16px;
             }

@@ -49,7 +49,7 @@ nav {
         font-family: $secondary-font;
         color: white;
         >span {
-            color: $primary;
+            color: $text-color;
             font-weight: $regular;
         }
     }
@@ -90,7 +90,7 @@ nav {
             padding-top: 14px;
             a,
             p {
-                color: $primary;
+                color: $text-color;
                 text-decoration: none;
                 font-weight: bold;
                 font-size: 15px;

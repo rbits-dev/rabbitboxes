@@ -48,7 +48,7 @@ section.info-moonboxes {
       line-height: 1.5;
       letter-spacing: normal;
       text-align: center;
-      color: $primary;
+      color: $text-color;
     }
 
     .quantity {
@@ -99,7 +99,7 @@ section.info-moonboxes {
     line-height: 1.2;
     letter-spacing: normal;
     text-align: left;
-    color: #ed1651;
+    color: #5e2466;
     border-top: 3px solid $primary;
     max-width: 370px;
     width: 100%;
@@ -140,7 +140,7 @@ section.info-moonboxes {
     line-height: 1.69;
     letter-spacing: normal;
     text-align: left;
-    color: $primary;
+    color: $text-color;
   }
 
   .buy-moonshot-button,
@@ -245,7 +245,7 @@ section.info-moonboxes {
     border-bottom: 1px solid $primary;
     max-width: 50px;
     margin: 0px 10px;
-    color: $primary;
+    color: $text-color;
     text-align: end;
     font-size: 16px;
   }

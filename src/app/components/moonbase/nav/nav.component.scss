@@ -76,7 +76,7 @@ section.navigation {
 }
 
 .nav-menu {
-  border-bottom: 61px solid #ed1651;
+  border-bottom: 61px solid #5e2466;
   border-left: 60px solid transparent;
   border-right: 60px solid transparent;
   height: 0;
@@ -138,7 +138,7 @@ section.navigation {
     color: black;
 
     >span {
-      color: $primary;
+      color: $text-color;
       font-weight: $medium;
     }
   }
@@ -170,7 +170,7 @@ section.navigation {
     width: 100%;
 
     >.deeper {
-      border-bottom: 70px solid #ed1651;
+      border-bottom: 70px solid #5e2466;
       border-left: 60px solid transparent;
       border-right: 60px solid transparent;
       height: 0;
@@ -467,7 +467,7 @@ nav {
   font-style: normal;
   letter-spacing: normal;
   text-align: center;
-  color: $primary;
+  color: $text-color;
 
   .moonshot-text {
     font-size: 12px;
@@ -498,7 +498,7 @@ nav {
   border: solid 1px white;
   bottom: 10px;
   margin-left: 40px;
-  color: $primary;
+  color: $text-color;
 
   transform: scaleY(-1);
 }
@@ -509,7 +509,7 @@ nav {
 
 .dropdown-content a {
   text-align: left;
-  color: $primary;
+  color: $text-color;
   padding: 18px 0;
   text-decoration: none;
   display: flex;
@@ -530,7 +530,8 @@ nav {
   }
 
   &.active {
-    color: white !important;
+   color: #5e2466 !important;
+    font-weight: 600;
   }
 }
 
@@ -635,7 +636,7 @@ section.moonbox-menu {
   padding: 20px;
   border-bottom: 1px solid black;
   box-sizing: border-box;
-  background: #ed1651;
+  background: #5e2466;
   position: fixed;
   right: 0;
   bottom: 40px;

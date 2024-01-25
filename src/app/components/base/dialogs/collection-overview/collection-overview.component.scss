@@ -16,7 +16,7 @@ section.upcoming-container {
     margin-top: 20px;
     a {
         display: flex;
-        background: #ed1651;
+        background: #5e2466;
         border-radius: 50px;
         width: fit-content;
         padding: 15px;
@@ -76,7 +76,7 @@ section.upcoming-container {
     width: 100%;
     justify-content: center;
     position: relative;
-    border: 2px solid #ed1651;
+    border: 2px solid #5e2466;
     &:hover {
         border-color: white;
     }
@@ -98,7 +98,7 @@ section.upcoming-container {
     width: 100%;
     padding: 1rem;
     box-sizing: border-box;
-    border: 1px solid #ed1651;
+    border: 1px solid #5e2466;
     >.collection-inner {
         @extend %flex-center;
         @extend %max-width-center;
@@ -150,8 +150,8 @@ section.upcoming-container {
 }
 
 .border-top-bottom {
-    border-top: 1px solid #ed1651;
-    border-bottom: 1px solid #ed1651;
+    border-top: 1px solid #5e2466;
+    border-bottom: 1px solid #5e2466;
 }
 
 .outer-box {
@@ -198,11 +198,11 @@ section.upcoming-container {
 }
 
 .border-bottom {
-    border-bottom: 2px solid #ed1651;
+    border-bottom: 2px solid #5e2466;
 }
 
 .mb20.mr20.text-inherit.button {
-    border: 1px solid #ed1651;
+    border: 1px solid #5e2466;
     &:hover {
         border-color: white;
     }
@@ -301,7 +301,7 @@ section.carousel {
     justify-content: center;
     align-items: center;
     padding: 10px;
-    border: 1px solid #ed1651;
+    border: 1px solid #5e2466;
 }
 
 swiper {
