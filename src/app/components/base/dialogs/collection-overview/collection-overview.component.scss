@@ -16,7 +16,11 @@ section.upcoming-container {
     margin-top: 20px;
     a {
         display: flex;
+<<<<<<< Updated upstream
         background: #d5a642;
+=======
+        background: #ed1651;
+>>>>>>> Stashed changes
         border-radius: 50px;
         width: fit-content;
         padding: 15px;
@@ -76,7 +80,11 @@ section.upcoming-container {
     width: 100%;
     justify-content: center;
     position: relative;
+<<<<<<< Updated upstream
     border: 2px solid #d5a642;
+=======
+    border: 2px solid #ed1651;
+>>>>>>> Stashed changes
     &:hover {
         border-color: white;
     }
@@ -98,7 +106,11 @@ section.upcoming-container {
     width: 100%;
     padding: 1rem;
     box-sizing: border-box;
+<<<<<<< Updated upstream
     border: 1px solid #d5a642;
+=======
+    border: 1px solid #ed1651;
+>>>>>>> Stashed changes
     >.collection-inner {
         @extend %flex-center;
         @extend %max-width-center;
@@ -150,8 +162,13 @@ section.upcoming-container {
 }
 
 .border-top-bottom {
+<<<<<<< Updated upstream
     border-top: 1px solid #d5a642;
     border-bottom: 1px solid #d5a642;
+=======
+    border-top: 1px solid #ed1651;
+    border-bottom: 1px solid #ed1651;
+>>>>>>> Stashed changes
 }
 
 .outer-box {
@@ -198,11 +215,19 @@ section.upcoming-container {
 }
 
 .border-bottom {
+<<<<<<< Updated upstream
     border-bottom: 2px solid #d5a642;
 }
 
 .mb20.mr20.text-inherit.button {
     border: 1px solid #d5a642;
+=======
+    border-bottom: 2px solid #ed1651;
+}
+
+.mb20.mr20.text-inherit.button {
+    border: 1px solid #ed1651;
+>>>>>>> Stashed changes
     &:hover {
         border-color: white;
     }
@@ -233,7 +258,7 @@ textarea {
     padding: 10px;
     box-sizing: border-box;
     resize: none;
-    font-family: $primary-font;
+    font-family:'Montserrat', sans-serif;
 }
 
 .close-tooltip {
@@ -301,7 +326,11 @@ section.carousel {
     justify-content: center;
     align-items: center;
     padding: 10px;
+<<<<<<< Updated upstream
     border: 1px solid #d5a642;
+=======
+    border: 1px solid #ed1651;
+>>>>>>> Stashed changes
 }
 
 swiper {
