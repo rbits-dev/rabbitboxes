@@ -65,16 +65,16 @@ export class LandingSliderProvider {
       var ext = url.split('.').pop();
       if (dot < slash) {
           if (ext.length > 1) {
-              return url.slice(0, 36) + 'previews/' + url.slice(36, -ext.length) + 'webp';
+              return url.slice(0, 43) + 'previews/' + url.slice(43, -ext.length) + 'webp';
 
           }
           else {
-              return url.slice(0, 36) + 'previews/' + url.slice(36);
+              return url.slice(0, 43) + 'previews/' + url.slice(43);
           }
 
       }
       else {
-          return url.slice(0, 36) + 'previews/' + url.slice(36);
+          return url.slice(0, 43) + 'previews/' + url.slice(43);
       }
     }
 
