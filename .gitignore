@@ -8,6 +8,8 @@ node_modules
 *.swo
 *.swp
 
+**/.DS_Store
+
 .firebase/
 
 ## Ignore Visual Studio temporary files, build results, and
