@@ -26,8 +26,6 @@ const buyContractAddress = environment.buyContractAddress;
 const NETWORK = 'binance';
 const config = require('./../../assets/configFiles/configFile.json');
 
-import mshotTokenAbi from './../../assets/abis/mshot.token.abi.json';
-import buyMshotTokenAbi from './../../assets/abis/buy-moonshot-token.abi.json';
 import { CHAIN_CONFIGS } from '../components/base/wallet/connect/constants/blockchain.configs';
 
 //  Create WlletConnect Provider
@@ -40,7 +38,7 @@ const providerOptions = {
   chainId: providerChainID,
 };
 
-const providerOptionsForMSHOT = {
+const providerOptionsForRBITS = {
   walletconnect: {
     package: WalletConnectProvider,
     rpc: {
@@ -57,7 +55,7 @@ const providerOptionsForMSHOT = {
 const web3Modal = new Web3Modal({
   theme: "dark",
   cacheProvider: false, // optional
-  providerOptions: providerOptionsForMSHOT, // required
+  providerOptions: providerOptionsForRBITS, // required
   disableInjectedProvider: false
 });
 
@@ -682,35 +680,6 @@ export class WalletConnectService {
       }
     });
     return promise
-  }
-
-
-  async buyMSHOT(bnbValue: number) {
-    try {
-
-      // if (this.localStorageService.getTokenAdding() === false) {
-      //   let hasAdded = await this.addTokenMSHOTv2ToWalletAsset();
-      //   console.log(hasAdded);
-      // }
-
-      let web3 = new Web3(await web3Modal.connect());
-      const buyContract = new web3.eth.Contract(
-        buyMshotTokenAbi as any,
-        buyContractAddress
-      );
-
-      const buyOperation = await buyContract.methods.buyTokenWithBNB();
-      let tx = await buyOperation.send(
-        {
-          from: this.account,
-          value: web3.utils.toWei(`${bnbValue}`, "ether")
-        }
-      );
-      // console.log("transaction: ", tx);
-      this.toastrService.success('You bought MSHOT successfully!');
-    } catch (error) {
-      this.toastrService.error('Operation Failed!')
-    }
   }
 
   async migrateNft(newNftAsset: any, id: any, nftAmount: any, signature: any) {
