@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 
 import smoothscroll from 'smoothscroll-polyfill';
-import { MigrationDialogComponent } from '../../base/migration/migration-dialog/migration-dialog.component';
 
 @Component({
   selector: 'app-landing',
@@ -20,7 +19,6 @@ export class LandingComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.openDialog();
     this.route.data.subscribe(data => {
       const scrollTo = data?.['scroll'];
       if (scrollTo !== undefined) {
@@ -32,14 +30,4 @@ export class LandingComponent implements OnInit {
 
   }
 
-  openDialog(): void {
-    let dialogRef = this.dialog.open(MigrationDialogComponent, {
-      width: 'auto',
-      // data: { name: this.name, animal: this.animal }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      // this.animal = result;
-    });
-  }
 }

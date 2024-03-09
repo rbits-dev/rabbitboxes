@@ -16,7 +16,7 @@ export class ItemOverviewComponent implements OnInit {
 
   item: any;
   chainId: number;
-  moonseaChainId: number;
+  openseaChainId: number;
   openseaList :any[] = openseaLink;
   link :any='';
   notAvailableNetworkonOpnenSea = [287,4,568,1285,2000,1]
@@ -34,7 +34,7 @@ export class ItemOverviewComponent implements OnInit {
       this.chainId = data;
       openseaLink.forEach((element)=>{
         if(element.chainId == this.chainId){
-          this.link = `${element.link}${this.item.ArtistNFTAddress}/${this.item.nftId}${this.notAvailableNetworkonOpnenSea.includes(this.chainId) ? +'/'+ this.moonseaChainId : ''}`;
+          this.link = `${element.link}${this.item.ArtistNFTAddress}/${this.item.nftId}${this.notAvailableNetworkonOpnenSea.includes(this.chainId) ? +'/'+ this.openseaChainId : ''}`;
         }
       })
 
@@ -43,13 +43,13 @@ export class ItemOverviewComponent implements OnInit {
       // 
       
       if (environment.chainId.indexOf(this.chainId) == -1) {
-        this.moonseaChainId=1;
+        this.openseaChainId=1;
         //
       }
       else
       {
         let index = environment.chainId.indexOf(this.chainId);
-        this.moonseaChainId=environment.moonSeaChinIds[index];
+        this.openseaChainId=environment.openseaChainIds[index];
         //
       }
     });

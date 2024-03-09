@@ -98,22 +98,6 @@ export class InfoMoonboxesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => { });
   }
 
-  async buyMSHOTWithBNB() {
-    if (this.isConnected) {
-      this.isInProcess = true;
-
-      // await this.walletConnectService.addMoonshotTokentToWalletAsset();
-
-      await this.walletConnectService.buyMSHOT(
-        Number(this.bnbCountFromInput) <= 0 ? 0.001 : Number(this.bnbCountFromInput)
-      );
-
-      this.isInProcess = false;
-    } else {
-      this.openWalletConnectionDialog();
-    }
-  }
-
   nextBox(): void {
     if (this.boxIndex < this.boxes.length) {
       this.boxIndex++;
