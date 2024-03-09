@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/moonshot-web",
+    "public": "dist/rabbit-boxes",
     "ignore": [
       "firebase.json",
       "**/.*",
