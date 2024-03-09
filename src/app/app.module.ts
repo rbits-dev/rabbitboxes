@@ -20,7 +20,6 @@ import { CollectionOverviewComponent } from './components/base/dialogs/collectio
 import { SwiperModule } from 'swiper/angular';
 import { CollectionOverviewModule } from './components/base/dialogs/collection-overview/collection-overview.module';
 import { LandingSliderProvider } from './services/providers/landing-slider.provider';
-import { MigrationDialogComponent } from './components/base/migration/migration-dialog/migration-dialog.component';
 
 
 @Injectable()
@@ -34,10 +33,8 @@ export class HammerConfig extends HammerGestureConfig {
 
 @NgModule({
   declarations: [
-    AppComponent,
-    
+    AppComponent,    
     CollectionOverviewComponent,
-    MigrationDialogComponent,
   ],
   imports: [
     BrowserModule,
