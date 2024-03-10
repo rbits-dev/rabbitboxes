@@ -20,22 +20,22 @@ export class InfoMoonboxesComponent implements OnInit {
 
   boxes: any[] = [
     {
-      "img": "assets/media/images/moonbox/landing/wood.png",
+      "img": "assets/media/images/moonbox/landing/wood.webp",
       "name": "Wood",
       "quantity": "0,5B",
     },
     {
-      "img": "assets/media/images/moonbox/landing/silver.png",
+      "img": "assets/media/images/moonbox/landing/silver.webp",
       "name": "Silver",
       "quantity": "1B",
     },
     {
-      "img": "assets/media/images/moonbox/landing/gold.png",
+      "img": "assets/media/images/moonbox/landing/gold.webp",
       "name": "Gold",
       "quantity": "2B",
     },
     {
-      "img": "assets/media/images/moonbox/landing/diamond.png",
+      "img": "assets/media/images/moonbox/landing/diamond.webp",
       "name": "Diamond",
       "quantity": "10B",
     }
