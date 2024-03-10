@@ -56,7 +56,7 @@ export class NavComponent implements OnInit {
       icon: 'assets/media/icons/moonbase/nav/Menu_drops_black.svg',
       alt: 'drops',
       tooltip:
-        'Recent, live and upcoming NFT drops.',
+        'Archived, Current and Upcoming NFT drops.',
       click: null,
       routerLink: ['/live'],
       route: '/live',
@@ -65,7 +65,7 @@ export class NavComponent implements OnInit {
       icon: 'assets/media/icons/moonbase/nav/Menu_inventory_black.svg',
       alt: 'inventory',
       tooltip:
-        'This is your wallet inventory. An overview of all NFTs you received out of the RBITS.',
+        'This is your wallet inventory: an overview of all NFTs you received from the Rabbit Boxes.',
       click: null,
       routerLink: ['/inventory'],
       route: '/inventory',
@@ -73,7 +73,7 @@ export class NavComponent implements OnInit {
     {
       icon: 'assets/media/icons/moonbase/nav/Menu_history_black.svg',
       alt: 'history',
-      tooltip: 'This is your history. An overview of your RBIT NFT claims.',
+      tooltip: 'This is your history: an overview of your Rabbit NFT claims.',
       click: null,
       routerLink: ['/history'],
       route: '/history',
@@ -81,7 +81,7 @@ export class NavComponent implements OnInit {
     {
       icon: 'assets/media/icons/moonbase/nav/Menu_info_black.svg',
       alt: 'info',
-      tooltip: 'Here you can find more information about the RBITS tiers.',
+      tooltip: 'Here you can find more information about the tier system.',
       click: null,
       routerLink: ['/info'],
       route: '/info',
@@ -89,7 +89,7 @@ export class NavComponent implements OnInit {
     {
       icon: 'assets/media/icons/game-hub.svg',
       alt: 'game',
-      tooltip: 'Game Hub',
+      tooltip: 'This is our Game Hub: an overview of all Rabbit Games',
       click: null,
       routerLink: ['/nfcollections'],
       route: '/nfcollections',
