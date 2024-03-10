@@ -168,7 +168,7 @@ export class NavComponent implements OnInit {
         // this.checkNetwork();
         this.isConnected = true;
         if (this.data.networkId.chainId == environment.chainId) {
-          this.getMoonShootBalance();
+          this.getRBITSBalance();
         }
       } else {
         this.balance = 'Awaiting Connection';
@@ -190,7 +190,7 @@ export class NavComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => { });
   }
 
-  async getMoonShootBalance() {
+  async getRBITSBalance() {
     const balance = Number(
       await this.walletConnectService.getUserBalance(this.data.address)
     );

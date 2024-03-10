@@ -42,7 +42,7 @@ export class FooterCountComponent implements OnInit {
         this.isConnected = true;
         // this.localStorage.get();
         // if (this.data.networkId.chainId == environment.chainId[0]) {
-        this.getMoonShootBalance();
+        this.getRBITSBalance();
         // }
       }
     });
@@ -66,7 +66,7 @@ export class FooterCountComponent implements OnInit {
     }
   }
 
-  async getMoonShootBalance() {
+  async getRBITSBalance() {
 
     const balance = await this.walletConnectService.getUserBalance(this.data.address);
 
