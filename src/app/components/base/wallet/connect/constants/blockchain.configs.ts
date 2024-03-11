@@ -141,7 +141,7 @@ export const CHAIN_CONFIGS: any = {
   },
   '4': {
     name: 'Rinkeby',
-    icon: 'assets/media/images/blockchain/eth-diamond-purple.png',
+    icon: 'assets/media/images/blockchain/eth.webp',
     explorerLink: 'https://rinkeby.etherscan.io/address/',
     bg: 'white',
     symbol: 'ETH',

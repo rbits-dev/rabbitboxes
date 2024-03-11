@@ -9,15 +9,15 @@
     },
     {
         "chainId": 1287,
-        "link": "https://moonsea.io/details/"
+        "link": "#"
     },
     {
         "chainId": 4,
-        "link": "https://moonsea.io/details/"
+        "link": "#"
     },
     {
         "chainId": 568,
-        "link": "https://moonsea.io/details/"
+        "link": "#"
     },
     {
         "chainId": 56,
@@ -29,14 +29,14 @@
     },
     {
         "chainId": 1285,
-        "link": "https://moonsea.io/details/"
+        "link": "#"
     },
      {
         "chainId": 1,
-        "link": "https://moonsea.io/details/"
+        "link": "https://opensea.io/assets/eth/"
     },
      {
         "chainId": 2000,
-        "link": "https://moonsea.io/details/"
+        "link": "#"
     }
 ]

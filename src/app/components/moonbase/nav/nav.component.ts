@@ -64,34 +64,68 @@ export class NavComponent implements OnInit {
       icon: "assets/media/icons/moonbase/nav/Menu_inventory_black.svg",
       alt: "inventory",
       tooltip:
+<<<<<<< HEAD
         "This is your wallet inventory. An overview of all NFTs you received out of the RBITS.",
+=======
+        'Archived, Current and Upcoming NFT drops.',
+>>>>>>> cleanup
       click: null,
       routerLink: ["/inventory"],
       route: "/inventory",
     },
     {
+<<<<<<< HEAD
       icon: "assets/media/icons/moonbase/nav/Menu_history_black.svg",
       alt: "history",
       tooltip: "This is your history. An overview of your RBIT NFT claims.",
+=======
+      icon: 'assets/media/icons/moonbase/nav/Menu_inventory_black.svg',
+      alt: 'inventory',
+      tooltip:
+        'This is your wallet inventory: an overview of all NFTs you received from the Rabbit Boxes.',
+>>>>>>> cleanup
       click: null,
       routerLink: ["/history"],
       route: "/history",
     },
     {
+<<<<<<< HEAD
       icon: "assets/media/icons/moonbase/nav/Menu_info_black.svg",
       alt: "info",
       tooltip: "Here you can find more information about the RBITS tiers.",
+=======
+      icon: 'assets/media/icons/moonbase/nav/Menu_history_black.svg',
+      alt: 'history',
+      tooltip: 'This is your history: an overview of your Rabbit NFT claims.',
+>>>>>>> cleanup
       click: null,
       routerLink: ["/info"],
       route: "/info",
     },
     {
+<<<<<<< HEAD
       icon: "assets/media/icons/game-hub.svg",
       alt: "game",
       tooltip: "Game Hub",
       click: null,
       routerLink: ["/nfcollections"],
       route: "/nfcollections",
+=======
+      icon: 'assets/media/icons/moonbase/nav/Menu_info_black.svg',
+      alt: 'info',
+      tooltip: 'Here you can find more information about the tier system.',
+      click: null,
+      routerLink: ['/info'],
+      route: '/info',
+    },
+    {
+      icon: 'assets/media/icons/game-hub.svg',
+      alt: 'game',
+      tooltip: 'This is our Game Hub: an overview of all Rabbit Games',
+      click: null,
+      routerLink: ['/nfcollections'],
+      route: '/nfcollections',
+>>>>>>> cleanup
     },
   ];
 
@@ -160,7 +194,7 @@ export class NavComponent implements OnInit {
         this.address = data.address;
         this.isConnected = true;
         if (this.data.networkId.chainId == environment.chainId) {
-          this.getMoonShootBalance();
+          this.getRBITSBalance();
         }
       } else {
         this.balance = "Awaiting Connection";
@@ -182,7 +216,7 @@ export class NavComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {});
   }
 
-  async getMoonShootBalance() {
+  async getRBITSBalance() {
     const balance = Number(
       await this.walletConnectService.getUserBalance(this.data.address)
     );

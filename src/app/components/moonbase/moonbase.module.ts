@@ -26,7 +26,6 @@ import { SocialShareComponent } from './modal-for-transaction/social-share/socia
 import { SidebarModule } from '../base/sidebar/sidebar.module';
 import { WalletConnectModule } from '../base/wallet/connect/connect.module';
 import { LandingComponent } from './landing/landing.component';
-import { RarityComponent } from './rarity/rarity.component';
 import { LandingIntroComponent } from './landing/landing-intro/landing-intro.component';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { InfoComponent } from './info/info.component';
@@ -62,7 +61,6 @@ import { UpgradeNftDialogComponent } from './inventory/upgrade-nft-dialog/upgrad
     ModalForClaimComponent,
     SocialShareComponent,
     LandingComponent,
-    RarityComponent,
     LandingIntroComponent,
     InfoComponent,
     TransferComponent,

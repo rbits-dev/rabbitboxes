@@ -6,7 +6,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "moonshot-web": {
+        "rabbit-boxes": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -27,7 +27,7 @@
                             "@walletconnect/window-metadata", "@walletconnect/socket-transport", "@walletconnect/environment",
                             "@walletconnect/encoding", "query-string", "tsparticles", "src/app/services/wallet-connect.service"
                         ],
-                        "outputPath": "dist/moonshot-web",
+                        "outputPath": "dist/rabbit-boxes",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -97,14 +97,14 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "moonshot-web:build"
+                        "browserTarget": "rabbit-boxes:build"
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "moonshot-web:build:production"
+                            "browserTarget": "rabbit-boxes:build:production"
                         },
                         "development": {
-                            "browserTarget": "moonshot-web:build:development"
+                            "browserTarget": "rabbit-boxes:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -112,7 +112,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "moonshot-web:build"
+                        "browserTarget": "rabbit-boxes:build"
                     }
                 },
                 "test": {
@@ -137,16 +137,16 @@
                     "builder": "@angular-devkit/build-angular:protractor",
                     "options": {
                         "protractorConfig": "e2e/protractor.conf.js",
-                        "devServerTarget": "moonshot-web:serve"
+                        "devServerTarget": "rabbit-boxes:serve"
                     },
                     "configurations": {
                         "production": {
-                            "devServerTarget": "moonshot-web:serve:production"
+                            "devServerTarget": "rabbit-boxes:serve:production"
                         }
                     }
                 }
             }
         }
     },
-    "defaultProject": "moonshot-web"
+    "defaultProject": "rabbit-boxes"
 }

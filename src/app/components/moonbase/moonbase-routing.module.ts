@@ -10,7 +10,6 @@ import { InventoryComponent } from './inventory/inventory.component';
 import { LandingComponent } from './landing/landing.component';
 import { MoonbaseComponent } from './moonbase.component';
 import { PrizePoolComponent } from './prize-pool/prize-pool.component';
-import { RarityComponent } from './rarity/rarity.component';
 import { NFTCollectionsComponent } from './nftcollections/nftcollections.component';
 
 const routes: Routes = [
@@ -75,10 +74,6 @@ const routes: Routes = [
         path: 'recent',
         component: UpcomingComponent,
         data: { activeTab: 3 }
-      },
-      {
-        path: RarityComponent.routeName,
-        component: RarityComponent
       },
       {
         path: InfoComponent.routeName,
