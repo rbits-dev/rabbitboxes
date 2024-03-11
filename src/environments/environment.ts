@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   chainId: [11155111,97, 80001, 1287,4,568],
-  moonSeaChinIds: [1, 3, 4,2,5],
+  openseaChainIds: [1, 3, 4,2,5],
   providerTestNetURL: "https://data-seed-prebsc-2-s1.bnbchain.org:8545",
   providerURL: "https://data-seed-prebsc-2-s1.bnbchain.org:8545",
   providerMainNetURL: "https://bsc-dataseed1.binance.org",
