@@ -1,0 +1,32 @@
+<div id="attribute-info">
+  <div *ngIf="isLoading" class="flex flex-center" style="max-width: 770px; width: 100vw;">
+    <img class="flex mx-auto" style="margin-bottom: 40px;" src="assets/media/videos/Loading.gif" alt="">
+</div>
+  <div class="buttonsflex" >
+    <span>Select All</span>
+    <div  class="check-box-contianer" >
+      <input  type="checkbox" (change)="handleOnChange($event)" [checked]="isSelectAll"><span >
+
+      </span>
+    </div>
+    <button (click)="handleBridgeNft()" [disabled]="bridgeNftBtnTxt!='Bridge NFT'" class="view-detail-button outlined-button text-inherit" style="margin: 40px  0 40px auto;" >{{bridgeNftBtnTxt}}</button>
+  </div>
+  <div class="inner flex-wrap ">
+    <ng-container *ngFor="let item of nftList;index as i">
+
+      <div class="box flex-center col pb100">
+        <div  class="check-box-contianer" >
+          <input  type="checkbox" (change)="handleSingleChange($event,i)" [checked]="item.isSelected"><span >
+          </span>
+        </div>
+        <div class="relative nft_img">
+          <img src="{{ item['logo_path'] }}" class="img-fluid" alt=""  />
+        </div>
+        <div class="item-details text-center">
+          <p class="item-name p-white-span-primary p16d14m mb30 mt20">{{ item["name"] }}</p>
+        </div>
+      </div>
+    </ng-container>
+    <p *ngIf="nftList && nftList.length === 0 && !isLoading" class="absolute-center">No inventory data found</p>
+  </div>
+</div>

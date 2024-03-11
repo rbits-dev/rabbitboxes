@@ -4,12 +4,13 @@
 
 export const environment = {
   production: false,
-  chainId: [97, 80001, 1287,4,568],
+  chainId: [11155111,97, 80001, 1287,4,568],
   moonSeaChinIds: [1, 3, 4,2,5],
-  providerTestNetURL: "https://data-seed-prebsc-1-s2.bnbchain.org:8545",
-  providerURL: "https://data-seed-prebsc-1-s2.bnbchain.org:8545",
+  providerTestNetURL: "https://data-seed-prebsc-2-s1.bnbchain.org:8545",
+  providerURL: "https://data-seed-prebsc-2-s1.bnbchain.org:8545",
   providerMainNetURL: "https://bsc-dataseed1.binance.org",
-  baseURL: "http://codetentacles-006-site31.htempurl.com/api/",
+  // baseURL: "http://codetentacles-006-site31.htempurl.com/api/",
+  baseURL:'http://moonbox.codetentaclestechnologies.tech/api/api/',
   ownerAddress: "0x703632A0b52244fAbca04aaE138fA8EcaF72dCBC",
   // silverAddress: "0x46192Bd44C9066D425375326808109C7d97a2181",
 
@@ -19,9 +20,10 @@ export const environment = {
   artistNFTAddress: "0xe3D279f66776Efae7602D817f68015a0afA0Fd2E",  // New contract address for moonshot v2
   buyContractAddress: "0xEF85Fd14392B24E86e43D2A3014C733F862bc7B8",// for moonshot v2
   tokenContractAddress: "0x3F4E053184Bef016286D07189FB60c61A6eF972F",// for moonshot v2
-
+  bridgeCollectionAddress:"0x229620efb06cB366350Aae34469792FE1402Dc65",
   configFile: 'testnet',
-  adminPanelUrl : "http://codetentacles-006-site41.htempurl.com/"
+  // adminPanelUrl : "http://codetentacles-006-site41.htempurl.com/"
+  adminPanelUrl : 'http://moonbox.codetentaclestechnologies.tech/admin/'
 };
 
 /*

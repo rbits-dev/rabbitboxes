@@ -99,6 +99,7 @@ section.upcoming-container {
     padding: 1rem;
     box-sizing: border-box;
     border: 1px solid #5e2466;
+    overflow-y: scroll;
     >.collection-inner {
         @extend %flex-center;
         @extend %max-width-center;

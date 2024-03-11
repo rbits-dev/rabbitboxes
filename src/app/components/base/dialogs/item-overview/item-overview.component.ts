@@ -1,4 +1,4 @@
-import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
 import { TransferComponent } from 'src/app/components/moonbase/modal-for-transaction/transfer/transfer.component';
 import { Observable, Observer } from 'rxjs';
@@ -23,6 +23,7 @@ export class ItemOverviewComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog,
+    public dialogRef: MatDialogRef<ItemOverviewComponent>,
     public walletConnectService: WalletConnectService,
   ) {
     this.item = data;
@@ -40,8 +41,8 @@ export class ItemOverviewComponent implements OnInit {
 
       // console.log(this.link);
 
-      // 
-      
+      //
+
       if (environment.chainId.indexOf(this.chainId) == -1) {
         this.moonseaChainId=1;
         //

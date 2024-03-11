@@ -146,7 +146,7 @@ export class HttpApiService {
 
   getRandomCollectionImageListFromArtist(artistAddress: string): Promise<any> {
     const params = { artistAddress: artistAddress };
-    // 
+    //
     const url = `${baseURL}randCollectionImageListArtist`;
 
     return this.httpClient.get(url, { headers: this.headers, params }).toPromise();
@@ -219,6 +219,10 @@ export class HttpApiService {
     return this.httpClient.post(url, body, { headers: this.headers });
   }
 
+  upgradeNftInfo(data:{walletAddress:string}) {
+    const url = `${baseURL}upgradeNftInfo?userAddress=${data.walletAddress}`;
+    return this.httpClient.get(url,{headers:this.headers});
+  }
 
 
 

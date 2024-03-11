@@ -1,8 +1,6 @@
 <div class="upcoming-container">
     <section class="scroller">
-    
-        <img *ngIf="!list" class="absolute-center" src="assets/media/videos/Loading.gif" alt="loading" />
-
+    <img *ngIf="!list" class="absolute-center" src="assets/media/videos/Loading.gif" alt="loading" />
         <div class="pt-5 flex1 h-100 flex-space-between align-self">
             <div class="flex-col flex1">
                 <div class="flex flex-col">
@@ -10,9 +8,9 @@
                         <div class="flex flex-col w100 flex-center">
                             <p class="flex1 flex justify-center p30d24m orbitron bold flex-row flex1 mb30">RBITS Drops</p>
                             <div class="tabs-container flex flex-xs-col mb30">
-                                <a class="tab" [ngClass]="getButtonType(dropsCategory.RECENT)" (click)="changeTab(dropsCategory.RECENT)">Recent</a>
-                                <a class="tab" [ngClass]="getButtonType(dropsCategory.LIVE)" (click)="changeTab(dropsCategory.LIVE)">Live</a>
-                                <a class="tab" [ngClass]="getButtonType(dropsCategory.UPCOMING)" (click)="changeTab(dropsCategory.UPCOMING)">Upcoming</a>
+                                <a class="tab" [ngClass]="getButtonType(dropsCategory.RECENT)" (click)="changeTab(dropsCategory.RECENT)">Archive</a>
+                                <a class="tab" [ngClass]="getButtonType(dropsCategory.LIVE)" (click)="changeTab(dropsCategory.LIVE)">Now</a>
+                                <a class="tab" [ngClass]="getButtonType(dropsCategory.UPCOMING)" (click)="changeTab(dropsCategory.UPCOMING)">Next</a>
                             </div>
                         </div>
                     </div>
@@ -45,10 +43,9 @@
                                     <div class="border-top-bottom mt10 mb20" *ngIf="isShowPriceAvailability">
                                         <div class="flex justify-space-between">
                                             <p class="color-primary mb10 mt10">Price</p>
-                                            <!-- <p class="color-primary mb10 mt10">{{getMinPrice(item)}} {{item.tokenName}}</p> -->
                                             <p class="color-primary mb10 mt10"*ngIf="item?.is_free_mint">#Free ({{item?.free_mint_user}}/{{item?.free_nft_quantity}})</p>
                                             <p class="color-primary mb10 mt10" *ngIf="!item?.is_free_mint">{{getMinPrice(item)}} {{item.tokenName}}</p>
-                                            
+
                                         </div>
                                         <div class="flex justify-space-between">
                                             <p class="color-primary mb10">Availability</p>
@@ -63,12 +60,6 @@
                                         <img src="assets/media/icons/drops/coundown.svg" alt="coundown-button">
                                         <app-countdown-timer [date]="item.revealDate" [nftData]="item" (timerUp)="isTimerUp($event)"></app-countdown-timer>
                                     </div>
-
-                                    <!-- <a *ngIf="currentCategory === dropsCategory.UPCOMING && item.revealDate === 'Application form'" rel="noopener noreferrer" href="{{item.url}}" target="_blank" class="pointer button text-inherit mb20 coundown-button">
-                                        <img src="assets/media/images/form.svg" alt="coundown-button">
-                                        <p>{{item.revealDate}}</p>
-                                    </a> -->
-
                                     <a class="pointer button text-inherit mb20 coundown-button" (click)="openDialoagOfAddUser()" rel="noopener noreferrer"
                                     *ngIf="currentCategory === dropsCategory.UPCOMING && item.revealDate === 'Application form'">
                                     <img src="assets/media/images/form.svg" alt="coundown-button">
@@ -84,6 +75,9 @@
 
                     </div>
                 </div>
+                <div *ngIf="list && list[currentCategory]?.length==0" class="flex1 flex-center">
+                  <p class="text-center" >Currently, there are no upcoming NFT collections scheduled for launch. <br> Check back soon for updates!</p>
+                    </div>
 
             </div>
 

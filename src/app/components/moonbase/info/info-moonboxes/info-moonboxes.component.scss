@@ -476,6 +476,7 @@ input[type=number] {
     justify-content: space-between;
     max-width: 700px;
     width: 100%;
+    flex-wrap: wrap;
 
     .box-container {
       margin-bottom: -60px;

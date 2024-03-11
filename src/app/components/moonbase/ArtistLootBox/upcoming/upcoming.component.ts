@@ -18,18 +18,18 @@ enum DROPS_CATEGORY {
   UPCOMING = 2
 }
 
-const applicationData = {
-  "url": "http://forms.gle/2YkZHLdYKGseBCURA",
-  "ArtistName": "by YOU",
-  "description": "",
-  "NSFW": false,
-  "revealDate": "Application form",
-  "supply": '- ',
-  "TotalMaxSupply": ' -',
-  "minPrice": '-',
-  "filePath": "assets/media/images/apply-banner.png",
-  "name": "Awesome NFT Collection"
-}
+// const applicationData = {
+//   "url": "http://forms.gle/2YkZHLdYKGseBCURA",
+//   "ArtistName": "by YOU",
+//   "description": "",
+//   "NSFW": false,
+//   "revealDate": "Application form",
+//   "supply": '- ',
+//   "TotalMaxSupply": ' -',
+//   "minPrice": '-',
+//   "filePath": "assets/media/images/apply-banner.png",
+//   "name": "Awesome NFT Collection"
+// }
 
 @Component({
   selector: 'app-upcoming',
@@ -88,23 +88,23 @@ export class UpcomingComponent implements OnInit,OnDestroy {
       switch (url[0].path) {
         case 'recent':
           this.currentCategory = DROPS_CATEGORY.RECENT;
-          this.title.setTitle('RBITS drops - recent');
+          this.title.setTitle('RBITS drops - Archive');
           this.isShowPriceAvailability = false;
           break;
         case 'live':
           this.currentCategory = DROPS_CATEGORY.LIVE;
-          this.title.setTitle('RBITS drops - live');
+          this.title.setTitle('RBITS drops - Now');
           this.isShowPriceAvailability = true;
           break;
         case 'upcoming':
           this.currentCategory = DROPS_CATEGORY.UPCOMING;
-          this.title.setTitle('RBITS drops - upcoming');
+          this.title.setTitle('RBITS drops - Next');
           this.isShowPriceAvailability = true;
           break;
       }
     })
 
-  
+
 
   }
 
@@ -152,10 +152,10 @@ export class UpcomingComponent implements OnInit,OnDestroy {
         tempList[DROPS_CATEGORY.RECENT] = response.data.recent_data_array;
 
         this.httpService.getUpcomingArtistCollections(this.NSFWToggleState, this.address).subscribe((response) => {
-      
+      debugger
           if( response.isSuccess && response.status === 200 || response.status === 204 ) {
             tempList[DROPS_CATEGORY.UPCOMING] = response.data;
-            tempList[DROPS_CATEGORY.UPCOMING].push( applicationData );
+            // tempList[DROPS_CATEGORY.UPCOMING].push( applicationData );
           }
           this.list = tempList;
         });
@@ -237,6 +237,6 @@ export class UpcomingComponent implements OnInit,OnDestroy {
     }else{
       this.dialog.open(WalletConnectComponent,{width: 'auto'})
     }
-   
+
   }
 }

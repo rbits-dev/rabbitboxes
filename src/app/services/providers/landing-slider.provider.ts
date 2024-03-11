@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { nftSlider } from 'src/app/components/moonbase/landing/consts/nft-slider.const';
 import { LandingSliderModel } from 'src/app/models/landing-slider.model';
 import { HttpApiService } from '../http-api.service';
 

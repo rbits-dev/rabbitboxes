@@ -1,5 +1,9 @@
 <div id="attribute-info">
+    <div style="text-align: end;" (click)="dialogRef.close()">
+        <svg width="27" height="27" xmlns="http://www.w3.org/2000/svg"><path d="M13.98 12.814 26.353.439l.707.707-12.375 12.375 12.375 12.374-.707.707-12.375-12.374L1.605 26.602l-.707-.707 12.374-12.374L.898 1.146 1.605.44l12.374 12.375Z" fill="#5e2466"/></svg>
+    </div>
     <div class="flex1 flex-center flex-col flex-align-start">
+       
         <div class="relative flex-col attribute-img">
             <img class="mb30" *ngIf="fileTypeIsImage(item['logo_path'])" src="{{ item['logo_path'] }}" alt="img" />
 
@@ -37,9 +41,7 @@
                     <p class="p-white-span-primary p16d14m mb10 mt10">{{ item['rarity'] }}</p>
                     <p class="p-white-span-primary p16d14m mb30 mt10">NFT ID: {{ item['nftId'] }}</p>
                 </div>
-                <div class="flex-center pointer" >
-                    <svg width="27" height="27" xmlns="http://www.w3.org/2000/svg"><path d="M13.98 12.814 26.353.439l.707.707-12.375 12.375 12.375 12.374-.707.707-12.375-12.374L1.605 26.602l-.707-.707 12.374-12.374L.898 1.146 1.605.44l12.374 12.375Z" fill="#5e2466"/></svg>
-                </div>
+                
             </div>
 
             <table class="wp100 color-white">

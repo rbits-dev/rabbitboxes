@@ -246,12 +246,26 @@ button.minus {
 
 @media only screen and (min-width: 1200px) and (max-width: 1599px) {
     .pt-md-200 {
-        padding-top: 0px; //200px;
+        padding-top: 19rem;
         box-sizing: border-box;
+        padding-bottom: 6rem;
     }
     .pt-md-100 {
-        padding-top: 0px; //200px;
+        padding-top: 19rem;
         box-sizing: border-box;
+        padding-bottom: 6rem;
+    }
+}
+@media only screen and (max-width: 62.5rem){
+    .pt-md-200 {
+        padding-top: 19rem;
+        box-sizing: border-box;
+        padding-bottom: 6rem;
+    }
+    .pt-md-100 {
+        padding-top: 19rem;
+        box-sizing: border-box;
+        padding-bottom: 6rem;
     }
 }
 

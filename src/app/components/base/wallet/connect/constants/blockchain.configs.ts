@@ -40,13 +40,13 @@ export const CHAIN_CONFIGS: any = {
       params: [
         {
           chainId: '0x61',
-          chainName: 'BSC Testnet',
+          chainName: 'BNB Smart Chain Testnet',
           nativeCurrency: {
             symbol: 'BNB',
             decimals: 18,
           },
-          rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545'],
-          blockExplorerUrls: ['https://explorer.binance.org/smart-testnet'],
+          rpcUrls: ['https://data-seed-prebsc-2-s1.bnbchain.org:8545'],
+          blockExplorerUrls: ['https://testnet.bscscan.com/'],
         },
       ],
     },
@@ -89,8 +89,8 @@ export const CHAIN_CONFIGS: any = {
             symbol: 'MATIC',
             decimals: 18,
           },
-          rpcUrls: ['https://polygon.llamarpc.com'],
-          blockExplorerUrls: ['https://polygonscan.com/'],
+          rpcUrls: ['https://rpc.ankr.com/polygon'],
+          blockExplorerUrls: ['https://polygonscan.com'],
         },
       ],
     },
@@ -118,7 +118,7 @@ export const CHAIN_CONFIGS: any = {
     },
   },
   '80001': {
-    name: 'Mumbai Testnet',
+    name: 'Mumbai',
     icon: 'assets/media/images/blockchain/Polygon_Primary_Token.svg',
     explorerLink: 'https://mumbai.polygonscan.com/address/',
     bg: '#7b3fe4',
@@ -128,13 +128,13 @@ export const CHAIN_CONFIGS: any = {
       params: [
         {
           chainId: '0x13881',
-          chainName: 'Mumbai Testnet',
+          chainName: 'Mumbai',
           nativeCurrency: {
             symbol: 'MATIC',
             decimals: 18,
           },
-          rpcUrls: ['https://matic-mumbai.chainstacklabs.com'],
-          blockExplorerUrls: ['https://polygonscan.com/'],
+          rpcUrls: ['https://rpc-mumbai.maticvigil.com'],
+          blockExplorerUrls: ['https://mumbai.polygonscan.com/'],
         },
       ],
     },
@@ -168,6 +168,31 @@ export const CHAIN_CONFIGS: any = {
       params: [
         {
           chainId: '0x1',
+          chainName: 'Ethereum Mainnet',
+          rpcUrls: ['https://eth.llamarpc.com'],
+          blockExplorerUrls: ['https://etherscan.io/'],
+        },
+      ],
+    },
+  },
+  '11155111': {
+    name: 'Sepolia Testnet',
+    icon: 'assets/media/images/blockchain/eth.webp',
+    explorerLink: 'https://etherscan.io/address/',
+    bg: 'white',
+    symbol: 'ETH',
+    config: {
+      method: 'wallet_addEthereumChain',//'wallet_switchEthereumChain',
+      params: [
+        {
+          chainId: '0xAA36A7',
+          chainName: 'Sepolia test network',
+          nativeCurrency: {
+            symbol: 'ETH',
+            decimals: 18,
+          },
+          rpcUrls: ['https://ethereum-sepolia-rpc.publicnode.com'],
+          blockExplorerUrls: ['https://sepolia.etherscan.io/'],
         },
       ],
     },

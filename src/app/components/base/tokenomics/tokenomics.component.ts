@@ -29,15 +29,11 @@ export class TokenomicsComponent implements OnInit {
         val: "---",
         shortVal: ""
       },
-      {
-        key: "v1 distribution:",
-        val: "---",
-        shortVal: ""
-      },
+      
     ],
     [
       {
-        key: "moonshot for 1 bnb:",
+        key: "RBITS for 1 ETH:",
         val: "---",
         shortVal: ""
       },
@@ -47,12 +43,12 @@ export class TokenomicsComponent implements OnInit {
         shortVal: ""
       },
       {
-        key: "price for 1 million moonshot:",
+        key: "price for 1 million RBITS:",
         val: "---",
         shortVal: ""
       },
       {
-        key: "price for 1 moonshot:",
+        key: "price for 1 RBITS:",
         val: "---",
         shortVal: ""
       }

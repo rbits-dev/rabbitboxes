@@ -203,7 +203,7 @@ export class ArtistMoonboxComponent implements OnInit {
   async getMoonboxTierLimits() {
     if (this.balance >= 0) {
 
-      this.moonBoxLimitDetails = await this.walletConnectService.getDetailsMoonboxlimit(this.artistDetails.walletAddress == environment.ownerAddress ? false : true);
+      this.moonBoxLimitDetails = await this.walletConnectService.getDetailsMoonboxlimit(this.artistDetails?.walletAddress == environment.ownerAddress ? false : true);
       // console.log(this.moonBoxLimitDetails.length)
       for (let i = 0; i < 4; i++) {
         this.infoHoverList[i].tooltipText = "You need " + (this.moonBoxLimitDetails[i] / 1e18).toLocaleString('en-us', { minimumFractionDigits: 0 }) + " Moonshot token\nto open a " + this.boxTypes[i] + " MoonBox.";
@@ -243,22 +243,22 @@ export class ArtistMoonboxComponent implements OnInit {
       this.data?.address
     ).then((response: ArtistMoonbox) => {
       if (response.isSuccess) {
-  
+
         this.artistDetails = response;
         this.supplyDetails = this.artistDetails.data;
         this.supplyDetails.forEach((item: Supply) => {
           if (!item.isminted) {
             const index = this.boxTypes.findIndex(box => box.toLocaleLowerCase() == item.type.toLocaleLowerCase());
             this.removeitemIndex.push(index);
-           
+
           }
           this.supply.push(item.hasSupply() ? 1 : 0);
-          
+
 
         });
-       
+
         if (this.removeitemIndex.length > 0) {
-        
+
           if (!this.isgetMaxSupplyCall) {
             this.removeitem(this.removeitemIndex);
           }
@@ -273,7 +273,7 @@ export class ArtistMoonboxComponent implements OnInit {
 
 
   removeitem(removeValFromIndex: any) {
-   
+
     for (var i = removeValFromIndex.length - 1; i >= 0; i--) {
       this.boxTypes.splice(removeValFromIndex[i], 1);
       this.supplyDetails.splice(removeValFromIndex[i], 1);
@@ -283,7 +283,6 @@ export class ArtistMoonboxComponent implements OnInit {
   }
 
   buyMoonBase(index: number) {
-
     if (!this.hasEnoughMoonshots(index) || this.supply[index] === 0) {
       return false
     }

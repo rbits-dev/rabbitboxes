@@ -208,7 +208,11 @@ button.toast-close-button {
     background-color: #000000;
     opacity: 0.4;
 }
-
+.loadinggif{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+}
 
 /* Responsive Design */
 
@@ -244,3 +248,7 @@ button.toast-close-button {
 .mat-tab-header-pagination-chevron {
     border-color: rgb(216 21 21 / 87%);
 }
+
+// scrollbar
+
+
