@@ -37,6 +37,7 @@ export class LandingSliderProvider {
 
             await this.httpService.getRandomCollectionImageListFromArtist(this.liveCollectionList[i].walletAddress)
                 .then((res) => {
+                  debugger
                     for (let j = 0; j < 5; j++) {
                         if (res.data[j] !== undefined)
                             if (!res.data[j].logo_path.includes('.mp4') && !res.data[j].logo_path.includes('.gif'))

@@ -152,7 +152,6 @@ export class UpcomingComponent implements OnInit,OnDestroy {
         tempList[DROPS_CATEGORY.RECENT] = response.data.recent_data_array;
 
         this.httpService.getUpcomingArtistCollections(this.NSFWToggleState, this.address).subscribe((response) => {
-      debugger
           if( response.isSuccess && response.status === 200 || response.status === 204 ) {
             tempList[DROPS_CATEGORY.UPCOMING] = response.data;
             // tempList[DROPS_CATEGORY.UPCOMING].push( applicationData );

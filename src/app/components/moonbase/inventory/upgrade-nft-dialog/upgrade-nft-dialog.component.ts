@@ -10,7 +10,6 @@ import { WalletConnectService } from "src/app/services/wallet-connect.service";
   styleUrls: ["./upgrade-nft-dialog.component.scss"],
 })
 export class UpgradeNftDialogComponent implements OnInit {
-  userAddress: any;
   isLoading = false;
   isSelectAll = true;
   tokenIds = [];
@@ -68,7 +67,7 @@ export class UpgradeNftDialogComponent implements OnInit {
         const approval = await this.cs.setApprovalBridgeNFT();
         await approval.wait();
       }
-      const result = await this.cs.bridgeNFT(this.tokenIds, this.amounts);
+      const result = await this.cs.bridgeNFT(this.tokenIds, this.amounts, localStorage.getItem('address'))
       await result.wait();
       this.apiService.showToastr("NFTs are bridge successfully", true);
       this.dialogRef.close();

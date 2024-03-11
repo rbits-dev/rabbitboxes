@@ -389,7 +389,6 @@ export class WalletConnectService {
 
   async spaceAddress(address: any) {
     try {
-
       let chainId = localStorage.getItem("chainId");
       let rpc = this.chainConfigs[chainId].config.params[0].rpcUrls[0];
       const provider = new Web3.providers.HttpProvider(rpc);
@@ -400,7 +399,6 @@ export class WalletConnectService {
       return await this.sid.getName(address);
     } catch (error) {
       console.log(error);
-
     }
   }
 
@@ -956,29 +954,66 @@ export class WalletConnectService {
     );
   }
 
+  //ESTIMATE FEES
+  async estimateFees({ userAddress, tokenIds, amounts }) {
+    try {
+      const dstEndpointId = 10161;
+      const abi = new ethers.utils.AbiCoder();
+      const payload = abi.encode(
+        ["address", "uint256[]", "uint256[]"],
+        [userAddress, tokenIds, amounts]
+      );
+      const adapterParams = ethers.utils.solidityPack(
+        ["uint16", "uint256"],
+        [1, 350000]
+      );
+      const contractAddress =
+        config[environment.configFile][1].BridgeNftAddress;
+      const value = await this.BridgeContract.estimateFees(
+        dstEndpointId,
+        contractAddress,
+        payload,
+        false,
+        adapterParams
+      );
+      return value;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
   //HANDLE BRIDGE NFT
-  async bridgeNFT(tokenIds, amounts) {
-    let destChainId = 10161;
-    let destination =
-      "0x38b71264e52467445f7d71cadac4b0066b0e807a70e57fc57f500cc6d8887324d46fb6bec45f61f5";
-    const optionalAmount = { value: ethers.utils.parseEther("0.05") };
-    let txn = await this.BridgeContract.crossChain(
-      destChainId,
-      destination,
-      tokenIds,
-      amounts,
-      optionalAmount
-    );
-    return txn;
+  async bridgeNFT(tokenIds, amounts, userAddress) {
+    try {
+      let destChainId = 10161;
+      let destination =
+        "0x38b71264e52467445f7d71cadac4b0066b0e807a70e57fc57f500cc6d8887324d46fb6bec45f61f5";
+      const calculatedFees = await this.estimateFees({
+        tokenIds,
+        amounts,
+        userAddress,
+      });
+      const optionalAmount = { value: calculatedFees.nativeFee };
+      let txn = await this.BridgeContract.crossChain(
+        destChainId,
+        destination,
+        tokenIds,
+        amounts,
+        optionalAmount
+      );
+      return txn;
+    } catch (error) {
+      throw error;
+    }
   }
 
   //HANDLE METAMSK ERROR
   async handleMetamaskError(error) {
     switch (error.code) {
-      case 'UNPREDICTABLE_GAS_LIMIT':
+      case "UNPREDICTABLE_GAS_LIMIT":
         this.toastrService.error(error.reason);
         break;
-      case 'ACTION_REJECTED':
+      case "ACTION_REJECTED":
         this.toastrService.error(error.reason);
         break;
       default:
