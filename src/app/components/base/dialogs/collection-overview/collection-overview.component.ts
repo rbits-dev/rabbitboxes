@@ -101,24 +101,20 @@ export class CollectionOverviewComponent implements OnInit {
   }
 
   getPreviewImageUrl(url: string): string {
-    let reverse = url.split('').reverse().join('');
-    let slash = reverse.indexOf('/');
-    let dot = reverse.indexOf('.');
+    const splitUrl = url.split('/');
+    const filename = splitUrl.pop();
+    const collectionName = splitUrl.pop();
+    const partsBeforeFilename = splitUrl.join('/');
 
-    var ext = url.split('.').pop();
-    if (dot < slash) {
-        if (ext.length > 1) {
-            return url.slice(0, 36) + 'previews/' + url.slice(36, -ext.length) + 'webp';
+    if (filename && filename.includes('.')) {
+        const ext = filename.split('.').pop() || '';
+        const filenameWithoutExt = filename.slice(0, -ext.length - 1);
+        const previewImage = `${partsBeforeFilename}/previews/${collectionName}/${filenameWithoutExt}.webp`;
+        //console.log(previewImage);
+        return previewImage;
+    } 
+    return `${partsBeforeFilename}/previews/${collectionName}/${filename}`;
+}
 
-        }
-        else {
-            return url.slice(0, 36) + 'previews/' + url.slice(36);
-        }
-
-    }
-    else {
-        return url.slice(0, 36) + 'previews/' + url.slice(36);
-    }
-  }
 
 }
