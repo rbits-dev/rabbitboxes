@@ -22,7 +22,7 @@ const routes: Routes = [
         component: LandingComponent
       },
       {
-        path: 'nfcollections',
+        path: 'games',
         component: NFTCollectionsComponent
       },
       {

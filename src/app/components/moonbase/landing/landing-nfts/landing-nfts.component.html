@@ -1,6 +1,5 @@
 <section id="landing-nfts" class="landing-nfts" style="margin: auto;">
-    <!-- This is the 3D Owl Carousel -->
-    <section class="landing-carousel"  >
+    <section class="landing-carousel">
         <swiper *ngIf="slides.length !== 0" [config]="config" (activeIndexChange)="onIndexChange($event)" (slideChange)="onIndexChange($event)" (realIndexChange)="onIndexChange($event)">
             <ng-container *ngFor="let slide of slides; index as i">
                 <ng-template swiperSlide>
@@ -13,18 +12,17 @@
         <div *ngIf="slides.length === 0" class="flex flex-center" style="max-width: 770px; width: 100vw;">
             <img class="flex mx-auto" style="margin-bottom: 40px;" src="assets/media/videos/Loading.gif" alt="">
         </div>
-
     </section>
     <p class="slider-name">{{currentSliderName}}</p>
 
     <div class="detail-container">
         <div class="heading-container top futuristic-container bottom-only">
-            <p class="p-white-span-primary p34 orbitron">rbits.xyz<br><span>Rabbit Boxes your  <br class="break-line-desktop">hub to Rabbits NFTs & Games</span></p>
+            <p class="p-white-span-primary p34 orbitron">rbits.xyz/boxes<br><span>Your hub<br class="break-line-desktop">to Rabbits NFTs & Games</span></p>
         </div>
         <div class="description-container">
             <div class="bottom flex pv20">
                 <div class="bottom-only no-padding ">
-                    <p class="mb20  info-text"><a href="https://rbits.xyz/boxes/">rbits.xyz</a> offers you a complete overview of upcoming, active and recent NFT drops.<br><br> <a href="https://rbits.xyz/boxes/" target="_blank">rbits.xyz</a> will be home to RBITS games and RBITS collectibles.
+                    <p class="mb20  info-text"><a href="https://rbits.xyz/boxes/">rbits.xyz</a> offers you a compresenhsive overview of Rabbit NFT drops.<br><br> <a href="https://rbits.xyz/boxes/" target="_blank">rbits.xyz</a> will serve as a hub for RBITS games and RBITS collectibles.
                     </p>
                 </div>
             </div>
