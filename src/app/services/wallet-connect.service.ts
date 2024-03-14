@@ -8,11 +8,11 @@ import { ToastrService } from "ngx-toastr";
 import { LocalStorageService } from "./local-storage.service";
 import Web3 from "web3";
 import Web3Modal from "Web3Modal";
+import { debounce } from 'lodash';
+
 const SID = require("@siddomains/sidjs").default;
 const SIDfunctions = require("@siddomains/sidjs");
 
-const providerMainNetURL = environment.providerMainNetURL;
-const providerTestNetURL = environment.providerTestNetURL;
 const providerChainID = environment.chainId;
 
 const silverTokenAbi = require("./../../assets/abis/silverTokenAbi.json");
@@ -23,55 +23,38 @@ const BRIDGE_ABI = require("./../../assets/abis/BridgeAbi.json");
 const BRIDGE_COLLECTION_ABI = require("./../../assets/abis/BridgeCollectionAddressAbi.json");
 const ArtistNFTAbi = require("./../../assets/abis/ArtistNFTAbi.json");
 const registorAbi = require("../../assets/abis/registorAbi.json");
-const buyContractAddress = environment.buyContractAddress;
-
-const NETWORK = "binance";
 const config = require("./../../assets/configFiles/configFile.json");
 
 import { CHAIN_CONFIGS } from '../components/base/wallet/connect/constants/blockchain.configs';
 
-//  Create WlletConnect Provider
-const providerOptions = {
-  rpc: {
-    56: providerMainNetURL,
-    97: providerTestNetURL,
-  },
-  network: NETWORK,
-  chainId: providerChainID,
-};
-
 const providerOptionsForRBITS = {
   walletconnect: {
     package: WalletConnectProvider,
-    rpc: {
-      1: providerMainNetURL,
-      56: providerMainNetURL,
-      97: providerTestNetURL,
-    },
-    network: NETWORK,
-    chainId: providerChainID,
+    rpc: {},
+    network: CHAIN_CONFIGS[providerChainID[0]]?.name || "Unknown", // Default to unknown
+    chainId: providerChainID[0], // first chain id is the default
   },
 };
 
-const web3Modal = new Web3Modal({
-  theme: "dark",
-  cacheProvider: false, // optional
-  providerOptions: providerOptionsForRBITS, // required
-  disableInjectedProvider: false
+// allow WalletConnectProvider to know which RPC endpoints to use for each supported network
+providerChainID.forEach( supportedChainId => {
+  //console.log( CHAIN_CONFIGS[ supportedChainId ]?.config.params[0].rpcUrls[0] );
+  providerOptionsForRBITS.walletconnect.rpc[ supportedChainId ] = CHAIN_CONFIGS[ supportedChainId ]?.config.params[0].rpcUrls[0];
 });
 
-// const provider = new WalletConnectProvider({
-//   infuraId: 'b0287acccb124ceb8306f3192f9e9c04',
-// });
+const web3Modal = new Web3Modal({
+  theme: "dark",
+  cacheProvider: false,
+  providerOptions: providerOptionsForRBITS,
+  disableInjectedProvider: false
+});
 
 @Injectable({
   providedIn: "root",
 })
 export class WalletConnectService {
   chainId: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  private selectedChainId: BehaviorSubject<number> = new BehaviorSubject<
-    number
-  >(0);
+  private selectedChainId: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   public $timerUp = new BehaviorSubject({});
 
@@ -231,20 +214,22 @@ export class WalletConnectService {
           }
         );
 
-        // Subscribe to session disconnection
+
+        // Subscribe to network changed event
         this.windowRef.nativeWindow.ethereum.on(
           this.CHAIN_CHANGED,
-          async (code: number, reason: string) => {
+          debounce(async (code: number, reason: string) => {
             await this.connectToWallet();
             this.toastrService.info("Network change detected, please wait");
-            setTimeout( () => {
+            setTimeout(() => {
               location.reload();
             }, 3000);
             // alert(code)
             this.updateSelectedChainId(Number(code));
             this.setWalletState(true);
-          }
+          }, 1000) // Debounce for 1 second
         );
+        
 
         // Subscribe to session disconnection
         this.windowRef.nativeWindow.ethereum.on(
@@ -332,7 +317,7 @@ export class WalletConnectService {
     this.updateSelectedChainId(network?.chainId);
 
     if (network?.chainId == chainId) {
-      let index = environment.chainId.indexOf(chainId ?? 56);
+      let index = environment.chainId.indexOf(chainId ?? 1);
       if (network?.chainId == 56 || network?.chainId == 97) {
         this.LootboxContract = new ethers.Contract(
           environment.lootBoxAddress,
@@ -993,6 +978,10 @@ export class WalletConnectService {
         break;
       case "ACTION_REJECTED":
         this.toastrService.error(error.reason);
+        break;
+      case "-32603":
+      case "OUT_OF_GAS":
+        this.toastrService.error("You don't have enough to cover the gas fees.");
         break;
       default:
         this.toastrService.error("Something went wrong, please try again later.");

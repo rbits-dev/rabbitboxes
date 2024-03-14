@@ -6,9 +6,8 @@ export const environment = {
   production: false,
   chainId: [11155111,97, 80001, 1287,4,568],
   openseaChainIds: [1, 3, 4,2,5],
-  providerTestNetURL: "https://data-seed-prebsc-2-s1.bnbchain.org:8545",
   providerURL: "https://data-seed-prebsc-2-s1.bnbchain.org:8545",
-  providerMainNetURL: "https://bsc-dataseed1.binance.org",
+  
   // baseURL: "http://codetentacles-006-site31.htempurl.com/api/",
   baseURL:'http://moonbox.codetentaclestechnologies.tech/api/api/',
   ownerAddress: "0x703632A0b52244fAbca04aaE138fA8EcaF72dCBC",
