@@ -25,7 +25,7 @@ export class DeployContractService {
       const options = { gasLimit: 100000, gasPrice: ethers.utils.parseUnits(price, 'gwei') }
 
       // Deploy the contract
-      let index = environment.chainId.indexOf(parseInt(localStorage.getItem('chainId') ?? "56"));
+      let index = environment.chainId.indexOf(parseInt(localStorage.getItem('chainId') ?? "1"));
       this.nftArtistContract = config[environment.configFile][index].artistLootBoxAddress;
       this.ArtistMoonBoxNftSwap = config[environment.configFile][index].ArtistMoonBoxNftSwap;
       if (localStorage.getItem('chainId') == "56" || localStorage.getItem('chainId') == "97") {
