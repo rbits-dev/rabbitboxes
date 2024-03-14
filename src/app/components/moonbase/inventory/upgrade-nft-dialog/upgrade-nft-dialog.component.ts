@@ -69,7 +69,7 @@ export class UpgradeNftDialogComponent implements OnInit {
       }
       const result = await this.cs.bridgeNFT(this.tokenIds, this.amounts, localStorage.getItem('address'))
       await result.wait();
-      this.apiService.showToastr("NFTs are bridge successfully", true);
+      this.apiService.showToastr("NFTs are bridged successfully", true);
       this.dialogRef.close();
 
     } catch (error) {
