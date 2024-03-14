@@ -27,8 +27,8 @@
           <li>
             <div class="tooltip">
               <img id="dropdwonButton" class="nav-bar-sub-item chain-button contain"
-                [ngStyle]="{'background-color': chainConfigs[ChainId>0 ? ChainId : 56].bg}"
-                src="{{ chainConfigs[ChainId>0 ? ChainId : 56].icon }}" (click)="toggleChainDropdown()">
+                [ngStyle]="{'background-color': chainConfigs[ChainId>0 ? ChainId : 1].bg}"
+                src="{{ chainConfigs[ChainId>0 ? ChainId : 1].icon }}" (click)="toggleChainDropdown()">
 
               <div class="bottom" [ngClass]="{'close-tooltip': !this.isTooltipActive}"
                 (mouseleave)="this.isTooltipActive = true">
