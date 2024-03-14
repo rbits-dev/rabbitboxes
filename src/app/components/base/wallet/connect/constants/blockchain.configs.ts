@@ -2,6 +2,24 @@ import { utils } from "ethers";
 
 export const CHAIN_CONFIGS: any = {
 
+  '1': {
+    name: 'Ethereum Mainnet',
+    icon: 'assets/media/images/blockchain/eth.webp',
+    explorerLink: 'https://etherscan.io/address/',
+    bg: 'white',
+    symbol: 'ETH',
+    config: {
+      method: 'wallet_addEthereumChain',
+      params: [
+        {
+          chainId: '0x1',
+          chainName: 'Ethereum Mainnet',
+          rpcUrls: ['https://eth.llamarpc.com'],
+          blockExplorerUrls: ['https://etherscan.io/'],
+        },
+      ],
+    },
+  },
   '1285': {
     name: 'Moonriver',
     explorerLink: 'https://moonriver.moonscan.io/address/',
@@ -148,24 +166,6 @@ export const CHAIN_CONFIGS: any = {
           chainName: 'Rinkeby',
           rpcUrls: ['https://rpc.ankr.com/eth_rinkeby'],
           blockExplorerUrls: ['https://rinkeby.etherscan.io/'],
-        },
-      ],
-    },
-  },
-  '1': {
-    name: 'Ethereum Mainnet',
-    icon: 'assets/media/images/blockchain/eth.webp',
-    explorerLink: 'https://etherscan.io/address/',
-    bg: 'white',
-    symbol: 'ETH',
-    config: {
-      method: 'wallet_addEthereumChain',
-      params: [
-        {
-          chainId: '0x1',
-          chainName: 'Ethereum Mainnet',
-          rpcUrls: ['https://eth.llamarpc.com'],
-          blockExplorerUrls: ['https://etherscan.io/'],
         },
       ],
     },
