@@ -176,8 +176,7 @@ export class WalletConnectService {
 
   async connectToWallet(origin = 0) {
     const window = this.windowRef.nativeWindow.ethereum;
-    var chainId = await this.chainId.value;
-
+    
     try {
       if (typeof window !== "undefined" && typeof window !== undefined) {
         await this.windowRef.nativeWindow.ethereum.request({
@@ -191,9 +190,12 @@ export class WalletConnectService {
         this.getChainId().subscribe((response) => {
           this.ChainId = response;
         });
+
+        console.log("The provider is on the network ", currentNetwork.chainId);
+
         if (providerChainID.indexOf(currentNetwork.chainId) === -1) {
           this.toastrService.error(
-            "You are on the wrong network please Connect with " +
+            "You are on an unsupported network, please connect with " +
               this.chainConfigs[this.ChainId]?.name ?? ""
           );
           this.setWalletState(false);
@@ -201,14 +203,15 @@ export class WalletConnectService {
         } else {
           if (this.ChainId != currentNetwork.chainId) {
             this.toastrService.error(
-              "You are on the wrong network please Connect with " +
+              "You are on the wrong network, please connect with " +
                 this.chainConfigs[this.ChainId]?.name ?? ""
             );
-            console.warn("PPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
-
+            
             this.setWalletDisconnected();
-            window.location.reload();
-          }
+            setTimeout( () => {
+              location.reload();
+            }, 3000);
+          } 
         }
 
         await this.getAccountAddress();
@@ -233,10 +236,12 @@ export class WalletConnectService {
           this.CHAIN_CHANGED,
           async (code: number, reason: string) => {
             await this.connectToWallet();
-            this.toastrService.info("You have changed the chain!");
+            this.toastrService.info("Network change detected, please wait");
+            setTimeout( () => {
+              location.reload();
+            }, 3000);
             // alert(code)
             this.updateSelectedChainId(Number(code));
-            location.reload();
             this.setWalletState(true);
           }
         );
@@ -251,7 +256,6 @@ export class WalletConnectService {
         );
 
         this.setWalletState(true);
-
         // if (origin == 0) location.reload();
       }
     } catch (e) {
@@ -309,6 +313,7 @@ export class WalletConnectService {
 
         if (origin === 0) location.reload();
       } catch (e) {
+        console.log("There was an error",e );
         this.setWalletDisconnected();
         location.reload(); // FIXME: Without reloading the page, the WalletConnect modal does not open again after closing it
       }
@@ -990,7 +995,7 @@ export class WalletConnectService {
         this.toastrService.error(error.reason);
         break;
       default:
-        this.toastrService.error("Something went wrong!");
+        this.toastrService.error("Something went wrong, please try again later.");
         break;
     }
   }
