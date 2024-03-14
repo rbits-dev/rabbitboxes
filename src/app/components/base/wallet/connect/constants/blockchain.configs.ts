@@ -1,14 +1,9 @@
 import { utils } from "ethers";
 
 export const CHAIN_CONFIGS: any = {
-  // "1": {
-  //   "name": "Ethereum Mainnet",
-  //   "explorerLink": "https://bscscan.com/address/",
-  //   "icon": "assets/media/images/blockchain/eth.webp",
-  //   "bg": "black",
-  // },
+
   '1285': {
-    name: 'Moonriver Mainnet',
+    name: 'Moonriver',
     explorerLink: 'https://moonriver.moonscan.io/address/',
     icon: 'assets/media/images/blockchain/MOVR.svg',
     bg: 'black',
@@ -20,7 +15,7 @@ export const CHAIN_CONFIGS: any = {
           chainId: '0x505',
           chainName: 'Moonriver',
           nativeCurrency: {
-            symbol: 'BNB',
+            symbol: 'MOVR',
             decimals: 18,
           },
           rpcUrls: ['https://rpc.api.moonriver.moonbeam.network'],
@@ -34,7 +29,7 @@ export const CHAIN_CONFIGS: any = {
     explorerLink: 'https://testnet.bscscan.com/address/',
     icon: 'assets/media/images/blockchain/BSC.svg',
     bg: 'black',
-    symbol: 'BNB',
+    symbol: 'tBNB',
     config: {
       method: 'wallet_addEthereumChain',
       params: [
@@ -42,7 +37,7 @@ export const CHAIN_CONFIGS: any = {
           chainId: '0x61',
           chainName: 'BNB Smart Chain Testnet',
           nativeCurrency: {
-            symbol: 'BNB',
+            symbol: 'tBNB',
             decimals: 18,
           },
           rpcUrls: ['https://data-seed-prebsc-2-s1.bnbchain.org:8545'],
@@ -52,7 +47,7 @@ export const CHAIN_CONFIGS: any = {
     },
   },
   '56': {
-    name: 'BSC Mainnet',
+    name: 'BNB Smart Chain Mainnet',
     explorerLink: 'https://bscscan.com/address/',
     icon: 'assets/media/images/blockchain/BSC.svg',
     bg: 'black',
@@ -62,7 +57,7 @@ export const CHAIN_CONFIGS: any = {
       params: [
         {
           chainId: '0x38',
-          chainName: 'BSC',
+          chainName: 'BNB Smart Chain Mainnet',
           nativeCurrency: {
             symbol: 'BNB',
             decimals: 18,
@@ -164,7 +159,7 @@ export const CHAIN_CONFIGS: any = {
     bg: 'white',
     symbol: 'ETH',
     config: {
-      method: 'wallet_addEthereumChain',//'wallet_switchEthereumChain',
+      method: 'wallet_addEthereumChain',
       params: [
         {
           chainId: '0x1',
@@ -176,45 +171,23 @@ export const CHAIN_CONFIGS: any = {
     },
   },
   '11155111': {
-    name: 'Sepolia Testnet',
+    name: 'Sepolia',
     icon: 'assets/media/images/blockchain/eth.webp',
     explorerLink: 'https://etherscan.io/address/',
     bg: 'white',
     symbol: 'ETH',
     config: {
-      method: 'wallet_addEthereumChain',//'wallet_switchEthereumChain',
+      method: 'wallet_addEthereumChain',
       params: [
         {
           chainId: '0xAA36A7',
-          chainName: 'Sepolia test network',
+          chainName: 'Sepolia',
           nativeCurrency: {
             symbol: 'ETH',
             decimals: 18,
           },
           rpcUrls: ['https://ethereum-sepolia-rpc.publicnode.com'],
           blockExplorerUrls: ['https://sepolia.etherscan.io/'],
-        },
-      ],
-    },
-  },
-  '200': {
-    name: 'Dogechain',
-    explorerLink: ' https://explorer.dogechain.dog/address/',
-    icon: 'assets/images/blockchain/dogecoin.svg',
-    bg: '#000',
-    symbol: 'dog',
-    config: {
-      method: 'wallet_addEthereumChain',
-      params: [
-        {
-          chainId: '0x7D0',
-          chainName: 'dogechain',
-          nativeCurrency: {
-            symbol: 'dog',
-            decimals: 18,
-          },
-          rpcUrls: ['https://rpc-sg.dogechain.dog'],
-          blockExplorerUrls: ['https://explorer.dogechain.dog'],
         },
       ],
     },
@@ -232,7 +205,7 @@ export const CHAIN_CONFIGS: any = {
           chainId: '0x238',
           chainName: 'dogechain Testnet',
           nativeCurrency: {
-            symbol: 'dog',
+            symbol: 'DOGE',
             decimals: 18,
           },
           rpcUrls: ['https://rpc-testnet.dogechain.dog'],
