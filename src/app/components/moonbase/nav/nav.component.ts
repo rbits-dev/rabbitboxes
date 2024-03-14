@@ -140,10 +140,10 @@ export class NavComponent implements OnInit {
 
   ngOnInit(): void {
     this.walletConnectService.init();
-    this.walletConnectService.updateChainId(parseInt(localStorage.getItem('manual_chainId') ?? "56"));
-    // this.walletConnectService.updateSelectedChainId(parseInt(localStorage.getItem('chainId') ?? "56"));
+    this.walletConnectService.updateChainId(parseInt(localStorage.getItem('manual_chainId') ?? "1"));
+    // this.walletConnectService.updateSelectedChainId(parseInt(localStorage.getItem('chainId') ?? "1"));
 
-    console.log(parseInt(localStorage.getItem('manual_chainId') ?? "56"));
+    console.log(parseInt(localStorage.getItem('manual_chainId') ?? "1"));
 
     this.getNSFWStatus();
 
