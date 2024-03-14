@@ -48,7 +48,7 @@ export class NavComponent implements OnInit {
       icon: 'assets/media/icons/moonbase/nav/Menu_return_black.svg',
       alt: 'return back',
       tooltip: 'Back',
-      click: () => { },
+      click: () => {},
       routerLink: null, // [''],
       route: '/',
     },
@@ -91,8 +91,8 @@ export class NavComponent implements OnInit {
       alt: 'game',
       tooltip: 'This is our Game Hub: an overview of all Rabbit Games',
       click: null,
-      routerLink: ['/nfcollections'],
-      route: '/nfcollections',
+      routerLink: ['/games'],
+      route: '/games',
     },
   ];
 
@@ -248,9 +248,8 @@ export class NavComponent implements OnInit {
   }
 
   checkNetwork() {
-    this.chainName = CHAIN_CONFIGS[this.ChainId].name;
-    if (environment.chainId.indexOf(this.selectedChainId) == -1) {
-      // this.openerr(1);
+    if( this.ChainId !== undefined && this.ChainId > 0) {
+      this.chainName = CHAIN_CONFIGS[this.ChainId].name;
     }
   }
 
@@ -273,22 +272,35 @@ export class NavComponent implements OnInit {
   async toggleChainDropdown() {
     document?.getElementById("myDropdown")?.classList.toggle("show");
     this.isMultiChainDropdownActive = !this.isMultiChainDropdownActive;
+    this.isTooltipActive = !this.isMultiChainDropdownActive;
   }
 
   @HostListener('document:click', ['$event'])
-  onMouseEnter(event: any) {
-    if (!document.getElementById('dropdwonButton').contains(event.target)) {
-      var dropdowns = document.getElementsByClassName('dropdown-content');
-      var i;
+  onDocumentClick(event: any) {
+    const target = event.target as HTMLElement;
+    const dropdown = document.getElementById('myDropdown');
+    const dropdownButton = document.getElementById('dropdwonButton');
+    
+    if (!dropdownButton || !dropdownButton.contains(target)) {
+      const dropdowns = document.getElementsByClassName('dropdown-content');
+      let i;
       for (i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
+        const openDropdown = dropdowns[i] as HTMLElement;
         if (openDropdown.classList.contains('show')) {
           openDropdown.classList.remove('show');
           this.isMultiChainDropdownActive = false;
         }
       }
     }
+    
+    if (dropdown && dropdownButton) {
+      const isInsideDropdown = dropdown.contains(target) || dropdownButton.contains(target);
+      if (!isInsideDropdown) {
+        this.isTooltipActive = true;
+      }
+    }
   }
+  
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
@@ -308,15 +320,13 @@ export class NavComponent implements OnInit {
     if (config !== undefined) {
       try {
         await this.windowRef.nativeWindow.ethereum.request(config);
-
         this.walletConnectService.updateChainId(this.chains[index]);
-        this.toastrService.success(`You are connected to the ${this.chainConfigs[this.chains[index] ?? 97].name}`, "NETWORK");
-        window.location.reload();
+        this.toastrService.success(`You are connected to ${this.chainConfigs[this.chains[index]].name}, please wait while loading data`);
       } catch (error) {
-
         console.log(error);
         this.toastrService.error(`${error.message}`)
       }
     }
+    this.isTooltipActive = true;
   }
 }
