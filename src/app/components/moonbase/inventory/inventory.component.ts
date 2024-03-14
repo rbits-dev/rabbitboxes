@@ -92,7 +92,7 @@ export class InventoryComponent implements OnInit {
         this.mainMessage =
           this.inventoryList.length == 0 ? MESSAGES.EMPTY_WALLET : null;
       } else {
-        this.toastrService.error("something went wrong");
+        this.toastrService.error("Something went wrong. Please try again later");
       }
     });
   }
@@ -236,7 +236,7 @@ export class InventoryComponent implements OnInit {
         }
       },
       (err: any) => {
-        this.toastrService.error("something went wrong with user data count");
+        this.toastrService.error("Something went wrong. Please try again later.");
       }
     );
   }
