@@ -54,9 +54,10 @@ export class InventoryComponent implements OnInit {
     });
 
     this.walletConnectService.init().then((data: boolean) => {
-      this.isConnected = data;
       this.getUserData01();
     });
+
+    this.isConnected = this.walletConnectService.getWalletState();
 
     this.walletConnectService
       .onWalletStateChanged()
