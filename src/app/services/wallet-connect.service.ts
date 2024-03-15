@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable, Subject } from "rxjs";
+import { BehaviorSubject, Observable, Subject, from } from "rxjs";
 import { WindowRefService } from "./window-ref.service";
 import { ethers, Wallet } from "ethers";
 import WalletConnectProvider from "@walletconnect/web3-provider";
@@ -9,6 +9,7 @@ import { LocalStorageService } from "./local-storage.service";
 import Web3 from "web3";
 import Web3Modal from "Web3Modal";
 import { debounce } from 'lodash';
+
 
 const SID = require("@siddomains/sidjs").default;
 const SIDfunctions = require("@siddomains/sidjs");
@@ -100,7 +101,6 @@ export class WalletConnectService {
 
   async init(): Promise<boolean> {
     try {
-      // await this.localStorageService.getAddress();
       var web3Provider = new Web3.providers.HttpProvider(
         environment.providerURL
       );
@@ -123,7 +123,7 @@ export class WalletConnectService {
         config[environment.configFile][1].artistLootBoxAddress
       );
     } catch (e) {
-      console.log(e);
+      console.log("An error occured", e);
     }
 
     const wallet = this.localStorageService.getWallet();
@@ -133,6 +133,8 @@ export class WalletConnectService {
         break;
       case 2:
         await this.connectToWalletConnect(wallet);
+        break;
+      default:
         break;
     }
 
@@ -170,11 +172,17 @@ export class WalletConnectService {
         );
 
         let currentNetwork = await this.provider.getNetwork();
-        this.getChainId().subscribe((response) => {
-          this.ChainId = response;
+
+        this.getChainId().subscribe((currentChainId) => {
+          if( currentChainId === 0) {
+            currentChainId = currentNetwork.chainId;
+          }
+          this.ChainId = currentChainId;
+          this.selectedChainId.next(currentChainId);
         });
 
-        console.log("The provider is on the network ", currentNetwork.chainId);
+        //console.log("The provider is on the network ", currentNetwork.chainId);
+        //console.log("We are on ", this.ChainId);
 
         if (providerChainID.indexOf(currentNetwork.chainId) === -1) {
           this.toastrService.error(
@@ -227,7 +235,7 @@ export class WalletConnectService {
             // alert(code)
             this.updateSelectedChainId(Number(code));
             this.setWalletState(true);
-          }, 1000) // Debounce for 1 second
+          }, 1500) // Debounce for 1 second
         );
         
 
@@ -377,18 +385,25 @@ export class WalletConnectService {
 
   async spaceAddress(address: any) {
     try {
-      let chainId = localStorage.getItem("chainId");
+      let chainId = this.ChainId;
+      if (chainId !== 56) {
+        return; //spaceID on BSC
+      }
+  
       let rpc = this.chainConfigs[chainId].config.params[0].rpcUrls[0];
       const provider = new Web3.providers.HttpProvider(rpc);
+  
       this.sid = new SID({
         provider,
         sidAddress: SIDfunctions.getSidAddress(chainId),
       });
+  
       return await this.sid.getName(address);
     } catch (error) {
       console.log(error);
     }
   }
+  
 
   async registorCheck(data: {
     name: string;
@@ -798,6 +813,10 @@ export class WalletConnectService {
 
   getAccount() {
     return this.account;
+  }
+
+  getWalletState() {
+    return this.isConnected;
   }
 
   setWalletDisconnected() {

@@ -140,24 +140,21 @@ export class NavComponent implements OnInit {
 
   ngOnInit(): void {
     this.walletConnectService.init();
-    this.walletConnectService.updateChainId(parseInt(localStorage.getItem('manual_chainId') ?? "1"));
-    // this.walletConnectService.updateSelectedChainId(parseInt(localStorage.getItem('chainId') ?? "1"));
-
-    console.log(parseInt(localStorage.getItem('manual_chainId') ?? "1"));
 
     this.getNSFWStatus();
 
     this.walletConnectService.getSelectedChainId().subscribe((response) => {
+      // Lots of vars for the same thing
       this.selectedChainId = response;
       this.currentChainId = response;
-
+      this.ChainId = response;
+      
       this.isMultiChain();
       // this.checkNetwork();
     });
 
     this.walletConnectService.getChainId().subscribe((response) => {
       this.ChainId = response;
-
       this.checkNetwork();
     });
 
@@ -250,6 +247,9 @@ export class NavComponent implements OnInit {
   checkNetwork() {
     if( this.ChainId !== undefined && this.ChainId > 0) {
       this.chainName = CHAIN_CONFIGS[this.ChainId].name;
+    }
+    else {
+      this.chainName = "Unknown";
     }
   }
 
