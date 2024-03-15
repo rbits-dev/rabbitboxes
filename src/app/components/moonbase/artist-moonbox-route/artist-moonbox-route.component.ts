@@ -24,6 +24,7 @@ export class ArtistMoonboxRouteComponent implements OnInit {
         
         if(res.chainId && !isNaN(res.chainId)){
           if(this.getCurrentChainId != res.chainId){
+            console.log("Change manual_chainId to ", res.chainId);
             localStorage.setItem('manual_chainId',res.chainId);
           }
           let lastSlashIndex = url.lastIndexOf('/');
