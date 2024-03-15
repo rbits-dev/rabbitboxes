@@ -24,7 +24,7 @@ section.join-application {
         flex-direction: column;
         justify-content: space-between;
 
-        font-family: "Orbitron";
+        font-family: "Orbitron", sans-serif;
         font-size: 30px;
         font-weight: 900;
         font-stretch: normal;
@@ -51,7 +51,7 @@ section.join-application {
         width: 100%;
     }
     .info-text {
-        font-family: $primary-font;
+        font-family: "Montserrat", sans-serif;;
         font-size: 16px;
         font-weight: 500;
         font-stretch: normal;
@@ -73,7 +73,7 @@ section.join-application {
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        font-family: $primary-font;
+        font-family: "Montserrat", sans-serif;;
         font-size: 16px;
         font-weight: bold;
         font-stretch: normal;

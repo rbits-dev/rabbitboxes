@@ -202,7 +202,7 @@ section.navigation {
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.8s;
-  font-family: $primary-font;
+  font-family: "Montserrat", sans-serif;;
   font-size: 16px;
   font-weight: 500;
   line-height: 1.69;
@@ -308,7 +308,7 @@ nav {
 
       a {
         color: $body-bg-color;
-        font-family: $primary-font;
+        font-family: "Montserrat", sans-serif;;
         font-size: $primary-fs;
         font-weight: $semi-bold;
         text-transform: capitalize;
@@ -462,7 +462,7 @@ nav {
   background: black;
   margin-bottom: 45px;
   margin-top: -15px;
-  font-family: $primary-font;
+  font-family: "Montserrat", sans-serif;;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: normal;

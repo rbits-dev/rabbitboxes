@@ -40,7 +40,7 @@ section.info-moonboxes {
 
   .desc {
     p {
-      font-family: $primary-font;
+      font-family: "Montserrat", sans-serif;;
       font-size: 18px;
       font-weight: bold;
       font-stretch: normal;
@@ -91,7 +91,7 @@ section.info-moonboxes {
   width: 100%;
 
   .heading-container {
-    font-family: "Orbitron";
+    font-family: "Orbitron", sans-serif;
     font-size: 30px;
     font-weight: 900;
     font-stretch: normal;
@@ -132,7 +132,7 @@ section.info-moonboxes {
   }
 
   .info-text {
-    font-family: $primary-font;
+    font-family: "Montserrat", sans-serif;;
     font-size: 16px;
     font-weight: 400;
     font-stretch: normal;
@@ -227,7 +227,7 @@ section.info-moonboxes {
   border: 1px solid $primary;
   padding-left: 20px;
   font-size: 18px;
-  font-family: $primary-font;
+  font-family: "Montserrat", sans-serif;;
 
   svg {
     height: 20px;
@@ -308,7 +308,7 @@ input[type=number] {
   visibility: visible;
   opacity: 0;
   transition: opacity 0.8s;
-  font-family: $primary-font;
+  font-family: "Montserrat", sans-serif;;
   font-size: 16px;
   font-weight: 500;
   line-height: 1.69;
