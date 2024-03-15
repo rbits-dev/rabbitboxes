@@ -13,7 +13,7 @@
     </div>
 
     <ng-template #loggedOut>
-      <p
+      <p *ngIf="!isConnected"
         class="absolute-center fade-in-delayed pointer"
         (click)="openWalletDialog()"
       >
