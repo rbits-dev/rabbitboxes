@@ -14,8 +14,13 @@ export const CHAIN_CONFIGS: any = {
         {
           chainId: '0x1',
           chainName: 'Ethereum Mainnet',
-          rpcUrls: ['https://eth.llamarpc.com'],
+          rpcUrls: ['https://eth.llamarpc.com'], 
+          // https://mainnet.infura.io/v3/${INFURA_API_KEY}
           blockExplorerUrls: ['https://etherscan.io/'],
+          nativeCurrency: {
+            symbol: 'ETH',
+            decimals: 18,
+          },
         },
       ],
     },
@@ -80,7 +85,7 @@ export const CHAIN_CONFIGS: any = {
             symbol: 'BNB',
             decimals: 18,
           },
-          rpcUrls: ['https://bsc-dataseed.binance.org'],
+          rpcUrls: ['https://bsc-dataseed1.bnbchain.org'],
           blockExplorerUrls: ['https://bscscan.com'],
         },
       ],
@@ -230,7 +235,7 @@ export const CHAIN_CONFIGS: any = {
             symbol: 'DOGE',
             decimals: 18,
           },
-          rpcUrls: ['https://rpc-us.dogechain.dog'],
+          rpcUrls: ['https://rpc.dogechain.dog'],
           blockExplorerUrls: ['https://explorer.dogechain.dog/'],
         },
       ],
