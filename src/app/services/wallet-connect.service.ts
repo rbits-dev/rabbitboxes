@@ -100,6 +100,7 @@ export class WalletConnectService {
   }
 
   async init(): Promise<boolean> {
+
     try {
       var web3Provider = new Web3.providers.HttpProvider(
         environment.providerURL
@@ -177,21 +178,33 @@ export class WalletConnectService {
           if( currentChainId === 0) {
             currentChainId = currentNetwork.chainId;
           }
+
+          if( providerChainID.indexOf(currentNetwork.chainId) === -1) {
+            this.toastrService.error(
+              "You are on an unsupported network, please select another blockchain."
+              );
+            this.setWalletState(false);
+            throw "Wrong network";
+          }
+
           this.ChainId = currentChainId;
           this.selectedChainId.next(currentChainId);
+
+          localStorage.setItem("manual_chainId", this.ChainId.toString());
         });
 
-        //console.log("The provider is on the network ", currentNetwork.chainId);
-        //console.log("We are on ", this.ChainId);
+        console.log("The provider is on the network ", currentNetwork.chainId);
+        console.log("We are on ", this.ChainId);
 
         if (providerChainID.indexOf(currentNetwork.chainId) === -1) {
-          this.toastrService.error(
-            "You are on an unsupported network, please connect with " +
-              this.chainConfigs[this.ChainId]?.name ?? ""
-          );
+          console.log("Wrong network");
+          
           this.setWalletState(false);
+          this.ChainId = 1;
+          this.selectedChainId.next(1);
+
           throw "Wrong network";
-        } else {
+        } /*else {
           if (this.ChainId != currentNetwork.chainId) {
             this.toastrService.error(
               "You are on the wrong network, please connect with " +
@@ -203,7 +216,10 @@ export class WalletConnectService {
               location.reload();
             }, 3000);
           } 
-        }
+        } */
+
+        localStorage.setItem("manual_chainId", this.ChainId.toString());
+        this.chainId.next(this.ChainId);
 
         await this.getAccountAddress();
         this.localStorageService.setWallet(1);
@@ -275,6 +291,29 @@ export class WalletConnectService {
         this.provider = new ethers.providers.Web3Provider(provider);
         await provider.enable();
 
+        
+        let currentNetwork = await this.provider.getNetwork();
+
+        this.getChainId().subscribe((currentChainId) => {
+          if( currentChainId === 0) {
+            currentChainId = currentNetwork.chainId;
+          }
+
+          if( providerChainID.indexOf(currentNetwork.chainId) === -1) {
+            this.toastrService.error(
+              "You are on an unsupported network, please select another blockchain"
+              );
+            this.setWalletState(false);
+            throw "Wrong network";
+          }
+
+          this.ChainId = currentChainId;
+          this.selectedChainId.next(currentChainId);
+
+          localStorage.setItem("manual_chainId", this.ChainId.toString());
+        });
+
+
         await this.getAccountAddress();
         this.localStorageService.setWallet(2);
 
@@ -288,7 +327,7 @@ export class WalletConnectService {
           this.setWalletDisconnected()
         );
 
-        // Subscribe to session disconnection
+        // Subscribe to network change event
         provider.on(
           this.CHAIN_CHANGED,
           async (code: number, reason: string) => {
@@ -296,6 +335,11 @@ export class WalletConnectService {
             this.setWalletDisconnected();
 
             let currentNetwork = await this.getNetworkChainId();
+            this.ChainId = currentNetwork as number;
+
+            localStorage.setItem("manual_chainId", this.ChainId.toString());
+            this.chainId.next(this.ChainId);
+
             this.updateSelectedChainId(
               environment.chainId.indexOf(currentNetwork as number)
             );
@@ -322,7 +366,7 @@ export class WalletConnectService {
     var chainId = await this.chainId.value;
 
     this.localStorageService.setAddress(address);
-    this.updateSelectedChainId(network?.chainId);
+//    this.updateSelectedChainId(network?.chainId);
 
     if (network?.chainId == chainId) {
       let index = environment.chainId.indexOf(chainId ?? 1);

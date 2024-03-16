@@ -29,7 +29,7 @@ export class NavComponent implements OnInit {
   public isTooltipActive = true;
   chainName: any;
   selectedChainId: number = 0;
-  ChainId: number = 0;
+  ChainId: number = 1; // default is ETH chain
   event$
   public navItems: any[] = [
     // {
@@ -143,12 +143,22 @@ export class NavComponent implements OnInit {
 
     this.getNSFWStatus();
 
-    this.walletConnectService.getSelectedChainId().subscribe((response) => {
+    let manualChainId = localStorage.getItem("manual_chainId");
+
+    this.ChainId = manualChainId as unknown as number ?? 1;
+
+    console.log("chainId in localstorage is ", this.ChainId);
+
+    this.walletConnectService.getSelectedChainId().subscribe((id) => {
       // Lots of vars for the same thing
-      this.selectedChainId = response;
-      this.currentChainId = response;
-      this.ChainId = response;
-      
+      if ( id !== undefined && id > 0) {
+        this.selectedChainId = id;
+        this.currentChainId = id;
+        this.ChainId = id;
+      }
+
+      console.log("ChainId value for navigation component is ", this.ChainId);
+
       this.isMultiChain();
       // this.checkNetwork();
     });

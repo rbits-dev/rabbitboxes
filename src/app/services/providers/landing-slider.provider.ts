@@ -29,9 +29,15 @@ export class LandingSliderProvider {
 
         const response = await this.httpService.getLiveCollectionsBanner();
 
-        this.liveCollectionList = response.data.live_data_array;
-        this.liveCollectionList = this.liveCollectionList.concat(response.data.recent_data_array)
-        this.liveCollectionList.concat(...response.data.recent_data_array);
+        if (response.data && response.data.live_data_array) {
+            this.liveCollectionList = response.data.live_data_array;
+        } else {
+            this.liveCollectionList = [];
+        }
+
+        if (response.data && response.data.recent_data_array) {
+            this.liveCollectionList = this.liveCollectionList.concat(response.data.recent_data_array);
+        }
 
         for (let i = 0; i < this.liveCollectionList.length; i++) {
 
