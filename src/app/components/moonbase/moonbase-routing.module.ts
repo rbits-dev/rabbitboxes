@@ -5,11 +5,9 @@ import { ArtistMoonboxComponent } from './ArtistLootBox/artist-moonbox/artist-mo
 import { UpcomingComponent } from './ArtistLootBox/upcoming/upcoming.component';
 import { HistoryComponent } from './history/history.component';
 import { InfoComponent } from './info/info.component';
-import { IntroComponent } from './intro/intro.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { LandingComponent } from './landing/landing.component';
 import { MoonbaseComponent } from './moonbase.component';
-import { PrizePoolComponent } from './prize-pool/prize-pool.component';
 import { NFTCollectionsComponent } from './nftcollections/nftcollections.component';
 
 const routes: Routes = [
@@ -29,14 +27,6 @@ const routes: Routes = [
         path: 'application',
         component: LandingComponent,
         data: { scroll: 'join-application' }
-      },
-      {
-        path: IntroComponent.routeName,
-        component: IntroComponent
-      },
-      {
-        path: PrizePoolComponent.routeName,
-        component: PrizePoolComponent
       },
       {
         path: HistoryComponent.routeName,
