@@ -17,7 +17,6 @@
               <div class="bottom" [ngClass]="{'close-tooltip': !this.isTooltipActive}"
                 (mouseleave)="this.isTooltipActive = true">
                 <div class="row">
-                  <img class="close-button" (click)="closeTooltip()" src="assets/media/icons/moonbase/nav/close.svg">
                   <p>{{ item.tooltip }}</p>
                 </div>
                 <i></i>
@@ -33,7 +32,6 @@
               <div class="bottom" [ngClass]="{'close-tooltip': !this.isTooltipActive}"
                 (mouseleave)="this.isTooltipActive = true">
                 <div class="row">
-                  <img class="close-button" (click)="closeTooltip()" src="assets/media/icons/moonbase/nav/close.svg">
                   <p>Select your Network</p>
                 </div>
                 <i></i>
@@ -142,9 +140,7 @@
         <p><strong class="balance-text">{{ balance }}</strong></p>
       </div>
 
-      <a class="p17 mb20" href="https://rbits.xyz">RBITS</a>
-      <div class="divider mb25"></div>
-      <div class="divider mb25"></div>
+      <a class="p17 mb20" href="https://rbits.xyz">RBITS Home</a>
       <a class="p17 mb20" (click)="toggleTokenomics()">Tokenomics</a>
       <div *ngIf="isConnected" class="divider mb25"></div>
       <div *ngIf="isConnected" class="wallet-address mb25" [cdkCopyToClipboard]=address>
