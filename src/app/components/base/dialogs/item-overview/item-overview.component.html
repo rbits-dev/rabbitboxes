@@ -43,7 +43,7 @@
                 
             </div>
 
-            <table class="wp100 color-white">
+            <table class="wp100 color-white" *ngIf="item['properties'] && item['properties'].length > 0">
                 <thead>
                     <tr>
                         <th>Attribute</th>
