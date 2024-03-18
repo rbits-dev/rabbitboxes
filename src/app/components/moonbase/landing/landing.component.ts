@@ -7,7 +7,7 @@ import smoothscroll from 'smoothscroll-polyfill';
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.scss', './../moonbase.component.scss', './../intro/intro.component.scss']
+  styleUrls: ['./landing.component.scss', './../moonbase.component.scss']
 })
 export class LandingComponent implements OnInit {
 
