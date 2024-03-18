@@ -206,7 +206,7 @@ export class ArtistMoonboxComponent implements OnInit {
       this.moonBoxLimitDetails = await this.walletConnectService.getDetailsMoonboxlimit(this.artistDetails?.walletAddress == environment.ownerAddress ? false : true);
       // console.log(this.moonBoxLimitDetails.length)
       for (let i = 0; i < 4; i++) {
-        this.infoHoverList[i].tooltipText = "You need " + (this.moonBoxLimitDetails[i] / 1e18).toLocaleString('en-us', { minimumFractionDigits: 0 }) + " Moonshot token\nto open a " + this.boxTypes[i] + " MoonBox.";
+        this.infoHoverList[i].tooltipText = "You need " + (this.moonBoxLimitDetails[i] / 1e18).toLocaleString('en-us', { minimumFractionDigits: 0 }) + " RBITS tokens\nto open a " + this.boxTypes[i] + " Rabbit Box.";
       }
     }
 

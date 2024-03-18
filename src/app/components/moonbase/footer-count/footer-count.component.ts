@@ -10,7 +10,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 @Component({
   selector: 'app-footer-count',
   templateUrl: './footer-count.component.html',
-  styleUrls: ['./footer-count.component.scss', './../moonbase.component.scss', './../intro/intro.component.scss']
+  styleUrls: ['./footer-count.component.scss', './../moonbase.component.scss']
 })
 export class FooterCountComponent implements OnInit {
   data: any;

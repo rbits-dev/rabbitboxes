@@ -31,7 +31,6 @@ import { TransferComponent } from './modal-for-transaction/transfer/transfer.com
 import { LandingNftsComponent } from './landing/landing-nfts/landing-nfts.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { InfoMoonboxesComponent } from './info/info-moonboxes/info-moonboxes.component';
-import { JoinApplicationComponent } from './join-application/join-application.component';
 import { NftMigrationComponent } from './dialogs/nft-migration/nft-migration.component';
 import { MaterialModule } from './material/material.module';
 import { DisconnectWalletComponent } from './dialogs/disconnect-wallet/disconnect-wallet.component';
@@ -62,7 +61,6 @@ import { UpgradeNftDialogComponent } from './inventory/upgrade-nft-dialog/upgrad
     TransferComponent,
     LandingNftsComponent,
     InfoMoonboxesComponent,
-    JoinApplicationComponent,
     NftMigrationComponent,
     DisconnectWalletComponent,
     AddUserDialogComponent,
