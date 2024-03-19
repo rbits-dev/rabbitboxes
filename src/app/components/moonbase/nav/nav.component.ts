@@ -56,7 +56,7 @@ export class NavComponent implements OnInit {
       icon: 'assets/media/icons/moonbase/nav/Menu_drops_black.svg',
       alt: 'drops',
       tooltip:
-        'Archived, Now and Next NFT drops.',
+        'Archived, Current and Upcoming NFT drops.',
       click: null,
       routerLink: ['/live'],
       route: '/live',
@@ -140,13 +140,6 @@ export class NavComponent implements OnInit {
 
   ngOnInit(): void {
     this.walletConnectService.init();
-<<<<<<< HEAD
-    this.walletConnectService.updateChainId(parseInt(localStorage.getItem('manual_chainId') ?? "1"));
-    // this.walletConnectService.updateSelectedChainId(parseInt(localStorage.getItem('chainId') ?? "1"));
-
-    console.log(parseInt(localStorage.getItem('manual_chainId') ?? "1"));
-=======
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
 
     this.getNSFWStatus();
 
@@ -264,12 +257,9 @@ export class NavComponent implements OnInit {
   checkNetwork() {
     if( this.ChainId !== undefined && this.ChainId > 0) {
       this.chainName = CHAIN_CONFIGS[this.ChainId].name;
-<<<<<<< HEAD
-=======
     }
     else {
       this.chainName = "Unknown";
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
     }
   }
 

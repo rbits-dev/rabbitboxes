@@ -37,10 +37,7 @@ export class InventoryComponent implements OnInit {
   SwapNftCount: any;
   addressName: any = {};
   nftData: any;
-<<<<<<< HEAD
-=======
   toastr: any;
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
   constructor(
     private walletConnectService: WalletConnectService,
     private httpApi: HttpApiService,
@@ -61,14 +58,6 @@ export class InventoryComponent implements OnInit {
       this.getUserData01();
     });
 
-<<<<<<< HEAD
-    this.walletConnectService
-      .onWalletStateChanged()
-      .subscribe((state: boolean) => {
-        this.isConnected = state;
-      });
-
-=======
     this.isConnected = this.walletConnectService.getWalletState();
 
     this.walletConnectService
@@ -77,7 +66,6 @@ export class InventoryComponent implements OnInit {
         this.isConnected = state;
       });
 
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
     this.walletConnectService.getData().subscribe(async (data: any) => {
       if (this.data === undefined || this.data.address != data.address) {
         this.data = data ?? {};
@@ -233,14 +221,11 @@ export class InventoryComponent implements OnInit {
       },
     });
   }
-<<<<<<< HEAD
-=======
   
 
   cdkCopyToClipboard() {
     this.toastrService.success('Copied to clipboard', 'Success!');
 } 
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
 
   getUserData01() {
     let url = "userDataCount?userAddress=" + this.userAddress;

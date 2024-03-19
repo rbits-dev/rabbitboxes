@@ -1,9 +1,5 @@
 import { Injectable } from "@angular/core";
-<<<<<<< HEAD
-import { BehaviorSubject, Observable, Subject } from "rxjs";
-=======
 import { BehaviorSubject, Observable, Subject, from } from "rxjs";
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
 import { WindowRefService } from "./window-ref.service";
 import { ethers, Wallet } from "ethers";
 import WalletConnectProvider from "@walletconnect/web3-provider";
@@ -12,11 +8,8 @@ import { ToastrService } from "ngx-toastr";
 import { LocalStorageService } from "./local-storage.service";
 import Web3 from "web3";
 import Web3Modal from "Web3Modal";
-<<<<<<< HEAD
-=======
 import { debounce } from "lodash";
 
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
 const SID = require("@siddomains/sidjs").default;
 const SIDfunctions = require("@siddomains/sidjs");
 
@@ -30,43 +23,6 @@ const BRIDGE_ABI = require("./../../assets/abis/BridgeAbi.json");
 const BRIDGE_COLLECTION_ABI = require("./../../assets/abis/BridgeCollectionAddressAbi.json");
 const ArtistNFTAbi = require("./../../assets/abis/ArtistNFTAbi.json");
 const registorAbi = require("../../assets/abis/registorAbi.json");
-<<<<<<< HEAD
-const buyContractAddress = environment.buyContractAddress;
-
-const NETWORK = "binance";
-const config = require("./../../assets/configFiles/configFile.json");
-
-import { CHAIN_CONFIGS } from '../components/base/wallet/connect/constants/blockchain.configs';
-
-//  Create WlletConnect Provider
-const providerOptions = {
-  rpc: {
-    56: providerMainNetURL,
-    97: providerTestNetURL,
-  },
-  network: NETWORK,
-  chainId: providerChainID,
-};
-
-const providerOptionsForRBITS = {
-  walletconnect: {
-    package: WalletConnectProvider,
-    rpc: {
-      1: providerMainNetURL,
-      56: providerMainNetURL,
-      97: providerTestNetURL,
-    },
-    network: NETWORK,
-    chainId: providerChainID,
-  },
-};
-
-const web3Modal = new Web3Modal({
-  theme: "dark",
-  cacheProvider: false, // optional
-  providerOptions: providerOptionsForRBITS, // required
-  disableInjectedProvider: false
-=======
 const config = require("./../../assets/configFiles/configFile.json");
 const MINT_NFT_ABI = require("./../../assets/abis/mintNFTAbi.json");
 import { CHAIN_CONFIGS } from "../components/base/wallet/connect/constants/blockchain.configs";
@@ -92,7 +48,6 @@ const web3Modal = new Web3Modal({
   cacheProvider: false,
   providerOptions: providerOptionsForRBITS,
   disableInjectedProvider: false,
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
 });
 
 @Injectable({
@@ -148,10 +103,6 @@ export class WalletConnectService {
 
   async init(): Promise<boolean> {
     try {
-<<<<<<< HEAD
-      // await this.localStorageService.getAddress();
-=======
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
       var web3Provider = new Web3.providers.HttpProvider(
         environment.providerURL
       );
@@ -174,11 +125,7 @@ export class WalletConnectService {
         config[environment.configFile][1].artistLootBoxAddress
       );
     } catch (e) {
-<<<<<<< HEAD
-      console.log(e);
-=======
       console.log("An error occured", e);
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
     }
 
     const wallet = this.localStorageService.getWallet();
@@ -216,11 +163,6 @@ export class WalletConnectService {
 
   async connectToWallet(origin = 0) {
     const window = this.windowRef.nativeWindow.ethereum;
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
     try {
       if (typeof window !== "undefined" && typeof window !== undefined) {
         await this.windowRef.nativeWindow.ethereum.request({
@@ -231,35 +173,6 @@ export class WalletConnectService {
         );
 
         let currentNetwork = await this.provider.getNetwork();
-<<<<<<< HEAD
-        this.getChainId().subscribe((response) => {
-          this.ChainId = response;
-        });
-
-        console.log("The provider is on the network ", currentNetwork.chainId);
-
-        if (providerChainID.indexOf(currentNetwork.chainId) === -1) {
-          this.toastrService.error(
-            "You are on an unsupported network, please connect with " +
-              this.chainConfigs[this.ChainId]?.name ?? ""
-          );
-          this.setWalletState(false);
-          throw "Wrong network";
-        } else {
-          if (this.ChainId != currentNetwork.chainId) {
-            this.toastrService.error(
-              "You are on the wrong network, please connect with " +
-                this.chainConfigs[this.ChainId]?.name ?? ""
-            );
-            
-            this.setWalletDisconnected();
-            setTimeout( () => {
-              location.reload();
-            }, 3000);
-          } 
-        }
-
-=======
 
         this.getChainId().subscribe((currentChainId) => {
           if (currentChainId === 0) {
@@ -308,7 +221,6 @@ export class WalletConnectService {
         localStorage.setItem("manual_chainId", this.ChainId.toString());
         this.chainId.next(this.ChainId);
 
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
         await this.getAccountAddress();
         this.localStorageService.setWallet(1);
         // Subscribe to accounts change
@@ -325,26 +237,6 @@ export class WalletConnectService {
             }
           }
         );
-<<<<<<< HEAD
-
-        // Subscribe to session disconnection
-        this.windowRef.nativeWindow.ethereum.on(
-          this.CHAIN_CHANGED,
-          async (code: number, reason: string) => {
-            await this.connectToWallet();
-            this.toastrService.info("Network change detected, please wait");
-            setTimeout( () => {
-              location.reload();
-            }, 3000);
-            // alert(code)
-            this.updateSelectedChainId(Number(code));
-            this.setWalletState(true);
-          }
-        );
-
-        // Subscribe to session disconnection
-        this.windowRef.nativeWindow.ethereum.on(
-=======
 
         // Subscribe to network changed event
         this.windowRef.nativeWindow.ethereum.on(
@@ -363,7 +255,6 @@ export class WalletConnectService {
 
         // Subscribe to session disconnection
         this.windowRef.nativeWindow.ethereum.on(
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
           this.DISCONNECT,
           (code: number, reason: string) => {
             // if (provider.close) provider.close();
@@ -432,11 +323,7 @@ export class WalletConnectService {
           this.setWalletDisconnected()
         );
 
-<<<<<<< HEAD
-        // Subscribe to session disconnection
-=======
         // Subscribe to network change event
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
         provider.on(
           this.CHAIN_CHANGED,
           async (code: number, reason: string) => {
@@ -444,14 +331,11 @@ export class WalletConnectService {
             this.setWalletDisconnected();
 
             let currentNetwork = await this.getNetworkChainId();
-<<<<<<< HEAD
-=======
             this.ChainId = currentNetwork as number;
 
             localStorage.setItem("manual_chainId", this.ChainId.toString());
             this.chainId.next(this.ChainId);
 
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
             this.updateSelectedChainId(
               environment.chainId.indexOf(currentNetwork as number)
             );
@@ -541,11 +425,6 @@ export class WalletConnectService {
 
   async spaceAddress(address: any) {
     try {
-<<<<<<< HEAD
-      let chainId = localStorage.getItem("chainId");
-      let rpc = this.chainConfigs[chainId].config.params[0].rpcUrls[0];
-      const provider = new Web3.providers.HttpProvider(rpc);
-=======
       let chainId = this.ChainId;
       if (chainId !== 56) {
         return; //spaceID on BSC
@@ -554,15 +433,10 @@ export class WalletConnectService {
       let rpc = this.chainConfigs[chainId].config.params[0].rpcUrls[0];
       const provider = new Web3.providers.HttpProvider(rpc);
 
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
       this.sid = new SID({
         provider,
         sidAddress: SIDfunctions.getSidAddress(chainId),
       });
-<<<<<<< HEAD
-=======
-
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
       return await this.sid.getName(address);
     } catch (error) {
       console.log(error);
@@ -1153,8 +1027,6 @@ export class WalletConnectService {
     }
   }
 
-<<<<<<< HEAD
-=======
   //LISTEN TO EVENTS OF MINT NFT CONTRACT
   async listenToEvents() {
     let provider;
@@ -1185,7 +1057,6 @@ export class WalletConnectService {
 }
 
 
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
   //HANDLE METAMSK ERROR
   async handleMetamaskError(error) {
     switch (error.code) {
@@ -1195,10 +1066,6 @@ export class WalletConnectService {
       case "ACTION_REJECTED":
         this.toastrService.error(error.reason);
         break;
-<<<<<<< HEAD
-      default:
-        this.toastrService.error("Something went wrong, please try again later.");
-=======
       case -32603:
         this.toastrService.error(error.data ? error.data.message:error.reason);
         break;
@@ -1211,7 +1078,6 @@ export class WalletConnectService {
         this.toastrService.error(
           "Something went wrong, please try again later."
         );
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
         break;
     }
   }

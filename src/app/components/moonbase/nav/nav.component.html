@@ -27,11 +27,7 @@
             <div class="tooltip">
               <img id="dropdwonButton" class="nav-bar-sub-item chain-button contain"
                 [ngStyle]="{'background-color': chainConfigs[ChainId>0 ? ChainId : 1].bg}"
-<<<<<<< HEAD
-                src="{{ chainConfigs[ChainId>0 ? ChainId : 1].icon }}" (click)="toggleChainDropdown()">
-=======
                 src="{{ chainConfigs[ChainId>0 ? ChainId : 1].icon }}" (click)="toggleChainDropdown()" alt="chain-list" >
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
 
               <div class="bottom" [ngClass]="{'close-tooltip': !this.isTooltipActive}"
                 (mouseleave)="this.isTooltipActive = true">
@@ -55,11 +51,7 @@
 
   <nav class="flex-space-between" style="margin-bottom: 0.9rem;">
     <div class="logo-container flex border-0">
-<<<<<<< HEAD
-      <a class="flex-center" [routerLink]="['']">
-=======
       <a href="" class="flex-center" [routerLink]="['']">
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
         <img src="assets/media/images/carrot.webp" alt="">
         <img src="assets/media/images/white_logo.png" alt="" style="width: 156px;">
       </a>

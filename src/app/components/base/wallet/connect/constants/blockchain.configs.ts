@@ -14,7 +14,6 @@ export const CHAIN_CONFIGS: any = {
         {
           chainId: '0x1',
           chainName: 'Ethereum Mainnet',
-
           rpcUrls: ['https://eth.llamarpc.com'], 
           // https://mainnet.infura.io/v3/${INFURA_API_KEY}
           blockExplorerUrls: ['https://etherscan.io/'],

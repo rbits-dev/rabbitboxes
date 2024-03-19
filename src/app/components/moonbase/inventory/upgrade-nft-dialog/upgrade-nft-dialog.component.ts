@@ -1,10 +1,4 @@
 import { Component, OnInit, Inject } from "@angular/core";
-<<<<<<< HEAD
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { HttpApiService } from "src/app/services/http-api.service";
-import { LocalStorageService } from "src/app/services/local-storage.service";
-import { WalletConnectService } from "src/app/services/wallet-connect.service";
-=======
 import {
   MAT_DIALOG_DATA,
   MatDialog,
@@ -12,7 +6,6 @@ import {
 } from "@angular/material/dialog";
 
 import { BridgeTransactionStatusDialogComponent } from "../bridge-transaction-status-dialog/bridge-transaction-status-dialog.component";
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
 
 @Component({
   selector: "app-upgrade-nft-dialog",
@@ -24,20 +17,11 @@ export class UpgradeNftDialogComponent implements OnInit {
   isSelectAll = true;
   tokenIds = [];
   amounts = [];
-<<<<<<< HEAD
-  bridgeNftBtnTxt='Bridge NFT'
-  constructor(
-    private apiService: HttpApiService,
-    private cs: WalletConnectService,
-    @Inject(MAT_DIALOG_DATA) public nftList: any[],
-    private dialogRef: MatDialogRef<UpgradeNftDialogComponent>
-=======
   bridgeNftBtnTxt = "Bridge NFT";
   constructor(
     @Inject(MAT_DIALOG_DATA) public nftList: any[],
     public dialogRef: MatDialogRef<UpgradeNftDialogComponent>,
     private openDialog: MatDialog
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
   ) {}
 
   ngOnInit(): void {
@@ -76,7 +60,6 @@ export class UpgradeNftDialogComponent implements OnInit {
       .map((item) => item.amount);
   }
 
-<<<<<<< HEAD
   //BRIDGE NFT APPROVAL FN
   async handleBridgeNft() {
     try {
@@ -95,7 +78,6 @@ export class UpgradeNftDialogComponent implements OnInit {
       this.bridgeNftBtnTxt='Bridge NFT'
       this.cs.handleMetamaskError(error);
     }
-=======
 
 
   //handle bridge nft status dialog
@@ -108,6 +90,5 @@ export class UpgradeNftDialogComponent implements OnInit {
       },
       disableClose: true,
     });
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
   }
 }

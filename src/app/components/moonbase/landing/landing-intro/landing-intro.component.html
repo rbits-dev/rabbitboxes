@@ -31,13 +31,8 @@
 
     </div>
     <div class="buttons-container">
-      <div class="buy-moonshot-button">
-        <a href=""  [routerLink]="['/live']" class="button">Explore</a>
-      </div>
-      <div class="arrow-down">
-        <div class="round-mini-button" (click)="scrollToElement('', 'landing-nfts')">
-          <mat-icon fontSet="material-icons" class="color-primary">arrow_downward</mat-icon>
-        </div>
+      <div class="just-another-button">
+        <a [routerLink]="['/live']" class="button">Explore</a>
       </div>
     </div>
 
@@ -54,12 +49,9 @@
           </ng-template>
         </ng-container>
       </swiper>
-      <div *ngIf="slides.length === 0" class="flex flex-center" style="max-width: 770px; width: 100vw;">
-        <img class="flex mx-auto" style="margin-bottom: 40px;" src="assets/media/videos/Loading.gif" alt="">
-    </div>
-      <!-- <div class="nft-image-container">
+      <div class="nft-image-container">
         <img src="assets/media/images/moonbox/RbitAstronaut.webp" alt="RbitAstronaut">
-      </div> -->
+      </div>
     </section>
   </div>
 </section>

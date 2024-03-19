@@ -102,11 +102,7 @@
         
             <div class="soldout" *ngIf="supply[i] === 0">Sold Out</div>
            
-<<<<<<< HEAD
-            <a class="buy_button outlined-button mb10 text-inherit"
-=======
             <a href="" class="buy_button outlined-button mb10 text-inherit"
->>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
               [class.disabled]="!hasEnoughMoonshots(i) || supply[i] === 0" (click)="buyMoonBase(i)"
               (mouseover)="infoHoverList[i].isHovered = true" (mouseleave)="infoHoverList[i].isHovered = false">Buy</a>
           </div>

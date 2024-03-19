@@ -8,7 +8,6 @@ import { InfoComponent } from './info/info.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { LandingComponent } from './landing/landing.component';
 import { MoonbaseComponent } from './moonbase.component';
-import { PrizePoolComponent } from './prize-pool/prize-pool.component';
 import { NFTCollectionsComponent } from './nftcollections/nftcollections.component';
 
 const routes: Routes = [
@@ -23,11 +22,6 @@ const routes: Routes = [
       {
         path: 'games',
         component: NFTCollectionsComponent
-      },
-      {
-        path: 'application',
-        component: LandingComponent,
-        data: { scroll: 'join-application' }
       },
       {
         path: HistoryComponent.routeName,
