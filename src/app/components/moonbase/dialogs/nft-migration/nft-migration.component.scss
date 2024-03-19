@@ -152,7 +152,7 @@ display: -webkit-box;
   margin: auto;
 }
 .montserrat {
-  font-family: "Montserrat", sans-serif;;
+  font-family: $primary-font;
 }
 @media (max-width: $md-header) {
 .mr-10 {

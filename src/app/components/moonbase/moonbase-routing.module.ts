@@ -24,6 +24,11 @@ const routes: Routes = [
         component: NFTCollectionsComponent
       },
       {
+        path: 'application',
+        component: LandingComponent,
+        data: { scroll: 'join-application' }
+      },
+      {
         path: HistoryComponent.routeName,
         component: HistoryComponent
       },

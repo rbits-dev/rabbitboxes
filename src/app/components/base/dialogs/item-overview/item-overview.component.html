@@ -16,7 +16,7 @@
                     <a href="{{link}}"  target="_blank" class="outlined-button transfer-button mr10">sell</a>
                 </div>
 
-                <a class="outlined-button transfer-button mr10" (click)="openTransferDialog(item)">Transfer</a>
+                <a href="" class="outlined-button transfer-button mr10" (click)="openTransferDialog(item)">Transfer</a>
 
                 <p (click)="downloadImage(item)">
                     <svg xmlns="http://www.w3.org/2000/svg" class="interactable mr10" viewBox="0 0 49 49">
@@ -43,7 +43,7 @@
                 
             </div>
 
-            <table class="wp100 color-white" *ngIf="item['properties'] && item['properties'].length > 0">
+            <table class="wp100 color-white">
                 <thead>
                     <tr>
                         <th>Attribute</th>

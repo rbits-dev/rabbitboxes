@@ -1,8 +1,11 @@
 import { Component, OnInit, Inject } from "@angular/core";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { HttpApiService } from "src/app/services/http-api.service";
-import { LocalStorageService } from "src/app/services/local-storage.service";
-import { WalletConnectService } from "src/app/services/wallet-connect.service";
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from "@angular/material/dialog";
+
+import { BridgeTransactionStatusDialogComponent } from "../bridge-transaction-status-dialog/bridge-transaction-status-dialog.component";
 
 @Component({
   selector: "app-upgrade-nft-dialog",
@@ -14,12 +17,11 @@ export class UpgradeNftDialogComponent implements OnInit {
   isSelectAll = true;
   tokenIds = [];
   amounts = [];
-  bridgeNftBtnTxt='Bridge NFT'
+  bridgeNftBtnTxt = "Bridge NFT";
   constructor(
-    private apiService: HttpApiService,
-    private cs: WalletConnectService,
     @Inject(MAT_DIALOG_DATA) public nftList: any[],
-    private dialogRef: MatDialogRef<UpgradeNftDialogComponent>
+    public dialogRef: MatDialogRef<UpgradeNftDialogComponent>,
+    private openDialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -58,23 +60,17 @@ export class UpgradeNftDialogComponent implements OnInit {
       .map((item) => item.amount);
   }
 
-  //BRIDGE NFT APPROVAL FN
-  async handleBridgeNft() {
-    try {
-      this.bridgeNftBtnTxt='Bridging...'
-      const isApproval = await this.cs.isApprovalBridgeNFT();
-      if (!isApproval) {
-        const approval = await this.cs.setApprovalBridgeNFT();
-        await approval.wait();
-      }
-      const result = await this.cs.bridgeNFT(this.tokenIds, this.amounts, localStorage.getItem('address'))
-      await result.wait();
-      this.apiService.showToastr("NFTs are bridged successfully", true);
-      this.dialogRef.close();
 
-    } catch (error) {
-      this.bridgeNftBtnTxt='Bridge NFT'
-      this.cs.handleMetamaskError(error);
-    }
+
+  //handle bridge nft status dialog
+  openBridgeNftStatusDialog() {
+    this.openDialog.open(BridgeTransactionStatusDialogComponent, {
+      width: "500px",
+      data: {
+        tokenIds: this.tokenIds,
+        amounts: this.amounts,
+      },
+      disableClose: true,
+    });
   }
 }

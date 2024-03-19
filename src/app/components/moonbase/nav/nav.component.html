@@ -9,10 +9,10 @@
               <ng-template #itemWithRoute>
                 <img class="nav-bar-sub-item" src="{{ item.icon }}"
                   [ngClass]="{'active-icon': this.router.url == '/' ? false : item.route.includes(this.router.url)}"
-                  [routerLink]="item.routerLink" routerLinkActive="router-link-active">
+                  [routerLink]="item.routerLink" routerLinkActive="router-link-active" alt="{{item.routerLink}}">
               </ng-template>
               <ng-template #itemWithClick>
-                <img class="nav-bar-sub-item" (click)=item.click() src="{{ item.icon }}">
+                <img class="nav-bar-sub-item" (click)=item.click() src="{{ item.icon }}" alt="icon">
               </ng-template>
               <div class="bottom" [ngClass]="{'close-tooltip': !this.isTooltipActive}"
                 (mouseleave)="this.isTooltipActive = true">
@@ -27,7 +27,7 @@
             <div class="tooltip">
               <img id="dropdwonButton" class="nav-bar-sub-item chain-button contain"
                 [ngStyle]="{'background-color': chainConfigs[ChainId>0 ? ChainId : 1].bg}"
-                src="{{ chainConfigs[ChainId>0 ? ChainId : 1].icon }}" (click)="toggleChainDropdown()">
+                src="{{ chainConfigs[ChainId>0 ? ChainId : 1].icon }}" (click)="toggleChainDropdown()" alt="chain-list" >
 
               <div class="bottom" [ngClass]="{'close-tooltip': !this.isTooltipActive}"
                 (mouseleave)="this.isTooltipActive = true">
@@ -38,7 +38,7 @@
               </div>
             </div>
             <div id="myDropdown" class="dropdown-content">
-              <a *ngFor="let chain of chains;let i=index" (click)="changeChain(chainConfigs[chain].config,i)"
+              <a href="javascript:void(0);" *ngFor="let chain of chains;let i=index" (click)="changeChain(chainConfigs[chain].config,i)"
                 [class.active]="ChainId == chain">
                 {{ chainConfigs[chain]?.name ?? '' }}
               </a>
@@ -51,7 +51,7 @@
 
   <nav class="flex-space-between" style="margin-bottom: 0.9rem;">
     <div class="logo-container flex border-0">
-      <a class="flex-center" [routerLink]="['']">
+      <a href="" class="flex-center" [routerLink]="['']">
         <img src="assets/media/images/carrot.webp" alt="">
         <img src="assets/media/images/white_logo.png" alt="" style="width: 156px;">
       </a>
@@ -60,7 +60,7 @@
 
     <ul class="menubar flex">
       <li *ngFor="let item of navItems">
-        <a [class.pri-btn]="item?.class == 'pri'" [routerLink]="[item.path]">{{ item.name }}</a>
+        <a href="" [class.pri-btn]="item?.class == 'pri'" [routerLink]="[item.path]">{{ item.name }}</a>
       </li>
     </ul>
     <div class="block flex-center nsfw-and-close-container">
@@ -94,7 +94,7 @@
         </ng-container>
         <ng-template #doNotShowMenuIcon>
           <li class="close-menu">
-            <img src="assets/media/icons/close_bottom-menu_mobile.svg" (click)="closeMenu()">
+            <img src="assets/media/icons/close_bottom-menu_mobile.svg" (click)="closeMenu()" alt="">
           </li>
         </ng-template>
         <ng-template #showMenuIcon>
@@ -141,7 +141,7 @@
       </div>
 
       <a class="p17 mb20" href="https://rbits.xyz">RBITS Home</a>
-      <a class="p17 mb20" (click)="toggleTokenomics()">Tokenomics</a>
+      <a class="p17 mb20" href="" (click)="toggleTokenomics()">Tokenomics</a>
       <div *ngIf="isConnected" class="divider mb25"></div>
       <div *ngIf="isConnected" class="wallet-address mb25" [cdkCopyToClipboard]=address>
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Laag_1"

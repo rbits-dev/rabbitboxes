@@ -8,8 +8,7 @@ import { ToastrService } from "ngx-toastr";
 import { LocalStorageService } from "./local-storage.service";
 import Web3 from "web3";
 import Web3Modal from "Web3Modal";
-import { debounce } from 'lodash';
-
+import { debounce } from "lodash";
 
 const SID = require("@siddomains/sidjs").default;
 const SIDfunctions = require("@siddomains/sidjs");
@@ -25,8 +24,8 @@ const BRIDGE_COLLECTION_ABI = require("./../../assets/abis/BridgeCollectionAddre
 const ArtistNFTAbi = require("./../../assets/abis/ArtistNFTAbi.json");
 const registorAbi = require("../../assets/abis/registorAbi.json");
 const config = require("./../../assets/configFiles/configFile.json");
-
-import { CHAIN_CONFIGS } from '../components/base/wallet/connect/constants/blockchain.configs';
+const MINT_NFT_ABI = require("./../../assets/abis/mintNFTAbi.json");
+import { CHAIN_CONFIGS } from "../components/base/wallet/connect/constants/blockchain.configs";
 
 const providerOptionsForRBITS = {
   walletconnect: {
@@ -38,16 +37,17 @@ const providerOptionsForRBITS = {
 };
 
 // allow WalletConnectProvider to know which RPC endpoints to use for each supported network
-providerChainID.forEach( supportedChainId => {
+providerChainID.forEach((supportedChainId) => {
   //console.log( CHAIN_CONFIGS[ supportedChainId ]?.config.params[0].rpcUrls[0] );
-  providerOptionsForRBITS.walletconnect.rpc[ supportedChainId ] = CHAIN_CONFIGS[ supportedChainId ]?.config.params[0].rpcUrls[0];
+  providerOptionsForRBITS.walletconnect.rpc[supportedChainId] =
+    CHAIN_CONFIGS[supportedChainId]?.config.params[0].rpcUrls[0];
 });
 
 const web3Modal = new Web3Modal({
   theme: "dark",
   cacheProvider: false,
   providerOptions: providerOptionsForRBITS,
-  disableInjectedProvider: false
+  disableInjectedProvider: false,
 });
 
 @Injectable({
@@ -55,7 +55,9 @@ const web3Modal = new Web3Modal({
 })
 export class WalletConnectService {
   chainId: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  private selectedChainId: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  private selectedChainId: BehaviorSubject<number> = new BehaviorSubject<
+    number
+  >(0);
 
   public $timerUp = new BehaviorSubject({});
 
@@ -100,7 +102,6 @@ export class WalletConnectService {
   }
 
   async init(): Promise<boolean> {
-
     try {
       var web3Provider = new Web3.providers.HttpProvider(
         environment.providerURL
@@ -162,7 +163,7 @@ export class WalletConnectService {
 
   async connectToWallet(origin = 0) {
     const window = this.windowRef.nativeWindow.ethereum;
-    
+
     try {
       if (typeof window !== "undefined" && typeof window !== undefined) {
         await this.windowRef.nativeWindow.ethereum.request({
@@ -175,14 +176,14 @@ export class WalletConnectService {
         let currentNetwork = await this.provider.getNetwork();
 
         this.getChainId().subscribe((currentChainId) => {
-          if( currentChainId === 0) {
+          if (currentChainId === 0) {
             currentChainId = currentNetwork.chainId;
           }
 
-          if( providerChainID.indexOf(currentNetwork.chainId) === -1) {
+          if (providerChainID.indexOf(currentNetwork.chainId) === -1) {
             this.toastrService.error(
               "You are on an unsupported network, please select another blockchain."
-              );
+            );
             this.setWalletState(false);
             throw "Wrong network";
           }
@@ -198,7 +199,7 @@ export class WalletConnectService {
 
         if (providerChainID.indexOf(currentNetwork.chainId) === -1) {
           console.log("Wrong network");
-          
+
           this.setWalletState(false);
           this.ChainId = 1;
           this.selectedChainId.next(1);
@@ -210,12 +211,12 @@ export class WalletConnectService {
               "You are on the wrong network, please connect with " +
                 this.chainConfigs[this.ChainId]?.name ?? ""
             );
-            
+
             this.setWalletDisconnected();
             setTimeout( () => {
               location.reload();
             }, 3000);
-          } 
+          }
         } */
 
         localStorage.setItem("manual_chainId", this.ChainId.toString());
@@ -238,7 +239,6 @@ export class WalletConnectService {
           }
         );
 
-
         // Subscribe to network changed event
         this.windowRef.nativeWindow.ethereum.on(
           this.CHAIN_CHANGED,
@@ -253,7 +253,6 @@ export class WalletConnectService {
             this.setWalletState(true);
           }, 1500) // Debounce for 1 second
         );
-        
 
         // Subscribe to session disconnection
         this.windowRef.nativeWindow.ethereum.on(
@@ -291,18 +290,17 @@ export class WalletConnectService {
         this.provider = new ethers.providers.Web3Provider(provider);
         await provider.enable();
 
-        
         let currentNetwork = await this.provider.getNetwork();
 
         this.getChainId().subscribe((currentChainId) => {
-          if( currentChainId === 0) {
+          if (currentChainId === 0) {
             currentChainId = currentNetwork.chainId;
           }
 
-          if( providerChainID.indexOf(currentNetwork.chainId) === -1) {
+          if (providerChainID.indexOf(currentNetwork.chainId) === -1) {
             this.toastrService.error(
               "You are on an unsupported network, please select another blockchain"
-              );
+            );
             this.setWalletState(false);
             throw "Wrong network";
           }
@@ -312,7 +310,6 @@ export class WalletConnectService {
 
           localStorage.setItem("manual_chainId", this.ChainId.toString());
         });
-
 
         await this.getAccountAddress();
         this.localStorageService.setWallet(2);
@@ -350,7 +347,7 @@ export class WalletConnectService {
 
         if (origin === 0) location.reload();
       } catch (e) {
-        console.log("There was an error",e );
+        console.log("There was an error", e);
         this.setWalletDisconnected();
         location.reload(); // FIXME: Without reloading the page, the WalletConnect modal does not open again after closing it
       }
@@ -366,7 +363,7 @@ export class WalletConnectService {
     var chainId = await this.chainId.value;
 
     this.localStorageService.setAddress(address);
-//    this.updateSelectedChainId(network?.chainId);
+    //    this.updateSelectedChainId(network?.chainId);
 
     if (network?.chainId == chainId) {
       let index = environment.chainId.indexOf(chainId ?? 1);
@@ -433,21 +430,20 @@ export class WalletConnectService {
       if (chainId !== 56) {
         return; //spaceID on BSC
       }
-  
+
       let rpc = this.chainConfigs[chainId].config.params[0].rpcUrls[0];
       const provider = new Web3.providers.HttpProvider(rpc);
-  
+
       this.sid = new SID({
         provider,
         sidAddress: SIDfunctions.getSidAddress(chainId),
       });
-  
+
       return await this.sid.getName(address);
     } catch (error) {
       console.log(error);
     }
   }
-  
 
   async registorCheck(data: {
     name: string;
@@ -1033,6 +1029,36 @@ export class WalletConnectService {
     }
   }
 
+  //LISTEN TO EVENTS OF MINT NFT CONTRACT
+  async listenToEvents() {
+    let provider;
+    let providerIndex = 0;
+
+    while (!provider && providerIndex < environment.providerURLForEth.length) {
+        try {
+            provider = new ethers.providers.JsonRpcProvider(environment.providerURLForEth[providerIndex]);
+            await provider.getBlockNumber(); // Test if provider is working
+        } catch (error) {
+            console.error(`JSON-RPC provider at index ${providerIndex} failed.`);
+            provider = null; // Reset provider to try the next one
+            providerIndex++;
+        }
+    }
+
+    if (!provider) {
+        throw new Error("All JSON-RPC providers failed.");
+    }
+
+    const contract = new ethers.Contract(environment.mintNFTAddress, MINT_NFT_ABI, provider);
+
+    return new Promise((resolve, reject) => {
+        contract.on('ReceiveNFT', (from, to, id, amount, event) => {
+            resolve(event);
+        });
+    });
+}
+
+
   //HANDLE METAMSK ERROR
   async handleMetamaskError(error) {
     switch (error.code) {
@@ -1042,12 +1068,18 @@ export class WalletConnectService {
       case "ACTION_REJECTED":
         this.toastrService.error(error.reason);
         break;
-      case "-32603":
+      case -32603:
+        this.toastrService.error(error.data ? error.data.message:error.reason);
+        break;
       case "OUT_OF_GAS":
-        this.toastrService.error("You don't have enough to cover the gas fees.");
+        this.toastrService.error(
+          "You don't have enough to cover the gas fees."
+        );
         break;
       default:
-        this.toastrService.error("Something went wrong, please try again later.");
+        this.toastrService.error(
+          "Something went wrong, please try again later."
+        );
         break;
     }
   }

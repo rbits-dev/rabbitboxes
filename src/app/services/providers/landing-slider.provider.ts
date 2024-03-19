@@ -43,7 +43,6 @@ export class LandingSliderProvider {
 
             await this.httpService.getRandomCollectionImageListFromArtist(this.liveCollectionList[i].walletAddress)
                 .then((res) => {
-                  debugger
                     for (let j = 0; j < 5; j++) {
                         if (res.data[j] !== undefined)
                             if (!res.data[j].logo_path.includes('.mp4') && !res.data[j].logo_path.includes('.gif'))
@@ -68,17 +67,17 @@ export class LandingSliderProvider {
         const filename = splitUrl.pop();
         const collectionName = splitUrl.pop();
         const partsBeforeFilename = splitUrl.join('/');
-    
+
         if (filename && filename.includes('.')) {
             const ext = filename.split('.').pop() || '';
             const filenameWithoutExt = filename.slice(0, -ext.length - 1);
             const previewImage = `${partsBeforeFilename}/previews/${collectionName}/${filenameWithoutExt}.webp`;
             //console.log(previewImage);
             return previewImage;
-        } 
+        }
         return `${partsBeforeFilename}/previews/${collectionName}/${filename}`;
     }
-    
+
     shuffleList(list: any[]): any[] {
         for (let i = list.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));

@@ -31,6 +31,7 @@ import { TransferComponent } from './modal-for-transaction/transfer/transfer.com
 import { LandingNftsComponent } from './landing/landing-nfts/landing-nfts.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { InfoMoonboxesComponent } from './info/info-moonboxes/info-moonboxes.component';
+import { JoinApplicationComponent } from './join-application/join-application.component';
 import { NftMigrationComponent } from './dialogs/nft-migration/nft-migration.component';
 import { MaterialModule } from './material/material.module';
 import { DisconnectWalletComponent } from './dialogs/disconnect-wallet/disconnect-wallet.component';
@@ -39,6 +40,7 @@ import { TimerPopUPComponent } from './ArtistLootBox/upcoming/timer-pop-up/timer
 import { ArtistMoonboxRouteComponent } from './artist-moonbox-route/artist-moonbox-route.component';
 import { NFTCollectionsComponent } from './nftcollections/nftcollections.component';
 import { UpgradeNftDialogComponent } from './inventory/upgrade-nft-dialog/upgrade-nft-dialog.component';
+import { BridgeTransactionStatusDialogComponent } from './inventory/bridge-transaction-status-dialog/bridge-transaction-status-dialog.component';
 
 
 @NgModule({
@@ -61,12 +63,14 @@ import { UpgradeNftDialogComponent } from './inventory/upgrade-nft-dialog/upgrad
     TransferComponent,
     LandingNftsComponent,
     InfoMoonboxesComponent,
+    JoinApplicationComponent,
     NftMigrationComponent,
     DisconnectWalletComponent,
     AddUserDialogComponent,
     TimerPopUPComponent,
     ArtistMoonboxRouteComponent,
     UpgradeNftDialogComponent,
+    BridgeTransactionStatusDialogComponent
   ],
   imports: [
     MatIconModule,

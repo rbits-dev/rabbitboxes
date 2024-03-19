@@ -37,6 +37,7 @@ export class InventoryComponent implements OnInit {
   SwapNftCount: any;
   addressName: any = {};
   nftData: any;
+  toastr: any;
   constructor(
     private walletConnectService: WalletConnectService,
     private httpApi: HttpApiService,
@@ -220,6 +221,11 @@ export class InventoryComponent implements OnInit {
       },
     });
   }
+  
+
+  cdkCopyToClipboard() {
+    this.toastrService.success('Copied to clipboard', 'Success!');
+} 
 
   getUserData01() {
     let url = "userDataCount?userAddress=" + this.userAddress;

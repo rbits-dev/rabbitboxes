@@ -82,7 +82,7 @@ swiper {
         margin-right: 100px;
     }
     .info-text {
-        font-family:"Montserrat", sans-serif;;
+        font-family: $primary-font;
         font-size: 16px;
         font-weight: 500;
         line-height: 1.69;
@@ -93,7 +93,7 @@ swiper {
     .bottom {
         margin-right: 100px;
     }
-    .just-another-button {
+    .buy-moonshot-button {
         position: relative;
         z-index: 0;
         display: flex;
