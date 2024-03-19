@@ -7,11 +7,11 @@
 
 .connect_popup {
   background: #090d16;
-  border-top: 6px solid #d5a642;
+  border-top: 6px solid #5e2466;
 }
 
 .border-thick:hover {
-  border-bottom: 4px solid #d5a642;
+  border-bottom: 4px solid #5e2466;
 }
 
 .border-thick {
@@ -46,7 +46,7 @@
 }
 
 .desc {
-  color: $primary;
+  color: $text-color;
   margin-top: 20px;
   font-size: 16px;
   font-weight: 500;
@@ -133,7 +133,7 @@ display: -webkit-box;
   img {
     width: calc(100% - 10px);
     height: 100px;
-    border: 1px solid #d5a642;
+    border: 1px solid #5e2466;
     padding: 4px;
     object-fit: cover;
   }
@@ -152,7 +152,7 @@ display: -webkit-box;
   margin: auto;
 }
 .montserrat {
-  font-family: $primary-font;
+  font-family: "Montserrat", sans-serif;;
 }
 @media (max-width: $md-header) {
 .mr-10 {

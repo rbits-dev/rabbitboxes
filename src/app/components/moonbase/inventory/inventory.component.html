@@ -1,48 +1,121 @@
 <section class="custom-scroller">
-    <div *ngIf="!inventoryList" class="flex-center main-message-container w-100 h-100 text-center pa20">
-        {{mainMessage}}
-        <div *ngIf="mainMessage === messages.IDLE && isConnected; else loggedOut">
-            <img class="absolute-center" src="assets/media/videos/Loading.gif" alt="loading" />
+  <div
+    *ngIf="!inventoryList"
+    class="flex-center main-message-container w-100 h-100 text-center pa20"
+  >
+    {{mainMessage}}
+    <div *ngIf="mainMessage === messages.IDLE && isConnected; else loggedOut">
+      <img
+        class="absolute-center"
+        src="assets/media/videos/Loading.gif"
+        alt="loading"
+      />
+      <p class="absolute-center" style="top:65%;">Loading ...</p>
+    </div>
+
+    <ng-template #loggedOut>
+      <p *ngIf="!isConnected"
+        class="absolute-center fade-in-delayed pointer"
+        (click)="openWalletDialog()"
+      >
+        Please connect your wallet
+      </p>
+    </ng-template>
+  </div>
+
+  <div *ngIf="data?.address" class="address-container flex-center mt40 mb40" style="flex-wrap: wrap;">
+    <p class="color-primary mr10 p18 bold">Your address:</p>
+    <ul class="flex">
+      <li class="flex" [cdkCopyToClipboard]="data?.address">
+        <p class="clipboard break-auto color-primary mobile-only">
+          {{data?.address?.slice(0,4)+"....."+data?.address?.slice(-4)}}
+        </p>
+        <p
+          class="clipboard break-auto color-primary desktop-only"
+          *ngIf="!addressName?.name"
+        >
+          {{data?.address}}
+        </p>
+        <p
+          class="clipboard break-auto color-primary desktop-only"
+          *ngIf="addressName?.name"
+        >
+          {{addressName.name}}
+        </p>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 115.8 128.8"
+          class="copy-icon"
+        >
+          <path
+            d="M89.6 14v13.6h12.2c3.8 0 7.3 1.6 9.9 4.1 2.5 2.5 4.1 6 4.1 9.8v73.3c0 3.8-1.6 7.3-4.1 9.9-2.5 2.5-6 4.1-9.8 4.1H40.1c-3.8 0-7.3-1.6-9.9-4.1-2.5-2.5-4.1-6-4.1-9.8V98.4H14c-3.8 0-7.3-1.6-9.9-4.1-2.5-2.5-4.1-6-4.1-9.8V14c0-3.8 1.6-7.3 4.1-9.9 2.5-2.5 6-4.1 9.8-4.1h61.7c3.8 0 7.3 1.6 9.9 4.1 2.5 2.5 4.1 6 4.1 9.9zM79 27.6V14c0-.9-.4-1.8-1-2.4-.6-.6-1.5-1-2.4-1H14c-.9 0-1.8.4-2.4 1-.6.6-1 1.5-1 2.4v70.5c0 .9.4 1.8 1 2.4.6.6 1.5 1 2.4 1h12.2V41.5c0-3.8 1.6-7.3 4.1-9.9 2.5-2.5 6-4.1 9.8-4.1l38.9.1zm26.2 87.2V41.5c0-.9-.4-1.8-1-2.4-.6-.6-1.5-1-2.4-1H40.1c-.9 0-1.8.4-2.4 1-.6.6-1 1.5-1 2.4v73.3c0 .9.4 1.8 1 2.4.6.6 1.5 1 2.4 1h61.7c.9 0 1.8-.4 2.4-1 .6-.6 1-1.5 1-2.4z"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            fill="#5e2466"
+          />
+        </svg>
+      </li>
+      <div class="text-center ml10" *ngIf="nftData && nftData.length>0">
+        <button
+          (click)="openUpgradeNftDialog()"
+          class="view-detail-button outlined-button text-inherit"
+        >
+          Upgrade NFT
+        </button>
+      </div>
+    </ul>
+  </div>
+
+  <div class="inner flex-wrap">
+    <ng-container
+      *ngFor="let item of inventoryList; let i = index; trackBy: trackByFn;"
+    >
+      <div
+        class="box flex-center col pb100"
+        *ngIf="!(this.NSFWToggleState && item['NSFW'])"
+      >
+        <div
+          class="relative nft_img"
+          *ngIf="fileTypeIsImage(item['logo_path'])"
+        >
+          <img src="{{ item['logo_path'] }}" class="img-fluid" alt="" />
         </div>
 
-        <ng-template #loggedOut>
-            <p class="absolute-center fade-in-delayed pointer" (click)="openWalletDialog()">Please connect your wallet</p>
-        </ng-template>
-    </div>
+        <div
+          class="relative nft_img"
+          *ngIf="!fileTypeIsImage(item['logo_path'])"
+        >
+          <video
+            class="img-fluid"
+            loop
+            autoplay
+            playsinline
+            oncanplay="this.play()"
+            onloadedmetadata="this.muted = true"
+          >
+            <source src="{{ item['logo_path'] }}" />
+          </video>
+        </div>
 
-    <div *ngIf="data?.address" class="address-container flex-center mt40 mb40">
-        <p class="color-primary mr10 p18 bold">Wallet:</p>
-        <ul class="flex">
-            <li class="flex" [cdkCopyToClipboard]=data?.address>
-                <p class="clipboard break-auto color-primary mobile-only">{{data?.address.slice(0,4)+"....."+data?.address.slice(-4)}}</p>
-                <p class="clipboard break-auto color-primary desktop-only">{{data?.address}}</p>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 115.8 128.8" class="copy-icon"><path d="M89.6 14v13.6h12.2c3.8 0 7.3 1.6 9.9 4.1 2.5 2.5 4.1 6 4.1 9.8v73.3c0 3.8-1.6 7.3-4.1 9.9-2.5 2.5-6 4.1-9.8 4.1H40.1c-3.8 0-7.3-1.6-9.9-4.1-2.5-2.5-4.1-6-4.1-9.8V98.4H14c-3.8 0-7.3-1.6-9.9-4.1-2.5-2.5-4.1-6-4.1-9.8V14c0-3.8 1.6-7.3 4.1-9.9 2.5-2.5 6-4.1 9.8-4.1h61.7c3.8 0 7.3 1.6 9.9 4.1 2.5 2.5 4.1 6 4.1 9.9zM79 27.6V14c0-.9-.4-1.8-1-2.4-.6-.6-1.5-1-2.4-1H14c-.9 0-1.8.4-2.4 1-.6.6-1 1.5-1 2.4v70.5c0 .9.4 1.8 1 2.4.6.6 1.5 1 2.4 1h12.2V41.5c0-3.8 1.6-7.3 4.1-9.9 2.5-2.5 6-4.1 9.8-4.1l38.9.1zm26.2 87.2V41.5c0-.9-.4-1.8-1-2.4-.6-.6-1.5-1-2.4-1H40.1c-.9 0-1.8.4-2.4 1-.6.6-1 1.5-1 2.4v73.3c0 .9.4 1.8 1 2.4.6.6 1.5 1 2.4 1h61.7c.9 0 1.8-.4 2.4-1 .6-.6 1-1.5 1-2.4z" fill-rule="evenodd" clip-rule="evenodd" fill="#d5a642"/></svg>
-            </li>
-        </ul>
-    </div>
+        <div class="item-details text-center">
+          <p class="item-name p-white-span-primary p16d14m mb30 mt20">
+            {{ item["name"] }}
+          </p>
+          <button
+            (click)="viewDetails(item, i)"
+            class="view-detail-button outlined-button text-inherit"
+          >
+            View details
+          </button>
+        </div>
+      </div>
+    </ng-container>
 
-    <div class="inner flex-wrap">
-        <ng-container *ngFor="let item of inventoryList; let i = index; trackBy: trackByFn;">
-            <div class="box flex-center col pb100" *ngIf="!(this.NSFWToggleState && item['NSFW'])">
-
-                <div class="relative nft_img" *ngIf="fileTypeIsImage(item['logo_path'])">
-                    <img src="{{ item['logo_path'] }}" class="img-fluid" alt="" />
-                </div>
-
-                <div class="relative nft_img" *ngIf="!fileTypeIsImage(item['logo_path'])">
-                    <video class="img-fluid" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true">
-              <source src="{{ item['logo_path'] }}" />
-            </video>
-                </div>
-
-                <div class="item-details text-center">
-                    <p class="item-name p-white-span-primary p16d14m mb30 mt20">{{ item["name"] }}</p>
-                    <button (click)="viewDetails(item, i)" class="view-detail-button outlined-button text-inherit">View details</button>
-                </div>
-            </div>
-        </ng-container>
-
-        
-        <p *ngIf="inventoryList && inventoryList.length === 0" class="absolute-center">No inventory data found</p>
-    </div>
+    <p
+      *ngIf="inventoryList && inventoryList.length === 0"
+      class="absolute-center"
+    >
+      No inventory data found
+    </p>
+  </div>
 </section>

@@ -3,14 +3,15 @@
 
 </div>
 <div id="footer-count-container" class="info flex4">
-  <div [ngClass]="{'bg-black':bgChange}" class="desktop-bottom-count shape text-center bottom flex ph50">
+  <div class="desktop-bottom-count shape text-center bottom flex ph50">
+  <!-- <div [ngClass]="{'bg-black':bgChange}" class="desktop-bottom-count shape text-center bottom flex ph50"> -->
 
     <div class="flex1 no-padding">
       <p class="p-white-span-primary">
-        <span class="p12">TIER</span>
+        <span class="p12" style="color: white;">TIER</span>
       </p>
       <p class="p-white-span-primary">
-        <span>
+        <span style="color: white;">
           <strong>
             {{eligibleTier}}
           </strong>
@@ -19,19 +20,19 @@
     </div>
     <div class="flex1 no-padding down_box">
       <p class="p12 mt-15">
-        <span>MOONSHOT BALANCE</span>
+        <span style="color: white;">RBITS BALANCE</span>
       </p>
 
-      <p>
+      <p style="color: white;">
         <strong>
           {{balance}}
         </strong>
       </p>
     </div>
     <div class="flex1 no-padding">
-      <p class="p12 p-white-span-primary"><span>TOTAL NFTS</span></p>
-      <p class="p-white-span-primary">
-        <span>
+      <p class="p12 p-white-span-primary" ><span style="color: white;">TOTAL NFTS</span></p>
+      <p class="p-white-span-primary" style="color: white;">
+        <span style="color: white;">
           <strong>
             {{moonCountData === undefined ? "-" : moonCountData.nftTotal}}
           </strong>
@@ -47,7 +48,7 @@
 
 <section class="mobile-only footer_menu tab-only navigation">
   <div class="desktop-bottom-count flex1 no-padding shape_down_box">
-    <p class="p12 mt-15"><span>Moonshot Balance</span></p>
+    <p class="p12 mt-15"><span>RBITS Balance</span></p>
     <p><strong class="p14">Awaiting Connection</strong></p>
   </div>
 
@@ -61,7 +62,7 @@
           <desc>Created with Sketch.</desc>
           <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <path d="M0,0 L32,0 L32,3 L0,3 L0,0 Z M0,11 L32,11 L32,14 L0,14 L0,11 Z M0,22 L32,22 L32,25 L0,25 L0,22 Z"
-              id="Combined-Shape" fill="#D5A642"></path>
+              id="Combined-Shape" fill="#5e2466"></path>
           </g>
         </svg>
       </li>

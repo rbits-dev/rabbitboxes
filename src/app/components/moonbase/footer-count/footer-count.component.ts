@@ -10,7 +10,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 @Component({
   selector: 'app-footer-count',
   templateUrl: './footer-count.component.html',
-  styleUrls: ['./footer-count.component.scss', './../moonbase.component.scss', './../intro/intro.component.scss']
+  styleUrls: ['./footer-count.component.scss', './../moonbase.component.scss']
 })
 export class FooterCountComponent implements OnInit {
   data: any;
@@ -42,7 +42,7 @@ export class FooterCountComponent implements OnInit {
         this.isConnected = true;
         // this.localStorage.get();
         // if (this.data.networkId.chainId == environment.chainId[0]) {
-        this.getMoonShootBalance();
+        this.getRBITSBalance();
         // }
       }
     });
@@ -66,7 +66,7 @@ export class FooterCountComponent implements OnInit {
     }
   }
 
-  async getMoonShootBalance() {
+  async getRBITSBalance() {
 
     const balance = await this.walletConnectService.getUserBalance(this.data.address);
 

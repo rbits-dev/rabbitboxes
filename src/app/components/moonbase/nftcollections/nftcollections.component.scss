@@ -1,0 +1,24 @@
+.nftbox{
+    border: 2px solid #5e2466;
+    padding: 24px;
+}
+
+.game_img {
+    width: 342px;
+    height: 250px;
+    border: 2px solid #5e2466;
+}
+.game_img img{
+width: 100%;
+}
+.scroller {
+   /* padding-top: 10rem;
+    padding-bottom: 10rem; */
+}
+
+@media only screen and (max-width: 62.5rem){
+    .scroller > div {
+        align-self: flex-start;
+        padding-top: 4rem;
+    }
+}

@@ -1,10 +1,11 @@
-import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
 import { TransferComponent } from 'src/app/components/moonbase/modal-for-transaction/transfer/transfer.component';
 import { Observable, Observer } from 'rxjs';
 import { SocialShareComponent } from 'src/app/components/moonbase/modal-for-transaction/social-share/social-share.component';
 import { WalletConnectService } from 'src/app/services/wallet-connect.service';
 import { environment } from 'src/environments/environment';
+import openseaLink from '../../../../../assets/abis/openseaLink.json'
 
 @Component({
   selector: 'app-item-overview',
@@ -15,11 +16,14 @@ export class ItemOverviewComponent implements OnInit {
 
   item: any;
   chainId: number;
-  moonseaChainId: number;
-
+  openseaChainId: number;
+  openseaList :any[] = openseaLink;
+  link :any='';
+  notAvailableNetworkonOpnenSea = [287,4,568,1285,2000,1]
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog,
+    public dialogRef: MatDialogRef<ItemOverviewComponent>,
     public walletConnectService: WalletConnectService,
   ) {
     this.item = data;
@@ -29,15 +33,25 @@ export class ItemOverviewComponent implements OnInit {
     this.walletConnectService.init();
     this.walletConnectService.getChainId().subscribe((data) => {
       this.chainId = data;
+      openseaLink.forEach((element)=>{
+        if(element.chainId == this.chainId){
+          this.link = `${element.link}${this.item.ArtistNFTAddress}/${this.item.nftId}${this.notAvailableNetworkonOpnenSea.includes(this.chainId) ? +'/'+ this.openseaChainId : ''}`;
+        }
+      })
+
+      // console.log(this.link);
+
+      //
+
       if (environment.chainId.indexOf(this.chainId) == -1) {
-        this.moonseaChainId=1;
-        debugger
+        this.openseaChainId=1;
+        //
       }
       else
       {
         let index = environment.chainId.indexOf(this.chainId);
-        this.moonseaChainId=environment.moonSeaChinIds[index];
-        debugger
+        this.openseaChainId=environment.openseaChainIds[index];
+        //
       }
     });
   }

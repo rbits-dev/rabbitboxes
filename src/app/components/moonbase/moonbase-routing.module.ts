@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ArtistMoonboxRouteComponent } from './artist-moonbox-route/artist-moonbox-route.component';
 import { ArtistMoonboxComponent } from './ArtistLootBox/artist-moonbox/artist-moonbox.component';
 import { UpcomingComponent } from './ArtistLootBox/upcoming/upcoming.component';
 import { HistoryComponent } from './history/history.component';
 import { InfoComponent } from './info/info.component';
-import { IntroComponent } from './intro/intro.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { LandingComponent } from './landing/landing.component';
 import { MoonbaseComponent } from './moonbase.component';
-import { PrizePoolComponent } from './prize-pool/prize-pool.component';
-import { RarityComponent } from './rarity/rarity.component';
+import { NFTCollectionsComponent } from './nftcollections/nftcollections.component';
 
 const routes: Routes = [
   {
@@ -21,17 +20,8 @@ const routes: Routes = [
         component: LandingComponent
       },
       {
-        path: 'application',
-        component: LandingComponent,
-        data: { scroll: 'join-application' }
-      },
-      {
-        path: IntroComponent.routeName,
-        component: IntroComponent
-      },
-      {
-        path: PrizePoolComponent.routeName,
-        component: PrizePoolComponent
+        path: 'games',
+        component: NFTCollectionsComponent
       },
       {
         path: HistoryComponent.routeName,
@@ -41,9 +31,19 @@ const routes: Routes = [
         path: InventoryComponent.routeName,
         component: InventoryComponent
       },
+      ///////////////////////////////////////////////original Route
       {
         path: ArtistMoonboxComponent.routeName,
         component: ArtistMoonboxComponent
+      },
+      ///////////////////////////////////////////////
+      {
+        path:ArtistMoonboxRouteComponent.artistOptionalRoute,
+        component:ArtistMoonboxRouteComponent
+      },
+      {
+        path:ArtistMoonboxRouteComponent.artistOptionalRoute,
+        component:ArtistMoonboxRouteComponent
       },
       {
         path: UpcomingComponent.routeName,
@@ -59,10 +59,6 @@ const routes: Routes = [
         path: 'recent',
         component: UpcomingComponent,
         data: { activeTab: 3 }
-      },
-      {
-        path: RarityComponent.routeName,
-        component: RarityComponent
       },
       {
         path: InfoComponent.routeName,

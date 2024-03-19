@@ -5,7 +5,6 @@ import { map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { ArtistMoonbox } from '../models/artist-moonbox.model';
-
 import { plainToClass } from 'class-transformer';
 import { AdminMoonbox } from '../models/admin-moonbox.model';
 
@@ -35,15 +34,17 @@ export class HttpApiService {
 
   constructor(
     private httpClient: HttpClient,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
   ) {
-    // debugger
-    this.chainId = localStorage.getItem('manual_chainId') ?? "56";
+
+    this.chainId = localStorage.getItem('manual_chainId') ?? "1";
 
     this.headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('APPKEY', 'mTb+T!5!crBEQEL2!$PJ9&JSjeT3M6Hs*RytA-eaDSBS5UU@8-fCJHu6F?kp@s+JTu2-_-V8L#?5')
       .set('blockchainId', `${this.chainId}`);
+
+    console.log("Using chainId in HTTP API calls: ", this.chainId);
   }
 
   submitBet(data: any): Observable<any> {
@@ -125,16 +126,28 @@ export class HttpApiService {
     return this.httpClient.get(url, { headers: this.headers, params }).toPromise();
   }
 
-  getArtistMoonboxData(artistWalletAddress: string, userAddress: string): Observable<ArtistMoonbox> {
+  getArtistMoonboxData(artistWalletAddress: string, userAddress: string): Promise<any> {
     const params = { artistWalletAddress, userAddress };
     const url = `${baseURL}getArtistMoonboxData`;
+    let promise = new Promise((resolve, reject) => {
+      this.httpClient.get(url, { headers: this.headers, params })
+        .pipe(map((r: Response) => plainToClass(ArtistMoonbox, r))).subscribe({
+          next: (res: any) => {
+            resolve(res)
+          },
+          error:(err)=>{
+            reject(err)
+          }
+        });
+    })
 
-    return this.httpClient.get(url, { headers: this.headers, params })
-      .pipe(map((r: Response) => plainToClass(ArtistMoonbox, r)));
+    return promise;
+
   }
 
   getRandomCollectionImageListFromArtist(artistAddress: string): Promise<any> {
     const params = { artistAddress: artistAddress };
+    //
     const url = `${baseURL}randCollectionImageListArtist`;
 
     return this.httpClient.get(url, { headers: this.headers, params }).toPromise();
@@ -207,7 +220,11 @@ export class HttpApiService {
     return this.httpClient.post(url, body, { headers: this.headers });
   }
 
-  
+  upgradeNftInfo(data:{walletAddress:string}) {
+    const url = `${baseURL}upgradeNftInfo?userAddress=${data.walletAddress}`;
+    return this.httpClient.get(url,{headers:this.headers});
+  }
+
 
 
 }

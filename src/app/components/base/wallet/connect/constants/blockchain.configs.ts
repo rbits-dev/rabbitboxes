@@ -1,12 +1,32 @@
+import { utils } from "ethers";
+
 export const CHAIN_CONFIGS: any = {
-  // "1": {
-  //   "name": "Ethereum Mainnet",
-  //   "explorerLink": "https://bscscan.com/address/",
-  //   "icon": "assets/media/images/blockchain/eth.webp",
-  //   "bg": "black",
-  // },
+
+  '1': {
+    name: 'Ethereum Mainnet',
+    icon: 'assets/media/images/blockchain/eth.webp',
+    explorerLink: 'https://etherscan.io/address/',
+    bg: 'white',
+    symbol: 'ETH',
+    config: {
+      method: 'wallet_addEthereumChain',
+      params: [
+        {
+          chainId: '0x1',
+          chainName: 'Ethereum Mainnet',
+          rpcUrls: ['https://eth.llamarpc.com'], 
+          // https://mainnet.infura.io/v3/${INFURA_API_KEY}
+          blockExplorerUrls: ['https://etherscan.io/'],
+          nativeCurrency: {
+            symbol: 'ETH',
+            decimals: 18,
+          },
+        },
+      ],
+    },
+  },
   '1285': {
-    name: 'Moonriver Mainnet',
+    name: 'Moonriver',
     explorerLink: 'https://moonriver.moonscan.io/address/',
     icon: 'assets/media/images/blockchain/MOVR.svg',
     bg: 'black',
@@ -18,7 +38,7 @@ export const CHAIN_CONFIGS: any = {
           chainId: '0x505',
           chainName: 'Moonriver',
           nativeCurrency: {
-            symbol: 'BNB',
+            symbol: 'MOVR',
             decimals: 18,
           },
           rpcUrls: ['https://rpc.api.moonriver.moonbeam.network'],
@@ -32,25 +52,25 @@ export const CHAIN_CONFIGS: any = {
     explorerLink: 'https://testnet.bscscan.com/address/',
     icon: 'assets/media/images/blockchain/BSC.svg',
     bg: 'black',
-    symbol: 'BNB',
+    symbol: 'tBNB',
     config: {
       method: 'wallet_addEthereumChain',
       params: [
         {
           chainId: '0x61',
-          chainName: 'BSC Testnet',
+          chainName: 'BNB Smart Chain Testnet',
           nativeCurrency: {
-            symbol: 'BNB',
+            symbol: 'tBNB',
             decimals: 18,
           },
-          rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545'],
-          blockExplorerUrls: ['https://explorer.binance.org/smart-testnet'],
+          rpcUrls: ['https://data-seed-prebsc-2-s1.bnbchain.org:8545'],
+          blockExplorerUrls: ['https://testnet.bscscan.com/'],
         },
       ],
     },
   },
   '56': {
-    name: 'BSC Mainnet',
+    name: 'BNB Smart Chain Mainnet',
     explorerLink: 'https://bscscan.com/address/',
     icon: 'assets/media/images/blockchain/BSC.svg',
     bg: 'black',
@@ -60,12 +80,12 @@ export const CHAIN_CONFIGS: any = {
       params: [
         {
           chainId: '0x38',
-          chainName: 'BSC',
+          chainName: 'BNB Smart Chain Mainnet',
           nativeCurrency: {
             symbol: 'BNB',
             decimals: 18,
           },
-          rpcUrls: ['https://bsc-dataseed.binance.org'],
+          rpcUrls: ['https://bsc-dataseed1.bnbchain.org'],
           blockExplorerUrls: ['https://bscscan.com'],
         },
       ],
@@ -87,8 +107,8 @@ export const CHAIN_CONFIGS: any = {
             symbol: 'MATIC',
             decimals: 18,
           },
-          rpcUrls: ['https://rpc-mainnet.matic.network'],
-          blockExplorerUrls: ['https://polygonscan.com/'],
+          rpcUrls: ['https://rpc.ankr.com/polygon'],
+          blockExplorerUrls: ['https://polygonscan.com'],
         },
       ],
     },
@@ -116,7 +136,7 @@ export const CHAIN_CONFIGS: any = {
     },
   },
   '80001': {
-    name: 'Mumbai Testnet',
+    name: 'Mumbai',
     icon: 'assets/media/images/blockchain/Polygon_Primary_Token.svg',
     explorerLink: 'https://mumbai.polygonscan.com/address/',
     bg: '#7b3fe4',
@@ -126,65 +146,53 @@ export const CHAIN_CONFIGS: any = {
       params: [
         {
           chainId: '0x13881',
-          chainName: 'Mumbai Testnet',
+          chainName: 'Mumbai',
           nativeCurrency: {
             symbol: 'MATIC',
             decimals: 18,
           },
-          rpcUrls: ['https://matic-mumbai.chainstacklabs.com'],
-          blockExplorerUrls: ['https://polygonscan.com/'],
+          rpcUrls: ['https://rpc-mumbai.maticvigil.com'],
+          blockExplorerUrls: ['https://mumbai.polygonscan.com/'],
         },
       ],
     },
   },
   '4': {
-    name: 'rinkeby Test Network',
-    icon: 'assets/media/images/blockchain/eth-diamond-purple.png',
+    name: 'Rinkeby',
+    icon: 'assets/media/images/blockchain/eth.webp',
     explorerLink: 'https://rinkeby.etherscan.io/address/',
     bg: 'white',
     symbol: 'ETH',
     config: {
-      method: 'wallet_switchEthereumChain',
+      method: 'wallet_addEthereumChain',
       params: [
         {
-          chainId: '0x4',
+          chainId: utils.hexValue(4),
+          chainName: 'Rinkeby',
+          rpcUrls: ['https://rpc.ankr.com/eth_rinkeby'],
+          blockExplorerUrls: ['https://rinkeby.etherscan.io/'],
         },
       ],
     },
   },
-  '1': {
-    name: 'Ethereum Mainnet',
+  '11155111': {
+    name: 'Sepolia',
     icon: 'assets/media/images/blockchain/eth.webp',
     explorerLink: 'https://etherscan.io/address/',
     bg: 'white',
     symbol: 'ETH',
     config: {
-      method: 'wallet_switchEthereumChain',
-      params: [
-        {
-          chainId: '0x1',
-        },
-      ],
-    },
-  },
-  '200': {
-    name: 'Dogechain',
-    explorerLink: ' https://explorer.dogechain.dog/address/',
-    icon: 'assets/images/blockchain/dogecoin.svg',
-    bg: '#000',
-    symbol: 'dog',
-    config: {
       method: 'wallet_addEthereumChain',
       params: [
         {
-          chainId: '0x7D0',
-          chainName: 'dogechain',
+          chainId: '0xAA36A7',
+          chainName: 'Sepolia',
           nativeCurrency: {
-            symbol: 'dog',
+            symbol: 'ETH',
             decimals: 18,
           },
-          rpcUrls: ['https://rpc-sg.dogechain.dog'],
-          blockExplorerUrls: ['https://explorer.dogechain.dog'],
+          rpcUrls: ['https://ethereum-sepolia-rpc.publicnode.com'],
+          blockExplorerUrls: ['https://sepolia.etherscan.io/'],
         },
       ],
     },
@@ -202,7 +210,7 @@ export const CHAIN_CONFIGS: any = {
           chainId: '0x238',
           chainName: 'dogechain Testnet',
           nativeCurrency: {
-            symbol: 'dog',
+            symbol: 'DOGE',
             decimals: 18,
           },
           rpcUrls: ['https://rpc-testnet.dogechain.dog'],
@@ -227,7 +235,7 @@ export const CHAIN_CONFIGS: any = {
             symbol: 'DOGE',
             decimals: 18,
           },
-          rpcUrls: ['https://rpc-us.dogechain.dog'],
+          rpcUrls: ['https://rpc.dogechain.dog'],
           blockExplorerUrls: ['https://explorer.dogechain.dog/'],
         },
       ],

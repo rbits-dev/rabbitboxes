@@ -29,7 +29,7 @@ export class NavComponent implements OnInit {
   public isTooltipActive = true;
   chainName: any;
   selectedChainId: number = 0;
-  ChainId: number = 0;
+  ChainId: number = 1; // default is ETH chain
   event$
   public navItems: any[] = [
     // {
@@ -48,7 +48,7 @@ export class NavComponent implements OnInit {
       icon: 'assets/media/icons/moonbase/nav/Menu_return_black.svg',
       alt: 'return back',
       tooltip: 'Back',
-      click: () => { },
+      click: () => {},
       routerLink: null, // [''],
       route: '/',
     },
@@ -56,7 +56,7 @@ export class NavComponent implements OnInit {
       icon: 'assets/media/icons/moonbase/nav/Menu_drops_black.svg',
       alt: 'drops',
       tooltip:
-        'Recent, live and upcoming NFT drops.',
+        'Archived, Current and Upcoming NFT drops.',
       click: null,
       routerLink: ['/live'],
       route: '/live',
@@ -65,7 +65,7 @@ export class NavComponent implements OnInit {
       icon: 'assets/media/icons/moonbase/nav/Menu_inventory_black.svg',
       alt: 'inventory',
       tooltip:
-        'This is your wallet inventory. An overview of all NFTs you received out of the MoonBoxes.',
+        'This is your wallet inventory: an overview of all NFTs you received from the Rabbit Boxes.',
       click: null,
       routerLink: ['/inventory'],
       route: '/inventory',
@@ -73,7 +73,7 @@ export class NavComponent implements OnInit {
     {
       icon: 'assets/media/icons/moonbase/nav/Menu_history_black.svg',
       alt: 'history',
-      tooltip: 'This is your history. An overview of your MoonBox NFT claims.',
+      tooltip: 'This is your history: an overview of your Rabbit NFT claims.',
       click: null,
       routerLink: ['/history'],
       route: '/history',
@@ -81,10 +81,18 @@ export class NavComponent implements OnInit {
     {
       icon: 'assets/media/icons/moonbase/nav/Menu_info_black.svg',
       alt: 'info',
-      tooltip: 'Here you can find more information about the MoonBoxes tiers.',
+      tooltip: 'Here you can find more information about the tier system.',
       click: null,
       routerLink: ['/info'],
       route: '/info',
+    },
+    {
+      icon: 'assets/media/icons/game-hub.svg',
+      alt: 'game',
+      tooltip: 'This is our Game Hub: an overview of all Rabbit Games',
+      click: null,
+      routerLink: ['/games'],
+      route: '/games',
     },
   ];
 
@@ -132,16 +140,24 @@ export class NavComponent implements OnInit {
 
   ngOnInit(): void {
     this.walletConnectService.init();
-    this.walletConnectService.updateChainId(parseInt(localStorage.getItem('manual_chainId') ?? "56"));
-    // this.walletConnectService.updateSelectedChainId(parseInt(localStorage.getItem('chainId') ?? "56"));
-
-    console.log(parseInt(localStorage.getItem('manual_chainId') ?? "56"));
 
     this.getNSFWStatus();
 
-    this.walletConnectService.getSelectedChainId().subscribe((response) => {
-      this.selectedChainId = response;
-      this.currentChainId = response;
+    let manualChainId = localStorage.getItem("manual_chainId");
+
+    this.ChainId = manualChainId as unknown as number ?? 1;
+
+    console.log("chainId in localstorage is ", this.ChainId);
+
+    this.walletConnectService.getSelectedChainId().subscribe((id) => {
+      // Lots of vars for the same thing
+      if ( id !== undefined && id > 0) {
+        this.selectedChainId = id;
+        this.currentChainId = id;
+        this.ChainId = id;
+      }
+
+      console.log("ChainId value for navigation component is ", this.ChainId);
 
       this.isMultiChain();
       // this.checkNetwork();
@@ -149,7 +165,6 @@ export class NavComponent implements OnInit {
 
     this.walletConnectService.getChainId().subscribe((response) => {
       this.ChainId = response;
-
       this.checkNetwork();
     });
 
@@ -160,7 +175,7 @@ export class NavComponent implements OnInit {
         // this.checkNetwork();
         this.isConnected = true;
         if (this.data.networkId.chainId == environment.chainId) {
-          this.getMoonShootBalance();
+          this.getRBITSBalance();
         }
       } else {
         this.balance = 'Awaiting Connection';
@@ -182,7 +197,7 @@ export class NavComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => { });
   }
 
-  async getMoonShootBalance() {
+  async getRBITSBalance() {
     const balance = Number(
       await this.walletConnectService.getUserBalance(this.data.address)
     );
@@ -240,9 +255,11 @@ export class NavComponent implements OnInit {
   }
 
   checkNetwork() {
-    this.chainName = CHAIN_CONFIGS[this.ChainId].name;
-    if (environment.chainId.indexOf(this.selectedChainId) == -1) {
-      // this.openerr(1);
+    if( this.ChainId !== undefined && this.ChainId > 0) {
+      this.chainName = CHAIN_CONFIGS[this.ChainId].name;
+    }
+    else {
+      this.chainName = "Unknown";
     }
   }
 
@@ -265,22 +282,35 @@ export class NavComponent implements OnInit {
   async toggleChainDropdown() {
     document?.getElementById("myDropdown")?.classList.toggle("show");
     this.isMultiChainDropdownActive = !this.isMultiChainDropdownActive;
+    this.isTooltipActive = !this.isMultiChainDropdownActive;
   }
 
   @HostListener('document:click', ['$event'])
-  onMouseEnter(event: any) {
-    if (!document.getElementById('dropdwonButton').contains(event.target)) {
-      var dropdowns = document.getElementsByClassName('dropdown-content');
-      var i;
+  onDocumentClick(event: any) {
+    const target = event.target as HTMLElement;
+    const dropdown = document.getElementById('myDropdown');
+    const dropdownButton = document.getElementById('dropdwonButton');
+    
+    if (!dropdownButton || !dropdownButton.contains(target)) {
+      const dropdowns = document.getElementsByClassName('dropdown-content');
+      let i;
       for (i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
+        const openDropdown = dropdowns[i] as HTMLElement;
         if (openDropdown.classList.contains('show')) {
           openDropdown.classList.remove('show');
           this.isMultiChainDropdownActive = false;
         }
       }
     }
+    
+    if (dropdown && dropdownButton) {
+      const isInsideDropdown = dropdown.contains(target) || dropdownButton.contains(target);
+      if (!isInsideDropdown) {
+        this.isTooltipActive = true;
+      }
+    }
   }
+  
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
@@ -300,17 +330,13 @@ export class NavComponent implements OnInit {
     if (config !== undefined) {
       try {
         await this.windowRef.nativeWindow.ethereum.request(config);
-
         this.walletConnectService.updateChainId(this.chains[index]);
-        this.toastrService.success(`You are connected to the ${this.chainConfigs[this.chains[index] ?? 97].name}`, "NETWORK");
-        // debugger
-        window.location.reload();
+        this.toastrService.success(`You are connected to ${this.chainConfigs[this.chains[index]].name}, please wait while loading data`);
       } catch (error) {
-
         console.log(error);
-
-        this.toastrService.error("You selected an unsupported Network!\n" + error.message, "NETWORK")
+        this.toastrService.error(`${error.message}`)
       }
     }
+    this.isTooltipActive = true;
   }
 }

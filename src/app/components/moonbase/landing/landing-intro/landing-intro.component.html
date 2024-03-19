@@ -1,5 +1,5 @@
 <section class="landing-intro">
-  <div class="landing-into-nft-image-container-mobile">
+ <!-- <div class="landing-into-nft-image-container-mobile">
     <section class="landing-carousel">
       <swiper *ngIf="slides.length !== 0" [config]="config">
         <ng-container *ngFor="let slide of slides; index as i">
@@ -13,7 +13,7 @@
       <img class="flex mx-auto" style="margin-bottom: 80px;" *ngIf="slides.length === 0"
         src="assets/media/videos/Loading.gif" alt="">
     </section>
-  </div>
+  </div> -->
 
   <div class="info">
     <div class="line-container ">
@@ -21,43 +21,37 @@
       <div class="empty flex1"></div>
     </div>
     <div class="top futuristic-container bottom-only">
-      <p class="p-white-span-primary p34 orbitron info-title">Buy MoonBoxes<br><span>and expand your <br
-            class="break-line">NFT collection</span></p>
+      <p class="p-white-span-primary p34 orbitron info-title">Rabbit Boxes<br><span>expand your <br
+            class="break-line">NFT collection <br class="break-line">and play games</span></p>
     </div>
     <div class="bottom flex pv20">
       <div class="flex2  bottom-only no-padding mr10">
-        <p class="mb20  info-text">Buying MoonBoxes is a unique way to acquire NFTs and build your collection. It is
-          built on the Binance Smart Chain, MoonRiver, Polygon, Ethereum and DogeChain. Only available on <a
-            href="http://moonboxes.io/">MoonBoxes.io</a></p>
+        <p class="mb20  info-text">Acquiring RBITS offers a distinctive opportunity to expand your NFT collection. RBITS is supported on Ethereum, Binance Smart Chain, MoonRiver, Polygon, and DogeChain.</p>
       </div>
 
     </div>
     <div class="buttons-container">
-      <div class="buy-moonshot-button">
-        <a [routerLink]="['/live']" class="button">Buy a MoonBox</a>
-      </div>
-      <div class="arrow-down">
-        <div class="round-mini-button" (click)="scrollToElement('', 'landing-nfts')">
-          <mat-icon fontSet="material-icons" class="color-primary">arrow_downward</mat-icon>
-        </div>
+      <div class="just-another-button">
+        <a [routerLink]="['/live']" class="button">Explore</a>
       </div>
     </div>
 
   </div>
 
   <div class="landing-into-nft-image-container">
-    <section class="landing-carousel">
+    <section class="landing-carousel" style="width:470px; height:470px;">
       <swiper *ngIf="slides.length !== 0" [config]="config">
         <ng-container *ngFor="let slide of slides; index as i">
           <ng-template swiperSlide>
             <div class="nft-image-container">
-              <img src="{{slide.img}}" alt="{{slide.name}}">
+              <img src="assets/media/images/moonbox/RbitAstronaut.webp" alt="RbitAstronaut">
             </div>
           </ng-template>
         </ng-container>
       </swiper>
-      <img class="flex mx-auto" style="margin-left: 80px;" *ngIf="slides.length === 0"
-        src="assets/media/videos/Loading.gif" alt="">
+      <div class="nft-image-container">
+        <img src="assets/media/images/moonbox/RbitAstronaut.webp" alt="RbitAstronaut">
+      </div>
     </section>
   </div>
 </section>

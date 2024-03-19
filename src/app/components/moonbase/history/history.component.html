@@ -3,6 +3,7 @@
         {{mainMessage}}
         <div *ngIf="mainMessage === messages.IDLE && isConnected; else loggedOut">
             <img class="absolute-center" src="assets/media/videos/Loading.gif" alt="loading" />
+            <p class="absolute-center" style="top:65%;">Loading ...</p>
         </div>
 
         <ng-template #loggedOut>
@@ -25,7 +26,7 @@
                             <tr>
                                 <th>Date</th>
                                 <th>Tier</th>
-                                <th>Quantity</th>
+                                <th>Qty</th>
                                 <!-- <th>Verified seed</th> -->
                                 <th>Claimed</th>
                             </tr>

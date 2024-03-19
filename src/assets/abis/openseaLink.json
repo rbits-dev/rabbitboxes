@@ -1,0 +1,42 @@
+[
+    {
+        "chainId": 97,
+        "link": "https://opensea.io/assets/bsc/"
+    },
+    {
+        "chainId": 80001,
+        "link": "https://opensea.io/assets/matic/"
+    },
+    {
+        "chainId": 1287,
+        "link": "#"
+    },
+    {
+        "chainId": 4,
+        "link": "#"
+    },
+    {
+        "chainId": 568,
+        "link": "#"
+    },
+    {
+        "chainId": 56,
+        "link": "https://opensea.io/assets/bsc/"
+    },
+    {
+        "chainId": 137,
+        "link": "https://opensea.io/assets/matic/"
+    },
+    {
+        "chainId": 1285,
+        "link": "#"
+    },
+     {
+        "chainId": 1,
+        "link": "https://opensea.io/assets/eth/"
+    },
+     {
+        "chainId": 2000,
+        "link": "#"
+    }
+]

@@ -20,22 +20,22 @@ export class InfoMoonboxesComponent implements OnInit {
 
   boxes: any[] = [
     {
-      "img": "assets/media/images/moonbox/landing/wood.png",
+      "img": "assets/media/images/moonbox/landing/wood.webp",
       "name": "Wood",
       "quantity": "0,5B",
     },
     {
-      "img": "assets/media/images/moonbox/landing/silver.png",
+      "img": "assets/media/images/moonbox/landing/silver.webp",
       "name": "Silver",
       "quantity": "1B",
     },
     {
-      "img": "assets/media/images/moonbox/landing/gold.png",
+      "img": "assets/media/images/moonbox/landing/gold.webp",
       "name": "Gold",
       "quantity": "2B",
     },
     {
-      "img": "assets/media/images/moonbox/landing/diamond.png",
+      "img": "assets/media/images/moonbox/landing/diamond.webp",
       "name": "Diamond",
       "quantity": "10B",
     }
@@ -96,22 +96,6 @@ export class InfoMoonboxesComponent implements OnInit {
     );
 
     dialogRef.afterClosed().subscribe(result => { });
-  }
-
-  async buyMSHOTWithBNB() {
-    if (this.isConnected) {
-      this.isInProcess = true;
-
-      // await this.walletConnectService.addMoonshotTokentToWalletAsset();
-
-      await this.walletConnectService.buyMSHOT(
-        Number(this.bnbCountFromInput) <= 0 ? 0.001 : Number(this.bnbCountFromInput)
-      );
-
-      this.isInProcess = false;
-    } else {
-      this.openWalletConnectionDialog();
-    }
   }
 
   nextBox(): void {

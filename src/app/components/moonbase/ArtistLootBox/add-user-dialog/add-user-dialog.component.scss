@@ -4,7 +4,7 @@
 }
 .addusermodal{
     background: #090d16;
-    border-top: 6px solid #d5a642;
+    border-top: 6px solid #5e2466;
     padding: 30px;
 }
 .labelname {
@@ -17,7 +17,7 @@
     padding: 0.9375rem 1.25rem;
     box-sizing: border-box;
     display: block;
-    background-color: #d5a642;
+    background-color: #5e2466;
     height: -moz-fit-content;
     height: fit-content;
     min-width: 200px;
@@ -29,12 +29,13 @@
     text-decoration: none;
     text-transform: capitalize;
     margin: auto;
+    border: 0;
 }
 .subbutton1{
     padding: 0.9375rem 1.25rem;
     
     
-    background-color: #d5a642;
+    background-color: #5e2466;
    
     height: fit-content;
    
@@ -50,7 +51,7 @@
 }
 .contentcolor{
     background: black;
-    border-bottom: 1px solid #ffbf36;
+    border-bottom: 1px solid #5e2466;
     border-top: 0;
     border-left: 0;
     border-right: 0;
@@ -59,7 +60,7 @@
     border-radius: 4px;
 }
 .contentcolor:focus{
-    border: 1px solid #d5a64242;
+    border: 1px solid #5e246642;
     box-shadow: none;
 }
 .headfont{
@@ -82,10 +83,10 @@ span.text-danger {
 }
 .outlined-button1 {
     padding: 0.7375rem 1.25rem;
-    border: 1px solid #d5a642;
+    border: 1px solid #5e2466;
     min-width: 158px;
     border-radius: 25px;
-    color: #d5a642;
+    color: #5e2466;
     font-weight: 700;
     background-color: transparent;
     font-size: 16px;

@@ -25,14 +25,14 @@ export class DeployContractService {
       const options = { gasLimit: 100000, gasPrice: ethers.utils.parseUnits(price, 'gwei') }
 
       // Deploy the contract
-      let index = environment.chainId.indexOf(parseInt(localStorage.getItem('chainId') ?? "56"));
+      let index = environment.chainId.indexOf(parseInt(localStorage.getItem('chainId') ?? "1"));
       this.nftArtistContract = config[environment.configFile][index].artistLootBoxAddress;
       this.ArtistMoonBoxNftSwap = config[environment.configFile][index].ArtistMoonBoxNftSwap;
       if (localStorage.getItem('chainId') == "56" || localStorage.getItem('chainId') == "97") {
         let abi = require('./../../assets/abis/lazy minting/bsc.json');
         let bytecode = require('./../../assets/contractBytecode/bsc.json');
         const factory = new ethers.ContractFactory(abi, bytecode, cs.signer)
-        debugger
+        //
         const contract = await factory.deploy(walletAddress, this.nftArtistContract, this.ArtistMoonBoxNftSwap, collectionName, symbol);
         var deployAddress = await contract.deployed();
       }
@@ -40,7 +40,7 @@ export class DeployContractService {
         let abi = require('./../../assets/abis/lazy minting/other.json');
         let bytecode = require('./../../assets/contractBytecode/other.json');
         const factory = new ethers.ContractFactory(abi, bytecode, cs.signer)
-        debugger
+        //
         const contract = await factory.deploy(walletAddress, this.nftArtistContract, collectionName, symbol);
         var deployAddress = await contract.deployed();
       }

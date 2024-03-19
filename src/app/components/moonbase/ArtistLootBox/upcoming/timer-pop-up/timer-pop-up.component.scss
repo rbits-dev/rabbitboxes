@@ -1,0 +1,30 @@
+.timermodal{
+    background-color: #090d16;
+    border-top: 3px solid #5e2466;
+    position: relative;
+}
+.timertext{
+    font-size: 14px;
+    color: white;
+    padding: 47px;
+}
+.timerbutton{
+    background: #5e2466;
+    color: white;
+    padding: 9px;
+    font-size: 15px;
+    text-align: center;
+    border-radius: 25px;
+    width: 150px;
+    margin: 0 10px 30px 10px;
+}
+.svgposition{
+    position: absolute;
+    right: 11px;
+    top: 10px;
+}
+.yesNoButton{
+    padding: 0 47px 0 47px;
+    display: flex;
+    justify-content: space-around;
+}

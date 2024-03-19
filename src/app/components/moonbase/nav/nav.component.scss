@@ -76,7 +76,7 @@ section.navigation {
 }
 
 .nav-menu {
-  border-bottom: 61px solid #d5a642;
+  border-bottom: 61px solid #5e2466;
   border-left: 60px solid transparent;
   border-right: 60px solid transparent;
   height: 0;
@@ -138,7 +138,7 @@ section.navigation {
     color: black;
 
     >span {
-      color: $primary;
+      color: $text-color;
       font-weight: $medium;
     }
   }
@@ -170,7 +170,7 @@ section.navigation {
     width: 100%;
 
     >.deeper {
-      border-bottom: 70px solid #d5a642;
+      border-bottom: 70px solid #5e2466;
       border-left: 60px solid transparent;
       border-right: 60px solid transparent;
       height: 0;
@@ -196,13 +196,13 @@ section.navigation {
   font-size: 13px;
   border-radius: 8px;
   position: absolute;
-  z-index: 99999999;
+  z-index: 8;
   box-sizing: border-box;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.8s;
-  font-family: $primary-font;
+  font-family: "Montserrat", sans-serif;;
   font-size: 16px;
   font-weight: 500;
   line-height: 1.69;
@@ -308,7 +308,7 @@ nav {
 
       a {
         color: $body-bg-color;
-        font-family: $primary-font;
+        font-family: "Montserrat", sans-serif;;
         font-size: $primary-fs;
         font-weight: $semi-bold;
         text-transform: capitalize;
@@ -462,12 +462,12 @@ nav {
   background: black;
   margin-bottom: 45px;
   margin-top: -15px;
-  font-family: $primary-font;
+  font-family: "Montserrat", sans-serif;;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: normal;
   text-align: center;
-  color: $primary;
+  color: $text-color;
 
   .moonshot-text {
     font-size: 12px;
@@ -494,11 +494,11 @@ nav {
   max-width: 250px;
   overflow: auto;
   box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
-  z-index: 1;
+  z-index: 9;
   border: solid 1px white;
   bottom: 10px;
   margin-left: 40px;
-  color: $primary;
+  color: $text-color;
 
   transform: scaleY(-1);
 }
@@ -509,7 +509,7 @@ nav {
 
 .dropdown-content a {
   text-align: left;
-  color: $primary;
+  color: $text-color;
   padding: 18px 0;
   text-decoration: none;
   display: flex;
@@ -530,7 +530,8 @@ nav {
   }
 
   &.active {
-    color: white !important;
+   color: #5e2466 !important;
+    font-weight: 600;
   }
 }
 
@@ -599,7 +600,7 @@ nav {
   }
 
   .wallet_block {
-    background: #ca8e0f;
+    background: #5e2466;
     width: 3rem;
     height: 40px;
     margin: -1rem;
@@ -635,7 +636,7 @@ section.moonbox-menu {
   padding: 20px;
   border-bottom: 1px solid black;
   box-sizing: border-box;
-  background: #d5a642;
+  background: #5e2466;
   position: fixed;
   right: 0;
   bottom: 40px;

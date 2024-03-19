@@ -30,7 +30,7 @@ export class HistoryComponent implements OnInit {
   historyData: any = null;
 
   page: number = 1;
-  maxSize: number = 9;
+  maxSize: number = 9; // FIXME pagination size should be send to server endpoint for paging
 
   isConnected = false;
   currentCategory: number = TABS_CATEGORY.UNBOXINGS;

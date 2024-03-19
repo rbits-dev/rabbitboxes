@@ -29,15 +29,11 @@ export class TokenomicsComponent implements OnInit {
         val: "---",
         shortVal: ""
       },
-      {
-        key: "v1 distribution:",
-        val: "---",
-        shortVal: ""
-      },
+     
     ],
     [
       {
-        key: "moonshot for 1 bnb:",
+        key: "RBITS for 1 eth:",
         val: "---",
         shortVal: ""
       },
@@ -47,15 +43,11 @@ export class TokenomicsComponent implements OnInit {
         shortVal: ""
       },
       {
-        key: "price for 1 million moonshot:",
+        key: "price for 1 million RBITS:",
         val: "---",
         shortVal: ""
       },
-      {
-        key: "price for 1 moonshot:",
-        val: "---",
-        shortVal: ""
-      }
+    
     ]
   ]
 
@@ -81,11 +73,9 @@ export class TokenomicsComponent implements OnInit {
       return
     this.list[0][1]['val'] = this.data['circulatingSupply'];
     this.list[0][2]['val'] = this.data['burnedAmount'];
-    this.list[0][3]['val'] = this.data['v1Distirubition'].substring(0, 19);
-    this.list[1][0]['val'] = this.data['priceFor1BNB'];
+    this.list[1][0]['val'] = this.data['priceFor1ETH'];
     this.list[1][1]['val'] = '$' + this.data['marketcap'].substring(0, 13);
-    this.list[1][2]['val'] = '$' + this.data['priceFor1mMoonshot'].substring(0, 13);
-    this.list[1][3]['val'] = '$' + this.data['priceForMoonshot'].substring(0, 13);
+    this.list[1][2]['val'] = '$' + this.data['priceFor1mRBITS'].substring(0, 13);
     this.isOldPancakeRouter = this.tokenomicsService.oldPancakeAddress;
   }
 

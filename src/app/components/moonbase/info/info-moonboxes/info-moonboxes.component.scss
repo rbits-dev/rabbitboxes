@@ -40,7 +40,7 @@ section.info-moonboxes {
 
   .desc {
     p {
-      font-family: $primary-font;
+      font-family: "Montserrat", sans-serif;;
       font-size: 18px;
       font-weight: bold;
       font-stretch: normal;
@@ -48,7 +48,7 @@ section.info-moonboxes {
       line-height: 1.5;
       letter-spacing: normal;
       text-align: center;
-      color: $primary;
+      color: $text-color;
     }
 
     .quantity {
@@ -91,7 +91,7 @@ section.info-moonboxes {
   width: 100%;
 
   .heading-container {
-    font-family: "Orbitron";
+    font-family: "Orbitron", sans-serif;
     font-size: 30px;
     font-weight: 900;
     font-stretch: normal;
@@ -99,7 +99,7 @@ section.info-moonboxes {
     line-height: 1.2;
     letter-spacing: normal;
     text-align: left;
-    color: #d5a642;
+    color: #5e2466;
     border-top: 3px solid $primary;
     max-width: 370px;
     width: 100%;
@@ -115,7 +115,7 @@ section.info-moonboxes {
   .description-container {
     display: flex;
     flex-direction: column;
-    max-width: 340px;
+    // max-width: 340px;
     width: 100%;
     justify-content: center;
     align-items: center;
@@ -132,7 +132,7 @@ section.info-moonboxes {
   }
 
   .info-text {
-    font-family: $primary-font;
+    font-family: "Montserrat", sans-serif;;
     font-size: 16px;
     font-weight: 400;
     font-stretch: normal;
@@ -140,10 +140,10 @@ section.info-moonboxes {
     line-height: 1.69;
     letter-spacing: normal;
     text-align: left;
-    color: $primary;
+    color: $text-color;
   }
 
-  .buy-moonshot-button,
+  .just-another-button,
   .read-more-button {
     display: flex;
     width: 100%;
@@ -152,7 +152,7 @@ section.info-moonboxes {
     .button,
     .outlined-button {
       min-width: 170px;
-      width: 100%;
+      width: auto;
       font-size: 16px;
       height: 51px;
       padding: 0px 15px;
@@ -164,6 +164,7 @@ section.info-moonboxes {
       font-weight: bold;
       line-height: 1.69;
       text-align: center;
+      margin: auto;
     }
   }
 
@@ -190,6 +191,7 @@ section.info-moonboxes {
   align-items: flex-start;
   width: 100%;
   max-width: 270px;
+  margin:0 auto;
 
   .table-columns-titles {
     display: flex;
@@ -226,7 +228,7 @@ section.info-moonboxes {
   border: 1px solid $primary;
   padding-left: 20px;
   font-size: 18px;
-  font-family: $primary-font;
+  font-family: "Montserrat", sans-serif;;
 
   svg {
     height: 20px;
@@ -244,7 +246,7 @@ section.info-moonboxes {
     border-bottom: 1px solid $primary;
     max-width: 50px;
     margin: 0px 10px;
-    color: $primary;
+    color: $text-color;
     text-align: end;
     font-size: 16px;
   }
@@ -307,7 +309,7 @@ input[type=number] {
   visibility: visible;
   opacity: 0;
   transition: opacity 0.8s;
-  font-family: $primary-font;
+  font-family: "Montserrat", sans-serif;;
   font-size: 16px;
   font-weight: 500;
   line-height: 1.69;
@@ -475,6 +477,7 @@ input[type=number] {
     justify-content: space-between;
     max-width: 700px;
     width: 100%;
+    flex-wrap: wrap;
 
     .box-container {
       margin-bottom: -60px;

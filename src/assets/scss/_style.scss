@@ -26,13 +26,13 @@ body {
 
 .absolute-center {
     position: absolute;
-    top: 50%;
+    top: 60%;
     left: 50%;
     transform: translate( -50%, -50% );
 }
 
 .orbitron {
-    font-family: $secondary-font;
+    font-family: "Orbitron", sans-serif;
     font-weight: $black;
 
     &.bold {
@@ -60,7 +60,10 @@ ul {
 }
 
 .w-100 {
-    width: 100%
+  
+    width: 100%;
+    height: 100%;
+    overflow: auto;
 }
 
 .s-100 {
@@ -73,7 +76,7 @@ ul {
 }
 
 .text-primary {
-    color: #d5a642;
+    color: #5e2466;
 }
 
 .bold {
@@ -93,7 +96,7 @@ ul {
 }
 
 .pri-color {
-    color: $primary;
+    color: $text-color;
 }
 
 .mobile-only {
@@ -530,6 +533,7 @@ ul {
 
 .wrap {
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .align-start {
@@ -567,6 +571,7 @@ ul {
 .flex-align-start {
     display: flex;
     align-items: flex-start;
+    flex-wrap: wrap;
 }
 
 .flex-align-center {
@@ -653,6 +658,7 @@ ul {
 
 .p12 {
     font-size: 12px;
+    font-weight: 600;
 }
 
 .p14 {
@@ -756,7 +762,7 @@ ul {
 }
 
 .color-primary {
-    color: $primary;
+    color: $text-color;
 }
 
 .text-center {
@@ -812,16 +818,17 @@ ul {
 }
 
 .button {
-    @include paddingsInside(15px, 20px);
+    @include paddingsInside(10px, 20px);
     display: block;
     background-color: $primary;
     height: fit-content;
-    min-width: 200px;
+    min-width: fit-content;
     border-radius: 25px;
     color: black;
     font-weight: $bold;
     text-align: center;
     cursor: pointer;
+    font-size: 14px;
     text-decoration: none;
     text-transform: capitalize;
     &.fit {
@@ -833,21 +840,21 @@ ul {
 }
 
 .outlined-button {
-    @include paddingsInside(15px, 20px);
+    @include paddingsInside(10px, 20px);
     display: block;
     border: 1px solid $primary;
     height: fit-content;
-    min-width: 200px;
+    min-width: fit-content;
     border-radius: 25px;
-    color: $primary;
+    color: $text-color;
     font-family: $font-family-base;
     font-weight: $bold;
     background-color: transparent;
-    font-size: 16px;
+    font-size: 14px;
     text-decoration: none;
     text-transform: capitalize;
     text-align: center;
-    cursor: default;
+    cursor: pointer;
     &.fit {
         width: fit-content;
     }
@@ -1013,15 +1020,17 @@ ul {
 .ngx-pagination {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 4rem !important;
 }
 
 .ngx-pagination .current {
-    background: #d5a642 !important;
+    background: #5e2466 !important;
 }
 
 .ngx-pagination a:hover,
 .ngx-pagination button:hover {
-    background: #d5a642 !important;
+    background: #5e2466 !important;
 }
 
 
@@ -1242,7 +1251,7 @@ button.toast-close-button {
 svg.interactable {
     width: 50px;
     cursor: pointer;
-    
+
     &:hover {
         path {
             fill: white;
@@ -1267,7 +1276,7 @@ svg#moonbox_icon path {
 }
 
 svg#closenft path {
-    fill: #d5a642;
+    fill: #5e2466;
 }
 
 .opacity0 {
@@ -1447,3 +1456,22 @@ svg#closenft path {
     }
 }
 
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+
+::-webkit-scrollbar-track {
+  background: #5e2466;
+
+}
+
+
+::-webkit-scrollbar-thumb {
+  background: #000;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+  background: #000;
+}

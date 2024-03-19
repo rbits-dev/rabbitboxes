@@ -6,7 +6,8 @@ section.landing-nfts {
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding-top: 180px;
+    padding-top: 10vw;
+    padding-bottom: 100px;
 }
 
 section.landing-carousel {
@@ -30,7 +31,7 @@ swiper {
 
 p.slider-name {
     margin-top: 20px;
-    font-family: $primary-font;
+    font-family: "Montserrat", sans-serif;;
     font-size: 18px;
     font-weight: bold;
     font-stretch: normal;
@@ -38,7 +39,7 @@ p.slider-name {
     line-height: 1.5;
     letter-spacing: normal;
     text-align: center;
-    color: $primary;
+    color: $text-color;
 }
 
 .nft-image-container {
@@ -72,14 +73,14 @@ p.slider-name {
     align-items: flex-start;
     width: 100%;
     .heading-container {
-        font-family: "Orbitron";
+        font-family:"Orbitron", sans-serif;
         font-size: 30px;
         font-weight: 900;
         font-stretch: normal;
         font-style: normal;
         letter-spacing: normal;
         text-align: left;
-        color: #d5a642;
+        color: #5e2466;
         border-top: 3px solid $primary;
         max-width: 370px;
         width: 100%;
@@ -101,7 +102,7 @@ p.slider-name {
         width: 100%;
     }
     .info-text {
-        font-family: $primary-font;
+        font-family: "Montserrat", sans-serif;;
         font-size: 16px;
         font-weight: 500;
         font-stretch: normal;
@@ -111,7 +112,7 @@ p.slider-name {
         text-align: left;
         color: $primary;
     }
-    .buy-moonshot-button {
+    .just-another-button {
         display: flex;
         width: 170px;
         .button {
@@ -178,9 +179,6 @@ p.slider-name {
 }
 
 @media only screen and (max-width: 810px) {
-    section.landing-nfts {
-        padding-top: 100px;
-    }
     .detail-container {
         flex-direction: column;
         max-width: 370px;

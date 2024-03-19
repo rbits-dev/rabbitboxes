@@ -111,7 +111,7 @@ export class RarityComponent implements OnInit {
       rarityPercentage: 46.8,
     },
     {
-      name: 'Flag Moonshot Logo',
+      name: 'Flag RBITS Logo',
       image: '12_Flag_Moonshot_logo.webp',
       category: 'Flag',
       rarityNumber: 425,

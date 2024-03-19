@@ -23,7 +23,7 @@ section.upcoming-container {
 
   a {
     display: flex;
-    background: #d5a642;
+    background: #5e2466;
     border-radius: 50px;
     width: fit-content;
     padding: 15px;
@@ -84,7 +84,7 @@ section.upcoming-container {
   width: 100%;
   justify-content: center;
   position: relative;
-  border: 2px solid #d5a642;
+  border: 2px solid #5e2466;
 
   &:hover {
     border-color: white;
@@ -171,8 +171,8 @@ section.upcoming-container {
 }
 
 .border-top-bottom {
-  border-top: 1px solid #d5a642;
-  border-bottom: 1px solid #d5a642;
+  border-top: 1px solid #5e2466;
+  border-bottom: 1px solid #5e2466;
 }
 
 .outer-box {
@@ -219,11 +219,11 @@ section.upcoming-container {
 }
 
 .border-bottom {
-  border-bottom: 2px solid #d5a642;
+  border-bottom: 2px solid #5e2466;
 }
 
 .mb20.mr20.text-inherit.button {
-  border: 1px solid #d5a642;
+  border: 1px solid #5e2466;
 
   &:hover {
     border-color: white;

@@ -1,11 +1,11 @@
 <section class="artist-moonbox scroller" [ngClass]="{'fadeout':fadeOut,'fade-in':popupClosed && !fadeOut}">
 
-  <div *ngIf="!supplyDetails" class="flex-center main-message-container w-100 h-100 text-center pa20">
+  <div *ngIf="!supplyDetails && !pageLoader" class="flex-center main-message-container w-100 h-100 text-center pa20">
     {{ mainMessage }}
     <img *ngIf="mainMessage === messages.IDLE" class="flex" src="assets/media/videos/Loading.gif" alt="loading" />
   </div>
 
-  <div *ngIf="supplyDetails" class="inner s-100 justify-content-evenly flex-col pt-md-100"
+  <div *ngIf="supplyDetails && pageLoader" class="inner s-100 justify-content-evenly flex-col pt-md-100"
     [ngClass]="{'fadeout':fadeOut,'fade-in':popupClosed && !fadeOut}">
 
     <div class="flex w-100">
@@ -15,7 +15,7 @@
           <p class="p18 orbitron mb10 text-center">{{ artistDetails?.ArtistName }}</p>
           <svg (click)="viewDetails()" class="info-icon interactable wrapped" xmlns="http://www.w3.org/2000/svg"
             width="30" viewBox="0 0 38 38" xml:space="preserve">
-            <g fill="#d5a642">
+            <g fill="#5e2466">
               <path
                 d="M19 9.2c-1.3 0-2.4 1.1-2.4 2.4S17.7 14 19 14s2.4-1.1 2.4-2.4-1.1-2.4-2.4-2.4zM19 16.6c-1.1 0-2 .9-2 2v8.3c0 1.1.9 2 2 2s2-.9 2-2v-8.3c0-1.2-.9-2-2-2z" />
               <path
@@ -59,7 +59,7 @@
               (mouseover)="infoHoverList[i].isHovered = true"
               class="info-icon lock cursor-pointer only-mobile-and-tablet" xmlns="http://www.w3.org/2000/svg" width="30"
               viewBox="0 0 38 38" xml:space="preserve">
-              <g fill="#d5a642">
+              <g fill="#5e2466">
                 <path
                   d="M19 9.2c-1.3 0-2.4 1.1-2.4 2.4S17.7 14 19 14s2.4-1.1 2.4-2.4-1.1-2.4-2.4-2.4zM19 16.6c-1.1 0-2 .9-2 2v8.3c0 1.1.9 2 2 2s2-.9 2-2v-8.3c0-1.2-.9-2-2-2z" />
                 <path
@@ -99,8 +99,9 @@
                 </svg>
               </button>
             </div>
+        
             <div class="soldout" *ngIf="supply[i] === 0">Sold Out</div>
-
+           
             <a class="buy_button outlined-button mb10 text-inherit"
               [class.disabled]="!hasEnoughMoonshots(i) || supply[i] === 0" (click)="buyMoonBase(i)"
               (mouseover)="infoHoverList[i].isHovered = true" (mouseleave)="infoHoverList[i].isHovered = false">Buy</a>

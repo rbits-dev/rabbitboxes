@@ -16,7 +16,7 @@ section.upcoming-container {
     margin-top: 20px;
     a {
         display: flex;
-        background: #d5a642;
+        background: #5e2466;
         border-radius: 50px;
         width: fit-content;
         padding: 15px;
@@ -76,7 +76,7 @@ section.upcoming-container {
     width: 100%;
     justify-content: center;
     position: relative;
-    border: 2px solid #d5a642;
+    border: 2px solid #5e2466;
     &:hover {
         border-color: white;
     }
@@ -98,7 +98,8 @@ section.upcoming-container {
     width: 100%;
     padding: 1rem;
     box-sizing: border-box;
-    border: 1px solid #d5a642;
+    border: 1px solid #5e2466;
+    overflow-y: scroll;
     >.collection-inner {
         @extend %flex-center;
         @extend %max-width-center;
@@ -150,8 +151,8 @@ section.upcoming-container {
 }
 
 .border-top-bottom {
-    border-top: 1px solid #d5a642;
-    border-bottom: 1px solid #d5a642;
+    border-top: 1px solid #5e2466;
+    border-bottom: 1px solid #5e2466;
 }
 
 .outer-box {
@@ -198,11 +199,11 @@ section.upcoming-container {
 }
 
 .border-bottom {
-    border-bottom: 2px solid #d5a642;
+    border-bottom: 2px solid #5e2466;
 }
 
 .mb20.mr20.text-inherit.button {
-    border: 1px solid #d5a642;
+    border: 1px solid #5e2466;
     &:hover {
         border-color: white;
     }
@@ -233,7 +234,7 @@ textarea {
     padding: 10px;
     box-sizing: border-box;
     resize: none;
-    font-family: $primary-font;
+    font-family: "Montserrat", sans-serif;;
 }
 
 .close-tooltip {
@@ -293,15 +294,16 @@ textarea {
 }
 
 section.carousel {
-    max-height: 470px;
+    max-height: 450px;
     max-width: 470px;
-    width: 100%;
-    height: 100%;
+    // width: 100%;
+    // height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    border: 1px solid #d5a642;
+    padding: 19px 9px;
+    border: 1px solid #5e2466;
+    overflow: hidden;
 }
 
 swiper {

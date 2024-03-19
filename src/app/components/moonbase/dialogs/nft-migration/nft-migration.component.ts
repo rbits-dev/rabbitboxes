@@ -57,7 +57,7 @@ export class NftMigrationComponent implements OnInit {
             this.toastrService.error(res.data.message);
           }
         }, (err: any) => {
-          this.toastrService.error("something went wrong");
+          this.toastrService.error("There was an error, please try again later.");
         })
       }
 
@@ -86,7 +86,7 @@ export class NftMigrationComponent implements OnInit {
       }
     }, (err: any) => {
       console.log(err);
-      this.toastrService.error("something went wrong with user data count");
+      this.toastrService.error("There was an error, please try again later.");
       this.closeDialog();
     })
   }

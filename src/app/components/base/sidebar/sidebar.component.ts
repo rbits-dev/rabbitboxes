@@ -47,7 +47,7 @@ export class SidebarComponent implements OnInit {
         });
 
 
-    debugger
+    //
 
   }
   openDialogDisconnected(): void {
@@ -62,16 +62,15 @@ export class SidebarComponent implements OnInit {
         });
 
 
-    debugger
+    //
 
   }
 
  async isConnected() {
     try{
       let isValidAddress=await this.walletConnectService.isValidAddress();
-      console.log(isValidAddress);
-      if(isValidAddress) {
 
+      if(isValidAddress) {
         this.openDialogDisconnected();
       }
       else{
@@ -81,7 +80,7 @@ export class SidebarComponent implements OnInit {
      catch(e)
      {
       this.openDialog();
-       console.log(e);
+      console.log(e);
      }
   }
 }

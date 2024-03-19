@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { nftSlider } from 'src/app/components/moonbase/landing/consts/nft-slider.const';
 import { LandingSliderModel } from 'src/app/models/landing-slider.model';
 import { HttpApiService } from '../http-api.service';
 
@@ -30,14 +29,21 @@ export class LandingSliderProvider {
 
         const response = await this.httpService.getLiveCollectionsBanner();
 
-        this.liveCollectionList = response.data.live_data_array;
-        this.liveCollectionList = this.liveCollectionList.concat(response.data.recent_data_array)
-        this.liveCollectionList.concat(...response.data.recent_data_array);
+        if (response.data && response.data.live_data_array) {
+            this.liveCollectionList = response.data.live_data_array;
+        } else {
+            this.liveCollectionList = [];
+        }
+
+        if (response.data && response.data.recent_data_array) {
+            this.liveCollectionList = this.liveCollectionList.concat(response.data.recent_data_array);
+        }
 
         for (let i = 0; i < this.liveCollectionList.length; i++) {
 
             await this.httpService.getRandomCollectionImageListFromArtist(this.liveCollectionList[i].walletAddress)
                 .then((res) => {
+                  debugger
                     for (let j = 0; j < 5; j++) {
                         if (res.data[j] !== undefined)
                             if (!res.data[j].logo_path.includes('.mp4') && !res.data[j].logo_path.includes('.gif'))
@@ -58,26 +64,21 @@ export class LandingSliderProvider {
     }
 
     getPreviewImageUrl(url: string): string {
-      let reverse = url.split('').reverse().join('');
-      let slash = reverse.indexOf('/');
-      let dot = reverse.indexOf('.');
-
-      var ext = url.split('.').pop();
-      if (dot < slash) {
-          if (ext.length > 1) {
-              return url.slice(0, 36) + 'previews/' + url.slice(36, -ext.length) + 'webp';
-
-          }
-          else {
-              return url.slice(0, 36) + 'previews/' + url.slice(36);
-          }
-
-      }
-      else {
-          return url.slice(0, 36) + 'previews/' + url.slice(36);
-      }
+        const splitUrl = url.split('/');
+        const filename = splitUrl.pop();
+        const collectionName = splitUrl.pop();
+        const partsBeforeFilename = splitUrl.join('/');
+    
+        if (filename && filename.includes('.')) {
+            const ext = filename.split('.').pop() || '';
+            const filenameWithoutExt = filename.slice(0, -ext.length - 1);
+            const previewImage = `${partsBeforeFilename}/previews/${collectionName}/${filenameWithoutExt}.webp`;
+            //console.log(previewImage);
+            return previewImage;
+        } 
+        return `${partsBeforeFilename}/previews/${collectionName}/${filename}`;
     }
-
+    
     shuffleList(list: any[]): any[] {
         for (let i = list.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
