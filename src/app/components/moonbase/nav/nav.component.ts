@@ -56,7 +56,7 @@ export class NavComponent implements OnInit {
       icon: 'assets/media/icons/moonbase/nav/Menu_drops_black.svg',
       alt: 'drops',
       tooltip:
-        'Archived, Current and Upcoming NFT drops.',
+        'Archived, Now and Next NFT drops.',
       click: null,
       routerLink: ['/live'],
       route: '/live',

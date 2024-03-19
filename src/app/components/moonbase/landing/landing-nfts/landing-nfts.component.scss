@@ -31,7 +31,7 @@ swiper {
 
 p.slider-name {
     margin-top: 20px;
-    font-family: "Montserrat", sans-serif;;
+    font-family: $primary-font;
     font-size: 18px;
     font-weight: bold;
     font-stretch: normal;
@@ -73,7 +73,7 @@ p.slider-name {
     align-items: flex-start;
     width: 100%;
     .heading-container {
-        font-family:"Orbitron", sans-serif;
+        font-family: $secundary-font;
         font-size: 30px;
         font-weight: 900;
         font-stretch: normal;
@@ -102,7 +102,7 @@ p.slider-name {
         width: 100%;
     }
     .info-text {
-        font-family: "Montserrat", sans-serif;;
+        font-family: $primary-font;
         font-size: 16px;
         font-weight: 500;
         font-stretch: normal;

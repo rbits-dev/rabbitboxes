@@ -39,7 +39,7 @@ import { TimerPopUPComponent } from './ArtistLootBox/upcoming/timer-pop-up/timer
 import { ArtistMoonboxRouteComponent } from './artist-moonbox-route/artist-moonbox-route.component';
 import { NFTCollectionsComponent } from './nftcollections/nftcollections.component';
 import { UpgradeNftDialogComponent } from './inventory/upgrade-nft-dialog/upgrade-nft-dialog.component';
-
+import { BridgeTransactionStatusDialogComponent } from './inventory/bridge-transaction-status-dialog/bridge-transaction-status-dialog.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +67,7 @@ import { UpgradeNftDialogComponent } from './inventory/upgrade-nft-dialog/upgrad
     TimerPopUPComponent,
     ArtistMoonboxRouteComponent,
     UpgradeNftDialogComponent,
+    BridgeTransactionStatusDialogComponent
   ],
   imports: [
     MatIconModule,

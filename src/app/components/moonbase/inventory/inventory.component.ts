@@ -210,6 +210,11 @@ export class InventoryComponent implements OnInit {
     });
   }
 
+  
+  cdkCopyToClipboard() {
+    this.toastrService.success('Copied to clipboard', 'Success!');
+  } 
+
   openNftMigrationDialog() {
     this.nftMigrationDialogRef = this.dialog.open(NftMigrationComponent, {
       width: "800px",
