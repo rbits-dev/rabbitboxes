@@ -25,6 +25,7 @@ const BRIDGE_COLLECTION_ABI = require("./../../assets/abis/BridgeCollectionAddre
 const ArtistNFTAbi = require("./../../assets/abis/ArtistNFTAbi.json");
 const registorAbi = require("../../assets/abis/registorAbi.json");
 const config = require("./../../assets/configFiles/configFile.json");
+const MINT_NFT_ABI = require("./../../assets/abis/mintNFTAbi.json");
 
 import { CHAIN_CONFIGS } from '../components/base/wallet/connect/constants/blockchain.configs';
 
@@ -1032,6 +1033,39 @@ export class WalletConnectService {
       throw error;
     }
   }
+
+
+    //LISTEN TO EVENTS OF MINT NFT CONTRACT
+    async listenToEvents() {
+      let provider;
+      let providerIndex = 0;
+
+      let providerURLForEth = this.chainConfigs[this.ChainId].config.params[0].rpcUrls;
+  
+      while (!provider && providerIndex < providerURLForEth.length) {
+          try {
+              provider = new ethers.providers.JsonRpcProvider( providerURLForEth[providerIndex]);
+              await provider.getBlockNumber(); // Test if provider is working
+          } catch (error) {
+              console.error(`JSON-RPC provider at index ${providerIndex} failed.`);
+              provider = null; // Reset provider to try the next one
+              providerIndex++;
+          }
+      }
+  
+      if (!provider) {
+          throw new Error("All JSON-RPC providers failed.");
+      }
+  
+      const contract = new ethers.Contract(environment.mintNFTAddress, MINT_NFT_ABI, provider);
+  
+      return new Promise((resolve, reject) => {
+          contract.on('ReceiveNFT', (from, to, id, amount, event) => {
+              resolve(event);
+          });
+      });
+  }
+  
 
   //HANDLE METAMSK ERROR
   async handleMetamaskError(error) {

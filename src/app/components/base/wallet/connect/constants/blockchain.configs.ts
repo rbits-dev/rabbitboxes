@@ -191,7 +191,7 @@ export const CHAIN_CONFIGS: any = {
             symbol: 'ETH',
             decimals: 18,
           },
-          rpcUrls: ['https://ethereum-sepolia-rpc.publicnode.com'],
+          rpcUrls: ['https://ethereum-sepolia-rpc.publicnode.com', 'https://ethereum-sepolia-rpc.publicnode.com','https://eth-sepolia.public.blastapi.io', 'https://rpc.sepolia.org'],
           blockExplorerUrls: ['https://sepolia.etherscan.io/'],
         },
       ],
