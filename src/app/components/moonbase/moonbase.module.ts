@@ -5,10 +5,8 @@ import {RouterModule} from '@angular/router';
 import { MoonbaseRoutingModule } from './moonbase-routing.module';
 import { MoonbaseComponent } from './moonbase.component';
 import { NavModule } from './nav/nav.module';
-import { IntroComponent } from './intro/intro.component';
 import { MatIconModule } from '@angular/material/icon';
 // import { NgParticlesModule } from 'ng-particles';
-import { PrizePoolComponent } from './prize-pool/prize-pool.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HistoryComponent } from './history/history.component';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -47,8 +45,6 @@ import { UpgradeNftDialogComponent } from './inventory/upgrade-nft-dialog/upgrad
 @NgModule({
   declarations: [
     MoonbaseComponent,
-    IntroComponent,
-    PrizePoolComponent,
     NFTCollectionsComponent,
     CountdownTimerComponent,
     HistoryComponent,

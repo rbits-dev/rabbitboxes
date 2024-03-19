@@ -1,5 +1,5 @@
 <section class="landing-intro">
-  <div class="landing-into-nft-image-container-mobile">
+ <!-- <div class="landing-into-nft-image-container-mobile">
     <section class="landing-carousel">
       <swiper *ngIf="slides.length !== 0" [config]="config">
         <ng-container *ngFor="let slide of slides; index as i">
@@ -13,7 +13,7 @@
       <img class="flex mx-auto" style="margin-bottom: 80px;" *ngIf="slides.length === 0"
         src="assets/media/videos/Loading.gif" alt="">
     </section>
-  </div>
+  </div> -->
 
   <div class="info">
     <div class="line-container ">
@@ -32,7 +32,7 @@
     </div>
     <div class="buttons-container">
       <div class="buy-moonshot-button">
-        <a [routerLink]="['/live']" class="button">Explore</a>
+        <a href=""  [routerLink]="['/live']" class="button">Explore</a>
       </div>
       <div class="arrow-down">
         <div class="round-mini-button" (click)="scrollToElement('', 'landing-nfts')">
@@ -54,8 +54,12 @@
           </ng-template>
         </ng-container>
       </swiper>
-      <img class="flex mx-auto"  *ngIf="slides.length === 0"
-        src="assets/media/videos/Loading.gif" alt="">
+      <div *ngIf="slides.length === 0" class="flex flex-center" style="max-width: 770px; width: 100vw;">
+        <img class="flex mx-auto" style="margin-bottom: 40px;" src="assets/media/videos/Loading.gif" alt="">
+    </div>
+      <!-- <div class="nft-image-container">
+        <img src="assets/media/images/moonbox/RbitAstronaut.webp" alt="RbitAstronaut">
+      </div> -->
     </section>
   </div>
 </section>

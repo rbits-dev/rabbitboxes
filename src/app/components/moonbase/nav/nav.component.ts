@@ -29,7 +29,7 @@ export class NavComponent implements OnInit {
   public isTooltipActive = true;
   chainName: any;
   selectedChainId: number = 0;
-  ChainId: number = 0;
+  ChainId: number = 1; // default is ETH chain
   event$
   public navItems: any[] = [
     // {
@@ -56,7 +56,7 @@ export class NavComponent implements OnInit {
       icon: 'assets/media/icons/moonbase/nav/Menu_drops_black.svg',
       alt: 'drops',
       tooltip:
-        'Archived, Current and Upcoming NFT drops.',
+        'Archived, Now and Next NFT drops.',
       click: null,
       routerLink: ['/live'],
       route: '/live',
@@ -140,16 +140,31 @@ export class NavComponent implements OnInit {
 
   ngOnInit(): void {
     this.walletConnectService.init();
+<<<<<<< HEAD
     this.walletConnectService.updateChainId(parseInt(localStorage.getItem('manual_chainId') ?? "1"));
     // this.walletConnectService.updateSelectedChainId(parseInt(localStorage.getItem('chainId') ?? "1"));
 
     console.log(parseInt(localStorage.getItem('manual_chainId') ?? "1"));
+=======
+>>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
 
     this.getNSFWStatus();
 
-    this.walletConnectService.getSelectedChainId().subscribe((response) => {
-      this.selectedChainId = response;
-      this.currentChainId = response;
+    let manualChainId = localStorage.getItem("manual_chainId");
+
+    this.ChainId = manualChainId as unknown as number ?? 1;
+
+    console.log("chainId in localstorage is ", this.ChainId);
+
+    this.walletConnectService.getSelectedChainId().subscribe((id) => {
+      // Lots of vars for the same thing
+      if ( id !== undefined && id > 0) {
+        this.selectedChainId = id;
+        this.currentChainId = id;
+        this.ChainId = id;
+      }
+
+      console.log("ChainId value for navigation component is ", this.ChainId);
 
       this.isMultiChain();
       // this.checkNetwork();
@@ -157,7 +172,6 @@ export class NavComponent implements OnInit {
 
     this.walletConnectService.getChainId().subscribe((response) => {
       this.ChainId = response;
-
       this.checkNetwork();
     });
 
@@ -250,6 +264,12 @@ export class NavComponent implements OnInit {
   checkNetwork() {
     if( this.ChainId !== undefined && this.ChainId > 0) {
       this.chainName = CHAIN_CONFIGS[this.ChainId].name;
+<<<<<<< HEAD
+=======
+    }
+    else {
+      this.chainName = "Unknown";
+>>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
     }
   }
 

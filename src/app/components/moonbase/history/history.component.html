@@ -3,6 +3,7 @@
         {{mainMessage}}
         <div *ngIf="mainMessage === messages.IDLE && isConnected; else loggedOut">
             <img class="absolute-center" src="assets/media/videos/Loading.gif" alt="loading" />
+            <p class="absolute-center" style="top:65%; color:white; margin-top: 20px;">Loading ...</p>
         </div>
 
         <ng-template #loggedOut>
@@ -13,8 +14,8 @@
     <div *ngIf="historyData !== null" class="mt50 flex-center flex-col mb-auto">
 
         <div class="tabs-container flex justify-space-around pb50">
-            <a class="tab tab-button" [ngClass]="getButtonType(tabsCategory.UNBOXINGS)" (click)="changeTab(tabsCategory.UNBOXINGS)">Unboxings</a>
-            <a class="tab tab-button" [ngClass]="getButtonType(tabsCategory.TRANSFERS)" (click)="changeTab(tabsCategory.TRANSFERS)">Transfers</a>
+            <a href="" class="tab tab-button" [ngClass]="getButtonType(tabsCategory.UNBOXINGS)" (click)="changeTab(tabsCategory.UNBOXINGS)">Unboxings</a>
+            <a href="" class="tab tab-button" [ngClass]="getButtonType(tabsCategory.TRANSFERS)" (click)="changeTab(tabsCategory.TRANSFERS)">Transfers</a>
         </div>
 
         <div *ngIf="historyData && currentCategory === tabsCategory.UNBOXINGS" class="h-100 flex-space-between align-items-center">

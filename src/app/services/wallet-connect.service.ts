@@ -1,5 +1,9 @@
 import { Injectable } from "@angular/core";
+<<<<<<< HEAD
 import { BehaviorSubject, Observable, Subject } from "rxjs";
+=======
+import { BehaviorSubject, Observable, Subject, from } from "rxjs";
+>>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
 import { WindowRefService } from "./window-ref.service";
 import { ethers, Wallet } from "ethers";
 import WalletConnectProvider from "@walletconnect/web3-provider";
@@ -8,11 +12,14 @@ import { ToastrService } from "ngx-toastr";
 import { LocalStorageService } from "./local-storage.service";
 import Web3 from "web3";
 import Web3Modal from "Web3Modal";
+<<<<<<< HEAD
+=======
+import { debounce } from "lodash";
+
+>>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
 const SID = require("@siddomains/sidjs").default;
 const SIDfunctions = require("@siddomains/sidjs");
 
-const providerMainNetURL = environment.providerMainNetURL;
-const providerTestNetURL = environment.providerTestNetURL;
 const providerChainID = environment.chainId;
 
 const silverTokenAbi = require("./../../assets/abis/silverTokenAbi.json");
@@ -23,6 +30,7 @@ const BRIDGE_ABI = require("./../../assets/abis/BridgeAbi.json");
 const BRIDGE_COLLECTION_ABI = require("./../../assets/abis/BridgeCollectionAddressAbi.json");
 const ArtistNFTAbi = require("./../../assets/abis/ArtistNFTAbi.json");
 const registorAbi = require("../../assets/abis/registorAbi.json");
+<<<<<<< HEAD
 const buyContractAddress = environment.buyContractAddress;
 
 const NETWORK = "binance";
@@ -58,11 +66,34 @@ const web3Modal = new Web3Modal({
   cacheProvider: false, // optional
   providerOptions: providerOptionsForRBITS, // required
   disableInjectedProvider: false
+=======
+const config = require("./../../assets/configFiles/configFile.json");
+const MINT_NFT_ABI = require("./../../assets/abis/mintNFTAbi.json");
+import { CHAIN_CONFIGS } from "../components/base/wallet/connect/constants/blockchain.configs";
+
+const providerOptionsForRBITS = {
+  walletconnect: {
+    package: WalletConnectProvider,
+    rpc: {},
+    network: CHAIN_CONFIGS[providerChainID[0]]?.name || "Unknown", // Default to unknown
+    chainId: providerChainID[0], // first chain id is the default
+  },
+};
+
+// allow WalletConnectProvider to know which RPC endpoints to use for each supported network
+providerChainID.forEach((supportedChainId) => {
+  //console.log( CHAIN_CONFIGS[ supportedChainId ]?.config.params[0].rpcUrls[0] );
+  providerOptionsForRBITS.walletconnect.rpc[supportedChainId] =
+    CHAIN_CONFIGS[supportedChainId]?.config.params[0].rpcUrls[0];
 });
 
-// const provider = new WalletConnectProvider({
-//   infuraId: 'b0287acccb124ceb8306f3192f9e9c04',
-// });
+const web3Modal = new Web3Modal({
+  theme: "dark",
+  cacheProvider: false,
+  providerOptions: providerOptionsForRBITS,
+  disableInjectedProvider: false,
+>>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
+});
 
 @Injectable({
   providedIn: "root",
@@ -117,7 +148,10 @@ export class WalletConnectService {
 
   async init(): Promise<boolean> {
     try {
+<<<<<<< HEAD
       // await this.localStorageService.getAddress();
+=======
+>>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
       var web3Provider = new Web3.providers.HttpProvider(
         environment.providerURL
       );
@@ -140,7 +174,11 @@ export class WalletConnectService {
         config[environment.configFile][1].artistLootBoxAddress
       );
     } catch (e) {
+<<<<<<< HEAD
       console.log(e);
+=======
+      console.log("An error occured", e);
+>>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
     }
 
     const wallet = this.localStorageService.getWallet();
@@ -150,6 +188,8 @@ export class WalletConnectService {
         break;
       case 2:
         await this.connectToWalletConnect(wallet);
+        break;
+      default:
         break;
     }
 
@@ -176,7 +216,11 @@ export class WalletConnectService {
 
   async connectToWallet(origin = 0) {
     const window = this.windowRef.nativeWindow.ethereum;
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
     try {
       if (typeof window !== "undefined" && typeof window !== undefined) {
         await this.windowRef.nativeWindow.ethereum.request({
@@ -187,6 +231,7 @@ export class WalletConnectService {
         );
 
         let currentNetwork = await this.provider.getNetwork();
+<<<<<<< HEAD
         this.getChainId().subscribe((response) => {
           this.ChainId = response;
         });
@@ -214,6 +259,56 @@ export class WalletConnectService {
           } 
         }
 
+=======
+
+        this.getChainId().subscribe((currentChainId) => {
+          if (currentChainId === 0) {
+            currentChainId = currentNetwork.chainId;
+          }
+
+          if (providerChainID.indexOf(currentNetwork.chainId) === -1) {
+            this.toastrService.error(
+              "You are on an unsupported network, please select another blockchain."
+            );
+            this.setWalletState(false);
+            throw "Wrong network";
+          }
+
+          this.ChainId = currentChainId;
+          this.selectedChainId.next(currentChainId);
+
+          localStorage.setItem("manual_chainId", this.ChainId.toString());
+        });
+
+        console.log("The provider is on the network ", currentNetwork.chainId);
+        console.log("We are on ", this.ChainId);
+
+        if (providerChainID.indexOf(currentNetwork.chainId) === -1) {
+          console.log("Wrong network");
+
+          this.setWalletState(false);
+          this.ChainId = 1;
+          this.selectedChainId.next(1);
+
+          throw "Wrong network";
+        } /*else {
+          if (this.ChainId != currentNetwork.chainId) {
+            this.toastrService.error(
+              "You are on the wrong network, please connect with " +
+                this.chainConfigs[this.ChainId]?.name ?? ""
+            );
+
+            this.setWalletDisconnected();
+            setTimeout( () => {
+              location.reload();
+            }, 3000);
+          }
+        } */
+
+        localStorage.setItem("manual_chainId", this.ChainId.toString());
+        this.chainId.next(this.ChainId);
+
+>>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
         await this.getAccountAddress();
         this.localStorageService.setWallet(1);
         // Subscribe to accounts change
@@ -230,6 +325,7 @@ export class WalletConnectService {
             }
           }
         );
+<<<<<<< HEAD
 
         // Subscribe to session disconnection
         this.windowRef.nativeWindow.ethereum.on(
@@ -248,6 +344,26 @@ export class WalletConnectService {
 
         // Subscribe to session disconnection
         this.windowRef.nativeWindow.ethereum.on(
+=======
+
+        // Subscribe to network changed event
+        this.windowRef.nativeWindow.ethereum.on(
+          this.CHAIN_CHANGED,
+          debounce(async (code: number, reason: string) => {
+            await this.connectToWallet();
+            this.toastrService.info("Network change detected, please wait");
+            setTimeout(() => {
+              location.reload();
+            }, 3000);
+            // alert(code)
+            this.updateSelectedChainId(Number(code));
+            this.setWalletState(true);
+          }, 1500) // Debounce for 1 second
+        );
+
+        // Subscribe to session disconnection
+        this.windowRef.nativeWindow.ethereum.on(
+>>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
           this.DISCONNECT,
           (code: number, reason: string) => {
             // if (provider.close) provider.close();
@@ -282,6 +398,27 @@ export class WalletConnectService {
         this.provider = new ethers.providers.Web3Provider(provider);
         await provider.enable();
 
+        let currentNetwork = await this.provider.getNetwork();
+
+        this.getChainId().subscribe((currentChainId) => {
+          if (currentChainId === 0) {
+            currentChainId = currentNetwork.chainId;
+          }
+
+          if (providerChainID.indexOf(currentNetwork.chainId) === -1) {
+            this.toastrService.error(
+              "You are on an unsupported network, please select another blockchain"
+            );
+            this.setWalletState(false);
+            throw "Wrong network";
+          }
+
+          this.ChainId = currentChainId;
+          this.selectedChainId.next(currentChainId);
+
+          localStorage.setItem("manual_chainId", this.ChainId.toString());
+        });
+
         await this.getAccountAddress();
         this.localStorageService.setWallet(2);
 
@@ -295,7 +432,11 @@ export class WalletConnectService {
           this.setWalletDisconnected()
         );
 
+<<<<<<< HEAD
         // Subscribe to session disconnection
+=======
+        // Subscribe to network change event
+>>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
         provider.on(
           this.CHAIN_CHANGED,
           async (code: number, reason: string) => {
@@ -303,6 +444,14 @@ export class WalletConnectService {
             this.setWalletDisconnected();
 
             let currentNetwork = await this.getNetworkChainId();
+<<<<<<< HEAD
+=======
+            this.ChainId = currentNetwork as number;
+
+            localStorage.setItem("manual_chainId", this.ChainId.toString());
+            this.chainId.next(this.ChainId);
+
+>>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
             this.updateSelectedChainId(
               environment.chainId.indexOf(currentNetwork as number)
             );
@@ -392,13 +541,28 @@ export class WalletConnectService {
 
   async spaceAddress(address: any) {
     try {
+<<<<<<< HEAD
       let chainId = localStorage.getItem("chainId");
       let rpc = this.chainConfigs[chainId].config.params[0].rpcUrls[0];
       const provider = new Web3.providers.HttpProvider(rpc);
+=======
+      let chainId = this.ChainId;
+      if (chainId !== 56) {
+        return; //spaceID on BSC
+      }
+
+      let rpc = this.chainConfigs[chainId].config.params[0].rpcUrls[0];
+      const provider = new Web3.providers.HttpProvider(rpc);
+
+>>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
       this.sid = new SID({
         provider,
         sidAddress: SIDfunctions.getSidAddress(chainId),
       });
+<<<<<<< HEAD
+=======
+
+>>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
       return await this.sid.getName(address);
     } catch (error) {
       console.log(error);
@@ -815,6 +979,10 @@ export class WalletConnectService {
     return this.account;
   }
 
+  getWalletState() {
+    return this.isConnected;
+  }
+
   setWalletDisconnected() {
     this.isConnected = false;
     this.setWalletState(this.isConnected);
@@ -985,6 +1153,39 @@ export class WalletConnectService {
     }
   }
 
+<<<<<<< HEAD
+=======
+  //LISTEN TO EVENTS OF MINT NFT CONTRACT
+  async listenToEvents() {
+    let provider;
+    let providerIndex = 0;
+
+    while (!provider && providerIndex < environment.providerURLForEth.length) {
+        try {
+            provider = new ethers.providers.JsonRpcProvider(environment.providerURLForEth[providerIndex]);
+            await provider.getBlockNumber(); // Test if provider is working
+        } catch (error) {
+            console.error(`JSON-RPC provider at index ${providerIndex} failed.`);
+            provider = null; // Reset provider to try the next one
+            providerIndex++;
+        }
+    }
+
+    if (!provider) {
+        throw new Error("All JSON-RPC providers failed.");
+    }
+
+    const contract = new ethers.Contract(environment.mintNFTAddress, MINT_NFT_ABI, provider);
+
+    return new Promise((resolve, reject) => {
+        contract.on('ReceiveNFT', (from, to, id, amount, event) => {
+            resolve(event);
+        });
+    });
+}
+
+
+>>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
   //HANDLE METAMSK ERROR
   async handleMetamaskError(error) {
     switch (error.code) {
@@ -994,8 +1195,23 @@ export class WalletConnectService {
       case "ACTION_REJECTED":
         this.toastrService.error(error.reason);
         break;
+<<<<<<< HEAD
       default:
         this.toastrService.error("Something went wrong, please try again later.");
+=======
+      case -32603:
+        this.toastrService.error(error.data ? error.data.message:error.reason);
+        break;
+      case "OUT_OF_GAS":
+        this.toastrService.error(
+          "You don't have enough to cover the gas fees."
+        );
+        break;
+      default:
+        this.toastrService.error(
+          "Something went wrong, please try again later."
+        );
+>>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
         break;
     }
   }

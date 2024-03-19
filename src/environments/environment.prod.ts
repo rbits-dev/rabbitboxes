@@ -1,10 +1,18 @@
 export const environment = {
   production: true,
+<<<<<<< HEAD
   chainId: [56, 137, 1285,1,2000],
   openseaChainIds: [1, 3, 4,2,5],
   providerTestNetURL: "https://data-seed-prebsc-1-s1.binance.org:8545/",
   providerMainNetURL: "https://bsc-dataseed1.binance.org",
   providerURL: "https://bsc-dataseed1.binance.org",
+=======
+  chainId: [1, 56, 137, 1285, 2000],
+  openseaChainIds: [1, 3, 4,2,5],
+
+  providerURL: "https://bsc-dataseed1.binance.org",
+  
+>>>>>>> a43ca9325a1c2045fc0f2703f63bbf2f6d609277
   baseURL: "https://rbits.xyz/boxes/backend/api/",
   ownerAddress: "0x66A7B9f608378e59105022aB00b0F541666e8c4d",
   NFTAddress: "0x82A3E038048CF02C19e60856564bE209899d4F12",
