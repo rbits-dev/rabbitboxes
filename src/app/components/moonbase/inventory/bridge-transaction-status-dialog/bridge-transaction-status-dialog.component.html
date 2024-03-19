@@ -1,0 +1,55 @@
+
+
+<div class="transaction-Popup">
+    <div class="modal-box">
+      <span *ngIf="successIcon8" class="closeX" (click)="dialogRef.close()">X</span>
+        <div class="flex justify-space-between walletconnect-modal__header">
+          <div class="popup__title h4 p-white-span-primary">Bridge Steps</div>
+        </div>
+        <div class="popup popup_wallet" id="popup-wallet">
+            <div class="steps">
+                <div class="steps__item">
+                    <div class="steps__head">
+                        <div [ngClass]="{'success__icon': successIcon2 }" class="steps__icon">
+                          <img *ngIf="successIcon" src="assets/media/videos/Loading.gif" class="loader-img">
+                            <svg *ngIf="successIcon2"  xmlns="http://www.w3.org/2000/svg" width="14" height="10" fill="#fff"><path d="M13.707.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 1 1 1.414-1.414L5 7.586 12.293.293a1 1 0 0 1 1.414 0z"/></svg>
+                        </div>
+                        <div class="steps__details">
+                            <div class="steps__info">Submitting NFT</div>
+                            <div class="steps__text">Checking NFT balance and submitting </div>
+                        </div>
+                    </div>
+                    <button class="button disabled-button steps__button wp100 border-0">{{btn2Text}}</button>
+                </div>
+                <div class="steps__item">
+                    <div class="steps__head">
+                        <div [ngClass]="{'success__icon': successIcon5 }" class="steps__icon" >
+                            <img *ngIf="successIcon3" src="assets/media/images/etherscan.png" class="loader-img">
+                            <img *ngIf="successIcon4" src="assets/media/videos/Loading.gif" class="loader-img">
+                            <svg *ngIf="successIcon5"  xmlns="http://www.w3.org/2000/svg" width="14" height="10" fill="#fff"><path d="M13.707.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 1 1 1.414-1.414L5 7.586 12.293.293a1 1 0 0 1 1.414 0z"/></svg>
+                        </div>
+                        <div class="steps__details">
+                            <div class="steps__info">Minting NFT</div>
+                            <div class="steps__text">Minting NFT on ETH chain </div>
+                        </div>
+                    </div>
+                    <button  class="button disabled-button steps__button disabled wp100 border-0">{{btn3Text}}</button>
+                </div>
+                <div class="steps__item">
+                    <div class="steps__head">
+                        <div [ngClass]="{'success__icon': successIcon8 }" class="steps__icon ">
+                            <img *ngIf="successIcon6" src="assets/media/images/etherscan.png" class="loader-img">
+                            <img *ngIf="successIcon7" src="assets/media/videos/Loading.gif" class="loader-img">
+                            <svg *ngIf="successIcon8"  xmlns="http://www.w3.org/2000/svg" width="14" height="10" fill="#fff"><path d="M13.707.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 1 1 1.414-1.414L5 7.586 12.293.293a1 1 0 0 1 1.414 0z"/></svg>
+                        </div>
+                        <div class="steps__details">
+                            <div class="steps__info">Transaction Hash </div>
+                            <a class="steps__text" target="_blank" [href]="txHashHref">{{transactionHash}}</a>
+                        </div>
+                    </div>
+                    <button  class="button disabled-button steps__button disabled wp100 border-0">{{btn4Text}}</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
