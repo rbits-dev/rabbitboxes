@@ -63,6 +63,7 @@ export class InventoryComponent implements OnInit {
       .onWalletStateChanged()
       .subscribe((state: boolean) => {
         this.isConnected = state;
+        console.log("Wallet disconnected");
       });
 
     this.walletConnectService.getData().subscribe(async (data: any) => {
@@ -74,6 +75,7 @@ export class InventoryComponent implements OnInit {
 
         if (Object.keys(this.data).length > 0) this.getUserData();
         else this.mainMessage = MESSAGES.NO_WALLET_DATA_FROM_SERVER;
+        console.log(this.mainMessage);
       }
     });
     this.getNFTData();
@@ -272,8 +274,10 @@ export class InventoryComponent implements OnInit {
       .upgradeNftInfo({
         walletAddress: this.userAddress,
       })
-      .subscribe((data: any) => {
-        this.nftData = data.data;
+      .subscribe((response: any) => {
+        if (response.isSuccess) {
+          this.nftData = response.data;
+        }
       });
   }
 
