@@ -16,6 +16,6 @@ export const environment = {
   configFile: 'mainnet',
 
   adminPanelUrl : "https://rbits.xyz/boxes/admin/",
-  mintNFTAddress:"", //FIXME contract not yet deployed
+  mintNFTAddress:"", //FIXME contract not yet deployed, should be moved to configFile referenced here
   explorerURLForEth:"https://etherscan.io/",
 };
