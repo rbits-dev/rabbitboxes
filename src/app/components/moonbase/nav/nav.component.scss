@@ -20,8 +20,8 @@ section.navigation {
 
 .block {
   .tooltip .bottom {
-    width: 210px;
-    right: 90px !important;
+    width: max-content;
+    right: 8px !important;
     transform: translate(56%, 100%) scaleY(1) scaleX(1) !important;
   }
 
@@ -186,7 +186,7 @@ section.navigation {
 }
 
 .tooltip .bottom {
-  width: 270px;
+  width: max-content;
   top: 0px;
   transform: translate(-32%, -100%) scaleY(-1) scaleX(1);
   padding: 20px 20px;
