@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { timingSafeEqual } from 'crypto';
 import { Observable, Subject } from 'rxjs';
 
 import Web3 from 'web3';
