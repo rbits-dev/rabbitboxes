@@ -334,7 +334,9 @@ export class NavComponent implements OnInit {
         this.toastrService.success(`You are connected to ${this.chainConfigs[this.chains[index]].name}, please wait while loading data`);
       } catch (error) {
         console.log(error);
-        this.toastrService.error(`${error.message}`)
+        this.toastrService.error(`${error.message}`);
+        this.walletConnectService.handleMetamaskError(error);
+
       }
     }
     this.isTooltipActive = true;
