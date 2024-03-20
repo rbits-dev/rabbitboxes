@@ -63,7 +63,7 @@ export class InventoryComponent implements OnInit {
       .onWalletStateChanged()
       .subscribe((state: boolean) => {
         this.isConnected = state;
-        console.log("Wallet disconnected");
+        console.log("Wallet ", (state ? "connected" : "not connected"));
       });
 
     this.walletConnectService.getData().subscribe(async (data: any) => {
@@ -213,6 +213,7 @@ export class InventoryComponent implements OnInit {
   }
 
   
+
   cdkCopyToClipboard() {
     this.toastrService.success('Copied to clipboard', 'Success!');
   } 
