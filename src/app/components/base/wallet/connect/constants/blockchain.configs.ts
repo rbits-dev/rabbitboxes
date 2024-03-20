@@ -107,7 +107,7 @@ export const CHAIN_CONFIGS: any = {
             symbol: 'MATIC',
             decimals: 18,
           },
-          rpcUrls: ['https://rpc.ankr.com/polygon'],
+          rpcUrls: ['https://polygon-rpc.com/'],
           blockExplorerUrls: ['https://polygonscan.com'],
         },
       ],
