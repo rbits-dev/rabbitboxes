@@ -100,6 +100,23 @@ export class WalletConnectService {
     return this.data.asObservable();
   }
 
+  initTokenCA() {
+    // Token is on ETH
+    let providerRPC = this.chainConfigs[1].config.params[0].rpcUrls[0];
+    var web3Provider = new Web3.providers.HttpProvider(
+      providerRPC
+    );
+    var web3 = new Web3(web3Provider);
+
+    console.log("Initializing token contract on ", providerRPC);
+    
+    this.SilverContract = new web3.eth.Contract(
+        silverTokenAbi,
+        environment.tokenContractAddress
+    );
+
+  }
+
   async init(): Promise<boolean> {
 
     try {
@@ -107,26 +124,31 @@ export class WalletConnectService {
         environment.providerURL
       );
       var web3 = new Web3(web3Provider);
-      this.SilverContract = new web3.eth.Contract(
-        silverTokenAbi,
-        environment.tokenContractAddress
-      );
+
+      console.log("Initializing lootbox contracts on ", environment.providerURL);
+      console.log("Token CA is ", environment.tokenContractAddress);
+      
       this.LootBoxContractGet = new web3.eth.Contract(
         lootBoxAbi,
         environment.lootBoxAddress
       );
+      
       this.swapContract = new web3.eth.Contract(
         swapContractAbi,
         config[environment.configFile][1].ArtistMoonBoxNftSwap
       );
+      
       //MultiChain contracts
       this.artistLootBoxContractGet = new web3.eth.Contract(
         ArtistNFTAbi,
         config[environment.configFile][1].artistLootBoxAddress
       );
+
     } catch (e) {
       console.log("An error occured", e);
     }
+
+    this.initTokenCA();
 
     const wallet = this.localStorageService.getWallet();
     switch (wallet) {
@@ -140,7 +162,7 @@ export class WalletConnectService {
         break;
     }
 
-    await this.getAccountAddress();
+    //await this.getAccountAddress();
 
     return wallet != undefined || this.account != undefined;
   }
@@ -223,8 +245,7 @@ export class WalletConnectService {
         localStorage.setItem("manual_chainId", this.ChainId.toString());
         this.chainId.next(this.ChainId);
 
-        await this.getAccountAddress();
-        this.localStorageService.setWallet(1);
+
         // Subscribe to accounts change
 
         this.windowRef.nativeWindow.ethereum.on(
@@ -267,6 +288,9 @@ export class WalletConnectService {
         );
 
         this.setWalletState(true);
+        await this.getAccountAddress();
+        this.localStorageService.setWallet(1);
+
         // if (origin == 0) location.reload();
       }
     } catch (e) {
@@ -316,10 +340,6 @@ export class WalletConnectService {
           localStorage.setItem("manual_chainId", this.ChainId.toString());
         });
 
-
-        await this.getAccountAddress();
-        this.localStorageService.setWallet(2);
-
         // Subscribe to accounts change
         provider.on(this.ACCOUNTS_CHANGED, (accounts: string[]) =>
           this.connectToWalletConnect()
@@ -351,8 +371,12 @@ export class WalletConnectService {
 
         this.setWalletState(true);
 
+        await this.getAccountAddress();
+        this.localStorageService.setWallet(2);
+
         if (origin === 0) location.reload();
-      } catch (e) {
+      } 
+      catch (e) {
         console.log("There was an error",e );
         this.setWalletDisconnected();
         location.reload(); // FIXME: Without reloading the page, the WalletConnect modal does not open again after closing it
@@ -362,56 +386,95 @@ export class WalletConnectService {
     }
   }
 
+
   async getAccountAddress() {
     this.signer = this.provider?.getSigner();
     const address = await this.signer?.getAddress();
     const network = await this.provider?.getNetwork();
-    var chainId = await this.chainId.value;
+    var chainId = this.chainId.value;
 
     this.localStorageService.setAddress(address);
     console.log("Welcome ", address);
-//    this.updateSelectedChainId(network?.chainId);
+    console.log("The current selected network is ", chainId);
 
-    if (network?.chainId == chainId) {
-      let index = environment.chainId.indexOf(chainId ?? 1);
-      if (network?.chainId == 56 || network?.chainId == 97) {
-        this.LootboxContract = new ethers.Contract(
-          environment.lootBoxAddress,
-          lootBoxAbi,
-          this.signer
-        );
-        this.swapContract = new ethers.Contract(
-          config[environment.configFile][index].ArtistMoonBoxNftSwap,
-          swapContractAbi,
-          this.signer
-        );
-        this.BridgeContract = new ethers.Contract(
-          config[environment.configFile][index].BridgeNftAddress,
-          BRIDGE_ABI,
-          this.signer
-        );
-        this.BridgeCollectionContract = new ethers.Contract(
-          environment.bridgeCollectionAddress,
-          BRIDGE_COLLECTION_ABI,
-          this.signer
-        );
-      }
-      this.NFTContract = new ethers.Contract(
-        environment.NFTAddress,
-        NFTAbi,
-        this.signer
-      );
-      this.artistLootBoxContract = new ethers.Contract(
-        config[environment.configFile][index].artistLootBoxAddress,
-        ArtistNFTAbi,
-        this.signer
-      );
-      this.registorContractAddressObj = new ethers.Contract(
-        config[environment.configFile][index].RegisterMoonboxAddress,
-        registorAbi,
-        this.signer
-      );
+    const node = config[environment.configFile].find( (chain:any) => chain.chainId == chainId );
+    if( node ) {
+      console.log( "Network configuration: ", node );
     }
+
+    if( node ) {
+      try {
+          if( chainId == 56 || chainId == 97 ) {
+
+            this.NFTContract = new ethers.Contract(
+              environment.NFTAddress,
+              NFTAbi,
+              this.signer
+            );
+            console.log( "NFTContract ", environment.NFTAddress );
+            //FIXME: NFTContract should be defined in configuration file
+          }
+          
+          if( node.lootBoxAddress ) {
+            this.LootboxContract = new ethers.Contract(
+              node.lootBoxAddress,
+              lootBoxAbi,
+              this.signer
+            );
+          }
+
+          if( node.ArtistMoonBoxNftSwap) {
+            this.swapContract = new ethers.Contract(
+              node.ArtistMoonBoxNftSwap,
+              swapContractAbi,
+              this.signer
+            );
+
+          }
+
+          if( node.BridgeNftAddress ) {
+            this.BridgeContract = new ethers.Contract(
+              node.BridgeNftAddress,
+              BRIDGE_ABI,
+              this.signer
+            );
+          }
+
+          if( node.bridgeCollectionAddress ) {
+            this.BridgeCollectionContract = new ethers.Contract(
+              environment.bridgeCollectionAddress,
+              BRIDGE_COLLECTION_ABI,
+              this.signer
+            );
+          }
+
+          if( node.artistLootBoxAddress ) {
+            this.artistLootBoxContract = new ethers.Contract(
+              node.artistLootBoxAddress,
+              ArtistNFTAbi,
+              this.signer
+            );
+          }         
+        
+          if( node.RegisterMoonboxAddress ) {     
+          this.registorContractAddressObj = new ethers.Contract(
+            node.RegisterMoonboxAddress,
+            registorAbi,
+            this.signer
+          );
+        }
+
+        console.log("LootboxAddress: ", node.lootBoxAddress ?? "not configured");
+        console.log("ArtistMoonBoxNftSwap: ", node.ArtistMoonBoxNftSwap ?? "not configured" );
+        console.log("BridgeNftAddress: ", node.BridgeNftAddress ?? "not configured" );
+        console.log("artistLootBoxAddress: ", node.artistLootBoxAddress ?? "not configured" );
+        console.log("RegisterMoonboxAddress: ", node.RegisterMoonboxAddress ?? "not configured" );
+                
+
+      } catch(e) {
+          console.log(e);
+      }
+  }
 
     const data = {
       provider: this.provider,
@@ -436,12 +499,15 @@ export class WalletConnectService {
   async spaceAddress(address: any) {
     try {
       let chainId = this.ChainId;
-      if (chainId !== 56) {
-        return; //spaceID on BSC
+      if (chainId != 56) {
+        console.log("No ENS lookup for chain ", chainId);
+        return address; //spaceID on BSC
       }
   
       let rpc = this.chainConfigs[chainId].config.params[0].rpcUrls[0];
       const provider = new Web3.providers.HttpProvider(rpc);
+
+      console.log("RPC ", rpc);
   
       this.sid = new SID({
         provider,
@@ -578,9 +644,13 @@ export class WalletConnectService {
   }
 
   async getUserBalance(userAddress: string): Promise<number> {
-    return Number(
-      await this.SilverContract?.methods.balanceOf(userAddress).call()
-    );
+    if(this.ChainId != 1) {
+      return Number(0); // RBITS token is only deployed on ETH
+    }
+
+    let num = await this.SilverContract?.methods.balanceOf(userAddress).call();
+    
+    return Number(num);  
   }
 
   async getTransactionHashForBetSubmit(
