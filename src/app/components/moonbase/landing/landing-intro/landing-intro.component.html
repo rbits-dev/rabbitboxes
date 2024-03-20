@@ -49,9 +49,12 @@
           </ng-template>
         </ng-container>
       </swiper>
-      <div class="nft-image-container">
+      <div *ngIf="slides.length === 0" class="flex flex-center" style="max-width: 770px; width: 100vw;">
+        <img class="flex mx-auto" style="margin-bottom: 40px;" src="assets/media/videos/Loading.gif" alt="">
+    </div>
+      <!-- <div class="nft-image-container">
         <img src="assets/media/images/moonbox/RbitAstronaut.webp" alt="RbitAstronaut">
-      </div>
+      </div> -->
     </section>
   </div>
 </section>
