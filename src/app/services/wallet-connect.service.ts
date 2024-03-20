@@ -154,7 +154,7 @@ export class WalletConnectService {
 
   async isValidAddress() {
     try {
-      let address = await this.signer.getAddress();
+      let address = await this.signer?.getAddress();
       return ethers.utils.isAddress(address);
     } catch (error) {
       return false;
@@ -178,6 +178,7 @@ export class WalletConnectService {
         this.getChainId().subscribe((currentChainId) => {
           if( currentChainId === 0) {
             currentChainId = currentNetwork.chainId;
+            console.log("The provider is on ", currentChainId);
           }
 
           if( providerChainID.indexOf(currentNetwork.chainId) === -1) {
@@ -269,6 +270,7 @@ export class WalletConnectService {
         // if (origin == 0) location.reload();
       }
     } catch (e) {
+      console.log(e);
       this.setWalletDisconnected();
     }
   }
@@ -367,6 +369,7 @@ export class WalletConnectService {
     var chainId = await this.chainId.value;
 
     this.localStorageService.setAddress(address);
+    console.log("Welcome ", address);
 //    this.updateSelectedChainId(network?.chainId);
 
     if (network?.chainId == chainId) {
@@ -424,6 +427,8 @@ export class WalletConnectService {
     if (data.address !== undefined) this.setWalletState(true);
 
     this.updateData(data);
+
+    console.log(data);
   }
 
   sid: any;
@@ -1069,6 +1074,7 @@ export class WalletConnectService {
 
   //HANDLE METAMSK ERROR
   async handleMetamaskError(error) {
+
     switch (error.code) {
       case "UNPREDICTABLE_GAS_LIMIT":
         this.toastrService.error(error.reason);
@@ -1076,7 +1082,10 @@ export class WalletConnectService {
       case "ACTION_REJECTED":
         this.toastrService.error(error.reason);
         break;
-      case "-32603":
+      case -32602:
+        this.toastrService.error("Please check if the network configuration in your wallet is correct");
+        break;
+      case -32603:
       case "OUT_OF_GAS":
         this.toastrService.error("You don't have enough to cover the gas fees.");
         break;
