@@ -86,4 +86,8 @@ export class TransferComponent {
     return true;
   }
 
+  closeDialog() {
+    this.dialogRef.close();
+  }
+
 }

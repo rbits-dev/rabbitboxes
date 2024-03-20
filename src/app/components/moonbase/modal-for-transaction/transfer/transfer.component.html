@@ -1,4 +1,5 @@
 <div class="modal-box">
+
   <p class="warning">
     Please make sure the destination address is on the same network
   </p>
@@ -21,4 +22,9 @@
     <a (click)="transfer(toAddress.value,data.details.ArtistNFTAddress)"
       class="button text-inherit mb20 ng-star-inserted">{{ btnText }}</a>
   </div>
+
+  <div>
+    <a (click)="closeDialog();" class="button text-inherit mb20 ng-starinserted">Cancel</a>
+  </div>
+
 </div>
