@@ -235,6 +235,7 @@ textarea {
     box-sizing: border-box;
     resize: none;
     font-family: $primary-font;
+    min-height: 10vmax;
 }
 
 .close-tooltip {

@@ -21,11 +21,11 @@
         <div class="right flex1 ml20 flex flex-col">
 
             <div class="flex justify-space-between flex-align-start border-bottom">
-                <div class="flex flex-col">
+                <div class="flex flex-col clipboard">
                     <p class="p18 w700 mt10 color-white">{{artistData.collectionName}}</p>
-                    <p class="mb10 mt10 color-primary">{{artistData.artistName}}</p>
+                    <p class="mb10 mt10 color-primary" >{{artistData.artistName}}</p>
+                    <p class="mb10 mt10 color-primary p12">CA: {{artistData.artistAddress}}</p>
                 </div>
-                
             </div>
 
             <section class="carousel-mobile mt20">
@@ -40,7 +40,7 @@
                 </swiper>
             </section>
 
-            <textarea readonly class="mt20 justify-space-between flex description">{{artistData?.description}}</textarea>
+            <textarea readonly class="mt20 justify-space-between flex description p16">{{artistData?.description}}</textarea>
 
             <ul class="social-icons-container flex-center flex-wrap justify-space-between w-100">
                 <li>

@@ -114,7 +114,7 @@ export class CollectionOverviewComponent implements OnInit {
         return previewImage;
     } 
     return `${partsBeforeFilename}/previews/${collectionName}/${filename}`;
-}
-
-
+  }
+  
+ 
 }
