@@ -248,7 +248,7 @@ section.upcoming-container {
 
 textarea {
   width: 100%;
-  height: 300px;
+  min-height: 10vmax;
   background-color: transparent;
   border: 1px solid $primary;
   color: white;

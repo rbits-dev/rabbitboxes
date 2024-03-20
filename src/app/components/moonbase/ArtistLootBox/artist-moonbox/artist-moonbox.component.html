@@ -9,11 +9,11 @@
     [ngClass]="{'fadeout':fadeOut,'fade-in':popupClosed && !fadeOut}">
 
     <div class="flex w-100">
-      <div class="flex flex-col w-100 boxes-title-container">
+      <div class="flex flex-col w-100 boxes-title-container interactable" style="margin:0 auto; cursor:pointer; width:fit-content;"  (click)="viewDetails()">
         <div class="artist-details flex-center flex-col">
           <p class="p-white-span-primary p30d24m orbitron bold mb10 text-center">{{ artistDetails?.name }}</p>
           <p class="p18 orbitron mb10 text-center">{{ artistDetails?.ArtistName }}</p>
-          <svg (click)="viewDetails()" class="info-icon interactable wrapped" xmlns="http://www.w3.org/2000/svg"
+          <svg class="info-icon wrapped" xmlns="http://www.w3.org/2000/svg"
             width="30" viewBox="0 0 38 38" xml:space="preserve">
             <g fill="#5e2466">
               <path

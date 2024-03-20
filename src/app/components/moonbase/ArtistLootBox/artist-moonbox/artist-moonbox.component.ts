@@ -121,19 +121,19 @@ export class ArtistMoonboxComponent implements OnInit {
   public infoHoverList: any[] = [
     {
       "isHovered": false,
-      "tooltipText": "You need 0 RBITS token\nto open a Wood MoonBox."
+      "tooltipText": "You need 0 RBITS token\nto open a Wood RabbitBox."
     },
     {
       "isHovered": false,
-      "tooltipText": "You need 75,000,000,000 RBITS tokens to open a Silver MoonBox."
+      "tooltipText": "You need 75,000,000,000 RBITS tokens to open a Silver RabbitBox."
     },
     {
       "isHovered": false,
-      "tooltipText": "You need 150,000,000,000 RBITS tokens to open a Gold MoonBox."
+      "tooltipText": "You need 150,000,000,000 RBITS tokens to open a Gold RabbitBox."
     },
     {
       "isHovered": false,
-      "tooltipText": "You need 250,000,000,000 RBITS tokens to open a Diamond MoonBox."
+      "tooltipText": "You need 250,000,000,000 RBITS tokens to open a Diamond RabbitBox."
     },
   ];
   chainId: number;
