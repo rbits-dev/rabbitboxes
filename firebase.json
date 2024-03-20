@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/rabbit-boxes",
+    "public": "dist/boxes",
     "ignore": [
       "firebase.json",
       "**/.*",
