@@ -28,7 +28,7 @@ export class NavComponent implements OnInit {
   menuItem = false;
   public isTooltipActive = true;
   chainName: any;
-  selectedChainId: number = 0;
+  selectedChainId: number = 1;
   ChainId: number = 1; // default is ETH chain
   event$
   public navItems: any[] = [
@@ -39,7 +39,7 @@ export class NavComponent implements OnInit {
   ];
   chains: any[] = environment.chainId;
   chainConfigs = CHAIN_CONFIGS;
-  currentChainId: number = 0;
+  currentChainId: number = 1;
   isMultiChainDropdownActive: boolean = false;
   address: string = '';
 
@@ -141,13 +141,14 @@ export class NavComponent implements OnInit {
   ngOnInit(): void {
     this.walletConnectService.init();
 
-    this.getNSFWStatus();
+    //this.getNSFWStatus();
 
     let manualChainId = localStorage.getItem("manual_chainId");
 
     this.ChainId = manualChainId as unknown as number ?? 1;
 
-    console.log("chainId in localstorage is ", this.ChainId);
+
+    console.log("Multi chain current chain is ", this.ChainId);
 
     this.walletConnectService.getSelectedChainId().subscribe((id) => {
       // Lots of vars for the same thing
@@ -157,15 +158,18 @@ export class NavComponent implements OnInit {
         this.ChainId = id;
       }
 
-      console.log("ChainId value for navigation component is ", this.ChainId);
+      console.log("Multi chain detected chain id ", this.ChainId);
 
       this.isMultiChain();
       // this.checkNetwork();
     });
 
     this.walletConnectService.getChainId().subscribe((response) => {
-      this.ChainId = response;
-      this.checkNetwork();
+      if( response !== undefined && response > 0 )
+      {
+          this.ChainId = response;
+          this.checkNetwork();
+      }
     });
 
     this.walletConnectService.getData().subscribe((data) => {
@@ -332,6 +336,9 @@ export class NavComponent implements OnInit {
         await this.windowRef.nativeWindow.ethereum.request(config);
         this.walletConnectService.updateChainId(this.chains[index]);
         this.toastrService.success(`You are connected to ${this.chainConfigs[this.chains[index]].name}, please wait while loading data`);
+        setTimeout( () => {
+          location.reload();
+        },1000);
       } catch (error) {
         console.log(error);
         this.toastrService.error(`${error.message}`);
