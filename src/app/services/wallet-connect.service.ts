@@ -253,8 +253,11 @@ export class WalletConnectService {
           async (accounts: string[]) => {
             if (accounts.length == 0) {
               // MetaMask is locked or the user has not connected any accounts
-              this.setWalletDisconnected();
               this.toastrService.info("Wallet disconnected!");
+              this.setWalletDisconnected();
+              
+              location.reload();
+
             } else {
               await this.connectToWallet();
             }
@@ -284,6 +287,7 @@ export class WalletConnectService {
           (code: number, reason: string) => {
             // if (provider.close) provider.close();
             this.setWalletDisconnected();
+            window.location.reload();
           }
         );
 
@@ -347,7 +351,11 @@ export class WalletConnectService {
 
         // Subscribe to session disconnect
         provider.on(this.DISCONNECT, (code: number, reason: string) =>
-          this.setWalletDisconnected()
+          {
+            this.setWalletDisconnected();
+            this.toastrService.info("Wallet disconnected!");
+            location.reload();
+          }
         );
 
         // Subscribe to network change event
@@ -738,7 +746,10 @@ export class WalletConnectService {
         await txn.wait(1);
         return { hash: txn.hash, status: true };
       } catch (e) {
-        console.log(e);
+
+        this.toastrService.error( e.reason );
+        console.log(e.message);
+
         return { hash: "", status: false, error: e };
       }
     } else {
