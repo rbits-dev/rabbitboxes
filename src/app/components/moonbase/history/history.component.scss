@@ -7,6 +7,8 @@ table {
     border: 0;
     border-collapse: separate;
     border-spacing: 0 5px;
+    margin:0 auto;
+    width:25vmax;
     button {
         border: 2px solid #5e2466;
     }
@@ -21,8 +23,9 @@ thead tr th {
     border-bottom: 3px solid #5e2466;
     border-collapse: separate;
     border-spacing: 5px 5px;
-    padding-bottom: 1rem;
-    padding-right: 1rem;
+    padding:0.8rem;
+    color:#fff;
+    text-align: left;
 }
 
 tbody td:nth-child(4) {
@@ -33,18 +36,25 @@ tbody td {
     padding: 0.5rem;
     overflow: hidden;
     white-space: nowrap;
+    text-align: left;
 }
 
 .res-table {
     max-width: calc(100% - 40px);
 }
 
+.table {
+    min-height:15vmax;
+}
+
 .table-responsive {
     display: block;
     width: 100%;
     overflow-x: auto;
+    margin:0 auto;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: -ms-autohiding-scrollbar;
+    margin: 0 auto;
 }
 
 .tabs-container>.tab {
@@ -77,4 +87,25 @@ tbody td {
     .tab-button {
         min-width: 100px !important;
     }
+
+    .table-responsive {
+        margin:0 auto;
+        width:99vw;
+    }
+
+    .table {
+        width:99vw;
+    }
+}
+
+@media only screen and (orientation: portrait) {
+    .table-responsive {
+        margin:0 auto;
+        width:99vw;
+    }
+
+    .table {
+        width:99vw;
+    }
+
 }
