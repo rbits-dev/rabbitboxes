@@ -197,9 +197,9 @@ section.info-moonboxes {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: space-between;
     font-weight: 700;
     width: 100%;
+    color:#fff;
     border-bottom: 1px solid $primary;
     padding-bottom: 10px;
 
@@ -212,7 +212,7 @@ section.info-moonboxes {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: space-between;
+    align-items: left;
     width: 100%;
     padding-top: 10px;
     font-weight: 400;
