@@ -18,6 +18,7 @@ export class NftMigrationComponent implements OnInit {
   swapCount: any;
   nftCountToSwap: any;
   IsNftMigrated: any;
+  isConnected: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<NftMigrationComponent>,
@@ -33,6 +34,7 @@ export class NftMigrationComponent implements OnInit {
     this.tabs = this.data.data;
     this.swapCount = this.data.swapCount;
     this.nftCountToSwap = this.data.nftCountToSwap;
+    this.isConnected = this.walletConnectService.getWalletState();
   }
 
 
