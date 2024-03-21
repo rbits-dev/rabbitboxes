@@ -45,6 +45,7 @@ export class NftMigrationComponent implements OnInit {
         let tx = await this.walletConnectService.setApprovalMigration();
         await tx.wait(3);
       }
+      //FIXME: ArtistNFTAddressArray can be undefined after ngOnInit()
       txStatus = await this.walletConnectService.migrateNft(this.tabs.ArtistNFTAddressArray, this.tabs.nftIdArray, this.tabs.amountArray, this.tabs.Signature);
       if (txStatus.status) {
         let url = "userDataSwapUpdate";
