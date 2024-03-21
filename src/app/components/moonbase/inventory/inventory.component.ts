@@ -271,6 +271,18 @@ export class InventoryComponent implements OnInit {
   }
 
   getNFTData() {
+
+
+    this.httpApi
+      .upgradeNftInfo({walletAddress: this.userAddress}).subscribe({
+      next: async (res: any) => {
+       this.nftData = res.data;
+      },
+      error: (err: any) => {
+
+      }
+    })
+/*
     this.httpApi
       .upgradeNftInfo({
         walletAddress: this.userAddress,
@@ -279,7 +291,7 @@ export class InventoryComponent implements OnInit {
         if (response.isSuccess) {
           this.nftData = response.data;
         }
-      });
+      });*/
   }
 
   //UPGRADE NFT DIALOG BOX
