@@ -135,14 +135,14 @@
 .plus_minus div,
 .plus_minus button,
 .plus_minus input {
-    padding: 0.4375rem 1.25rem;
+    padding: 0.25rem 1.25rem;
     background: transparent;
     border: none;
     color: white;
 }
 
 .plus_minus button {
-    padding-top: 0.65rem;
+
 }
 
 .plus_minus div.border_left_right {
@@ -271,6 +271,10 @@ button.minus {
         padding-top: 19rem;
         box-sizing: border-box;
         padding-bottom: 6rem;
+    }
+    .pt-md-100 {
+        padding-top:0px;
+        padding-bottom:2vh;
     }
 }
 
