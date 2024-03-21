@@ -62,8 +62,6 @@ p.warning-title {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 20px;
-  max-height: 30vh;
-  min-height: 30vh;
   overflow: auto;
 }
 
@@ -144,6 +142,8 @@ display: -webkit-box;
 .oweflow-1{
   overflow-y: auto;
   height: 55vh;
+  display:grid;
+  align-items: center;
 }
 .mr-10 {
   margin: 10px;
@@ -191,6 +191,7 @@ display: -webkit-box;
   text-align: -webkit-right ;
 }
 .wrap-flex{
-  display: flex;
-    flex-flow: wrap;
+  display: grid;
+  align-items: center;
+  justify-content: center;
 }
