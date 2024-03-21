@@ -32,7 +32,7 @@
 }
 
 .flex .tooltip .bottom {
-    width: 210px;
+    width: fit-content;
     transform: translate(2%, -200%) scaleY(1);
     padding: 20px 20px;
     color: white;
@@ -251,7 +251,7 @@ tbody td {
         display: flex;
         visibility: hidden;
         position: absolute;
-        width: 300px;
+        width: fit-content;
         padding: 20px 20px;
         color: white;
         background-color: black;
@@ -367,7 +367,9 @@ tbody td {
 
 .item-name {
     width: 210px;
-   
+   display: grid;
+   margin: 10px 0 !important;
+   align-items: center;
     flex: 1;
 }
 

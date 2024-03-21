@@ -9,21 +9,30 @@ export const CHAIN_CONFIGS: any = {
     bg: 'white',
     symbol: 'ETH',
     config: {
-      method: 'wallet_addEthereumChain',
+      method: 'wallet_switchEthereumChain',
       params: [
         {
           chainId: '0x1',
-          chainName: 'Ethereum Mainnet',
-          rpcUrls: ['https://eth.llamarpc.com'], 
-          // https://mainnet.infura.io/v3/${INFURA_API_KEY}
-          blockExplorerUrls: ['https://etherscan.io/'],
-          nativeCurrency: {
-            symbol: 'ETH',
-            decimals: 18,
-          },
         },
       ],
     },
+    rpcUrls: 'https://eth.llamarpc.com',
+  },
+  '11155111': {
+    name: 'Sepolia',
+    icon: 'assets/media/images/blockchain/eth.webp',
+    explorerLink: 'https://etherscan.io/address/',
+    bg: 'white',
+    symbol: 'ETH',
+    config: {
+      method: 'wallet_switchEthereumChain',
+      params: [
+        {
+          chainId: '0xAA36A7'
+        },
+      ],
+    },
+    rpcUrls: 'https://ethereum-sepolia-rpc.publicnode.com',
   },
   '1285': {
     name: 'Moonriver',
@@ -151,7 +160,7 @@ export const CHAIN_CONFIGS: any = {
             symbol: 'MATIC',
             decimals: 18,
           },
-          rpcUrls: ['https://rpc-mumbai.maticvigil.com'],
+          rpcUrls: ['https://polygon-mumbai-bor-rpc.publicnode.com'],
           blockExplorerUrls: ['https://mumbai.polygonscan.com/'],
         },
       ],
@@ -175,28 +184,7 @@ export const CHAIN_CONFIGS: any = {
       ],
     },
   },
-  '11155111': {
-    name: 'Sepolia',
-    icon: 'assets/media/images/blockchain/eth.webp',
-    explorerLink: 'https://etherscan.io/address/',
-    bg: 'white',
-    symbol: 'ETH',
-    config: {
-      method: 'wallet_addEthereumChain',
-      params: [
-        {
-          chainId: '0xAA36A7',
-          chainName: 'Sepolia',
-          nativeCurrency: {
-            symbol: 'ETH',
-            decimals: 18,
-          },
-          rpcUrls: ['https://ethereum-sepolia-rpc.publicnode.com'],
-          blockExplorerUrls: ['https://sepolia.etherscan.io/'],
-        },
-      ],
-    },
-  },
+
   '568': {
     name: 'Dogechain Testnet',
     explorerLink: 'https://explorer-testnet.dogechain.dog/address/',

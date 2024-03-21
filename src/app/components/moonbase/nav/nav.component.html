@@ -51,7 +51,7 @@
 
   <nav class="flex-space-between" style="margin-bottom: 0.9rem;">
     <div class="logo-container flex border-0">
-      <a href="" class="flex-center" [routerLink]="['']">
+      <a href="javascript:void(0);"  class="flex-center" [routerLink]="['']">
         <img src="assets/media/images/carrot.webp" alt="">
         <img src="assets/media/images/white_logo.png" alt="" style="width: 156px;">
       </a>
@@ -60,7 +60,7 @@
 
     <ul class="menubar flex">
       <li *ngFor="let item of navItems">
-        <a href="" [class.pri-btn]="item?.class == 'pri'" [routerLink]="[item.path]">{{ item.name }}</a>
+        <a href="javascript:void(0);"  [class.pri-btn]="item?.class == 'pri'" [routerLink]="[item.path]">{{ item.name }}</a>
       </li>
     </ul>
     <div class="block flex-center nsfw-and-close-container">
@@ -71,7 +71,7 @@
             <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
               <path
                 d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
-                id="Combined-Shape" fill="#000000"></path>
+                id="Combined-Shape" fill="#afafaf"></path>
             </g>
           </svg>
         </a>
@@ -107,7 +107,7 @@
               <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                 <path
                   d="M0,0 L32,0 L32,3 L0,3 L0,0 Z M0,11 L32,11 L32,14 L0,14 L0,11 Z M0,22 L32,22 L32,25 L0,25 L0,22 Z"
-                  id="Combined-Shape" fill="#5e2466"></path>
+                  id="Combined-Shape" fill="#afafaf"></path>
               </g>
             </svg>
           </li>
@@ -141,7 +141,7 @@
       </div>
 
       <a class="p17 mb20" href="https://rbits.xyz">RBITS Home</a>
-      <a class="p17 mb20" href="" (click)="toggleTokenomics()">Tokenomics</a>
+      <a class="p17 mb20" href="javascript:void(0);"  (click)="toggleTokenomics()">Tokenomics</a>
       <div *ngIf="isConnected" class="divider mb25"></div>
       <div *ngIf="isConnected" class="wallet-address mb25" [cdkCopyToClipboard]=address>
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Laag_1"

@@ -21,8 +21,8 @@ thead tr th {
     border-bottom: 3px solid #5e2466;
     border-collapse: separate;
     border-spacing: 5px 5px;
-    padding-bottom: 1rem;
-    padding-right: 1rem;
+   padding: 0.8rem;
+    color: white;
 }
 
 tbody td:nth-child(4) {
@@ -32,9 +32,13 @@ tbody td:nth-child(4) {
 tbody td {
     padding: 0.5rem;
     overflow: hidden;
-    white-space: nowrap;
+    white-space: pre-wrap;
+    color: $paracolor;
+    text-align: center;
 }
-
+table.table.mb20 {
+    width: 100%;
+}
 .res-table {
     max-width: calc(100% - 40px);
 }

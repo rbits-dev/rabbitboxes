@@ -812,9 +812,15 @@ ul {
 
 .p-white-span-primary {
     color: white;
+    margin-top: 10px;
+    margin-top: 5px;
     >span {
-        color: $primary;
+        color: $headings;
     }
+}
+table {
+    width: 100% !important;
+    border: 1px solid $headings !important;
 }
 
 .button {
@@ -824,25 +830,27 @@ ul {
     height: fit-content;
     min-width: fit-content;
     border-radius: 25px;
-    color: black;
+    color: white;
     font-weight: $bold;
     text-align: center;
     cursor: pointer;
     font-size: 14px;
     text-decoration: none;
     text-transform: capitalize;
+    border: none;
     &.fit {
         width: fit-content;
     }
     &:hover {
         background-color: white;
+        color: black;
     }
 }
 
 .outlined-button {
     @include paddingsInside(10px, 20px);
     display: block;
-    border: 1px solid $primary;
+    border: 1px solid $headings;
     height: fit-content;
     min-width: fit-content;
     border-radius: 25px;
@@ -876,7 +884,7 @@ ul {
 .round-mini-button {
     box-sizing: border-box;
     display: flex;
-    border: 1px solid $primary;
+    border: 2px solid $headings;
     border-radius: 25px;
     color: white;
     font-weight: 600;
@@ -888,7 +896,7 @@ ul {
     align-items: center;
     &:hover {
         color: white;
-        border: 1px solid white;
+        border: 2px solid white;
         >mat-icon {
             color: white;
         }

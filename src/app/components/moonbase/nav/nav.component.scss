@@ -20,7 +20,7 @@ section.navigation {
 
 .block {
   .tooltip .bottom {
-    width: 210px;
+    width: fit-content;
     right: 90px !important;
     transform: translate(56%, 100%) scaleY(1) scaleX(1) !important;
   }
@@ -186,7 +186,7 @@ section.navigation {
 }
 
 .tooltip .bottom {
-  width: 270px;
+  width: fit-content;
   top: 0px;
   transform: translate(-32%, -100%) scaleY(-1) scaleX(1);
   padding: 20px 20px;
@@ -514,7 +514,7 @@ nav {
   text-decoration: none;
   display: flex;
   margin: 0 1rem;
-  border-bottom: solid 1px white;
+  border-bottom: solid 1px $paracolor;
   font-family: "Montserrat";
   font-size: 14px;
   font-weight: 600;
@@ -530,7 +530,7 @@ nav {
   }
 
   &.active {
-   color: #5e2466 !important;
+   color: $headings !important;
     font-weight: 600;
   }
 }

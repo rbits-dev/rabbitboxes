@@ -31,7 +31,14 @@ section.tokenomics {
     border-radius: 160px;
   }
 }
-
+.balloon{
+  h1{
+    color: white;
+  }
+  p{
+    color: $paracolor;
+  }
+} 
 section.tokenomics::-webkit-scrollbar {
   display: none;
 }
@@ -75,10 +82,11 @@ section.tokenomics::-webkit-scrollbar {
   right: 15px;
   top: 15px;
   cursor: pointer;
+  filter: invert(1);
 }
 
 p {
-  color: black;
+  color: $paracolor;
   line-break: anywhere;
 }
 

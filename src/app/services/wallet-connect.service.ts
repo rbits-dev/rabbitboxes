@@ -40,7 +40,7 @@ const providerOptionsForRBITS = {
 providerChainID.forEach((supportedChainId) => {
   //console.log( CHAIN_CONFIGS[ supportedChainId ]?.config.params[0].rpcUrls[0] );
   providerOptionsForRBITS.walletconnect.rpc[supportedChainId] =
-    CHAIN_CONFIGS[supportedChainId]?.config.params[0].rpcUrls[0];
+  supportedChainId==1 ||supportedChainId==11155111  ?CHAIN_CONFIGS[supportedChainId]?.config.rpcUrls : CHAIN_CONFIGS[supportedChainId]?.config.params[0].rpcUrls[0];
 });
 
 const web3Modal = new Web3Modal({
@@ -426,12 +426,12 @@ export class WalletConnectService {
 
   async spaceAddress(address: any) {
     try {
-      let chainId = this.ChainId;
+      let chainId:any = this.ChainId;
       if (chainId !== 56) {
         return; //spaceID on BSC
       }
 
-      let rpc = this.chainConfigs[chainId].config.params[0].rpcUrls[0];
+      let rpc = (chainId==1 || chainId==11155111) ? this.chainConfigs[chainId].config.rpcUrls :this.chainConfigs[chainId].config.params[0].rpcUrls[0] ;
       const provider = new Web3.providers.HttpProvider(rpc);
 
       this.sid = new SID({

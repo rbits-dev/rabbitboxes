@@ -19,9 +19,10 @@ section.sidebar {
 }
 
 .close {
-  color: #7e6328;
+  color: #fff;
   cursor: pointer;
   margin-left: auto;
+
 }
 
 .d-flex {
@@ -57,7 +58,7 @@ ul {
     a,
     p {
       padding: 20px 22px;
-      color: black;
+      color: $paracolor;
       text-decoration: none;
       font-weight: 700;
       writing-mode: tb-rl;

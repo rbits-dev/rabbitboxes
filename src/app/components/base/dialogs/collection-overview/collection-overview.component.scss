@@ -148,6 +148,7 @@ section.upcoming-container {
 
 .flex-wrap {
     flex-wrap: wrap;
+    gap: 3px;
 }
 
 .border-top-bottom {
@@ -225,8 +226,7 @@ section.upcoming-container {
 }
 
 textarea {
-    display: flex;
-    flex: 1;
+   
     width: 100%;
     background-color: transparent;
     border: 1px solid $primary;

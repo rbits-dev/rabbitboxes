@@ -9,11 +9,11 @@
                 <div class="flex flex-col">
                     <div class="flex">
                         <div class="flex flex-col w100 flex-center">
-                            <p class="flex1 flex justify-center p30d24m orbitron bold flex-row flex1 mb30">Rabbit NFT Collections</p>
+                            <h1 class="flex1 flex justify-center p30d24m orbitron bold flex-row flex1 mb30">Rabbit NFT Collections</h1>
                             <div class="tabs-container flex flex-xs-col mb30">
-                                <a href="" class="tab" [ngClass]="getButtonType(dropsCategory.RECENT)" (click)="changeTab(dropsCategory.RECENT)">Archive</a>
-                                <a href="" class="tab" [ngClass]="getButtonType(dropsCategory.LIVE)" (click)="changeTab(dropsCategory.LIVE)">Now</a>
-                                <a href="" class="tab" [ngClass]="getButtonType(dropsCategory.UPCOMING)" (click)="changeTab(dropsCategory.UPCOMING)">Next</a>
+                                <a href="javascript:void(0);"  class="tab" [ngClass]="getButtonType(dropsCategory.RECENT)" (click)="changeTab(dropsCategory.RECENT)">Archive</a>
+                                <a href="javascript:void(0);"  class="tab" [ngClass]="getButtonType(dropsCategory.LIVE)" (click)="changeTab(dropsCategory.LIVE)">Now</a>
+                                <a href="javascript:void(0);"  class="tab" [ngClass]="getButtonType(dropsCategory.UPCOMING)" (click)="changeTab(dropsCategory.UPCOMING)">Next</a>
                             </div>
                         </div>
                     </div>
@@ -31,14 +31,14 @@
                                 <!-- <a *ngIf="item.revealDate === 'Application form'" rel="noopener noreferrer"  href="{{item.url}}" target="_blank" class="flex1 nft_img flex-center">
                                     <div class="relative res-box upcoming-img" [style.background]="'url('+item.filePath+')'"></div>
                                 </a> -->
-                                <a href="" *ngIf="item.revealDate === 'Application form'" rel="noopener noreferrer" (click)="openDialoagOfAddUser()" class="flex1 nft_img flex-center">
+                                <a href="javascript:void(0);"  *ngIf="item.revealDate === 'Application form'" rel="noopener noreferrer" (click)="openDialoagOfAddUser()" class="flex1 nft_img flex-center">
                                     <div class="relative res-box upcoming-img" [style.background]="'url('+item.filePath+')'"></div>
                                 </a>
 
                                 <div class="flex flex-col flex1 w100 mt10">
                                     <div class="text-center word-break">
                                         <div class="flex align-left flex-col mb10 mt10">
-                                            <p class="p18">{{item.name}}</p>
+                                            <h2 class="p18">{{item.name}}</h2>
                                             <p class="color-primary">{{item.ArtistName}}</p>
                                         </div>
                                     </div>
@@ -63,15 +63,15 @@
                                         <img src="assets/media/icons/drops/coundown.svg" alt="coundown-button">
                                         <app-countdown-timer [date]="item.revealDate" [nftData]="item" (timerUp)="isTimerUp($event)"></app-countdown-timer>
                                     </div>
-                                    <a href="" class="pointer button text-inherit mb20 coundown-button" (click)="openDialoagOfAddUser()" rel="noopener noreferrer"
+                                    <a href="javascript:void(0);"  class="pointer button text-inherit mb20 coundown-button" (click)="openDialoagOfAddUser()" rel="noopener noreferrer"
                                     *ngIf="currentCategory === dropsCategory.UPCOMING && item.revealDate === 'Application form'">
                                     <img src="assets/media/images/form.svg" alt="coundown-button">
                                     Application form
                                     </a>
 
 
-                                    <a href="" *ngIf="currentCategory === dropsCategory.LIVE" class="button text-inherit mb20" [routerLink]="['/artist',item.walletAddress]">Buy Rabbit Boxes</a>
-                                    <a href="" class="outlined-button mb20 text-inherit" (click)="viewDetails(item)">Collection info</a>
+                                    <a href="javascript:void(0);"  *ngIf="currentCategory === dropsCategory.LIVE" class="button text-inherit mb20" [routerLink]="['/artist',item.walletAddress]">Buy Rabbit Boxes</a>
+                                    <a href="javascript:void(0);"  class="outlined-button mb20 text-inherit" (click)="viewDetails(item)">Collection info</a>
                                 </div>
                             </div>
                         </ng-container>
@@ -79,13 +79,13 @@
                     </div>
                 </div>
                 <div *ngIf="list && list[currentCategory]?.length==0 && currentCategory == dropsCategory.UPCOMING" class="flex1 flex-center">
-                  <p class="text-center" >Currently, there are no upcoming NFT collections scheduled for launch. <br> Check back soon for updates!</p>
+                  <p class="text-center options-color"  >Currently, there are no upcoming NFT collections scheduled for launch. <br> Check back soon for updates!</p>
                 </div>
                 <div *ngIf="list && list[currentCategory]?.length==0 && currentCategory == dropsCategory.RECENT" class="flex1 flex-center">
-                    <p class="text-center" >Currently, there are no Archived NFT collections for the selected Blockchain</p>
+                    <p class="text-center options-color" >Currently, there are no Archived NFT collections for the selected Blockchain</p>
                 </div>
                 <div *ngIf="list && ( list[currentCategory]?.length==0 || list[currentCategory] === undefined ) && currentCategory == dropsCategory.LIVE" class="flex1 flex-center">
-                    <p class="text-center" >Currently, there are no NFT collections launched on the selected Blockchain</p>
+                    <p class="text-center options-color" >Currently, there are no NFT collections launched on the selected Blockchain</p>
                 </div>
             </div>
 
