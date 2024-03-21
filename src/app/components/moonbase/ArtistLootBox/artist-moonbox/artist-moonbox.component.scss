@@ -80,6 +80,11 @@
     display: none;
 }
 
+.w-100 {
+    width:100%;
+    height:fit-content;
+}
+
 .moonbox {
     width: 210px;
     height: calc(12600px / 60);
@@ -310,6 +315,7 @@ button.minus {
         margin-top: -80px;
         margin-left: -40px;
     }
+
 }
 
 .disabled-icon {
