@@ -274,7 +274,7 @@ export class WalletConnectService {
             // alert(code)
             this.updateSelectedChainId(Number(code));
             this.setWalletState(true);
-          }, 1500) // Debounce for 1 second
+          }, 3000) // Debounce for 1 second
         );
         
 
