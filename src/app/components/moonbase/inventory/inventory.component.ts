@@ -54,16 +54,20 @@ export class InventoryComponent implements OnInit {
     });
 
     this.walletConnectService.init().then((data: boolean) => {
-     
+
     });
 
-    this.isConnected = this.walletConnectService.getWalletState();
+    // this.isConnected = this.walletConnectService.getWalletState();
 
     this.walletConnectService
       .onWalletStateChanged()
       .subscribe((state: boolean) => {
         this.isConnected = state;
         console.log("Wallet ", (state ? "connected" : "not connected"));
+        if (state) {
+          this.getNFTData();
+          this.getUserData01();
+        }
       });
 
     this.walletConnectService.getData().subscribe(async (data: any) => {
@@ -75,15 +79,9 @@ export class InventoryComponent implements OnInit {
 
         if (Object.keys(this.data).length > 0) this.getUserData();
         else this.mainMessage = MESSAGES.NO_WALLET_DATA_FROM_SERVER;
-        console.log(this.mainMessage);
       }
     });
 
-    // only do when user is connected
-    if( this.walletConnectService.getWalletState() ) {
-      this.getUserData01();
-      this.getNFTData();
-    }
   }
 
   getUserData() {
@@ -217,11 +215,11 @@ export class InventoryComponent implements OnInit {
     });
   }
 
-  
+
 
   cdkCopyToClipboard() {
     this.toastrService.success('Copied to clipboard', 'Success!');
-  } 
+  }
 
   openNftMigrationDialog() {
     this.nftMigrationDialogRef = this.dialog.open(NftMigrationComponent, {

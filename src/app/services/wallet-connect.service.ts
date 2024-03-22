@@ -103,7 +103,7 @@ export class WalletConnectService {
 
   initTokenCA() {
     // Token is on ETH
-    let providerRPC = this.chainConfigs[1].config.params[0].rpcUrls[0];
+    let providerRPC = this.chainConfigs[1].rpcUrls;
     var web3Provider = new Web3.providers.HttpProvider(
       providerRPC
     );
