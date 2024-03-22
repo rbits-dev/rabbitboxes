@@ -24,7 +24,7 @@
   </div>
 
   <div *ngIf="isConnected && data?.address" class="address-container flex-center mt40 mb40" style="flex-wrap: wrap;">
-    <p class="color-primary mr10 p18 bold">Your address:</p>
+    <p class="color-primary mr10 p18 bold">NFTs owned by:</p>
     <ul class="flex">
       <li class="flex" [cdkCopyToClipboard]="data?.address">
         <p class="clipboard break-auto color-primary mobile-only">
@@ -72,7 +72,6 @@
     >
       <div
         class="box flex-center col pb100"
-        *ngIf="!(this.NSFWToggleState && item['NSFW'])"
       >
         <div
           class="relative nft_img"
