@@ -367,7 +367,9 @@ tbody td {
 
 .item-name {
     width: 210px;
-   
+   display: grid;
+   margin: 10px 0 !important;
+   align-items: center;
     flex: 1;
 }
 

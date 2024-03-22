@@ -11,12 +11,17 @@ section.upcoming-container {
   padding-top: 180px;
   overflow: hidden;
 }
-
+.upcoming-container h1{
+  color: $headings;
+}
 .main-message-container {
   position: fixed;
   z-index: 1300;
 }
-
+.p18{
+  color: $headings;
+  margin: 10px 0;
+}
 .social-icons-container>li {
   @extend %flex-center;
   margin-top: 20px;
@@ -260,7 +265,9 @@ textarea {
 .close-tooltip {
   display: none !important;
 }
-
+.options-color{
+  color: $paracolor;
+}
 .desktop-md-block {
   display: block !important;
 }
