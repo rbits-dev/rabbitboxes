@@ -94,13 +94,17 @@ p {
   margin: 1rem 0;
 }
 
+.spacing {
+  white-space: pre-wrap;
+}
+
 .deeper {
   @include paddings(60px, 0px);
   padding-bottom: 0 !important;
   align-items: flex-start;
 
   li p {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
   }
 
   .right div {
@@ -135,7 +139,7 @@ p {
 li {
   border-bottom: 1px solid black;
   margin-bottom: 1rem;
-  min-height: 101px;
+  min-height: 85px;
 
   &:last-child {
     margin-bottom: 0;
