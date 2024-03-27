@@ -70,7 +70,9 @@
                                     </a>
 
 
-                                    <a href="javascript:void(0);"  *ngIf="currentCategory === dropsCategory.LIVE" class="button text-inherit mb20" [routerLink]="['/artist',item.walletAddress]">Buy Rabbit Boxes</a>
+                                    <a href="javascript:void(0);"  *ngIf="currentCategory === dropsCategory.LIVE && !item?.free_mint_user" class="button text-inherit mb20" [routerLink]="['/artist',item.walletAddress]">Buy Rabbit Boxes</a>
+                                    <a href="javascript:void(0);"  *ngIf="currentCategory === dropsCategory.LIVE && item?.free_mint_user" class="button text-inherit mb20" [routerLink]="['/artist',item.walletAddress]">Get for Free</a>
+                                    
                                     <a href="javascript:void(0);"  class="outlined-button mb20 text-inherit" (click)="viewDetails(item)">Collection info</a>
                                 </div>
                             </div>
