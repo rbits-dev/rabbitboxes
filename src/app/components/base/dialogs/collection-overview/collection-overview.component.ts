@@ -110,7 +110,6 @@ export class CollectionOverviewComponent implements OnInit {
         const ext = filename.split('.').pop() || '';
         const filenameWithoutExt = filename.slice(0, -ext.length - 1);
         const previewImage = `${partsBeforeFilename}/previews/${collectionName}/${filenameWithoutExt}.webp`;
-        //console.log(previewImage);
         return previewImage;
     } 
     return `${partsBeforeFilename}/previews/${collectionName}/${filename}`;

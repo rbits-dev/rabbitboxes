@@ -63,7 +63,6 @@ export class InventoryComponent implements OnInit {
       .onWalletStateChanged()
       .subscribe((state: boolean) => {
         this.isConnected = state;
-        console.log("Wallet ", (state ? "connected" : "not connected"));
         if (state) {
           this.getNFTData();
           this.getUserData01();
@@ -207,6 +206,7 @@ export class InventoryComponent implements OnInit {
 
     this.NFTDetails = item;
     this.selectedIndex = index;
+    debugger
 
     this.dialog.open(ItemOverviewComponent, {
       width: "100%",
@@ -238,6 +238,7 @@ export class InventoryComponent implements OnInit {
       async (res: any) => {
         if (res.status == 200) {
           this.IsNftMigrated = res.IsNftMigrated;
+          debugger
           if (!this.IsNftMigrated) {
             // this.toastrService.success("minted");
             this.nftCountToSwap = res.nftCountToSwap;

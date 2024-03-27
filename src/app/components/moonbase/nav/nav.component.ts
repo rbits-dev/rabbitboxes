@@ -146,10 +146,6 @@ export class NavComponent implements OnInit {
     let manualChainId = localStorage.getItem("manual_chainId");
 
     this.ChainId = manualChainId as unknown as number ?? 1;
-
-
-    console.log("Multi chain current chain is ", this.ChainId);
-
     this.walletConnectService.getSelectedChainId().subscribe((id) => {
       // Lots of vars for the same thing
       if ( id !== undefined && id > 0) {
@@ -157,9 +153,6 @@ export class NavComponent implements OnInit {
         this.currentChainId = id;
         this.ChainId = id;
       }
-
-      console.log("Multi chain detected chain id ", this.ChainId);
-
       this.isMultiChain();
       // this.checkNetwork();
     });

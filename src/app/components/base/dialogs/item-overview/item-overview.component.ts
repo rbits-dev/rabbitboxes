@@ -26,6 +26,7 @@ export class ItemOverviewComponent implements OnInit {
     public dialogRef: MatDialogRef<ItemOverviewComponent>,
     public walletConnectService: WalletConnectService,
   ) {
+    debugger
     this.item = data;
   }
 
@@ -39,7 +40,6 @@ export class ItemOverviewComponent implements OnInit {
         }
       })
 
-      // console.log(this.link);
 
       //
 
@@ -64,7 +64,6 @@ export class ItemOverviewComponent implements OnInit {
 
     const urltemp = new URL(url)
     const extension = urltemp.pathname.substring(urltemp.pathname.lastIndexOf('.') + 1)
-
     if (images.includes(extension)) {
       return "true"
     } else if (videos.includes(extension)) {

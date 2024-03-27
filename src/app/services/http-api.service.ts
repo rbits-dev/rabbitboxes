@@ -44,7 +44,6 @@ export class HttpApiService {
       .set('APPKEY', 'mTb+T!5!crBEQEL2!$PJ9&JSjeT3M6Hs*RytA-eaDSBS5UU@8-fCJHu6F?kp@s+JTu2-_-V8L#?5')
       .set('blockchainId', `${this.chainId}`);
 
-    console.log("Using chainId in HTTP API calls: ", this.chainId);
   }
 
   submitBet(data: any): Observable<any> {

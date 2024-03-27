@@ -108,9 +108,6 @@ export class WalletConnectService {
       providerRPC
     );
     var web3 = new Web3(web3Provider);
-
-    console.log("Initializing token contract on ", providerRPC);
-
     this.SilverContract = new web3.eth.Contract(
         silverTokenAbi,
         environment.tokenContractAddress
@@ -125,9 +122,6 @@ export class WalletConnectService {
         environment.providerURL
       );
       var web3 = new Web3(web3Provider);
-
-      console.log("Initializing lootbox contracts on ", environment.providerURL);
-      console.log("Token CA is ", environment.tokenContractAddress);
 
       this.LootBoxContractGet = new web3.eth.Contract(
         lootBoxAbi,
@@ -201,7 +195,6 @@ export class WalletConnectService {
         this.getChainId().subscribe((currentChainId) => {
           if( currentChainId === 0) {
             currentChainId = currentNetwork.chainId;
-            console.log("The provider is on ", currentChainId);
           }
 
           if( providerChainID.indexOf(currentNetwork.chainId) === -1) {
@@ -218,12 +211,7 @@ export class WalletConnectService {
           localStorage.setItem("manual_chainId", this.ChainId.toString());
         });
 
-        console.log("The provider is on the network ", currentNetwork.chainId);
-        console.log("We are on ", this.ChainId);
-
         if (providerChainID.indexOf(currentNetwork.chainId) === -1) {
-          console.log("Wrong network");
-
           this.setWalletState(false);
           this.ChainId = 1;
           this.selectedChainId.next(1);
@@ -403,13 +391,8 @@ export class WalletConnectService {
     var chainId = this.chainId.value;
 
     this.localStorageService.setAddress(address);
-    console.log("Welcome ", address);
-    console.log("The current selected network is ", chainId);
 
     const node = config[environment.configFile].find( (chain:any) => chain.chainId == chainId );
-    if( node ) {
-      console.log( "Network configuration: ", node );
-    }
 
     if( node ) {
       try {
@@ -420,7 +403,7 @@ export class WalletConnectService {
               NFTAbi,
               this.signer
             );
-            console.log( "NFTContract ", environment.NFTAddress );
+       
             //FIXME: NFTContract should be defined in configuration file
           }
 
@@ -472,14 +455,6 @@ export class WalletConnectService {
             this.signer
           );
         }
-
-        console.log("LootboxAddress: ", node.lootBoxAddress ?? "not configured");
-        console.log("ArtistMoonBoxNftSwap: ", node.ArtistMoonBoxNftSwap ?? "not configured" );
-        console.log("BridgeNftAddress: ", node.BridgeNftAddress ?? "not configured" );
-        console.log("artistLootBoxAddress: ", node.artistLootBoxAddress ?? "not configured" );
-        console.log("RegisterMoonboxAddress: ", node.RegisterMoonboxAddress ?? "not configured" );
-
-
       } catch(e) {
           console.log(e);
       }
@@ -515,8 +490,6 @@ export class WalletConnectService {
 
       let rpc = (chainId==1 || chainId==11155111) ? this.chainConfigs[chainId].config.rpcUrls :this.chainConfigs[chainId].config.params[0].rpcUrls[0] ;
       const provider = new Web3.providers.HttpProvider(rpc);
-
-      console.log("RPC ", rpc);
 
       this.sid = new SID({
         provider,
@@ -749,8 +722,6 @@ export class WalletConnectService {
       } catch (e) {
 
         this.toastrService.error( e.reason );
-        console.log(e.message);
-
         return { hash: "", status: false, error: e };
       }
     } else {

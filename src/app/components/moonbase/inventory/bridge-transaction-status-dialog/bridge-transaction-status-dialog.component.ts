@@ -39,7 +39,6 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
         this.btn4Text = "Started";
         this.successIcon6 = false;
         this.successIcon7 = true;
-        console.log(res.transactionHash);
         setTimeout(() => {
           this.successIcon7 = false;
           this.btn4Text = "Done";
