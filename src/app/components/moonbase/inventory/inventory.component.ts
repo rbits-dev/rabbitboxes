@@ -53,9 +53,7 @@ export class InventoryComponent implements OnInit {
       this.NSFWToggleState = NSFWToggleState;
     });
 
-    this.walletConnectService.init().then((data: boolean) => {
-
-    });
+    this.walletConnectService.init().then((data: boolean) => {});
 
     // this.isConnected = this.walletConnectService.getWalletState();
 
@@ -63,10 +61,6 @@ export class InventoryComponent implements OnInit {
       .onWalletStateChanged()
       .subscribe((state: boolean) => {
         this.isConnected = state;
-        if (state) {
-          this.getNFTData();
-          this.getUserData01();
-        }
       });
 
     this.walletConnectService.getData().subscribe(async (data: any) => {
@@ -81,6 +75,10 @@ export class InventoryComponent implements OnInit {
       }
     });
 
+    if (localStorage.getItem("wallet")) {
+      this.getNFTData();
+      this.getUserData01();
+    }
   }
 
   getUserData() {
@@ -97,7 +95,9 @@ export class InventoryComponent implements OnInit {
         this.mainMessage =
           this.inventoryList.length == 0 ? MESSAGES.EMPTY_WALLET : null;
       } else {
-        this.toastrService.error("Something went wrong. Please try again later");
+        this.toastrService.error(
+          "Something went wrong. Please try again later"
+        );
       }
     });
   }
@@ -206,7 +206,7 @@ export class InventoryComponent implements OnInit {
 
     this.NFTDetails = item;
     this.selectedIndex = index;
-    debugger
+    debugger;
 
     this.dialog.open(ItemOverviewComponent, {
       width: "100%",
@@ -215,10 +215,8 @@ export class InventoryComponent implements OnInit {
     });
   }
 
-
-
   cdkCopyToClipboard() {
-    this.toastrService.success('Copied to clipboard', 'Success!');
+    this.toastrService.success("Copied to clipboard", "Success!");
   }
 
   openNftMigrationDialog() {
@@ -238,7 +236,6 @@ export class InventoryComponent implements OnInit {
       async (res: any) => {
         if (res.status == 200) {
           this.IsNftMigrated = res.IsNftMigrated;
-          debugger
           if (!this.IsNftMigrated) {
             // this.toastrService.success("minted");
             this.nftCountToSwap = res.nftCountToSwap;
@@ -249,7 +246,9 @@ export class InventoryComponent implements OnInit {
         }
       },
       (err: any) => {
-        this.toastrService.error("Something went wrong. Please try again later.");
+        this.toastrService.error(
+          "Something went wrong. Please try again later."
+        );
       }
     );
   }
@@ -275,18 +274,13 @@ export class InventoryComponent implements OnInit {
   }
 
   getNFTData() {
-
-
-    this.httpApi
-      .upgradeNftInfo({walletAddress: this.userAddress}).subscribe({
+    this.httpApi.upgradeNftInfo({ walletAddress: this.userAddress }).subscribe({
       next: async (res: any) => {
-       this.nftData = res.data;
+        this.nftData = res.data;
       },
-      error: (err: any) => {
-
-      }
-    })
-/*
+      error: (err: any) => {},
+    });
+    /*
     this.httpApi
       .upgradeNftInfo({
         walletAddress: this.userAddress,
