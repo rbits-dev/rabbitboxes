@@ -1163,4 +1163,7 @@ export class WalletConnectService {
     }
   }
 
+  async printError(errorMsg) {
+    this.toastrService.error(errorMsg);
+  }
 }
