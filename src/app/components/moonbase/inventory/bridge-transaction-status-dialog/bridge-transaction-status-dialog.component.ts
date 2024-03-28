@@ -53,24 +53,36 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
   //BRIDGE NFT APPROVAL FN
   async handleBridgeNft() {
     try {
-      this.successIcon = true;
-      const isApproval = await this.cs.isApprovalBridgeNFT();
-      if (!isApproval) {
-        const approval = await this.cs.setApprovalBridgeNFT();
-        await approval.wait();
+      if( this.data.tokenIds.length != this.data.amounts.length ) {
+        this.dialogRef.close();
+        this.cs.printError("Data Array Size Mismatch");
       }
-      const result = await this.cs.bridgeNFT(
-        this.data.tokenIds,
-        this.data.amounts,
-        localStorage.getItem("address")
-      );
-      await result.wait();
-      this.successIcon = false;
-      this.successIcon2 = true;
-      this.btn2Text = "Done";
-      this.successIcon3 = false;
-      this.successIcon4 = true;
-      this.btn3Text = "Started";
+      if( this.data.tokenIds.length == 0) {
+        // There is nothing to do
+        this.dialogRef.close();
+        this.cs.printError("You didn't select any NFTs to bridge");
+      }
+      else {
+        // There is something to do
+        this.successIcon = true;
+        const isApproval = await this.cs.isApprovalBridgeNFT();
+        if (!isApproval) {
+          const approval = await this.cs.setApprovalBridgeNFT();
+          await approval.wait();
+        }
+        const result = await this.cs.bridgeNFT(
+          this.data.tokenIds,
+          this.data.amounts,
+          localStorage.getItem("address")
+        );
+        await result.wait();
+        this.successIcon = false;
+        this.successIcon2 = true;
+        this.btn2Text = "Done";
+        this.successIcon3 = false;
+        this.successIcon4 = true;
+        this.btn3Text = "Started";
+      }
     } catch (error) {
       this.dialogRef.close();
       this.cs.handleMetamaskError(error);
