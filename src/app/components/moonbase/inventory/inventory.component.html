@@ -10,11 +10,17 @@
         src="assets/media/videos/Loading.gif"
         alt="loading"
       />
-      <p class="absolute-center" style="top:65%; color:white; margin-top: 20px;">Loading ...</p>
+      <p
+        class="absolute-center"
+        style="top: 65%; color: white; margin-top: 20px;"
+      >
+        Loading ...
+      </p>
     </div>
 
     <ng-template #loggedOut>
-      <p *ngIf="!isConnected"
+      <p
+        *ngIf="!isConnected"
         class="absolute-center fade-in-delayed pointer"
         (click)="openWalletDialog()"
       >
@@ -23,7 +29,11 @@
     </ng-template>
   </div>
 
-  <div *ngIf="isConnected && data?.address" class="address-container flex-center mt40 mb40" style="flex-wrap: wrap;">
+  <div
+    *ngIf="isConnected && data?.address"
+    class="address-container flex-center mt40 mb40"
+    style="flex-wrap: wrap;"
+  >
     <p class="color-primary mr10 p18 bold">NFTs owned by:</p>
     <ul class="flex">
       <li class="flex" [cdkCopyToClipboard]="data?.address">
@@ -70,14 +80,17 @@
     <ng-container
       *ngFor="let item of inventoryList; let i = index; trackBy: trackByFn;"
     >
-      <div
-        class="box flex-center col pb100"
-      >
+      <div class="box flex-center col pb100">
         <div
           class="relative nft_img"
           *ngIf="fileTypeIsImage(item['logo_path'])"
         >
-          <img src="{{ item['logo_path'] }}" class="img-fluid" alt="" />
+          <img
+            [src]="item['logo_path'] ? item['logo_path'] : '/assets/media/images/moonbox/landing/nfts/males/character-05918.webp'"
+            class="img-fluid"
+            alt=""
+            onError="this.src='/assets/media/images/moonbox/landing/nfts/males/character-05918.webp';"
+          />
         </div>
 
         <div
@@ -107,7 +120,7 @@
             View details
           </button>
 
-         <!-- TODO: add view collection info button -->
+          <!-- TODO: add view collection info button -->
         </div>
       </div>
     </ng-container>
