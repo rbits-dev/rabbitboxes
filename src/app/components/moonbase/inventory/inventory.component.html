@@ -65,14 +65,25 @@
           />
         </svg>
       </li>
-      <div class="text-center ml10" *ngIf="nftData && nftData.length>0">
-        <button
-          (click)="openUpgradeNftDialog()"
-          class="view-detail-button outlined-button text-inherit"
-        >
-          Upgrade NFT
-        </button>
-      </div>
+      <li class="flex desktop-only">
+        <div class="text-center ml10" *ngIf="nftData && nftData.length>0">
+          <button
+            (click)="openUpgradeNftDialog()"
+            class="view-detail-button outlined-button text-inherit"
+          >
+            Bridge to Ethereum
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="isConnected && nftData && nftData.length > 0" class="flex-center mt40 mb40 mobile-only">
+    <ul class="flex">
+      <li class="flex">
+        <div class="text-center ml10">
+          <button (click)="openUpgradeNftDialog()" class="view-detail-button outlined-button text-inherit">Bridge to Ethereum</button>
+        </div>
+      </li>
     </ul>
   </div>
 
