@@ -26,7 +26,6 @@ export class ItemOverviewComponent implements OnInit {
     public dialogRef: MatDialogRef<ItemOverviewComponent>,
     public walletConnectService: WalletConnectService,
   ) {
-    debugger
     this.item = data;
   }
 
