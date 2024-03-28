@@ -184,6 +184,7 @@
     width: 100%;
     border: 1px solid;
     object-fit: cover;
+    height: 300px;
     &::after {
         content: '',
     }
@@ -362,7 +363,7 @@ tbody td {
     display: flex;
     flex-direction: column;
     flex: 1;
-    
+
 }
 
 .item-name {
@@ -404,7 +405,7 @@ tbody td {
             margin-top: 30px;
         }
     }
-    
+
 }
 
 @media only screen and (max-width: $md-header) {
