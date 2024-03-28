@@ -393,6 +393,9 @@ export class WalletConnectService {
     this.localStorageService.setAddress(address);
 
     const node = config[environment.configFile].find( (chain:any) => chain.chainId == chainId );
+    if( node === undefined ) {
+      console.log("Error: No configuration data found for chain ", chainId);
+    }
 
     if( node ) {
       try {
@@ -434,7 +437,7 @@ export class WalletConnectService {
 
           if( node.bridgeCollectionAddress ) {
             this.BridgeCollectionContract = new ethers.Contract(
-              environment.bridgeCollectionAddress,
+              node.bridgeCollectionAddress,
               BRIDGE_COLLECTION_ABI,
               this.signer
             );
@@ -1021,21 +1024,33 @@ export class WalletConnectService {
 
   //SET APROVAL FOR BRIDGE NFT
   async setApprovalBridgeNFT() {
-    var chainId = this.chainId.value;
-    let index = environment.chainId.indexOf(chainId ?? 56);
+    //var chainId = this.chainId.value;
+    //let index = environment.chainId.indexOf(chainId ?? 56);
+    
+    const node = config[environment.configFile].find( (chain:any) => chain.chainId == this.chainId.value );
+    if( node.BridgeNftAddress === undefined ) {
+      console.log("Error: BridgeNftAddress not set for chain ", this.chainId.value );
+    }
+    
     return await this.BridgeCollectionContract.setApprovalForAll(
-      config[environment.configFile][index].BridgeNftAddress,
+      node.BridgeNftAddress,
       true
     );
   }
   //CHECK APROVAL FOR BRIDGE NFT
   async isApprovalBridgeNFT() {
-    var chainId = this.chainId.value;
-    let index = environment.chainId.indexOf(chainId ?? 56);
-    let address = config[environment.configFile][index].BridgeNftAddress;
+    //var chainId = this.chainId.value;
+    //let index = environment.chainId.indexOf(chainId ?? 56);
+    //let address = config[environment.configFile][index].BridgeNftAddress;
+
+    const node = config[environment.configFile].find( (chain:any) => chain.chainId == this.chainId.value );
+    if( node.bridgeCollectionAddress === undefined ) {
+      console.error("Error: bridgeCollectionAddress not set for chain ", this.chainId.value );
+    }
+       
     return await this.BridgeCollectionContract.isApprovedForAll(
       this.account,
-      address
+      node.BridgeNftAddress
     );
   }
 
@@ -1147,4 +1162,5 @@ export class WalletConnectService {
         break;
     }
   }
+
 }

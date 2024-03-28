@@ -17,7 +17,7 @@ export const environment = {
 
   artistNFTAddress: "0xe3D279f66776Efae7602D817f68015a0afA0Fd2E",
   tokenContractAddress: "0x3F4E053184Bef016286D07189FB60c61A6eF972F",
-  bridgeCollectionAddress:"0x229620efb06cB366350Aae34469792FE1402Dc65",
+
   configFile: 'testnet',
   adminPanelUrl : "http://codetentacles-006-site41.htempurl.com/",
 
