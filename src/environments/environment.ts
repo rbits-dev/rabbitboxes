@@ -8,7 +8,7 @@ export const environment = {
   openseaChainIds: [1, 3, 4,2,5],
   providerURL: "https://data-seed-prebsc-2-s1.bnbchain.org:8545",
 //  baseURL:'http://moonbox.codetentaclestechnologies.tech/api/api/',
-  baseURL: "http://localhost/moonbox-laravel/api/",
+  baseURL: "http://codetentacles-006-site31.htempurl.com/api/",
 
   ownerAddress: "0x703632A0b52244fAbca04aaE138fA8EcaF72dCBC",
 
