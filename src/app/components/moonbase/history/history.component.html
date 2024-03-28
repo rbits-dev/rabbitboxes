@@ -20,7 +20,7 @@
 
         <div *ngIf="historyData && currentCategory === tabsCategory.UNBOXINGS" class="h-100 flex-space-between align-items-center">
             <div class="flex1 flex-column flex-center">
-                <div class="table-responsive">
+                <div class="table-responsive" style="min-height:35vmax;">
                     <table class="table mb20">
                         <thead>
                             <tr>
@@ -32,12 +32,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of buyHistoryData | paginate: { itemsPerPage: 5, currentPage: page }; let i=index">
+                            <tr *ngFor="let item of buyHistoryData | paginate: { itemsPerPage: 9, currentPage: page }; let i=index">
                                 <td *ngIf="innerWidth > 480">{{item.DateNFT}}</td>
                                 <td *ngIf="innerWidth <= 480" class="text-center">
                                     {{item.DateNFT.split(' ')[0]}}<br>{{item.DateNFT.split(' ')[1]}}
                                 </td>
-                                <td>{{item.BetTier}}</td>
+                                <td style="min-width:85px;">{{item.BetTier}}</td>
                                 <td class="text-center">{{item.nftData.length}}</td>
                                 <!-- <td>14849534</td> -->
                                 <td class="flex flex-center">
@@ -50,15 +50,17 @@
                             </tr>
                         </tbody>
                     </table>
-                    <pagination-controls class="my-pagination" (pageChange)="page = $event" [maxSize]="maxSize">
-                    </pagination-controls>
                 </div>
             </div>
+        </div>
+        <div *ngIf="historyData && currentCategory === tabsCategory.UNBOXINGS && buyHistoryData && buyHistoryData.length > 0" class="flex1 flex-center">
+            <pagination-controls class="my-pagination" (pageChange)="page = $event" [maxSize]="maxSize">
+            </pagination-controls>
         </div>
 
         <div *ngIf="historyData && currentCategory === tabsCategory.TRANSFERS" class="h-100 flex-space-between align-items-center">
             <div class="flex1 flex-column flex-center">
-                <div class="table-responsive">
+                <div class="table-responsive" style="min-height:35vmax;">
                     <table class="table mb20" style="width:25vmax; margin:0 auto;">
                         <thead>
                             <tr>
@@ -68,7 +70,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of transferHistoryData | paginate: { itemsPerPage: 5, currentPage: page }; let i=index">
+                            <tr *ngFor="let item of transferHistoryData | paginate: { itemsPerPage: 9, currentPage: page }; let i=index">
                                 <td *ngIf="innerWidth > 480">{{item.DateNFT}}</td>
                                 <td *ngIf="innerWidth <= 480" class="text-center">
                                     {{item.DateNFT.split(' ')[0]}}<br>{{item.DateNFT.split(' ')[1]}}
@@ -83,10 +85,13 @@
                             </tr>
                         </tbody>
                     </table>
-                    <pagination-controls class="my-pagination" (pageChange)="page = $event" [maxSize]="maxSize">
-                    </pagination-controls>
+
                 </div>
             </div>
+        </div>
+        <div *ngIf="historyData && currentCategory === tabsCategory.TRANSFERS && transferHistoryData && transferHistoryData.length > 0" class="flex1 flex-center">
+            <pagination-controls class="my-pagination" (pageChange)="page = $event" [maxSize]="maxSize">
+            </pagination-controls>
         </div>
 
         <p *ngIf="historyData.length === 0" class="absolute-center">No history data found</p>
