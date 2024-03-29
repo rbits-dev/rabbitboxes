@@ -80,9 +80,42 @@
 
                     </div>
                 </div>
+
+                <div *ngIf="currentCategory == dropsCategory.UPCOMING && list" class="flex flex-col">
+                    <div class="upcoming flex flex-wrap wrap">
+                        <div class="box flex-center col pa10">
+                            <div class="flex flex-col flex1 w100 mt10">
+                                <div class="text-center word-break">
+                                    <div class="flex align-left flex-col mb10 mt10">
+                                        <p class="p22 pa10">The Animated Rabbit Series</p>
+                                        <div class="relative res-box upcoming-img" [style.background]="'url(https://rbits.xyz/boxes/assets/media/images/moonbox/landing/nfts/males/character-05918.webp)'"></div>
+                                    </div>
+                                </div>
+
+                                <div class="border-top-bottom mt10 mb20">
+                                    <div class="flex justify-space-between">
+                                        <p class="color-primary mb10 mt10">Price</p>
+                                        <p class="color-primary mb10 mt10">#Free (50/80)</p>
+                                        <p class="color-primary mb10 mt10"> 0.01 ETH</p>
+
+                                    </div>
+                                    <div class="flex justify-space-between">
+                                        <p class="color-primary mb10">Availability</p>
+                                        <p class="color-primary mb10">88 pieces</p>
+                                    </div>
+                                </div>
+                                
+                                <a href="javascript:void(0);"  class="outlined-button mb20 text-inherit" >Coming Soon</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+<!--
                 <div *ngIf="list && list[currentCategory]?.length==0 && currentCategory == dropsCategory.UPCOMING" class="flex1 flex-center">
                   <p class="text-center options-color"  >Currently, there are no upcoming NFT collections scheduled for launch. <br> Check back soon for updates!</p>
                 </div>
+-->
                 <div *ngIf="list && list[currentCategory]?.length==0 && currentCategory == dropsCategory.RECENT" class="flex1 flex-center">
                     <p class="text-center options-color" >Currently, there are no Archived NFT collections for the selected Blockchain</p>
                 </div>
