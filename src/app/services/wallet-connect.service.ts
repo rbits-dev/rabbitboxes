@@ -742,6 +742,7 @@ export class WalletConnectService {
         return { hash: txn.hash, status: true };
       } catch (e) {
         console.log(e);
+        this.toastrService.error( e.reason );
         return { hash: "", status: false, error: e };
       }
     }
