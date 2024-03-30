@@ -25,12 +25,7 @@ export class ModalForTransactionComponent implements OnInit {
     "assets/media/videos/Moonboxes_GOLD.webm",
     "assets/media/videos/Moonboxes_DIAMOND.webm"
   ]
-  videoSourceFallback = [
-    "assets/media/videos/Moonboxes_WOOD_fallback.webm",
-    "assets/media/videos/Moonboxes_SILVER_fallback.webm",
-    "assets/media/videos/Moonboxes_GOLD_fallback.webm",
-    "assets/media/videos/Moonboxes_DIAMOND_fallback.webm"
-  ]
+
   nftrevealed: boolean = false;
   playvideo: boolean = false;
   social: boolean = false;
