@@ -37,12 +37,12 @@
         <div class="content flex-center flex-col">
           <div class="relative">
             <div class="relative moonbox {{ box }} cursor-pointer"
-              [class.disabled]="!hasEnoughMoonshots(i) || supply[i] === 0"
+              [class.disabled]="!hasEnoughRBITS(i) || supply[i] === 0"
               (mouseover)="infoHoverList[i].isHovered = true" (mouseleave)="infoHoverList[i].isHovered = false"></div>
-            <img *ngIf="!hasEnoughMoonshots(i) && !infoHoverList[i].isHovered"
+            <img *ngIf="!hasEnoughRBITS(i) && !infoHoverList[i].isHovered"
               (mouseover)="infoHoverList[i].isHovered = true" src="assets/media/images/moonbox/Lock_moonbox.svg" alt=""
               class="lock only-desktop">
-            <svg *ngIf="!hasEnoughMoonshots(i) && infoHoverList[i].isHovered" [routerLink]="['/info']"
+            <svg *ngIf="!hasEnoughRBITS(i) && infoHoverList[i].isHovered" [routerLink]="['/info']"
               routerLinkActive="router-link-active" (mouseover)="infoHoverList[i].isHovered = true"
               class="info-icon lock cursor-pointer only-desktop" xmlns="http://www.w3.org/2000/svg" width="30"
               viewBox="0 0 38 38" xml:space="preserve">
@@ -55,7 +55,7 @@
                   d="M19 1C9.1 1 1 9.1 1 19s8.1 18 18 18 18-8.1 18-18S28.9 1 19 1zm-.1 33.1c-3.8 0-7.6-1.4-10.5-4.3-2.9-2.8-4.5-6.6-4.5-10.6s1.5-7.8 4.3-10.7l.2-.2c5.8-5.9 15.3-6 21.3-.2 2.9 2.8 4.5 6.6 4.5 10.6s-1.5 7.8-4.3 10.7l-.2.2c-3 3-6.9 4.5-10.8 4.5z" />
               </g>
             </svg>
-            <svg *ngIf="!hasEnoughMoonshots(i)" [routerLink]="['/info']" routerLinkActive="router-link-active"
+            <svg *ngIf="!hasEnoughRBITS(i)" [routerLink]="['/info']" routerLinkActive="router-link-active"
               (mouseover)="infoHoverList[i].isHovered = true"
               class="info-icon lock cursor-pointer only-mobile-and-tablet" xmlns="http://www.w3.org/2000/svg" width="30"
               viewBox="0 0 38 38" xml:space="preserve">
@@ -68,7 +68,7 @@
                   d="M19 1C9.1 1 1 9.1 1 19s8.1 18 18 18 18-8.1 18-18S28.9 1 19 1zm-.1 33.1c-3.8 0-7.6-1.4-10.5-4.3-2.9-2.8-4.5-6.6-4.5-10.6s1.5-7.8 4.3-10.7l.2-.2c5.8-5.9 15.3-6 21.3-.2 2.9 2.8 4.5 6.6 4.5 10.6s-1.5 7.8-4.3 10.7l-.2.2c-3 3-6.9 4.5-10.8 4.5z" />
               </g>
             </svg>
-            <div *ngIf="!hasEnoughMoonshots(i)" class="tooltip" [class.reveal]="infoHoverList[i].isHovered"
+            <div *ngIf="!hasEnoughRBITS(i)" class="tooltip" [class.reveal]="infoHoverList[i].isHovered"
               (mouseover)="infoHoverList[i].isHovered = true" (mouseleave)="infoHoverList[i].isHovered = false">
               <div class="row">{{ infoHoverList[i].tooltipText }}</div>
               <i></i>
@@ -82,7 +82,7 @@
               {{ supplyDetails[i]?.price }} {{ supplyDetails[i]?.tokenName }}</p>
 
             <div class="border plus_minus flex mb20" *ngIf="supply[i]>0"
-              [ngClass]="{'disabled-plus-minus': !hasEnoughMoonshots(i)}">
+              [ngClass]="{'disabled-plus-minus': !hasEnoughRBITS(i)}">
               <button class="minus flex1 pointer" (click)="onDecreaseSupplyInterestAmount(i)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="11" height="14">
                   <path fill="#fff"
@@ -102,10 +102,12 @@
 
             <div class="soldout" *ngIf="supply[i] === 0">Sold Out</div>
 
-            <a href="javascript:void(0);"  class="buy_button outlined-button mb10 text-inherit"
-              [class.disabled]="!hasEnoughMoonshots(i) || supply[i] === 0" (click)="buyMoonBase(i)"
+            
+            <a *ngIf="supply[i] > 0" href="javascript:void(0);"  class="buy_button outlined-button mb10 text-inherit"
+              [class.disabled]="!hasEnoughRBITS(i)" (click)="buyMoonBase(i)"
               (mouseover)="infoHoverList[i].isHovered = true" (mouseleave)="infoHoverList[i].isHovered = false">Buy</a>
-          </div>
+          
+            </div>
         </div>
         <div class="round-mini-button" (click)="next(+1)">
           <mat-icon fontSet="material-icons" class="color-primary">arrow_forward</mat-icon>

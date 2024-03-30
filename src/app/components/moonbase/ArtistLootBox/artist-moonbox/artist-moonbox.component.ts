@@ -191,7 +191,7 @@ export class ArtistMoonboxComponent implements OnInit {
     this.getMaxSupply();
   }
 
-  hasEnoughMoonshots(index: number) {
+  hasEnoughRBITS(index: number) {
 
     if (this.balance != null && this.moonBoxLimitDetails != null) {
       return (Number(this.balance) >= Number(this.moonBoxLimitDetails[index]));
@@ -282,7 +282,7 @@ export class ArtistMoonboxComponent implements OnInit {
   }
 
   buyMoonBase(index: number) {
-    if (!this.hasEnoughMoonshots(index) || this.supply[index] === 0) {
+    if (!this.hasEnoughRBITS(index) || this.supply[index] === 0) {
       return false
     }
     else if (this.data === undefined || this.data.address === undefined)
@@ -294,22 +294,19 @@ export class ArtistMoonboxComponent implements OnInit {
   }
 
   async submitBetToContract(index: number) {
+
     const item: Supply = this.supplyDetails[index];
 
-    if (item.currentSupply === 0) return false;
+    if (item.currentSupply === 0) {
+      this.toastrService.error("Sold Out");
+      return false;
+    }
 
     if (!item.canBuyWithinSupplyAmount(this.supply[index])) {
       this.httpApi.showToastr(MESSAGES.INVALID_NUMBER_OF_BET, false);
       return false;
     }
 
-    // if (!this.hasEnoughMoonshots(index)) {
-
-    //   this.httpApi.showToastr('You are not eligible for this Tier', false);
-    //   return false;
-    // }
-
-    // if (this.supplyDetails[index]?.isUpcoming) return false;
     this.invisible = true;
     this.fadeOut = true;
     this.dialog.open(ModalForTransactionComponent, {
@@ -340,7 +337,7 @@ export class ArtistMoonboxComponent implements OnInit {
         // this.getMaxSupply();
         // this.getMoonboxTierLimits();
       }, (error) => {
-
+        console.log(error);
       });
       this.invisible = false;
       this.fadeOut = result;

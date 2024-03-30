@@ -87,13 +87,23 @@
 
 .moonbox {
     width: 210px;
-    height: calc(12600px / 60);
-    animation: animate 2s steps(60) infinite;
-    transition: all 1s ease;
+    height: 210px;
+    animation: animateSprite 0.75s steps(5) infinite alternate;
     margin: 0 auto;
     &.disabled {
         filter: saturate(0);
     }
+}
+
+
+.diamond {
+    background-image: url('/assets/media/sprites/moonboxes/diamond.webp');
+    background-repeat: no-repeat;
+}
+
+@keyframes animateSprite {
+    from { background-position: 0 0; }
+    to { background-position: -1050px 0; }
 }
 
 .wood {
@@ -108,21 +118,10 @@
     background-image: url('/assets/media/sprites/moonboxes/gold.webp');
 }
 
-.diamond {
-    background-image: url('/assets/media/sprites/moonboxes/diamond.webp');
-}
-
-@keyframes animate {
-    from {
-        background-position-y: 0;
-    }
-    to {
-        background-position-y: 12600px;
-    }
-}
 
 .soldout {
     margin: 28px 0;
+    font-size:larger;
 }
 
 .artist-popup {
@@ -166,6 +165,7 @@ button.minus {
 
 .soldout {
     margin: 28px 0;
+    font-size:larger;
 }
 
 .border.plus_minus.flex {
