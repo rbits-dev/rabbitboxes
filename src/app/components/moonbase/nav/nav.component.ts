@@ -45,7 +45,7 @@ export class NavComponent implements OnInit {
 
   public navSubItems: any[] = [
     {
-      icon: 'assets/media/icons/moonbase/nav/Menu_return_black.svg',
+      icon: './assets/media/icons/moonbase/nav/Menu_return_black.svg',
       alt: 'return back',
       tooltip: 'Back',
       click: () => {},
@@ -53,7 +53,7 @@ export class NavComponent implements OnInit {
       route: '/',
     },
     {
-      icon: 'assets/media/icons/moonbase/nav/Menu_drops_black.svg',
+      icon: './assets/media/icons/moonbase/nav/Menu_drops_black.svg',
       alt: 'drops',
       tooltip:
         'Archived, Now and Next NFT drops.',
@@ -62,7 +62,7 @@ export class NavComponent implements OnInit {
       route: '/upcoming',
     },
     {
-      icon: 'assets/media/icons/moonbase/nav/Menu_inventory_black.svg',
+      icon: './assets/media/icons/moonbase/nav/Menu_inventory_black.svg',
       alt: 'inventory',
       tooltip:
         'This is your wallet inventory: an overview of all NFTs you received from the Rabbit Boxes.',
@@ -71,7 +71,7 @@ export class NavComponent implements OnInit {
       route: '/inventory',
     },
     {
-      icon: 'assets/media/icons/moonbase/nav/Menu_history_black.svg',
+      icon: './assets/media/icons/moonbase/nav/Menu_history_black.svg',
       alt: 'history',
       tooltip: 'This is your history: an overview of your Rabbit NFT claims.',
       click: null,
@@ -79,7 +79,7 @@ export class NavComponent implements OnInit {
       route: '/history',
     },
     {
-      icon: 'assets/media/icons/moonbase/nav/Menu_info_black.svg',
+      icon: './assets/media/icons/moonbase/nav/Menu_info_black.svg',
       alt: 'info',
       tooltip: 'Here you can find more information about the tier system.',
       click: null,
@@ -87,7 +87,7 @@ export class NavComponent implements OnInit {
       route: '/info',
     },
     {
-      icon: 'assets/media/icons/game-hub.svg',
+      icon: './assets/media/icons/game-hub.svg',
       alt: 'game',
       tooltip: 'This is our Game Hub: an overview of all Rabbit Games',
       click: null,
@@ -100,7 +100,7 @@ export class NavComponent implements OnInit {
   showMultiChainDialog: boolean = true;
 
   backButton: any = {
-    icon: 'assets/media/icons/moonbase/nav/Menu_return_black.svg',
+    icon: './assets/media/icons/moonbase/nav/Menu_return_black.svg',
     alt: 'return back',
     tooltip: 'Back',
     click: () => this.goBack(),
@@ -109,7 +109,7 @@ export class NavComponent implements OnInit {
   };
 
   homeButton: any = {
-    icon: 'assets/media/icons/moonbase/nav/Home.svg',
+    icon: './assets/media/icons/moonbase/nav/Home.svg',
     alt: 'return home',
     tooltip: 'Home',
     click: () => {

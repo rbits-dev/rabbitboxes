@@ -20,10 +20,6 @@ export class NavigationComponent implements OnInit {
       'fragment': 'how-to-buy'
     },
     {
-      'name': 'MoonPaper',
-      'externalPath': '/assets/files/moonpaper.pdf'
-    },
-    {
       'name': 'Community',
       'path': '/community',
       'onHover': false,

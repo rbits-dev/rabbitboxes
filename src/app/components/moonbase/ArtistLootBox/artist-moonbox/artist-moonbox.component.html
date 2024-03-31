@@ -2,7 +2,7 @@
 
   <div *ngIf="!supplyDetails && !pageLoader" class="flex-center main-message-container w-100 h-100 text-center pa20">
     {{ mainMessage }}
-    <img *ngIf="mainMessage === messages.IDLE" class="flex" src="assets/media/videos/Loading.gif" alt="loading" />
+    <img *ngIf="mainMessage === messages.IDLE" class="flex" src="./assets/media/videos/Loading.gif" alt="loading" />
   </div>
 
   <div *ngIf="supplyDetails && pageLoader" class="inner s-100 justify-content-evenly flex-col pt-md-100"
@@ -40,7 +40,7 @@
               [class.disabled]="!hasEnoughRBITS(i) || supply[i] === 0"
               (mouseover)="infoHoverList[i].isHovered = true" (mouseleave)="infoHoverList[i].isHovered = false"></div>
             <img *ngIf="!hasEnoughRBITS(i) && !infoHoverList[i].isHovered"
-              (mouseover)="infoHoverList[i].isHovered = true" src="assets/media/images/moonbox/Lock_moonbox.svg" alt=""
+              (mouseover)="infoHoverList[i].isHovered = true" src="./assets/media/images/moonbox/Lock_moonbox.svg" alt=""
               class="lock only-desktop">
             <svg *ngIf="!hasEnoughRBITS(i) && infoHoverList[i].isHovered" [routerLink]="['/info']"
               routerLinkActive="router-link-active" (mouseover)="infoHoverList[i].isHovered = true"

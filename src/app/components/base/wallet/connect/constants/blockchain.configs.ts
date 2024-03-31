@@ -4,7 +4,7 @@ export const CHAIN_CONFIGS: any = {
 
   '1': {
     name: 'Ethereum Mainnet',
-    icon: 'assets/media/images/blockchain/eth.webp',
+    icon: './assets/media/images/blockchain/eth.webp',
     explorerLink: 'https://etherscan.io/address/',
     bg: 'white',
     symbol: 'ETH',
@@ -20,7 +20,7 @@ export const CHAIN_CONFIGS: any = {
   },
   '11155111': {
     name: 'Sepolia',
-    icon: 'assets/media/images/blockchain/eth.webp',
+    icon: './assets/media/images/blockchain/eth.webp',
     explorerLink: 'https://etherscan.io/address/',
     bg: 'white',
     symbol: 'ETH',
@@ -37,7 +37,7 @@ export const CHAIN_CONFIGS: any = {
   '1285': {
     name: 'Moonriver',
     explorerLink: 'https://moonriver.moonscan.io/address/',
-    icon: 'assets/media/images/blockchain/MOVR.svg',
+    icon: './assets/media/images/blockchain/MOVR.svg',
     bg: 'black',
     symbol: 'MOVR',
     config: {
@@ -59,7 +59,7 @@ export const CHAIN_CONFIGS: any = {
   '97': {
     name: 'BSC Testnet',
     explorerLink: 'https://testnet.bscscan.com/address/',
-    icon: 'assets/media/images/blockchain/BSC.svg',
+    icon: './assets/media/images/blockchain/BSC.svg',
     bg: 'black',
     symbol: 'tBNB',
     config: {
@@ -81,7 +81,7 @@ export const CHAIN_CONFIGS: any = {
   '56': {
     name: 'BNB Smart Chain Mainnet',
     explorerLink: 'https://bscscan.com/address/',
-    icon: 'assets/media/images/blockchain/BSC.svg',
+    icon: './assets/media/images/blockchain/BSC.svg',
     bg: 'black',
     symbol: 'BNB',
     config: {
@@ -103,7 +103,7 @@ export const CHAIN_CONFIGS: any = {
   '137': {
     name: 'Polygon Mainnet',
     explorerLink: 'https://polygonscan.com/address/',
-    icon: 'assets/media/images/blockchain/Polygon_Primary_Token.svg',
+    icon: './assets/media/images/blockchain/Polygon_Primary_Token.svg',
     bg: '#7b3fe4',
     symbol: 'MATIC',
     config: {
@@ -124,7 +124,7 @@ export const CHAIN_CONFIGS: any = {
   },
   '1287': {
     name: 'Moonbase Alpha',
-    icon: 'assets/media/images/blockchain/MOVR.svg',
+    icon: './assets/media/images/blockchain/MOVR.svg',
     explorerLink: 'https://moonbase.moonscan.io/address/',
     bg: 'black',
     symbol: 'DEV',
@@ -146,7 +146,7 @@ export const CHAIN_CONFIGS: any = {
   },
   '80001': {
     name: 'Mumbai',
-    icon: 'assets/media/images/blockchain/Polygon_Primary_Token.svg',
+    icon: './assets/media/images/blockchain/Polygon_Primary_Token.svg',
     explorerLink: 'https://mumbai.polygonscan.com/address/',
     bg: '#7b3fe4',
     symbol: 'MATIC',
@@ -168,7 +168,7 @@ export const CHAIN_CONFIGS: any = {
   },
   '4': {
     name: 'Rinkeby',
-    icon: 'assets/media/images/blockchain/eth.webp',
+    icon: './assets/media/images/blockchain/eth.webp',
     explorerLink: 'https://rinkeby.etherscan.io/address/',
     bg: 'white',
     symbol: 'ETH',
@@ -187,7 +187,7 @@ export const CHAIN_CONFIGS: any = {
   '568': {
     name: 'Dogechain Testnet',
     explorerLink: 'https://explorer-testnet.dogechain.dog/address/',
-    icon: 'assets/media/images/blockchain/dogecoin.svg',
+    icon: './assets/media/images/blockchain/dogecoin.svg',
     bg: '#000',
     symbol: 'dog',
     config: {
@@ -209,7 +209,7 @@ export const CHAIN_CONFIGS: any = {
   '2000': {
     name: 'Dogechain Mainnet',
     explorerLink: 'https://explorer.dogechain.dog/address/address/',
-    icon: 'assets/media/images/blockchain/dogecoin.svg',
+    icon: './assets/media/images/blockchain/dogecoin.svg',
     bg: '#000',
     symbol: 'DOGE',
     config: {

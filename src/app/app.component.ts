@@ -13,7 +13,7 @@ export class AppComponent {
     throw new Error('Method not implemented.');
   }
   constructor( private tokenomicService: TokenomicsService ) {
-    particlesJS.load('particles', 'assets/json/particlesjs-config.json');
+    particlesJS.load('particles', './assets/json/particlesjs-config.json');
     
     this.tokenomicService.init();
   }

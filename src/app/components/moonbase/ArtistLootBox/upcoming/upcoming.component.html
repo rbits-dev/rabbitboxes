@@ -1,7 +1,7 @@
 <div class="upcoming-container">
     <section class="scroller">
 
-        <img *ngIf="!list" class="absolute-center" src="assets/media/videos/Loading.gif" alt="loading" />
+        <img *ngIf="!list" class="absolute-center" src="./assets/media/videos/Loading.gif" alt="loading" />
         <p *ngIf="!list" class="absolute-center" style="top:65%; color:white; margin-top: 20px; ">Loading ...</p>
 
         <div class="pt-5 flex1 h-100 flex-space-between align-self">
@@ -60,12 +60,12 @@
                                         <div class="tooltip">
                                             <div class="row">Available soon</div>
                                         </div>
-                                        <img src="assets/media/icons/drops/coundown.svg" alt="coundown-button">
+                                        <img src="./assets/media/icons/drops/coundown.svg" alt="coundown-button">
                                         <app-countdown-timer [date]="item.revealDate" [nftData]="item" (timerUp)="isTimerUp($event)"></app-countdown-timer>
                                     </div>
                                     <a href="javascript:void(0);"  class="pointer button text-inherit mb20 coundown-button" (click)="openDialoagOfAddUser()" rel="noopener noreferrer"
                                     *ngIf="currentCategory === dropsCategory.UPCOMING && item.revealDate === 'Application form'">
-                                    <img src="assets/media/images/form.svg" alt="coundown-button">
+                                    <img src="./assets/media/images/form.svg" alt="coundown-button">
                                     Application form
                                     </a>
 

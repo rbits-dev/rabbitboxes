@@ -97,10 +97,10 @@
           *ngIf="fileTypeIsImage(item['logo_path'])"
         >
           <img
-            [src]="item['logo_path'] ? item['logo_path'] : '/assets/media/images/nftnotfound.jpg'"
+            [src]="item['logo_path'] ? item['logo_path'] : './assets/media/images/nftnotfound.jpg'"
             class="img-fluid"
             alt=""
-            onError="this.src='/assets/media/images/nftnotfound.jpg';"
+            onError="this.src='./assets/media/images/nftnotfound.jpg';"
           />
         </div>
 

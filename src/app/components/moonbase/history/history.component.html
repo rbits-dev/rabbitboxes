@@ -2,7 +2,7 @@
     <div *ngIf="!historyData" class="flex-center main-message-container w-100 h-100 text-center pa20">
         {{mainMessage}}
         <div *ngIf="mainMessage === messages.IDLE && isConnected; else loggedOut">
-            <img class="" src="assets/media/videos/Loading.gif" alt="loading" />
+            <img class="" src="./assets/media/videos/Loading.gif" alt="loading" />
             <p class="" style="top:65%; color:white; margin-top: 20px;">Loading ...</p>
         </div>
 
