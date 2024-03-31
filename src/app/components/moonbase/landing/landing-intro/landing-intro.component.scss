@@ -58,7 +58,7 @@ swiper {
     position: relative;
     margin-left: 19px;
     min-width: 470px;
-    min-height: 470px;
+    //min-height: 470px;
     background: transparent;
     width: 100%;
     height: 100%;
@@ -145,6 +145,21 @@ swiper {
             }
         }
     }
+}
+
+.moonbox {
+    background-image: url('/assets/media/sprites/moonboxes/diamond.webp');
+    background-repeat: no-repeat;
+    width: 210px;
+    height: 210px;
+    animation: animateSprite 0.75s steps(5) infinite alternate;
+    margin: 0 auto;
+    transform: translateZ(0); /* Hardware acceleration */
+}
+
+@keyframes animateSprite {
+    from { background-position: 0 0; }
+    to { background-position: -1050px 0; }
 }
 
 @media only screen and (max-width: $sm) {
