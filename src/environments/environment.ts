@@ -20,8 +20,9 @@ export const environment = {
 
   configFile: 'testnet',
   adminPanelUrl : "http://codetentacles-006-site41.htempurl.com/",
+  moralisChain :"bsc+testnet",
 
-  mintNFTAddress:"0x38B71264E52467445F7d71CaDac4B0066B0e807A", //FIXME not yet in environment.prod.ts
+  mintNFTAddress:"0x64289aeC1bd2aC1285cC16742D91546d6dC72781", //FIXME not yet in environment.prod.ts
   explorerURLForEth:"https://sepolia.etherscan.io/",
 };
 

@@ -9,6 +9,7 @@ import { WalletConnectComponent } from "../../base/wallet/connect/connect.compon
 import { ItemOverviewComponent } from "../../base/dialogs/item-overview/item-overview.component";
 import { NftMigrationComponent } from "../dialogs/nft-migration/nft-migration.component";
 import { UpgradeNftDialogComponent } from "./upgrade-nft-dialog/upgrade-nft-dialog.component";
+import { UpgrateNftSelectionDialogComponent } from "./upgrate-nft-selection-dialog/upgrate-nft-selection-dialog.component";
 
 @Component({
   selector: "app-inventory",
@@ -206,7 +207,6 @@ export class InventoryComponent implements OnInit {
 
     this.NFTDetails = item;
     this.selectedIndex = index;
-    debugger;
 
     this.dialog.open(ItemOverviewComponent, {
       width: "100%",
@@ -276,26 +276,18 @@ export class InventoryComponent implements OnInit {
   getNFTData() {
     this.httpApi.upgradeNftInfo({ walletAddress: this.userAddress }).subscribe({
       next: async (res: any) => {
-        this.nftData = res.data;
+
+        this.nftData = res.data.map(nft => ({ ...nft, isDisplay: false }));
       },
       error: (err: any) => {},
     });
-    /*
-    this.httpApi
-      .upgradeNftInfo({
-        walletAddress: this.userAddress,
-      })
-      .subscribe((response: any) => {
-        if (response.isSuccess) {
-          this.nftData = response.data;
-        }
-      });*/
+
   }
 
   //UPGRADE NFT DIALOG BOX
   openUpgradeNftDialog() {
     this.dialog
-      .open(UpgradeNftDialogComponent, {
+      .open(UpgrateNftSelectionDialogComponent, {
         width: "800px",
         data: this.nftData,
       })

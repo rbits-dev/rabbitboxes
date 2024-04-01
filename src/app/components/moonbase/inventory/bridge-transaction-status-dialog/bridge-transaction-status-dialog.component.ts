@@ -22,16 +22,18 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
   btn3Text: String = "Waiting";
   btn4Text: String = "Waiting";
   transactionHash: String = "please wait...";
-  txHashHref: string = '';
+  txHashHref: string = "";
+  singData: any;
   constructor(
     private cs: WalletConnectService,
     public dialogRef: MatDialogRef<BridgeTransactionStatusDialogComponent>,
+    private httpApi: HttpApiService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   ngOnInit(): void {
     this.handleBridgeNft();
-    this.cs.listenToEvents().then((res:any) => {
+    this.cs.listenToEvents().then((res: any) => {
       if (res) {
         this.successIcon4 = false;
         this.btn3Text = "Done";
@@ -43,8 +45,14 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
           this.successIcon7 = false;
           this.btn4Text = "Done";
           this.successIcon8 = true;
-          this.txHashHref = environment.explorerURLForEth+'tx/'+res.transactionHash
-          this.transactionHash = environment.explorerURLForEth+'tx/'+res.transactionHash.substring(0,4)+'...'+res.transactionHash.substring(62,66)
+          this.txHashHref =
+            environment.explorerURLForEth + "tx/" + res.transactionHash;
+          this.transactionHash =
+            environment.explorerURLForEth +
+            "tx/" +
+            res.transactionHash.substring(0, 4) +
+            "..." +
+            res.transactionHash.substring(62, 66);
         }, 30000);
       }
     });
@@ -53,39 +61,78 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
   //BRIDGE NFT APPROVAL FN
   async handleBridgeNft() {
     try {
-      if( this.data.tokenIds.length != this.data.amounts.length ) {
+      if (this.data.tokenIds.length != this.data.amounts.length) {
         this.dialogRef.close();
         this.cs.printError("Data Array Size Mismatch");
       }
-      if( this.data.tokenIds.length == 0) {
+      if (this.data.tokenIds.length == 0) {
         // There is nothing to do
         this.dialogRef.close();
         this.cs.printError("You didn't select any NFTs to bridge");
-      }
-      else {
+      } else {
         // There is something to do
         this.successIcon = true;
-        const isApproval = await this.cs.isApprovalBridgeNFT();
+        const isApproval = await this.cs.isApprovalBridgeNFT(this.data.srcContract);
         if (!isApproval) {
-          const approval = await this.cs.setApprovalBridgeNFT();
+          const approval = await this.cs.setApprovalBridgeNFT(this.data.srcContract);
           await approval.wait();
         }
-        const result = await this.cs.bridgeNFT(
-          this.data.tokenIds,
-          this.data.amounts,
-          localStorage.getItem("address")
-        );
-        await result.wait();
-        this.successIcon = false;
-        this.successIcon2 = true;
-        this.btn2Text = "Done";
-        this.successIcon3 = false;
-        this.successIcon4 = true;
-        this.btn3Text = "Started";
+
+        try {
+           this.httpApi
+            .sing({
+              srcContract: this.data.srcContract,
+              destContract: this.data.destContract,
+              userAddress: localStorage.getItem("address"),
+            })
+            .subscribe((response: any) => {
+              this.singData = response.data;
+              this.tx()
+
+            });
+        } catch (e) {
+          this.httpApi.showToastr(e, false);
+        }
+
       }
     } catch (error) {
       this.dialogRef.close();
       this.cs.handleMetamaskError(error);
+    }
+  }
+
+  async tx()
+  {
+    const result = await this.cs.bridgeNFT(
+      this.data.tokenIds,
+      this.data.amounts,
+      localStorage.getItem("address"),
+      this.data.srcContract,
+      this.data.destContract,
+      this.singData
+    );
+    await result.wait();
+    this.successIcon = false;
+    this.successIcon2 = true;
+    this.btn2Text = "Done";
+    this.successIcon3 = false;
+    this.successIcon4 = true;
+    this.btn3Text = "Started";
+  }
+
+  async getsing(srcContract: string, destContract: string) {
+    try {
+     this.httpApi
+        .sing({
+          srcContract: srcContract,
+          destContract: destContract,
+          userAddress: localStorage.getItem("address"),
+        })
+        .subscribe((response: any) => {
+          this.singData = response.data;
+        });
+    } catch (e) {
+      this.httpApi.showToastr(e, false);
     }
   }
 }
