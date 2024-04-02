@@ -235,7 +235,7 @@ export class HttpApiService {
 
   getTokenUriData(tokenID:any,baseUrl:string){
     const url = `${baseUrl}${tokenID}`;
-   return this.httpClient.get(url).toPromise()
+   return this.httpClient.get(url, { headers: this.headers }).toPromise()
   }
 
 

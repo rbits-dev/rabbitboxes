@@ -701,6 +701,7 @@ export class WalletConnectService {
     if (isArtist) {
       try {
         //
+        debugger
         let txn: any = await this.artistLootBoxContract.redeemBulk(
           nftAddress,
           id,
@@ -1146,6 +1147,7 @@ export class WalletConnectService {
       }
       let EndpointId = node.destChainId;
       let destination = node.destination;
+      debugger
       let sign = [signature.v, signature.r, signature.s, signature.nonce];
       const calculatedFees = await this.estimateFees({
         EndpointId,
@@ -1158,6 +1160,8 @@ export class WalletConnectService {
         sign,
       });
       const optionalAmount = { value: calculatedFees.nativeFee };
+      let fees = (Number(calculatedFees.nativeFee) + 0.01).toString()
+      let hexFees = {value: ethers.utils.parseUnits(fees, 'wei')};
       let txn = await this.BridgeContract.crossChain(
         node.destChainId,
         node.destination,
@@ -1166,7 +1170,7 @@ export class WalletConnectService {
         srcContract,
         destContract,
         sign,
-        optionalAmount
+        hexFees
       );
       return txn;
     } catch (error) {

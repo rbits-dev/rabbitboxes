@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, ChangeDetectorRef,OnInit, Inject } from "@angular/core";
 import {
   MAT_DIALOG_DATA,
   MatDialog,
@@ -23,7 +23,8 @@ export class UpgradeNftDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public nftList: any,
     public dialogRef: MatDialogRef<UpgradeNftDialogComponent>,
     private openDialog: MatDialog,
-    private httpApi: HttpApiService
+    private httpApi: HttpApiService,
+    private cd: ChangeDetectorRef
   ) {}
 
   async ngOnInit() {
@@ -37,7 +38,9 @@ export class UpgradeNftDialogComponent implements OnInit {
         item.token_id,
         baseUrl.baseUrl
       );
+      debugger
       item.image_path = result.image;
+      this.cd.detectChanges();
     });
   }
 
