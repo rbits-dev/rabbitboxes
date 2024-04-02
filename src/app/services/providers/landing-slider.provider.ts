@@ -25,48 +25,52 @@ export class LandingSliderProvider {
   getAllNftImages = (): LandingSliderModel[] => this.allNftImages;
 
   async getLiveCollectionsAddresses(): Promise<any> {
-    const response = await this.httpService.getLiveCollectionsBanner();
+    try {
+      const response = await this.httpService.getLiveCollectionsBanner();
 
-    if (response.data && response.data.live_data_array) {
-      this.liveCollectionList = response.data.live_data_array;
-    } else {
-      this.liveCollectionList = [];
+      if (response.data && response.data.live_data_array) {
+        this.liveCollectionList = response.data.live_data_array;
+      } else {
+        this.liveCollectionList = [];
+      }
+
+      if (response.data && response.data.recent_data_array) {
+        this.liveCollectionList = this.liveCollectionList.concat(
+          response.data.recent_data_array
+        );
+      }
+
+      for (let i = 0; i < this.liveCollectionList.length; i++) {
+        await this.httpService
+          .getRandomCollectionImageListFromArtist(
+            this.liveCollectionList[i].walletAddress
+          )
+          .then((res) => {
+            for (let j = 0; j < 5; j++) {
+              if (res.data[j] !== undefined)
+                if (
+                  !res.data[j].logo_path.includes(".mp4") &&
+                  !res.data[j].logo_path.includes(".gif")
+                )
+                  this.allNftImages.push(
+                    new LandingSliderModel(
+                      this.getPreviewImageUrl(res.data[j].logo_path),
+                      res.artistData.collectionName,
+                      i < response.data.live_data_array.length
+                        ? "artist/" + this.liveCollectionList[i].walletAddress
+                        : "recent"
+                    )
+                  );
+            }
+          });
+      }
+
+      this.isLoading = false;
+      this.onSave(this.allNftImages);
+      return this.allNftImages;
+    } catch (error) {
+      this.isLoading = false;
     }
-
-    if (response.data && response.data.recent_data_array) {
-      this.liveCollectionList = this.liveCollectionList.concat(
-        response.data.recent_data_array
-      );
-    }
-
-    for (let i = 0; i < this.liveCollectionList.length; i++) {
-      await this.httpService
-        .getRandomCollectionImageListFromArtist(
-          this.liveCollectionList[i].walletAddress
-        )
-        .then((res) => {
-          for (let j = 0; j < 5; j++) {
-            if (res.data[j] !== undefined)
-              if (
-                !res.data[j].logo_path.includes(".mp4") &&
-                !res.data[j].logo_path.includes(".gif")
-              )
-                this.allNftImages.push(
-                  new LandingSliderModel(
-                    this.getPreviewImageUrl(res.data[j].logo_path),
-                    res.artistData.collectionName,
-                    i < response.data.live_data_array.length
-                      ? "artist/" + this.liveCollectionList[i].walletAddress
-                      : "recent"
-                  )
-                );
-          }
-          this.isLoading = false;
-        });
-    }
-
-    this.onSave(this.allNftImages);
-    return this.allNftImages;
   }
 
   getPreviewImageUrl(url: string): string {

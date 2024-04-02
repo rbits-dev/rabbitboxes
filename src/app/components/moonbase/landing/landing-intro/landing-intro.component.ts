@@ -49,7 +49,6 @@ export class LandingIntroComponent implements OnInit {
 
   ngOnInit(): void {
     this.slides = this.landingSliderProvider.getAllNftImages();
-
     this.landingSliderProvider.onChange().subscribe((list) => {
       this.slides = list;
     });
