@@ -1,10 +1,7 @@
 <div id="attribute-info">
   <p style="text-align:right" ><span style="color: #fff;right:0; cursor:pointer;" (click)="dialogRef.close()">X</span></p>
-  <div *ngIf="isLoading" class="flex flex-center" style="max-width: 770px; width: 100vw;">
-    <img class="flex mx-auto" style="margin-bottom: 40px;" src="assets/media/videos/Loading.gif" alt="">
-</div>
   <div class="inner flex-wrap ">
-    <ng-container  *ngFor="let item of nftList;index as i">
+    <ng-container  *ngFor="let item of nftData?.NftList;index as i">
       <div *ngIf="item.isDisplay">
         <div class="box flex-center col pb100">
           <div class="relative nft_img">
@@ -17,6 +14,5 @@
         </div>
       </div>
     </ng-container>
-    <p *ngIf="nftList && nftList.length === 0 && !isLoading" class="absolute-center">No inventory data found</p>
   </div>
 </div>

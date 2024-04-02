@@ -27,7 +27,7 @@
 
 
                             <div *ngIf="!(this.NSFWToggleState && item['NSFW']) && !(['0x522C8228f61f6102F0b8bC138ea2E00D616811Ee', '0x1019dA05C30EcE5d329Af38E32E044590c13a0C1', '0x59cf59D3F4259766fA218F1F2F29375ca31451Fd'].includes(item['walletAddress']))" class="box flex-center col pa10">
-                                
+
 
                                 <a *ngIf="item.revealDate !== 'Application form'" class="flex1 nft_img flex-center" [class.disabledBorder]="currentCategory === dropsCategory.UPCOMING" [routerLink]="currentCategory === dropsCategory.UPCOMING ? null : ['/artist',item.walletAddress]">
                                     <div class="relative res-box upcoming-img" [style.background]="'url('+item.filePath+')'"></div>
@@ -77,7 +77,7 @@
 
                                     <a href="javascript:void(0);"  *ngIf="currentCategory === dropsCategory.LIVE && !item?.free_mint_user" class="button text-inherit mb20" [routerLink]="['/artist',item.walletAddress]">Buy Rabbit Boxes</a>
                                     <a href="javascript:void(0);"  *ngIf="currentCategory === dropsCategory.LIVE && item?.free_mint_user" class="button text-inherit mb20" [routerLink]="['/artist',item.walletAddress]">Get for Free</a>
-                                    
+
                                     <a href="javascript:void(0);"  class="outlined-button mb20 text-inherit" (click)="viewDetails(item)">Collection info</a>
                                 </div>
                             </div>
@@ -109,7 +109,7 @@
                                         <p class="color-primary mb10">88 pieces</p>
                                     </div>
                                 </div>
-                                
+
                                 <a href="javascript:void(0);"  class="outlined-button mb20 text-inherit" >Launch date to be announced</a>
                             </div>
                         </div>
@@ -124,15 +124,15 @@
                 <div *ngIf="list && list[currentCategory]?.length==0 && currentCategory == dropsCategory.RECENT" class="flex1 flex-center">
                     <p class="text-center options-color" >Currently, there are no Archived NFT collections for the selected Blockchain</p>
                 </div>
-    <!--            
+    <!--
                 <div *ngIf="list && ( list[currentCategory]?.length==0 || list[currentCategory] === undefined ) && currentCategory == dropsCategory.LIVE" class="flex1 flex-center">
                     <p class="text-center options-color" >Currently, there are no NFT collections launched on the selected Blockchain</p>
                 </div>
     -->
-                <div *ngIf="currentCategory == dropsCategory.LIVE" class="flex1 flex-center">
+                <div *ngIf="currentCategory == dropsCategory.LIVE && list && list[currentCategory]?.length==0" class="flex1 flex-center">
                     <p class="text-center options-color" >Currently, there are no NFT collections launched on the selected Blockchain</p>
                 </div>
-                
+
             </div>
 
         </div>

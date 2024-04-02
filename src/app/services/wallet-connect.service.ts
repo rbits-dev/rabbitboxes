@@ -537,7 +537,7 @@ export class WalletConnectService {
       try {
         if (isArtist) {
           this.artistLootBoxContractGet.methods
-            .getMoonShootLimit()
+            .getRabbitShootLimit()
             .call()
             .then((transactionHash: any) => resolve(transactionHash));
         } else {
@@ -1118,6 +1118,7 @@ export class WalletConnectService {
         false,
         adapterParams
       );
+
       return value;
     } catch (error) {
       console.log(error);
@@ -1145,7 +1146,6 @@ export class WalletConnectService {
       }
       let EndpointId = node.destChainId;
       let destination = node.destination;
-      debugger;
       let sign = [signature.v, signature.r, signature.s, signature.nonce];
       const calculatedFees = await this.estimateFees({
         EndpointId,
@@ -1157,7 +1157,6 @@ export class WalletConnectService {
         destContract,
         sign,
       });
-      debugger;
       const optionalAmount = { value: calculatedFees.nativeFee };
       let txn = await this.BridgeContract.crossChain(
         node.destChainId,
@@ -1176,7 +1175,7 @@ export class WalletConnectService {
   }
 
   //LISTEN TO EVENTS OF MINT NFT CONTRACT
-  async listenToEvents() {
+  async listenToEvents(destination:any) {
     let provider;
     let providerIndex = 0;
 
@@ -1201,7 +1200,7 @@ export class WalletConnectService {
     }
 
     const contract = new ethers.Contract(
-      environment.mintNFTAddress,
+      destination,
       MINT_NFT_ABI,
       provider
     );

@@ -6,6 +6,7 @@ import {
 } from "@angular/material/dialog";
 
 import { BridgeTransactionStatusDialogComponent } from "../bridge-transaction-status-dialog/bridge-transaction-status-dialog.component";
+import { HttpApiService } from "src/app/services/http-api.service";
 
 @Component({
   selector: "app-upgrade-nft-dialog",
@@ -21,15 +22,22 @@ export class UpgradeNftDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public nftList: any,
     public dialogRef: MatDialogRef<UpgradeNftDialogComponent>,
-    private openDialog: MatDialog
+    private openDialog: MatDialog,
+    private httpApi: HttpApiService
   ) {}
 
-  ngOnInit(): void {
-    debugger
-    this.nftList.nftData.forEach((item) => {
+  async ngOnInit() {
+    const baseUrl = await this.httpApi.getMetadataUrl();
+    this.nftList.nftData.forEach(async (item) => {
       item.isSelected = true;
       this.tokenIds.push(item.token_id);
       this.amounts.push(item.amount);
+
+      const result: any = await this.httpApi.getTokenUriData(
+        item.token_id,
+        baseUrl.baseUrl
+      );
+      item.image_path = result.image;
     });
   }
 
@@ -61,17 +69,15 @@ export class UpgradeNftDialogComponent implements OnInit {
       .map((item) => item.amount);
   }
 
-
-
   //handle bridge nft status dialog
-  openBridgeNftStatusDialog(srcContract:string,destContract:string) {
+  openBridgeNftStatusDialog(srcContract: string, destContract: string) {
     this.openDialog.open(BridgeTransactionStatusDialogComponent, {
       width: "500px",
       data: {
         tokenIds: this.tokenIds,
         amounts: this.amounts,
-        srcContract:srcContract,
-        destContract:destContract
+        srcContract: srcContract,
+        destContract: destContract,
       },
       disableClose: true,
     });

@@ -13,7 +13,7 @@
     <button (click)="openBridgeNftStatusDialog(nftList.srcContractAddress,nftList.destContractAddress)" [disabled]="bridgeNftBtnTxt!='Bridge NFT'" class="view-detail-button outlined-button text-inherit" style="margin: 00px  0 0px auto;" >{{bridgeNftBtnTxt}}</button>
   </div>
   <div class="inner flex-wrap ">
-    <ng-container *ngFor="let item of nftList.nftData;index as i">
+    <ng-container *ngFor="let item of nftList.NftList;index as i">
 
       <div class="box flex-center col pb100">
         <div  class="check-box-contianer" >
@@ -21,7 +21,7 @@
           </span>
         </div>
         <div class="relative nft_img">
-          <img src="{{ item['logo_path'] }}" class="img-fluid" alt=""  />
+          <img src="{{ item['image_path'] }}" class="img-fluid" alt=""  />
         </div>
         <div class="item-details text-center">
           <p class="item-name p-white-span-primary p16d14m  mt20" style="margin-bottom: 15px;">{{ item["name"] }}</p>
