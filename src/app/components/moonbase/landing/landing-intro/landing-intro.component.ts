@@ -6,6 +6,7 @@ import 'swiper/scss/autoplay';
 import { nftSlider } from '../consts/nft-slider.const';
 import { LandingSliderModel } from 'src/app/models/landing-slider.model';
 import { LandingSliderProvider } from 'src/app/services/providers/landing-slider.provider';
+import { environment } from 'src/environments/environment';
 SwiperCore.use([EffectFade]);
 SwiperCore.use([Autoplay]);
 @Component({
@@ -16,7 +17,7 @@ SwiperCore.use([Autoplay]);
 export class LandingIntroComponent implements OnInit {
 
   slides: LandingSliderModel[] = [];
-
+  assetBaseUrl = environment.assetBaseUrl
   config: SwiperOptions = {
     slidesPerView: 1,
     effect: 'fade',
