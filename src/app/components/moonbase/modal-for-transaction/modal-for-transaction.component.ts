@@ -20,10 +20,10 @@ export class ModalForTransactionComponent implements OnInit {
   successIcon2: boolean = false;
   isCompletedProcess: boolean = false;
   videoSource = [
-    "assets/media/videos/Moonboxes_WOOD.webm",
-    "assets/media/videos/Moonboxes_SILVER.webm",
-    "assets/media/videos/Moonboxes_GOLD.webm",
-    "assets/media/videos/Moonboxes_DIAMOND.webm"
+    "assets/media/videos/wood.mp4",
+    "assets/media/videos/silver.mp4",
+    "assets/media/videos/gold.mp4",
+    "assets/media/videos/diamond.mp4"
   ]
 
   nftrevealed: boolean = false;

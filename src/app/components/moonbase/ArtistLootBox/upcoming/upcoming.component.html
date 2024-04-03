@@ -93,7 +93,11 @@
                                 <div class="text-center word-break">
                                     <div class="flex align-left flex-col mb10 mt10">
                                         <p class="p22 pa10">The Animated Rabbit Series</p>
-                                        <div class="relative res-box upcoming-img" [style.background]="'url(https://rbits.xyz/boxes/assets/media/images/moonbox/landing/nfts/males/character-05918.webp)'"></div>
+                                        <div class="relative upcoming-img">
+                                            <video class="fade-in onvideo img-fluid" width="100%" height="auto" playsinline muted autoplay oncanplay="this.play()" onloadedmetadata="this.muted = true">
+                                                <source src="assets/media/videos/animatedrbits.mp4" type="video/mp4" />Browser not supported
+                                              </video>
+                                        </div>
                                     </div>
                                 </div>
 
