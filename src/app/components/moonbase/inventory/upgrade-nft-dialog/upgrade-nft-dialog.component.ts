@@ -16,6 +16,7 @@ import { HttpApiService } from "src/app/services/http-api.service";
 export class UpgradeNftDialogComponent implements OnInit {
   isLoading = false;
   isSelectAll = true;
+
   tokenIds = [];
   amounts = [];
   bridgeNftBtnTxt = "Bridge NFT";

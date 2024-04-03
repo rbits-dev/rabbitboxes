@@ -78,7 +78,6 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
           await approval.wait();
         }
 
-        try {
            this.httpApi
             .sing({
               srcContract: this.data.srcContract,
@@ -88,12 +87,7 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
             .subscribe((response: any) => {
               this.singData = response.data;
               this.tx()
-
             });
-        } catch (e) {
-          this.httpApi.showToastr(e, false);
-        }
-
       }
     } catch (error) {
       this.dialogRef.close();
@@ -132,6 +126,7 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
           this.singData = response.data;
         });
     } catch (e) {
+      this.dialogRef.close();
       this.httpApi.showToastr(e, false);
     }
   }
