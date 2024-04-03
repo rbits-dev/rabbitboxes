@@ -38,7 +38,6 @@ export class UpgradeNftDialogComponent implements OnInit {
         item.token_id,
         baseUrl.baseUrl
       );
-      debugger
       item.image_path = result.image;
       this.cd.detectChanges();
     });

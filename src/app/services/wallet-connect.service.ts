@@ -1134,50 +1134,54 @@ export class WalletConnectService {
     srcContract,
     destContract,
     signature
-  ) {
+) {
     try {
-      const node = config[environment.configFile].find(
-        (chain: any) => chain.chainId == this.chainId.value
-      );
-      if (node.destination === undefined) {
-        console.error(
-          "Error: destinationAddress not set for chain ",
-          this.chainId.value
+        const node = config[environment.configFile].find(
+            (chain: any) => chain.chainId == this.chainId.value
         );
-      }
-      let EndpointId = node.destChainId;
-      let destination = node.destination;
-      debugger
-      let sign = [signature.v, signature.r, signature.s, signature.nonce];
-      const calculatedFees = await this.estimateFees({
-        EndpointId,
-        destination,
-        userAddress,
-        tokenIds,
-        amounts,
-        srcContract,
-        destContract,
-        sign,
-      });
-      const optionalAmount = { value: calculatedFees.nativeFee };
-      let fees = (Number(calculatedFees.nativeFee) + 0.01).toString()
-      let hexFees = {value: ethers.utils.parseUnits(fees, 'wei')};
-      let txn = await this.BridgeContract.crossChain(
-        node.destChainId,
-        node.destination,
-        tokenIds,
-        amounts,
-        srcContract,
-        destContract,
-        sign,
-        hexFees
-      );
-      return txn;
-    } catch (error) {
-      throw error;
-    }
-  }
+        if (node.destination === undefined) {
+            console.error(
+                "Error: destinationAddress not set for chain ",
+                this.chainId.value
+            );
+        }
 
+        let EndpointId = node.destChainId;
+        let destination = node.destination;
+        let sign = [signature.v, signature.r, signature.s, signature.nonce];
+
+        const calculatedFees = await this.estimateFees({
+            EndpointId,
+            destination,
+            userAddress,
+            tokenIds,
+            amounts,
+            srcContract,
+            destContract,
+            sign,
+        });
+
+        // Calculate 10% extra fee
+        const extraFee = (Number(calculatedFees.nativeFee)* 0.15)
+        const totalFees = Number(calculatedFees.nativeFee) + extraFee;
+        // Convert fees to hexadecimal format
+        const hexFees = ethers.utils.parseUnits(totalFees.toString(), 'wei');
+        // Call the crossChain function with the calculated fees including 10% extra
+        let txn = await this.BridgeContract.crossChain(
+            node.destChainId,
+            node.destination,
+            tokenIds,
+            amounts,
+            srcContract,
+            destContract,
+            sign,
+            { value: hexFees } // Pass fees as value object
+        );
+        return txn;
+    } catch (error) {
+        throw error;
+    }
+}
   //LISTEN TO EVENTS OF MINT NFT CONTRACT
   async listenToEvents(destination:any) {
     let provider;

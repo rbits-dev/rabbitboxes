@@ -21,7 +21,7 @@
           </span>
         </div>
         <div class="relative nft_img">
-          <img src="{{ item['image_path'] }}" class="img-fluid" alt="Image"  />
+          <img src="{{ item['image_path'] }}" class="img-fluid"  onError="this.src='./assets/media/images/nftnotfound.jpg';" alt="Image"  />
         </div>
         <div class="item-details text-center">
           <p class="item-name p-white-span-primary p16d14m  mt20" style="margin-bottom: 15px;">{{ item["name"] }}</p>
