@@ -1182,7 +1182,7 @@ export class WalletConnectService {
     }
 }
   //LISTEN TO EVENTS OF MINT NFT CONTRACT
-  async listenToEvents(destination:any) {
+  async listenToEvents() {
     let provider;
     let providerIndex = 0;
     let providerURLForEth = this.chainConfigs[environment.chainId[0]].rpcUrls
@@ -1203,15 +1203,19 @@ export class WalletConnectService {
       this.toastrService.error('something went wrong please check on explorer your nft successfully bridge!!')
       throw new Error("All JSON-RPC providers failed.");
     }
+console.log('listenevent on',
+  environment.rabbitControllerAddress,
+
+);
 
     const contract = new ethers.Contract(
-      destination,
+      environment.rabbitControllerAddress,
       MINT_NFT_ABI,
       provider
     );
-
     return new Promise((resolve, reject) => {
       contract.on("ReceiveNFT", (from, to, id, amount, event) => {
+        console.log('event detected===========>',event);
         resolve(event);
       });
     });

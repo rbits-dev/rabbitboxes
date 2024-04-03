@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from "@angular/core";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { ToastrService } from "ngx-toastr";
 import { HttpApiService } from "src/app/services/http-api.service";
 import { WalletConnectService } from "src/app/services/wallet-connect.service";
 import { environment } from "src/environments/environment";
@@ -28,12 +29,14 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
     private cs: WalletConnectService,
     public dialogRef: MatDialogRef<BridgeTransactionStatusDialogComponent>,
     private httpApi: HttpApiService,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private toaster:ToastrService,
+    private dialogCloseAllRef :MatDialog
   ) {}
 
   ngOnInit(): void {
     this.handleBridgeNft();
-    this.cs.listenToEvents(this.data.destContract).then((res: any) => {
+    this.cs.listenToEvents().then((res: any) => {
       if (res) {
         this.successIcon4 = false;
         this.btn3Text = "Done";
@@ -80,6 +83,8 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
 
            this.httpApi
             .sing({
+              nftIds:this.data.tokenIds,
+              amounts:this.data.amounts,
               srcContract: this.data.srcContract,
               destContract: this.data.destContract,
               userAddress: localStorage.getItem("address"),
@@ -113,6 +118,10 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
       this.successIcon3 = false;
       this.successIcon4 = true;
       this.btn3Text = "Started";
+      setTimeout(() => {
+        this.dialogCloseAllRef.closeAll()
+        this.toaster.success('Your NFT will be bridge in a while.')
+      }, 60000);
     } catch (error) {
       throw error
     }

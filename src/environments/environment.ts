@@ -18,6 +18,7 @@ export const environment = {
   moralisChain :"bsc+testnet",
   explorerURLForEth:"https://sepolia.etherscan.io/",
   assetBaseUrl: '/assets',
+  rabbitControllerAddress:"0x7ec3c38b171bf52191bf6dd3351da77efa523cee"
 };
 
 /*
