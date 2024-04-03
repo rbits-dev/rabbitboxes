@@ -26,7 +26,7 @@
 <!--                        <div *ngIf="!(this.NSFWToggleState && item['NSFW'])" class="box flex-center col pa10"> -->
 
 
-                            <div *ngIf="!(this.NSFWToggleState && item['NSFW']) && !('0x1019dA05C30EcE5d329Af38E32E044590c13a0C1', '0x59cf59D3F4259766fA218F1F2F29375ca31451Fd'].includes(item['walletAddress']))" class="box flex-center col pa10">
+                            <div *ngIf="!(this.NSFWToggleState && item['NSFW']) && !(['0x1019dA05C30EcE5d329Af38E32E044590c13a0C1', '0x59cf59D3F4259766fA218F1F2F29375ca31451Fd'].includes(item['walletAddress']))" class="box flex-center col pa10">
 
 
                                 <a *ngIf="item.revealDate !== 'Application form'" class="flex1 nft_img flex-center" [class.disabledBorder]="currentCategory === dropsCategory.UPCOMING" [routerLink]="currentCategory === dropsCategory.UPCOMING ? null : ['/artist',item.walletAddress]">
