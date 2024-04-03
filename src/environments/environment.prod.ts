@@ -14,4 +14,6 @@ export const environment = {
   assetBaseUrl: '/boxes/assets',
   adminPanelUrl : "https://rbits.xyz/boxes/admin/",
   explorerURLForEth:"https://etherscan.io/",
+  rabbitControllerAddress:"0x5EFc9C4f6dde7f8be71d3BCfE8439333Ba845C4c"
+
 };
