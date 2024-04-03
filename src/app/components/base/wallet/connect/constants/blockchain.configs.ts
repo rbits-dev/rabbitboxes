@@ -16,7 +16,7 @@ export const CHAIN_CONFIGS: any = {
         },
       ],
     },
-    rpcUrls: 'https://eth.llamarpc.com',
+    rpcUrls: ['https://eth-mainnet.g.alchemy.com/v2/m8vauNqmfRzR_Hdrk_vMbxMOAJoZFW5Z','https://rpc.payload.de','https://rpc.mevblocker.io/noreverts','https://ethereum-rpc.publicnode.com'],
   },
   '11155111': {
     name: 'Sepolia',
@@ -32,7 +32,7 @@ export const CHAIN_CONFIGS: any = {
         },
       ],
     },
-    rpcUrls: 'https://ethereum-sepolia-rpc.publicnode.com',
+    rpcUrls: ['https://ethereum-sepolia-rpc.publicnode.com'],
   },
   '1285': {
     name: 'Moonriver',

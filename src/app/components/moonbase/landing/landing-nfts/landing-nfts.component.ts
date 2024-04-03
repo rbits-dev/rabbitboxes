@@ -61,12 +61,11 @@ export class LandingNftsComponent implements OnInit {
 
   };
 
-  constructor(private landingSliderProvider: LandingSliderProvider) {
+  constructor(public landingSliderProvider: LandingSliderProvider) {
   }
 
   ngOnInit(): void {
     this.slides = this.landingSliderProvider.getAllNftImages();
-
     this.landingSliderProvider.onChange().subscribe((list) => {
       this.slides = list;
     });

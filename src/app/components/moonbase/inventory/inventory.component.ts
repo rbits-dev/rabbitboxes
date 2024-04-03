@@ -1,3 +1,4 @@
+import { HttpHeaders, HttpClient } from "@angular/common/http";
 import { Component, OnInit, TemplateRef } from "@angular/core";
 import { WalletConnectService } from "src/app/services/wallet-connect.service";
 import { HttpApiService } from "src/app/services/http-api.service";
@@ -9,6 +10,8 @@ import { WalletConnectComponent } from "../../base/wallet/connect/connect.compon
 import { ItemOverviewComponent } from "../../base/dialogs/item-overview/item-overview.component";
 import { NftMigrationComponent } from "../dialogs/nft-migration/nft-migration.component";
 import { UpgradeNftDialogComponent } from "./upgrade-nft-dialog/upgrade-nft-dialog.component";
+import { UpgrateNftSelectionDialogComponent } from "./upgrate-nft-selection-dialog/upgrate-nft-selection-dialog.component";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-inventory",
@@ -36,10 +39,13 @@ export class InventoryComponent implements OnInit {
   nftCountToSwap: any;
   SwapNftCount: any;
   addressName: any = {};
-  nftData: any;
+  nftData = {NftList:[],nftData:{}};
+  isShowBridgeButton: boolean;
+
   constructor(
     private walletConnectService: WalletConnectService,
     private httpApi: HttpApiService,
+    private httpClient: HttpClient,
     private localStorage: LocalStorageService,
     private toastrService: ToastrService,
     public dialog: MatDialog
@@ -206,7 +212,6 @@ export class InventoryComponent implements OnInit {
 
     this.NFTDetails = item;
     this.selectedIndex = index;
-    debugger;
 
     this.dialog.open(ItemOverviewComponent, {
       width: "100%",
@@ -276,26 +281,33 @@ export class InventoryComponent implements OnInit {
   getNFTData() {
     this.httpApi.upgradeNftInfo({ walletAddress: this.userAddress }).subscribe({
       next: async (res: any) => {
-        this.nftData = res.data;
+        this.nftData.NftList = res.data.map((nft) => ({ ...nft, isDisplay: false }));
+        this.nftData.NftList.forEach((item, index) => {
+          this.fetchNFTsForContract(item.BSCAddress).subscribe(
+            (nfts: any) => {
+              this.nftData.nftData[item.BSCAddress] = nfts.result;
+              if (nfts.result.length > 0) {
+                item.isDisplay = true;
+                this.isShowBridgeButton = true
+              }
+            },
+            (error) => {
+              console.error(
+                `Error fetching NFTs for contract ${item.BSCAddress}:`,
+                error
+              );
+            }
+          );
+        });
       },
       error: (err: any) => {},
     });
-    /*
-    this.httpApi
-      .upgradeNftInfo({
-        walletAddress: this.userAddress,
-      })
-      .subscribe((response: any) => {
-        if (response.isSuccess) {
-          this.nftData = response.data;
-        }
-      });*/
   }
 
   //UPGRADE NFT DIALOG BOX
   openUpgradeNftDialog() {
     this.dialog
-      .open(UpgradeNftDialogComponent, {
+      .open(UpgrateNftSelectionDialogComponent, {
         width: "800px",
         data: this.nftData,
       })
@@ -303,5 +315,17 @@ export class InventoryComponent implements OnInit {
       .subscribe((_) => {
         this.getNFTData();
       });
+  }
+
+  // Function to fetch NFTs for a specific contract
+  fetchNFTsForContract(contract: string) {
+    const headers = new HttpHeaders()
+      .set("Content-Type", "application/json")
+      .set(
+        "X-API-Key",
+        "mPiHvsoVqeqlQTF6FkXslLhgtTgL3OKDrsp29tQPHDtyOKyuj5GlMCIfWKtOfOPC"
+      );
+    const apiUrl = `https://deep-index.moralis.io/api/v2/${this.userAddress}/nft/${contract}?chain=${environment.moralisChain}&format=decimal`;
+    return this.httpClient.get(apiUrl, { headers: headers });
   }
 }

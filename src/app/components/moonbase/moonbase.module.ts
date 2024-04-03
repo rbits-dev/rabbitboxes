@@ -41,6 +41,7 @@ import { NFTCollectionsComponent } from './nftcollections/nftcollections.compone
 import { UpgradeNftDialogComponent } from './inventory/upgrade-nft-dialog/upgrade-nft-dialog.component';
 import { BridgeTransactionStatusDialogComponent } from './inventory/bridge-transaction-status-dialog/bridge-transaction-status-dialog.component';
 import { ItemOverviewComponent } from '../base/dialogs/item-overview/item-overview.component';
+import { UpgrateNftSelectionDialogComponent } from './inventory/upgrate-nft-selection-dialog/upgrate-nft-selection-dialog.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { ItemOverviewComponent } from '../base/dialogs/item-overview/item-overvi
     ArtistMoonboxRouteComponent,
     UpgradeNftDialogComponent,
     BridgeTransactionStatusDialogComponent,
-    ItemOverviewComponent
+    ItemOverviewComponent,
+    UpgrateNftSelectionDialogComponent,
   ],
   imports: [
     MatIconModule,

@@ -41,6 +41,7 @@ export class ModalForTransactionComponent implements OnInit {
 
   ngOnInit(): void {
     this.httpApi.sendMessage(true);
+    debugger
     if (this.data.isArtistLootBox) {
       this.submitBetForArtist();
     } else {

@@ -87,6 +87,12 @@ export class HttpApiService {
     return this.httpClient.post(url, data, { headers: this.headers });
   }
 
+  sing(data:any): Observable<any> {
+    const url = `${baseURL}sing`;
+
+    return this.httpClient.post(url, data, { headers: this.headers });
+  }
+
   changeStatusClaim(data: any): Observable<any> {
     const url = `${baseURL}userClaim`;
 
@@ -146,9 +152,7 @@ export class HttpApiService {
 
   getRandomCollectionImageListFromArtist(artistAddress: string): Promise<any> {
     const params = { artistAddress: artistAddress };
-    //
     const url = `${baseURL}randCollectionImageListArtist`;
-
     return this.httpClient.get(url, { headers: this.headers, params }).toPromise();
   }
 
@@ -224,6 +228,15 @@ export class HttpApiService {
     return this.httpClient.get(url,{headers:this.headers});
   }
 
+  //GET META DATA FOR DEPLOY CONTRACT
+  getMetadataUrl():Promise<any>{
+    return this.httpClient.get(baseURL + 'getMetadataUrl', { headers: this.headers }).toPromise()
+  }
+
+  getTokenUriData(tokenID:any,baseUrl:string){
+    const url = `${baseUrl}${tokenID}`;
+   return this.httpClient.get(url, { headers: this.headers }).toPromise()
+  }
 
 
 }

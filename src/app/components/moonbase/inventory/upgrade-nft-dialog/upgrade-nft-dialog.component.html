@@ -10,10 +10,10 @@
 
       </span>
     </div>
-    <button (click)="openBridgeNftStatusDialog()" [disabled]="bridgeNftBtnTxt!='Bridge NFT'" class="view-detail-button outlined-button text-inherit" style="margin: 00px  0 0px auto;" >{{bridgeNftBtnTxt}}</button>
+    <button (click)="openBridgeNftStatusDialog(nftList.srcContractAddress,nftList.destContractAddress)" [disabled]="bridgeNftBtnTxt!='Bridge NFT'" class="view-detail-button outlined-button text-inherit" style="margin: 00px  0 0px auto;" >{{bridgeNftBtnTxt}}</button>
   </div>
   <div class="inner flex-wrap ">
-    <ng-container *ngFor="let item of nftList;index as i">
+    <ng-container *ngFor="let item of nftList.nftData;index as i">
 
       <div class="box flex-center col pb100">
         <div  class="check-box-contianer" >
@@ -21,13 +21,13 @@
           </span>
         </div>
         <div class="relative nft_img">
-          <img src="{{ item['logo_path'] }}" class="img-fluid" alt=""  />
+          <img src="{{ item['image_path'] }}" class="img-fluid"  onError="this.src='./assets/media/videos/Loading.gif';" alt="Image"  />
         </div>
         <div class="item-details text-center">
           <p class="item-name p-white-span-primary p16d14m  mt20" style="margin-bottom: 15px;">{{ item["name"] }}</p>
         </div>
       </div>
     </ng-container>
-    <p *ngIf="nftList && nftList.length === 0 && !isLoading" class="absolute-center">No inventory data found</p>
+    <p *ngIf="nftList && nftList.nftData.length === 0 && !isLoading" class="absolute-center">No inventory data found</p>
   </div>
 </div>

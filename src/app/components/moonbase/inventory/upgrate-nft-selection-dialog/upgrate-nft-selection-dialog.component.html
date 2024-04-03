@@ -1,0 +1,18 @@
+<div id="attribute-info">
+  <p style="text-align:right" ><span style="color: #fff;right:0; cursor:pointer;" (click)="dialogRef.close()">X</span></p>
+  <div class="inner flex-wrap ">
+    <ng-container  *ngFor="let item of nftData?.NftList;index as i">
+      <div *ngIf="item.isDisplay">
+        <div class="box flex-center col pb100">
+          <div class="relative nft_img">
+            <img src="{{ item['filePath'] }}" class="img-fluid" alt=""  />
+          </div>
+          <div class="item-details text-center">
+            <p class="item-name p-white-span-primary p16d14m  mt20" style="margin-bottom: 15px;">{{ item["name"] }}</p>
+            <button (click)="openBridgeNft(item.BSCAddress,item.ethAddress)" [disabled]="bridgeNftBtnTxt!='select NFT for Bridge'" class="view-detail-button outlined-button text-inherit" style="margin: 00px  0 0px auto;" >{{bridgeNftBtnTxt}}</button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

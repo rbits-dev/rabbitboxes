@@ -8,12 +8,13 @@
     },
     {
       "chainId": "97",
-      "artistLootBoxAddress": "0xe3D279f66776Efae7602D817f68015a0afA0Fd2E",
+      "artistLootBoxAddress": "0xec814bf0a0a0ffbc8b3ebfdf7c326fbdb2749550",
       "lootBoxAddress": "0x017792D0692591FF66686092293295ef245deD3b",
       "ArtistMoonBoxNftSwap": "0xF08821acb2FBB234099c0282bD6ea18d877d287a",
       "RegisterMoonboxAddress":"0x25Ced152A8d2ff7Da922bFc7A1bc348d2644A49B",
-      "BridgeNftAddress":"0x70e57fc57f500cc6d8887324d46fb6bec45f61f5",
-      "bridgeCollectionAddress": "0x229620efb06cB366350Aae34469792FE1402Dc65"
+      "BridgeNftAddress":"0xCd8bcAF4056b3E4fe5714FF237D2e62811d9d721",
+      "destination":"0x7ec3c38b171bf52191bf6dd3351da77efa523ceecd8bcaf4056b3e4fe5714ff237d2e62811d9d721",
+      "destChainId":"10161"
     },
     {
       "chainId": "80001",
@@ -48,7 +49,10 @@
       "artistLootBoxAddress": "0xE93ddAA2d56F1DAF39177fe875698A147bC94f69",
       "lootBoxAddress": "0x614A5DD989E5Fc086a0059D37F4EcDeaA6341216",
       "ArtistMoonBoxNftSwap": "0xcaEb93AD7a16fE96c8e085223D497E5e55C62cE8",
-      "RegisterMoonboxAddress":"0x101dc9f836703726dD1Bb0ae9a61A331764f3ddc"
+      "RegisterMoonboxAddress":"0x101dc9f836703726dD1Bb0ae9a61A331764f3ddc",
+      "BridgeNftAddress":"0xa6EbCC4C5C0316191eA95BFC90F591DF23A03DFE",
+      "destination":"0x5efc9c4f6dde7f8be71d3bcfe8439333ba845c4ca6ebcc4c5c0316191ea95bfc90f591df23a03dfe",
+      "destChainId":"101"
     },
     {
       "chainId": "137",

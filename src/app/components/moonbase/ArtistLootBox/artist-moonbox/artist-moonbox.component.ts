@@ -10,7 +10,6 @@ import { WalletConnectComponent } from 'src/app/components/base/wallet/connect/c
 import { ArtistMoonbox, Supply } from 'src/app/models/artist-moonbox.model';
 import { MESSAGES } from 'src/app/messages.enum';
 import { UserDetailsProvider } from 'src/app/services/user-details.provider';
-import { UserDetailsModel } from 'src/app/models/user-details.model';
 import { SwiperOptions } from 'swiper';
 import { CollectionOverviewComponent } from 'src/app/components/base/dialogs/collection-overview/collection-overview.component';
 
@@ -22,7 +21,7 @@ import { CollectionOverviewComponent } from 'src/app/components/base/dialogs/col
 export class ArtistMoonboxComponent implements OnInit {
 
   static readonly routeName: string = 'artist/:artistAddress';
-
+  assetBaseUrl = environment.assetBaseUrl
   slides: any[] = [];
   artistData: any;
   removeitemIndex: any[] = [];

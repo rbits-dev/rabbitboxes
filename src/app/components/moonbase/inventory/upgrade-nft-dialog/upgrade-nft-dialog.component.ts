@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, ChangeDetectorRef,OnInit, Inject } from "@angular/core";
 import {
   MAT_DIALOG_DATA,
   MatDialog,
@@ -6,6 +6,7 @@ import {
 } from "@angular/material/dialog";
 
 import { BridgeTransactionStatusDialogComponent } from "../bridge-transaction-status-dialog/bridge-transaction-status-dialog.component";
+import { HttpApiService } from "src/app/services/http-api.service";
 
 @Component({
   selector: "app-upgrade-nft-dialog",
@@ -15,30 +16,41 @@ import { BridgeTransactionStatusDialogComponent } from "../bridge-transaction-st
 export class UpgradeNftDialogComponent implements OnInit {
   isLoading = false;
   isSelectAll = true;
+
   tokenIds = [];
   amounts = [];
   bridgeNftBtnTxt = "Bridge NFT";
   constructor(
-    @Inject(MAT_DIALOG_DATA) public nftList: any[],
+    @Inject(MAT_DIALOG_DATA) public nftList: any,
     public dialogRef: MatDialogRef<UpgradeNftDialogComponent>,
-    private openDialog: MatDialog
+    private openDialog: MatDialog,
+    private httpApi: HttpApiService,
+    private cd: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {
-    this.nftList.forEach((item) => {
+  async ngOnInit() {
+    const baseUrl = await this.httpApi.getMetadataUrl();
+    this.nftList.nftData.forEach(async (item) => {
       item.isSelected = true;
-      this.tokenIds.push(item.nftId);
+      this.tokenIds.push(item.token_id);
       this.amounts.push(item.amount);
+
+      const result: any = await this.httpApi.getTokenUriData(
+        item.token_id,
+        baseUrl.baseUrl
+      );
+      item.image_path = result.image;
+      this.cd.detectChanges();
     });
   }
 
   // HANDLE SELECT ALL CHANGE FN
   handleOnChange(event) {
     this.isSelectAll = event.target.checked;
-    for (let item of this.nftList) {
+    for (let item of this.nftList.nftData) {
       item.isSelected = event.target.checked;
       if (item.isSelected) {
-        this.tokenIds.push(item.nftId);
+        this.tokenIds.push(item.token_id);
         this.amounts.push(item.amount);
       } else {
         this.tokenIds = [];
@@ -49,26 +61,26 @@ export class UpgradeNftDialogComponent implements OnInit {
 
   // HANDLE SINGLE CHANGE FN
   handleSingleChange(event, index) {
-    this.nftList[index].isSelected = event.target.checked;
-    this.isSelectAll = this.nftList.every((item) => item.isSelected);
+    this.nftList.nftData[index].isSelected = event.target.checked;
+    this.isSelectAll = this.nftList.nftData.every((item) => item.isSelected);
     // Filter out unselected items from tokenIds and amounts arrays
-    this.tokenIds = this.nftList
+    this.tokenIds = this.nftList.nftData
       .filter((item) => item.isSelected)
-      .map((item) => item.nftId);
-    this.amounts = this.nftList
+      .map((item) => item.token_id);
+    this.amounts = this.nftList.nftData
       .filter((item) => item.isSelected)
       .map((item) => item.amount);
   }
 
-
-
   //handle bridge nft status dialog
-  openBridgeNftStatusDialog() {
+  openBridgeNftStatusDialog(srcContract: string, destContract: string) {
     this.openDialog.open(BridgeTransactionStatusDialogComponent, {
       width: "500px",
       data: {
         tokenIds: this.tokenIds,
         amounts: this.amounts,
+        srcContract: srcContract,
+        destContract: destContract,
       },
       disableClose: true,
     });

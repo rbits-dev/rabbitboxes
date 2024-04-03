@@ -8,8 +8,7 @@ import { ToastrService } from "ngx-toastr";
 import { LocalStorageService } from "./local-storage.service";
 import Web3 from "web3";
 import Web3Modal from "Web3Modal";
-import { debounce } from 'lodash';
-
+import { debounce } from "lodash";
 
 const SID = require("@siddomains/sidjs").default;
 const SIDfunctions = require("@siddomains/sidjs");
@@ -27,7 +26,7 @@ const registorAbi = require("../../assets/abis/registorAbi.json");
 const config = require("./../../assets/configFiles/configFile.json");
 const MINT_NFT_ABI = require("./../../assets/abis/mintNFTAbi.json");
 
-import { CHAIN_CONFIGS } from '../components/base/wallet/connect/constants/blockchain.configs';
+import { CHAIN_CONFIGS } from "../components/base/wallet/connect/constants/blockchain.configs";
 
 const providerOptionsForRBITS = {
   walletconnect: {
@@ -39,17 +38,18 @@ const providerOptionsForRBITS = {
 };
 
 // allow WalletConnectProvider to know which RPC endpoints to use for each supported network
-providerChainID.forEach( supportedChainId => {
-  //console.log( CHAIN_CONFIGS[ supportedChainId ]?.config.params[0].rpcUrls[0] );
+providerChainID.forEach((supportedChainId) => {
   providerOptionsForRBITS.walletconnect.rpc[supportedChainId] =
-  supportedChainId==1 ||supportedChainId==11155111  ?CHAIN_CONFIGS[supportedChainId]?.config.rpcUrls : CHAIN_CONFIGS[supportedChainId]?.config.params[0].rpcUrls[0];
+    supportedChainId == 1 || supportedChainId == 11155111
+      ? CHAIN_CONFIGS[supportedChainId]?.rpcUrls[0]
+      : CHAIN_CONFIGS[supportedChainId]?.config.params[0].rpcUrls[0];
 });
 
 const web3Modal = new Web3Modal({
   theme: "dark",
   cacheProvider: false,
   providerOptions: providerOptionsForRBITS,
-  disableInjectedProvider: false
+  disableInjectedProvider: false,
 });
 
 @Injectable({
@@ -57,7 +57,9 @@ const web3Modal = new Web3Modal({
 })
 export class WalletConnectService {
   chainId: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  private selectedChainId: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  private selectedChainId: BehaviorSubject<number> = new BehaviorSubject<
+    number
+  >(0);
 
   public $timerUp = new BehaviorSubject({});
 
@@ -103,20 +105,16 @@ export class WalletConnectService {
 
   initTokenCA() {
     // Token is on ETH
-    let providerRPC = this.chainConfigs[1].rpcUrls;
-    var web3Provider = new Web3.providers.HttpProvider(
-      providerRPC
-    );
+    let providerRPC = this.chainConfigs[1].rpcUrls[0];
+    var web3Provider = new Web3.providers.HttpProvider(providerRPC);
     var web3 = new Web3(web3Provider);
     this.SilverContract = new web3.eth.Contract(
-        silverTokenAbi,
-        environment.tokenContractAddress
+      silverTokenAbi,
+      environment.tokenContractAddress
     );
-
   }
 
   async init(): Promise<boolean> {
-
     try {
       var web3Provider = new Web3.providers.HttpProvider(
         environment.providerURL
@@ -138,7 +136,6 @@ export class WalletConnectService {
         ArtistNFTAbi,
         config[environment.configFile][1].artistLootBoxAddress
       );
-
     } catch (e) {
       console.log("An error occured", e);
     }
@@ -193,14 +190,14 @@ export class WalletConnectService {
         let currentNetwork = await this.provider.getNetwork();
 
         this.getChainId().subscribe((currentChainId) => {
-          if( currentChainId === 0) {
+          if (currentChainId === 0) {
             currentChainId = currentNetwork.chainId;
           }
 
-          if( providerChainID.indexOf(currentNetwork.chainId) === -1) {
+          if (providerChainID.indexOf(currentNetwork.chainId) === -1) {
             this.toastrService.error(
               "You are on an unsupported network, please select another blockchain."
-              );
+            );
             this.setWalletState(false);
             throw "Wrong network";
           }
@@ -234,7 +231,6 @@ export class WalletConnectService {
         localStorage.setItem("manual_chainId", this.ChainId.toString());
         this.chainId.next(this.ChainId);
 
-
         // Subscribe to accounts change
 
         this.windowRef.nativeWindow.ethereum.on(
@@ -246,13 +242,11 @@ export class WalletConnectService {
               this.setWalletDisconnected();
 
               location.reload();
-
             } else {
               await this.connectToWallet();
             }
           }
         );
-
 
         // Subscribe to network changed event
         this.windowRef.nativeWindow.ethereum.on(
@@ -268,7 +262,6 @@ export class WalletConnectService {
             this.setWalletState(true);
           }, 3000) // Debounce for 1 second
         );
-
 
         // Subscribe to session disconnection
         this.windowRef.nativeWindow.ethereum.on(
@@ -311,18 +304,17 @@ export class WalletConnectService {
         this.provider = new ethers.providers.Web3Provider(provider);
         await provider.enable();
 
-
         let currentNetwork = await this.provider.getNetwork();
 
         this.getChainId().subscribe((currentChainId) => {
-          if( currentChainId === 0) {
+          if (currentChainId === 0) {
             currentChainId = currentNetwork.chainId;
           }
 
-          if( providerChainID.indexOf(currentNetwork.chainId) === -1) {
+          if (providerChainID.indexOf(currentNetwork.chainId) === -1) {
             this.toastrService.error(
               "You are on an unsupported network, please select another blockchain"
-              );
+            );
             this.setWalletState(false);
             throw "Wrong network";
           }
@@ -339,13 +331,11 @@ export class WalletConnectService {
         );
 
         // Subscribe to session disconnect
-        provider.on(this.DISCONNECT, (code: number, reason: string) =>
-          {
-            this.setWalletDisconnected();
-            this.toastrService.info("Wallet disconnected!");
-            location.reload();
-          }
-        );
+        provider.on(this.DISCONNECT, (code: number, reason: string) => {
+          this.setWalletDisconnected();
+          this.toastrService.info("Wallet disconnected!");
+          location.reload();
+        });
 
         // Subscribe to network change event
         provider.on(
@@ -372,9 +362,8 @@ export class WalletConnectService {
         this.localStorageService.setWallet(2);
 
         if (origin === 0) location.reload();
-      }
-      catch (e) {
-        console.log("There was an error",e );
+      } catch (e) {
+        console.log("There was an error", e);
         this.setWalletDisconnected();
         location.reload(); // FIXME: Without reloading the page, the WalletConnect modal does not open again after closing it
       }
@@ -382,7 +371,6 @@ export class WalletConnectService {
       console.log(error);
     }
   }
-
 
   async getAccountAddress() {
     this.signer = this.provider?.getSigner();
@@ -392,76 +380,76 @@ export class WalletConnectService {
 
     this.localStorageService.setAddress(address);
 
-    const node = config[environment.configFile].find( (chain:any) => chain.chainId == chainId );
-    if( node === undefined ) {
+    const node = config[environment.configFile].find(
+      (chain: any) => chain.chainId == chainId
+    );
+    if (node === undefined) {
       console.log("Error: No configuration data found for chain ", chainId);
     }
 
-    if( node ) {
+    if (node) {
       try {
-          if( chainId == 56 || chainId == 97 ) {
+        if (chainId == 56 || chainId == 97) {
+          this.NFTContract = new ethers.Contract(
+            environment.NFTAddress,
+            NFTAbi,
+            this.signer
+          );
 
-            this.NFTContract = new ethers.Contract(
-              environment.NFTAddress,
-              NFTAbi,
-              this.signer
-            );
-       
-            //FIXME: NFTContract should be defined in configuration file
-          }
+          //FIXME: NFTContract should be defined in configuration file
+        }
 
-          if( node.lootBoxAddress ) {
-            this.LootboxContract = new ethers.Contract(
-              node.lootBoxAddress,
-              lootBoxAbi,
-              this.signer
-            );
-          }
+        if (node.lootBoxAddress) {
+          this.LootboxContract = new ethers.Contract(
+            node.lootBoxAddress,
+            lootBoxAbi,
+            this.signer
+          );
+        }
 
-          if( node.ArtistMoonBoxNftSwap) {
-            this.swapContract = new ethers.Contract(
-              node.ArtistMoonBoxNftSwap,
-              swapContractAbi,
-              this.signer
-            );
+        if (node.ArtistMoonBoxNftSwap) {
+          this.swapContract = new ethers.Contract(
+            node.ArtistMoonBoxNftSwap,
+            swapContractAbi,
+            this.signer
+          );
+        }
 
-          }
+        if (node.BridgeNftAddress) {
+          this.BridgeContract = new ethers.Contract(
+            node.BridgeNftAddress,
+            BRIDGE_ABI,
+            this.signer
+          );
+        }
 
-          if( node.BridgeNftAddress ) {
-            this.BridgeContract = new ethers.Contract(
-              node.BridgeNftAddress,
-              BRIDGE_ABI,
-              this.signer
-            );
-          }
+        // if( node.bridgeCollectionAddress ) {
+        //   this.BridgeCollectionContract = new ethers.Contract(
+        //     node.bridgeCollectionAddress,
+        //     BRIDGE_COLLECTION_ABI,
+        //     this.signer
+        //   );
+        // }
 
-          if( node.bridgeCollectionAddress ) {
-            this.BridgeCollectionContract = new ethers.Contract(
-              node.bridgeCollectionAddress,
-              BRIDGE_COLLECTION_ABI,
-              this.signer
-            );
-          }
+        if (node.artistLootBoxAddress) {
+          this.artistLootBoxContract = new ethers.Contract(
+            node.artistLootBoxAddress,
+            ArtistNFTAbi,
+            this.signer
+          );
+        }
 
-          if( node.artistLootBoxAddress ) {
-            this.artistLootBoxContract = new ethers.Contract(
-              node.artistLootBoxAddress,
-              ArtistNFTAbi,
-              this.signer
-            );
-          }
-
-          if( node.RegisterMoonboxAddress ) {
+        if (node.RegisterMoonboxAddress) {
           this.registorContractAddressObj = new ethers.Contract(
             node.RegisterMoonboxAddress,
             registorAbi,
             this.signer
           );
         }
-      } catch(e) {
-          console.log(e);
+      } catch (e) {
+        console.log(e);
       }
-  }
+    }
 
     const data = {
       provider: this.provider,
@@ -485,13 +473,16 @@ export class WalletConnectService {
 
   async spaceAddress(address: any) {
     try {
-      let chainId:any = this.ChainId;
+      let chainId: any = this.ChainId;
       if (chainId != 56) {
         console.log("No ENS lookup for chain ", chainId);
         return address; //spaceID on BSC
       }
 
-      let rpc = (chainId==1 || chainId==11155111) ? this.chainConfigs[chainId].config.rpcUrls :this.chainConfigs[chainId].config.params[0].rpcUrls[0] ;
+      let rpc =
+        chainId == 1 || chainId == 11155111
+          ? this.chainConfigs[chainId].rpcUrls[0]
+          : this.chainConfigs[chainId].config.params[0].rpcUrls[0];
       const provider = new Web3.providers.HttpProvider(rpc);
 
       this.sid = new SID({
@@ -504,7 +495,6 @@ export class WalletConnectService {
       console.log(error);
     }
   }
-
 
   async registorCheck(data: {
     name: string;
@@ -546,7 +536,7 @@ export class WalletConnectService {
       try {
         if (isArtist) {
           this.artistLootBoxContractGet.methods
-            .getMoonShootLimit()
+            .getRabbitShootLimit()
             .call()
             .then((transactionHash: any) => resolve(transactionHash));
         } else {
@@ -629,7 +619,7 @@ export class WalletConnectService {
   }
 
   async getUserBalance(userAddress: string): Promise<number> {
-    if(this.ChainId != 1) {
+    if (this.ChainId != 1) {
       return Number(0); // RBITS token is only deployed on ETH
     }
 
@@ -710,6 +700,7 @@ export class WalletConnectService {
     if (isArtist) {
       try {
         //
+        debugger
         let txn: any = await this.artistLootBoxContract.redeemBulk(
           nftAddress,
           id,
@@ -723,8 +714,7 @@ export class WalletConnectService {
         await txn.wait(1);
         return { hash: txn.hash, status: true };
       } catch (e) {
-
-        this.toastrService.error( e.reason );
+        this.toastrService.error(e.reason);
         return { hash: "", status: false, error: e };
       }
     } else {
@@ -1024,31 +1014,58 @@ export class WalletConnectService {
   }
 
   //SET APROVAL FOR BRIDGE NFT
-  async setApprovalBridgeNFT() {
+  async setApprovalBridgeNFT(contractAddress:string) {
     //var chainId = this.chainId.value;
     //let index = environment.chainId.indexOf(chainId ?? 56);
-    
-    const node = config[environment.configFile].find( (chain:any) => chain.chainId == this.chainId.value );
-    if( node.BridgeNftAddress === undefined ) {
-      console.log("Error: BridgeNftAddress not set for chain ", this.chainId.value );
+
+    const node = config[environment.configFile].find(
+      (chain: any) => chain.chainId == this.chainId.value
+    );
+    if (node.BridgeNftAddress === undefined) {
+      console.log(
+        "Error: BridgeNftAddress not set for chain ",
+        this.chainId.value
+      );
     }
-    
+    this.BridgeCollectionContract = new ethers.Contract(
+      contractAddress,
+      BRIDGE_COLLECTION_ABI,
+      this.signer
+    );
+
     return await this.BridgeCollectionContract.setApprovalForAll(
       node.BridgeNftAddress,
       true
     );
   }
   //CHECK APROVAL FOR BRIDGE NFT
-  async isApprovalBridgeNFT() {
+  async isApprovalBridgeNFT(contractAddress: string) {
     //var chainId = this.chainId.value;
     //let index = environment.chainId.indexOf(chainId ?? 56);
     //let address = config[environment.configFile][index].BridgeNftAddress;
 
-    const node = config[environment.configFile].find( (chain:any) => chain.chainId == this.chainId.value );
-    if( node.bridgeCollectionAddress === undefined ) {
-      console.error("Error: bridgeCollectionAddress not set for chain ", this.chainId.value );
+    const node = config[environment.configFile].find(
+      (chain: any) => chain.chainId == this.chainId.value
+    );
+    // if (node.bridgeCollectionAddress === undefined) {
+    //   console.error(
+    //     "Error: bridgeCollectionAddress not set for chain ",
+    //     this.chainId.value
+    //   );
+    // }
+    if (node.destination === undefined) {
+      console.error(
+        "Error: destination not set for chain ",
+        this.chainId.value
+      );
     }
-       
+
+    this.BridgeCollectionContract = new ethers.Contract(
+      contractAddress,
+      BRIDGE_COLLECTION_ABI,
+      this.signer
+    );
+
     return await this.BridgeCollectionContract.isApprovedForAll(
       this.account,
       node.BridgeNftAddress
@@ -1056,13 +1073,37 @@ export class WalletConnectService {
   }
 
   //ESTIMATE FEES
-  async estimateFees({ userAddress, tokenIds, amounts }) {
+  async estimateFees({
+    EndpointId,
+    destination,
+    userAddress,
+    tokenIds,
+    amounts,
+    srcContract,
+    destContract,
+    sign,
+  }) {
     try {
-      const dstEndpointId = 10161;
       const abi = new ethers.utils.AbiCoder();
       const payload = abi.encode(
-        ["address", "uint256[]", "uint256[]"],
-        [userAddress, tokenIds, amounts]
+        [
+          "address",
+          "uint256[]",
+          "uint256[]",
+          "bytes",
+          "address",
+          "address",
+          "(uint8,bytes32,bytes32,uint256)",
+        ],
+        [
+          userAddress,
+          tokenIds,
+          amounts,
+          destination,
+          srcContract,
+          destContract,
+          sign,
+        ]
       );
       const adapterParams = ethers.utils.solidityPack(
         ["uint16", "uint256"],
@@ -1071,12 +1112,13 @@ export class WalletConnectService {
       const contractAddress =
         config[environment.configFile][1].BridgeNftAddress;
       const value = await this.BridgeContract.estimateFees(
-        dstEndpointId,
+        EndpointId,
         contractAddress,
         payload,
         false,
         adapterParams
       );
+
       return value;
     } catch (error) {
       console.log(error);
@@ -1084,66 +1126,99 @@ export class WalletConnectService {
     }
   }
   //HANDLE BRIDGE NFT
-  async bridgeNFT(tokenIds, amounts, userAddress) {
+  async bridgeNFT(
+    tokenIds,
+    amounts,
+    userAddress,
+    srcContract,
+    destContract,
+    signature
+) {
     try {
-      let destChainId = 10161;
-      let destination =
-        "0x38b71264e52467445f7d71cadac4b0066b0e807a70e57fc57f500cc6d8887324d46fb6bec45f61f5";
-      const calculatedFees = await this.estimateFees({
-        tokenIds,
-        amounts,
-        userAddress,
-      });
-      const optionalAmount = { value: calculatedFees.nativeFee };
-      let txn = await this.BridgeContract.crossChain(
-        destChainId,
-        destination,
-        tokenIds,
-        amounts,
-        optionalAmount
-      );
-      return txn;
+        const node = config[environment.configFile].find(
+            (chain: any) => chain.chainId == this.chainId.value
+        );
+        if (node.destination === undefined) {
+            console.error(
+                "Error: destinationAddress not set for chain ",
+                this.chainId.value
+            );
+        }
+
+        let EndpointId = node.destChainId;
+        let destination = node.destination;
+        let sign = [signature.v, signature.r, signature.s, signature.nonce];
+
+        const calculatedFees = await this.estimateFees({
+            EndpointId,
+            destination,
+            userAddress,
+            tokenIds,
+            amounts,
+            srcContract,
+            destContract,
+            sign,
+        });
+
+        // Calculate 10% extra fee
+        const extraFee = (Number(calculatedFees.nativeFee)* 0.15)
+        const totalFees = Number(calculatedFees.nativeFee) + extraFee;
+        // Convert fees to hexadecimal format
+        const hexFees = ethers.utils.parseUnits(totalFees.toString(), 'wei');
+        // Call the crossChain function with the calculated fees including 10% extra
+        let txn = await this.BridgeContract.crossChain(
+            node.destChainId,
+            node.destination,
+            tokenIds,
+            amounts,
+            srcContract,
+            destContract,
+            sign,
+            { value: hexFees } // Pass fees as value object
+        );
+        return txn;
     } catch (error) {
-      throw error;
+        throw error;
     }
-  }
-
-
-    //LISTEN TO EVENTS OF MINT NFT CONTRACT
-    async listenToEvents() {
-      let provider;
-      let providerIndex = 0;
-
-      let providerURLForEth = this.chainConfigs[this.ChainId].config.params[0].rpcUrls;
-
-      while (!provider && providerIndex < providerURLForEth.length) {
-          try {
-              provider = new ethers.providers.JsonRpcProvider( providerURLForEth[providerIndex]);
-              await provider.getBlockNumber(); // Test if provider is working
-          } catch (error) {
-              console.error(`JSON-RPC provider at index ${providerIndex} failed.`);
-              provider = null; // Reset provider to try the next one
-              providerIndex++;
-          }
+}
+  //LISTEN TO EVENTS OF MINT NFT CONTRACT
+  async listenToEvents(destination:any) {
+    let provider;
+    let providerIndex = 0;
+    let providerURLForEth = this.chainConfigs[environment.chainId[0]].rpcUrls
+    while (!provider && providerIndex < providerURLForEth.length) {
+      try {
+        provider = new ethers.providers.JsonRpcProvider(
+          providerURLForEth[providerIndex]
+        );
+        await provider.getBlockNumber(); // Test if provider is working
+      } catch (error) {
+        console.error(`JSON-RPC provider at index ${providerIndex} failed.`);
+        provider = null; // Reset provider to try the next one
+        providerIndex++;
       }
+    }
 
-      if (!provider) {
-          throw new Error("All JSON-RPC providers failed.");
-      }
+    if (!provider) {
+      this.toastrService.error('something went wrong please check on explorer your nft successfully bridge!!')
+      throw new Error("All JSON-RPC providers failed.");
+    }
 
-      const contract = new ethers.Contract(environment.mintNFTAddress, MINT_NFT_ABI, provider);
+    const contract = new ethers.Contract(
+      destination,
+      MINT_NFT_ABI,
+      provider
+    );
 
-      return new Promise((resolve, reject) => {
-          contract.on('ReceiveNFT', (from, to, id, amount, event) => {
-              resolve(event);
-          });
+    return new Promise((resolve, reject) => {
+      contract.on("ReceiveNFT", (from, to, id, amount, event) => {
+        resolve(event);
       });
+    });
   }
-
 
   //HANDLE METAMSK ERROR
   async handleMetamaskError(error) {
-
     switch (error.code) {
       case "UNPREDICTABLE_GAS_LIMIT":
         this.toastrService.error(error.reason);
@@ -1152,14 +1227,20 @@ export class WalletConnectService {
         this.toastrService.error(error.reason);
         break;
       case -32602:
-        this.toastrService.error("Please check if the network configuration in your wallet is correct");
+        this.toastrService.error(
+          "Please check if the network configuration in your wallet is correct"
+        );
         break;
       case -32603:
       case "OUT_OF_GAS":
-        this.toastrService.error("You don't have enough to cover the gas fees.");
+        this.toastrService.error(
+          "You don't have enough to cover the gas fees."
+        );
         break;
       default:
-        this.toastrService.error("Something went wrong, please try again later.");
+        this.toastrService.error(
+          "Something went wrong, please try again later."
+        );
         break;
     }
   }
