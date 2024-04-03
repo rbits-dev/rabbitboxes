@@ -97,21 +97,25 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
 
   async tx()
   {
-    const result = await this.cs.bridgeNFT(
-      this.data.tokenIds,
-      this.data.amounts,
-      localStorage.getItem("address"),
-      this.data.srcContract,
-      this.data.destContract,
-      this.singData
-    );
-    await result.wait();
-    this.successIcon = false;
-    this.successIcon2 = true;
-    this.btn2Text = "Done";
-    this.successIcon3 = false;
-    this.successIcon4 = true;
-    this.btn3Text = "Started";
+    try {
+      const result = await this.cs.bridgeNFT(
+        this.data.tokenIds,
+        this.data.amounts,
+        localStorage.getItem("address"),
+        this.data.srcContract,
+        this.data.destContract,
+        this.singData
+      );
+      await result.wait();
+      this.successIcon = false;
+      this.successIcon2 = true;
+      this.btn2Text = "Done";
+      this.successIcon3 = false;
+      this.successIcon4 = true;
+      this.btn3Text = "Started";
+    } catch (error) {
+      throw error
+    }
   }
 
   async getsing(srcContract: string, destContract: string) {

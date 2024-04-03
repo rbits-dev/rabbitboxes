@@ -39,10 +39,9 @@ const providerOptionsForRBITS = {
 
 // allow WalletConnectProvider to know which RPC endpoints to use for each supported network
 providerChainID.forEach((supportedChainId) => {
-  //console.log( CHAIN_CONFIGS[ supportedChainId ]?.config.params[0].rpcUrls[0] );
   providerOptionsForRBITS.walletconnect.rpc[supportedChainId] =
     supportedChainId == 1 || supportedChainId == 11155111
-      ? CHAIN_CONFIGS[supportedChainId]?.config.rpcUrls
+      ? CHAIN_CONFIGS[supportedChainId]?.rpcUrls[0]
       : CHAIN_CONFIGS[supportedChainId]?.config.params[0].rpcUrls[0];
 });
 
@@ -106,7 +105,7 @@ export class WalletConnectService {
 
   initTokenCA() {
     // Token is on ETH
-    let providerRPC = this.chainConfigs[1].rpcUrls;
+    let providerRPC = this.chainConfigs[1].rpcUrls[0];
     var web3Provider = new Web3.providers.HttpProvider(providerRPC);
     var web3 = new Web3(web3Provider);
     this.SilverContract = new web3.eth.Contract(
@@ -482,7 +481,7 @@ export class WalletConnectService {
 
       let rpc =
         chainId == 1 || chainId == 11155111
-          ? this.chainConfigs[chainId].config.rpcUrls
+          ? this.chainConfigs[chainId].rpcUrls[0]
           : this.chainConfigs[chainId].config.params[0].rpcUrls[0];
       const provider = new Web3.providers.HttpProvider(rpc);
 
@@ -1186,10 +1185,7 @@ export class WalletConnectService {
   async listenToEvents(destination:any) {
     let provider;
     let providerIndex = 0;
-
-    let providerURLForEth = this.chainConfigs[this.ChainId].config.params[0]
-      .rpcUrls;
-
+    let providerURLForEth = this.chainConfigs[environment.chainId[0]].rpcUrls
     while (!provider && providerIndex < providerURLForEth.length) {
       try {
         provider = new ethers.providers.JsonRpcProvider(
@@ -1204,6 +1200,7 @@ export class WalletConnectService {
     }
 
     if (!provider) {
+      this.toastrService.error('something went wrong please check on explorer your nft successfully bridge!!')
       throw new Error("All JSON-RPC providers failed.");
     }
 
