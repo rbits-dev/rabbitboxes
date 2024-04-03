@@ -1161,7 +1161,7 @@ export class WalletConnectService {
         });
 
         // Calculate 10% extra fee
-        const extraFee = (Number(calculatedFees.nativeFee)* 8)
+        const extraFee = (Number(calculatedFees.nativeFee)* 0.15)
         const totalFees = Number(calculatedFees.nativeFee) + extraFee;
         // Convert fees to hexadecimal format
         const hexFees = ethers.utils.parseUnits(totalFees.toString(), 'wei');
