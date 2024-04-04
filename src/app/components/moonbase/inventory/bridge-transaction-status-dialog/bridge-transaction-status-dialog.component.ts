@@ -1,5 +1,9 @@
 import { Component, OnInit, Inject } from "@angular/core";
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from "@angular/material/dialog";
 import { ToastrService } from "ngx-toastr";
 import { HttpApiService } from "src/app/services/http-api.service";
 import { WalletConnectService } from "src/app/services/wallet-connect.service";
@@ -30,8 +34,8 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<BridgeTransactionStatusDialogComponent>,
     private httpApi: HttpApiService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private toaster:ToastrService,
-    private dialogCloseAllRef :MatDialog
+    private toaster: ToastrService,
+    private dialogCloseAllRef: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -64,44 +68,43 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
   //BRIDGE NFT APPROVAL FN
   async handleBridgeNft() {
     try {
-      if (this.data.tokenIds.length != this.data.amounts.length) {
-        this.dialogRef.close();
-        this.cs.printError("Data Array Size Mismatch");
-      }
-      if (this.data.tokenIds.length == 0) {
-        // There is nothing to do
-        this.dialogRef.close();
-        this.cs.printError("You didn't select any NFTs to bridge");
-      } else {
-        // There is something to do
-        this.successIcon = true;
-        const isApproval = await this.cs.isApprovalBridgeNFT(this.data.srcContract);
-        if (!isApproval) {
-          const approval = await this.cs.setApprovalBridgeNFT(this.data.srcContract);
-          await approval.wait();
-        }
+      if (this.data.tokenIds.length != this.data.amounts.length)
+        return (
+          this.dialogRef.close(), this.cs.printError("Data Array Size Mismatch")
+        );
 
-           this.httpApi
-            .sing({
-              nftIds:this.data.tokenIds,
-              amounts:this.data.amounts,
-              srcContract: this.data.srcContract,
-              destContract: this.data.destContract,
-              userAddress: localStorage.getItem("address"),
-            })
-            .subscribe((response: any) => {
-              this.singData = response.data;
-              this.tx()
-            });
+      if (this.data.tokenIds.length == 0)
+        return (
+          this.dialogRef.close(),
+          this.cs.printError("You didn't select any NFTs to bridge")
+        );
+
+      this.successIcon = true;
+      const isApproval = await this.cs.isApprovalBridgeNFT(
+        this.data.srcContract
+      );
+      if (!isApproval) {
+        const approval = await this.cs.setApprovalBridgeNFT(
+          this.data.srcContract
+        );
+        await approval.wait();
       }
+
+      const result: any = await this.httpApi.sing({
+        nftIds: this.data.tokenIds,
+        amounts: this.data.amounts,
+        srcContract: this.data.srcContract,
+        destContract: this.data.destContract,
+        userAddress: localStorage.getItem("address"),
+      });
+      await this.tx(result.data);
     } catch (error) {
       this.dialogRef.close();
       this.cs.handleMetamaskError(error);
     }
   }
 
-  async tx()
-  {
+  async tx(signData) {
     try {
       const result = await this.cs.bridgeNFT(
         this.data.tokenIds,
@@ -109,7 +112,7 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
         localStorage.getItem("address"),
         this.data.srcContract,
         this.data.destContract,
-        this.singData
+        signData
       );
       await result.wait();
       this.successIcon = false;
@@ -119,28 +122,11 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
       this.successIcon4 = true;
       this.btn3Text = "Started";
       setTimeout(() => {
-        this.dialogCloseAllRef.closeAll()
-        this.toaster.success('Your NFT will be bridge in a while.')
+        this.dialogCloseAllRef.closeAll();
+        this.toaster.success("Your NFT will be bridge in a while.");
       }, 60000);
     } catch (error) {
-      throw error
-    }
-  }
-
-  async getsing(srcContract: string, destContract: string) {
-    try {
-     this.httpApi
-        .sing({
-          srcContract: srcContract,
-          destContract: destContract,
-          userAddress: localStorage.getItem("address"),
-        })
-        .subscribe((response: any) => {
-          this.singData = response.data;
-        });
-    } catch (e) {
-      this.dialogRef.close();
-      this.httpApi.showToastr(e, false);
+      throw error;
     }
   }
 }

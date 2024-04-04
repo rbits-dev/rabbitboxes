@@ -87,10 +87,10 @@ export class HttpApiService {
     return this.httpClient.post(url, data, { headers: this.headers });
   }
 
-  sing(data:any): Observable<any> {
+  sing(data:any) {
     const url = `${baseURL}sing`;
 
-    return this.httpClient.post(url, data, { headers: this.headers });
+    return this.httpClient.post(url, data, { headers: this.headers }).toPromise()
   }
 
   changeStatusClaim(data: any): Observable<any> {
