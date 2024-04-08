@@ -35,7 +35,11 @@
       "chainId":"568",
       "artistLootBoxAddress":"0xb462FaCA710eD4eBe7bcd4861bFa3E2454B122C2",
       "RegisterMoonboxAddress":"0xA31fE3c26a07a9e9D44A60D6Bc51ecC2731AbAAb"
-    }
+    },
+    {
+      "chainId":"84532",
+      "artistLootBoxAddress":"0x3Ea63B70Bfaf43FC1B1D25CC485898beDffB5b0D"
+  }
 
   ],
   "mainnet": [

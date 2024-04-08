@@ -227,6 +227,50 @@ export const CHAIN_CONFIGS: any = {
         },
       ],
     },
-  }
+  },
+  "84532": {
+    name: "Base Sepolia",
+    explorerLink: "https://sepolia-explorer.base.org/address/",
+    icon: "/assets/media/images/blockchain/base.webp",
+    bg: "#000",
+    symbol: "ETH",
+    config: {
+      method: "wallet_addEthereumChain",
+      params: [
+        {
+          chainId: "0x14A34",
+          chainName: "Base Sepolia",
+          nativeCurrency: {
+            symbol: "ETH",
+            decimals: 18,
+          },
+          rpcUrls: ["https://sepolia.base.org"],
+          blockExplorerUrls: ["	https://sepolia-explorer.base.org"],
+        },
+      ],
+    },
+  },
+  "8453": {
+    name: "Base Mainnet",
+    explorerLink: "https://explorer.base.org/address/",
+    icon: "/assets/media/images/blockchain/base.webp",
+    bg: "#000",
+    symbol: "ETH",
+    config: {
+      method: "wallet_addEthereumChain",
+      params: [
+        {
+          chainId: "0x2105",
+          chainName: "Base Mainnet",
+          nativeCurrency: {
+            symbol: "ETH",
+            decimals: 18,
+          },
+          rpcUrls: ["https://mainnet.base.org"],
+          blockExplorerUrls: ["	https://explorer.base.org"],
+        },
+      ],
+    },
+  },
 };
 
