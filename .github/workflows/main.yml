@@ -27,7 +27,7 @@ jobs:
         run: npm install -g @angular/cli@13
 
       - name: Build project
-        run: ng build --base-href=/boxes/
+        run: NODE_OPTIONS=--openssl-legacy-provider ng build --base-href=/boxes/
       - name: Deploy to windows server
         run: |
           sudo apt-get install -y lftp
