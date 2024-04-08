@@ -1,0 +1,69 @@
+name: Deploy builds on dev and main server
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  build-and-deploy-on-main-server:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli@13
+
+      - name: Build project
+        run: ng build --base-href=/boxes/
+      - name: Deploy to windows server
+        run: |
+          sudo apt-get install -y lftp
+          lftp -u ${{ secrets.USERNAME }},${{ secrets.PASSWORD }} -e "set ssl:verify-certificate no; mirror -R ./dist/boxes ./boxes" ${{ secrets.HOSTNAME }}
+        env:
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          HOSTNAME: ${{ secrets.HOSTNAME }}
+          
+  build-and-deploy-on-dev-server:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    if: github.ref == 'refs/heads/dev'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli@13
+
+      - name: Build project
+        run: ng build --configuration=development
+      - name: Deploy to smater server
+        run: |
+          sudo apt-get install -y lftp
+          lftp -u ${{ secrets.DEVUSERNAME }},${{ secrets.DEVPASSWORD }} -e "set ssl:verify-certificate no; mirror -R ./dist/boxes ." ${{ secrets.DEVHOSTNAME }}
+        env:
+          USERNAME: ${{ secrets.DEVUSERNAME }}
+          PASSWORD: ${{ secrets.DEVPASSWORD }}
+          HOSTNAME: ${{ secrets.DEVHOSTNAME }}
