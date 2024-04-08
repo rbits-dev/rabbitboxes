@@ -58,7 +58,7 @@ jobs:
         run: npm install -g @angular/cli@13
 
       - name: Build project
-        run: ng build --configuration=development
+        run: NODE_OPTIONS=--openssl-legacy-provider ng build --configuration=development
       - name: Deploy to smater server
         run: |
           sudo apt-get install -y lftp
