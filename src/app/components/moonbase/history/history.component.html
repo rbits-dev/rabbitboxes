@@ -40,7 +40,7 @@
                                 <td style="min-width:85px;">{{item.BetTier}}</td>
                                 <td class="text-center">{{item.nftData.length}}</td>
                                 <!-- <td>14849534</td> -->
-                                <td class="flex flex-center">
+                                <td class="">
                                     <button class="button claim-button" (click)="onClaimNFT(item,i)" *ngIf="!item.isClaimed">Claim</button>
                                     <p class="success p-10" *ngIf="item.isClaimed">Claimed</p>
                                 </td>

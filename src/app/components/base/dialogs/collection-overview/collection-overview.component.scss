@@ -295,7 +295,7 @@ textarea {
 }
 
 section.carousel {
-    max-height: 450px;
+    max-height: 320px;
     max-width: 470px;
     // width: 100%;
     // height: 100%;
@@ -310,7 +310,15 @@ section.carousel {
 swiper {
     padding-top: 0px !important;
 }
-
+.swiper-wrapper{
+    position: relative;
+    width: 100% !important; 
+    height: 325px !important;
+    z-index: 1;
+    /* display: flex; */
+    transition-property: transform;
+    box-sizing: content-box;
+}
 ::ng-deep.collection-info-popup-panel {
     height: unset !important;
 }
@@ -318,6 +326,7 @@ swiper {
 .cursor-pointer {
     cursor: pointer;
 }
+
 
 .nft-image-container {
     max-height: 470px;
@@ -334,7 +343,7 @@ swiper {
         height: 100%;
         width: 100%;
         align-self: center;
-        object-fit: contain;
+        object-fit: cover;
     }
 }
 
