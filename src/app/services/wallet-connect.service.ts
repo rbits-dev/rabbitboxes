@@ -7,7 +7,6 @@ import { environment } from "src/environments/environment";
 import { ToastrService } from "ngx-toastr";
 import { LocalStorageService } from "./local-storage.service";
 import Web3 from "web3";
-import Web3Modal from "Web3Modal";
 import { debounce } from "lodash";
 
 const SID = require("@siddomains/sidjs").default;
@@ -45,12 +44,12 @@ providerChainID.forEach((supportedChainId) => {
       : CHAIN_CONFIGS[supportedChainId]?.config.params[0].rpcUrls[0];
 });
 
-const web3Modal = new Web3Modal({
-  theme: "dark",
-  cacheProvider: false,
-  providerOptions: providerOptionsForRBITS,
-  disableInjectedProvider: false,
-});
+// const web3Modal = new Web3Modal({
+//   theme: "dark",
+//   cacheProvider: false,
+//   providerOptions: providerOptionsForRBITS,
+//   disableInjectedProvider: false,
+// });
 
 @Injectable({
   providedIn: "root",
