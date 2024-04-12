@@ -14,7 +14,9 @@
       "RegisterMoonboxAddress":"0x25Ced152A8d2ff7Da922bFc7A1bc348d2644A49B",
       "BridgeNftAddress":"0xCd8bcAF4056b3E4fe5714FF237D2e62811d9d721",
       "destination":"0x7ec3c38b171bf52191bf6dd3351da77efa523ceecd8bcaf4056b3e4fe5714ff237d2e62811d9d721",
-      "destChainId":"10161"
+      "destChainId":"10161",
+      "destinationBase":"0x0662e60e08efbb32b376f1d5f82e26a1f680923dcd8bcaf4056b3e4fe5714ff237d2e62811d9d721",
+      "destChainIdBase":"10245"
     },
     {
       "chainId": "80001",

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef,OnInit, Inject } from "@angular/core";
+import { Component, ChangeDetectorRef, OnInit, Inject } from "@angular/core";
 import {
   MAT_DIALOG_DATA,
   MatDialog,
@@ -28,22 +28,30 @@ export class UpgradeNftDialogComponent implements OnInit {
     private cd: ChangeDetectorRef
   ) {}
 
-  async ngOnInit() {
-    const baseUrl = await this.httpApi.getMetadataUrl();
-    this.nftList.nftData.forEach(async (item) => {
-      item.isSelected = true;
-      this.tokenIds.push(item.token_id);
-      this.amounts.push(item.amount);
-
-      const result: any = await this.httpApi.getTokenUriData(
-        item.token_id,
-        baseUrl.baseUrl
-      );
-      item.image_path = result.image;
-      this.cd.detectChanges();
-    });
+  ngOnInit() {
+    this.getMetaData();
   }
 
+  async getMetaData() {
+    try {
+      // const baseUrl = await this.httpApi.getMetadataUrl();
+      for (let item of this.nftList.nftData) {
+        item.isSelected = true;
+        this.tokenIds.push(item.token_id);
+        this.amounts.push(item.amount);
+
+        // const result: any = await this.httpApi.getTokenUriData(
+        //   item.token_id,
+        //   baseUrl.baseUrl
+        // );
+
+        // item.image_path = result.image;
+        // this.cd.detectChanges();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
   // HANDLE SELECT ALL CHANGE FN
   handleOnChange(event) {
     this.isSelectAll = event.target.checked;
@@ -81,6 +89,7 @@ export class UpgradeNftDialogComponent implements OnInit {
         amounts: this.amounts,
         srcContract: srcContract,
         destContract: destContract,
+        fromChain:this.nftList.fromChain
       },
       disableClose: true,
     });

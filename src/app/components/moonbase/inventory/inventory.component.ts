@@ -39,8 +39,10 @@ export class InventoryComponent implements OnInit {
   nftCountToSwap: any;
   SwapNftCount: any;
   addressName: any = {};
-  nftData = {NftList:[],nftData:{}};
+  nftData = { NftList: [], nftData: {} };
+  nftDataForBase = { NftList: [], nftData: {} };
   isShowBridgeButton: boolean;
+  isShowBridgeToBase: boolean;
 
   constructor(
     private walletConnectService: WalletConnectService,
@@ -81,9 +83,14 @@ export class InventoryComponent implements OnInit {
       }
     });
 
-    if (localStorage.getItem("wallet")) {
+    if (
+      localStorage.getItem("wallet") &&
+      (localStorage.getItem("manual_chainId") == "97" ||
+        localStorage.getItem("manual_chainId") == "56")
+    ) {
       this.getNFTData();
       this.getUserData01();
+      this.getNFTDataForBase();
     }
   }
 
@@ -278,38 +285,73 @@ export class InventoryComponent implements OnInit {
     return promis;
   }
 
-  getNFTData() {
-    this.httpApi.upgradeNftInfo({ walletAddress: this.userAddress }).subscribe({
-      next: async (res: any) => {
-        this.nftData.NftList = res.data.map((nft) => ({ ...nft, isDisplay: false }));
-        this.nftData.NftList.forEach((item, index) => {
-          this.fetchNFTsForContract(item.BSCAddress).subscribe(
-            (nfts: any) => {
-              this.nftData.nftData[item.BSCAddress] = nfts.result;
-              if (nfts.result.length > 0) {
-                item.isDisplay = true;
-                this.isShowBridgeButton = true
-              }
-            },
-            (error) => {
-              console.error(
-                `Error fetching NFTs for contract ${item.BSCAddress}:`,
-                error
-              );
-            }
+  async getNFTData() {
+    try {
+      const res: any = await this.httpApi.upgradeNftInfo({
+        walletAddress: this.userAddress,
+      });
+      this.nftData.NftList = res.data.map((nft: any) => ({
+        ...nft,
+        isDisplay: false,
+      }));
+
+      for (let item of this.nftData.NftList) {
+        try {
+          const nfts: any = await this.fetchNFTsForContract(item.BSCAddress);
+          this.nftData.nftData[item.BSCAddress] = nfts.result;
+          if (nfts.result.length > 0) {
+            item.isDisplay = true;
+            this.isShowBridgeButton = true;
+          }
+        } catch (error) {
+          console.error(
+            `Error fetching NFTs for contract ${item.BSCAddress}:`,
+            error
           );
-        });
-      },
-      error: (err: any) => {},
-    });
+        }
+      }
+    } catch (error) {
+      console.error("Error upgrading NFT info:", error);
+    }
+  }
+
+  async getNFTDataForBase() {
+    try {
+      const res: any = await this.httpApi.upgradeNftInfoForBase({
+        walletAddress: this.userAddress,
+      });
+      this.nftDataForBase.NftList = res.data.map((nft: any) => ({
+        ...nft,
+        isDisplay: false,
+      }));
+
+      for (let item of this.nftDataForBase.NftList) {
+        try {
+          const nfts: any = await this.fetchNFTsForContract(item.BSCAddress);
+          this.nftDataForBase.nftData[item.BSCAddress] = nfts.result;
+          if (nfts.result.length > 0) {
+            item.isDisplay = true;
+            this.isShowBridgeToBase = true;
+          }
+        } catch (error) {
+          console.error(
+            `Error fetching NFTs for contract ${item.BSCAddress}:`,
+            error
+          );
+        }
+      }
+    } catch (error) {
+      console.error("Error upgrading NFT info:", error);
+    }
   }
 
   //UPGRADE NFT DIALOG BOX
-  openUpgradeNftDialog() {
+  openUpgradeNftDialog(fromChain: Number) {
+    debugger
     this.dialog
       .open(UpgrateNftSelectionDialogComponent, {
         width: "800px",
-        data: this.nftData,
+        data: fromChain === 1 ? {...this.nftData,fromChain:fromChain }: {...this.nftDataForBase,fromChain:fromChain},
       })
       .afterClosed()
       .subscribe((_) => {
@@ -318,7 +360,7 @@ export class InventoryComponent implements OnInit {
   }
 
   // Function to fetch NFTs for a specific contract
-  fetchNFTsForContract(contract: string) {
+  async fetchNFTsForContract(contract: string) {
     const headers = new HttpHeaders()
       .set("Content-Type", "application/json")
       .set(
@@ -326,6 +368,6 @@ export class InventoryComponent implements OnInit {
         "mPiHvsoVqeqlQTF6FkXslLhgtTgL3OKDrsp29tQPHDtyOKyuj5GlMCIfWKtOfOPC"
       );
     const apiUrl = `https://deep-index.moralis.io/api/v2/${this.userAddress}/nft/${contract}?chain=${environment.moralisChain}&format=decimal`;
-    return this.httpClient.get(apiUrl, { headers: headers });
+    return await this.httpClient.get(apiUrl, { headers: headers }).toPromise();
   }
 }

@@ -89,7 +89,6 @@ export class HttpApiService {
 
   sing(data:any) {
     const url = `${baseURL}sing`;
-
     return this.httpClient.post(url, data, { headers: this.headers }).toPromise()
   }
 
@@ -225,7 +224,11 @@ export class HttpApiService {
 
   upgradeNftInfo(data:{walletAddress:string}) {
     const url = `${baseURL}upgradeNftInfo?userAddress=${data.walletAddress}`;
-    return this.httpClient.get(url,{headers:this.headers});
+    return this.httpClient.get(url,{headers:this.headers}).toPromise()
+  }
+  upgradeNftInfoForBase(data:{walletAddress:string}) {
+    const url = `${baseURL}upgradeNftInfoForBase?userAddress=${data.walletAddress}`;
+    return this.httpClient.get(url,{headers:this.headers}).toPromise()
   }
 
   //GET META DATA FOR DEPLOY CONTRACT

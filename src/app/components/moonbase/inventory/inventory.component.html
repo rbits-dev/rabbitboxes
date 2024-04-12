@@ -68,20 +68,31 @@
       <li class="flex desktop-only">
         <div class="text-center ml10" *ngIf=" isConnected && isShowBridgeButton">
           <button
-            (click)="openUpgradeNftDialog()"
+            (click)="openUpgradeNftDialog(1)"
             class="view-detail-button outlined-button text-inherit"
           >
             Bridge to Ethereum
           </button>
         </div>
+        <div class="text-center ml10" *ngIf=" isConnected && isShowBridgeToBase">
+          <button
+            (click)="openUpgradeNftDialog(2)"
+            class="view-detail-button outlined-button text-inherit"
+          >
+            Bridge to Base
+          </button>
+        </div>
       </li>
     </ul>
   </div>
-  <div *ngIf="isConnected && isShowBridgeButton" class="flex-center mt40 mb40 mobile-only">
+  <div  class="flex-center mt40 mb40 mobile-only">
     <ul class="flex">
       <li class="flex">
-        <div class="text-center ml10">
-          <button (click)="openUpgradeNftDialog()" class="view-detail-button outlined-button text-inherit">Bridge to Ethereum</button>
+        <div class="text-center ml10" *ngIf=" isConnected && isShowBridgeButton">
+          <button (click)="openUpgradeNftDialog(1)" class="view-detail-button outlined-button text-inherit">Bridge to Ethereum</button>
+        </div>
+        <div class="text-center ml10" *ngIf=" isConnected && isShowBridgeToBase">
+          <button (click)="openUpgradeNftDialog(2)" class="view-detail-button outlined-button text-inherit">Bridge to Base</button>
         </div>
       </li>
     </ul>

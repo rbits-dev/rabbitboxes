@@ -18,7 +18,7 @@ export const environment = {
   moralisChain: "bsc+testnet",
   explorerURLForEth: "https://sepolia.etherscan.io/",
   assetBaseUrl: "/assets",
-  rabbitControllerAddress: "0x7ec3c38b171bf52191bf6dd3351da77efa523cee",
+  rabbitControllerAddress: ['0x7ec3c38b171bf52191bf6dd3351da77efa523cee','0x0662e60e08efbb32b376f1d5f82e26a1f680923d'],
 };
 
 /*
