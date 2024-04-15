@@ -24,6 +24,7 @@ const ArtistNFTAbi = require("./../../assets/abis/ArtistNFTAbi.json");
 const registorAbi = require("../../assets/abis/registorAbi.json");
 const config = require("./../../assets/configFiles/configFile.json");
 const MINT_NFT_ABI = require("./../../assets/abis/mintNFTAbi.json");
+const ERC721ABI = require("./../../assets/abis/ERC721ABI.json");
 
 import { CHAIN_CONFIGS } from "../components/base/wallet/connect/constants/blockchain.configs";
 
@@ -872,26 +873,45 @@ export class WalletConnectService {
   }
 
   async safeTransfer(
-    address: string,
-    toAddress: string,
+    address: String,
+    toAddress: String,
     nftId: any,
-    ArtistNFTAddress: any
+    ArtistNFTAddress: any,
+    contractStandard :any
   ) {
+    debugger
     try {
-      let NFTContract = new ethers.Contract(
-        ArtistNFTAddress,
-        NFTAbi,
-        this.signer
-      );
+      if(contractStandard ==0){
 
-      let txn = await NFTContract.safeTransferFrom(
-        address,
-        toAddress,
-        nftId,
-        1,
-        "0x00"
-      );
-      await txn.wait(1);
+        let NFTContract = new ethers.Contract(
+          ArtistNFTAddress,
+          NFTAbi,
+          this.signer
+        );
+        var txn = await NFTContract.safeTransferFrom(
+          address,
+          toAddress,
+          nftId,
+          1,
+          "0x00"
+        );
+        await txn.wait(1);
+      }else{
+
+
+        let NFTContract = new ethers.Contract(
+          ArtistNFTAddress,
+          ERC721ABI,
+          this.signer
+        );
+        var txn = await NFTContract.safeTransferFrom(
+          address,
+          toAddress,
+          nftId
+        );
+        await txn.wait(1);
+      }
+
       return { hash: txn.hash, status: true };
     } catch (e) {
       return { error: e, status: false };

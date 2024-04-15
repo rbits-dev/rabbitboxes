@@ -16,12 +16,12 @@ export class TransferComponent {
 
   constructor(public dialogRef: MatDialogRef<TransferComponent>,
     public dialog: MatDialog,
-    private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private walletConnectService: WalletConnectService,
     private httpApi: HttpApiService) { }
 
   async transfer(userAddress: any, ArtistNFTAddress: any) {
+    debugger
     if (undefined === userAddress || userAddress == "") {
       this.httpApi.showToastr("You must fill in an address", false);
       return false;
@@ -40,7 +40,7 @@ export class TransferComponent {
     try {
 
       this.btnText = "Waiting for confirmation";
-      var transferTxn = await this.walletConnectService.safeTransfer(this.data.walletAddress, userAddress, this.data.details.nftId, ArtistNFTAddress);
+      var transferTxn = await this.walletConnectService.safeTransfer(this.data.walletAddress, userAddress, this.data.details.nftId, ArtistNFTAddress,this.data.details.contractStandard);
       if (transferTxn.status) {
         this.httpApi.transferNft({
           fromAddress: this.data.walletAddress,
