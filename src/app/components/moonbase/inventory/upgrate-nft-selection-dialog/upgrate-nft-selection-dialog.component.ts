@@ -30,7 +30,6 @@ export class UpgrateNftSelectionDialogComponent implements OnInit {
 
   //handle bridge nft status dialog
   openBridgeNft(srcContractAddress:string,destContractAddress:string) {
-    debugger
     this.openDialog.open(UpgradeNftDialogComponent, {
       width: "800px",
       data: {"nftData":this.nftData?.nftData[srcContractAddress],"srcContractAddress":srcContractAddress,destContractAddress:destContractAddress,fromChain:this.nftData.fromChain},
