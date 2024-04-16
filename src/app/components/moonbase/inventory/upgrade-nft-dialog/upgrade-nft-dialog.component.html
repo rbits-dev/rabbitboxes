@@ -1,7 +1,10 @@
 <div id="attribute-info">
   <p style="text-align:right" ><span style="color: #fff;right:0; cursor:pointer;" (click)="dialogRef.close()">X</span></p>
-  <div *ngIf="isLoading" class="flex flex-center absolute-center" style="max-width: 770px; width: 100vw;">
-    <img class="flex mx-auto" style="margin-bottom: 40px;" src="assets/media/videos/Loading.gif" alt="">
+  <div *ngIf="isLoading" class="flex flex-center" style="max-width: 770px; width: 100vw;">
+    <div class="loader-fixed" role="status">
+      <img src="./assets/media/videos/Loading.gif" alt="" style="margin: auto;">
+     
+    </div>
 </div>
   <div class="buttonsflex" >
     <span>Select All</span>
