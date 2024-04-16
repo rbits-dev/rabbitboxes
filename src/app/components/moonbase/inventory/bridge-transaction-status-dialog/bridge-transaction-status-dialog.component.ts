@@ -52,10 +52,15 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
           this.successIcon7 = false;
           this.btn4Text = "Done";
           this.successIcon8 = true;
+
           this.txHashHref =
-            environment.explorerURLForEth + "tx/" + res.transactionHash;
+          this.data.fromChain == 1
+          ? environment.explorerURLForEth[0]
+          : environment.explorerURLForEth[1] + "tx/" + res.transactionHash;
           this.transactionHash =
-            environment.explorerURLForEth +
+          this.data.fromChain == 1
+          ? environment.explorerURLForEth[0]
+          : environment.explorerURLForEth[1] +
             "tx/" +
             res.transactionHash.substring(0, 4) +
             "..." +
