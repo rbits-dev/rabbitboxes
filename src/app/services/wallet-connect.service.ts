@@ -699,8 +699,7 @@ export class WalletConnectService {
     const spliSign = ethers.utils.splitSignature(signature);
     if (isArtist) {
       try {
-        //
-        debugger;
+
         let txn: any = await this.artistLootBoxContract.redeemBulk(
           nftAddress,
           id,
@@ -879,7 +878,6 @@ export class WalletConnectService {
     ArtistNFTAddress: any,
     contractStandard :any
   ) {
-    debugger
     try {
       if(contractStandard ==0){
 

@@ -98,6 +98,11 @@ export class HttpApiService {
     return this.httpClient.post(url, data, { headers: this.headers });
   }
 
+  storeDataClaimData(data: any) {
+    const url = `${baseURL}storeDataFromNode`;
+    return this.httpClient.post(url, data, { headers: this.headers }).toPromise()
+  }
+
   getMoonCount(userAddress: string): Promise<any> {
     const params = { userAddress };
     const url = `${baseURL}landingPageData`;

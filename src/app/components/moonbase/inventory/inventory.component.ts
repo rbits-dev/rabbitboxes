@@ -347,7 +347,6 @@ export class InventoryComponent implements OnInit {
 
   //UPGRADE NFT DIALOG BOX
   openUpgradeNftDialog(fromChain: Number) {
-    debugger
     this.dialog
       .open(UpgrateNftSelectionDialogComponent, {
         width: "800px",
