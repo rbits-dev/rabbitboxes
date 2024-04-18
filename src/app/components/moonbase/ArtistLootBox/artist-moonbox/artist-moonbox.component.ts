@@ -211,7 +211,11 @@ export class ArtistMoonboxComponent implements OnInit {
   }
 
   onIncreaseSupplyInterestAmount(index: number) {
-    this.supply[index] += this.supply[index] < this.supplyDetails[index].currentSupply ? 1 : 0;
+    if(this.supplyDetails[index].limitPerTxn==this.supply[index]){
+      this.toastrService.warning(`You can buy at most ${this.supplyDetails[index].limitPerTxn} boxes.`)
+    }else{
+      this.supply[index] += this.supply[index] < this.supplyDetails[index].currentSupply ? 1 : 0;
+    }
   }
 
   onDecreaseSupplyInterestAmount(index: number) {
