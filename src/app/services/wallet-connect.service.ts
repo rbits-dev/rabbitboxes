@@ -902,7 +902,7 @@ export class WalletConnectService {
           ERC721ABI,
           this.signer
         );
-        var txn = await NFTContract.safeTransferFrom(
+        var txn = await NFTContract.transferFrom(
           address,
           toAddress,
           nftId
@@ -910,9 +910,9 @@ export class WalletConnectService {
         await txn.wait(1);
       }
 
-      return { hash: txn.hash, status: true };
+      return txn
     } catch (e) {
-      return { error: e, status: false };
+      throw e
     }
   }
 
