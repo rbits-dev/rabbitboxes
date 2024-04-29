@@ -38,5 +38,13 @@
      {
         "chainId": 2000,
         "link": "#"
+    },
+     {
+        "chainId": 84532,
+        "link": "https://opensea.io/assets/base/"
+    },
+     {
+        "chainId": 8453,
+        "link": "https://opensea.io/assets/base/"
     }
 ]
