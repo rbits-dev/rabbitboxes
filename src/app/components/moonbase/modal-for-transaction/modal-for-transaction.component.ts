@@ -179,15 +179,15 @@ export class ModalForTransactionComponent implements OnInit {
       return false;
     }
     if (txStatus.status) {
-      await this.httpApi.storeDataClaimData({
-        fromWalletAddress: nftDetails.artistAddress,
-        toWalletAddress: this.data.data.address,
-        transactionHash: txStatus.hash,
-        contractAddress:  this.data.artistDetails.ArtistNFTAddress,
-        supply: nftSupply,
-        tokenId: nftIds,
-        chainId: localStorage.getItem('manual_chainId'),
-      });
+      // await this.httpApi.storeDataClaimData({
+      //   fromWalletAddress: nftDetails.artistAddress,
+      //   toWalletAddress: this.data.data.address,
+      //   transactionHash: txStatus.hash,
+      //   contractAddress:  this.data.artistDetails.ArtistNFTAddress,
+      //   supply: nftSupply,
+      //   tokenId: nftIds,
+      //   chainId: localStorage.getItem('manual_chainId'),
+      // });
       this.successIcon2 = true;
       this.btn2Text = "Submitting data";
       this.httpApi
