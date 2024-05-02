@@ -34,7 +34,6 @@ export class ItemOverviewComponent implements OnInit {
     this.walletConnectService.getChainId().subscribe((data) => {
       this.chainId = data;
       openseaLink.forEach((element)=>{
-        debugger
         if(element.chainId == this.chainId){
           this.link = `${element.link}${this.item.ArtistNFTAddress}/${this.item.nftId}${this.notAvailableNetworkonOpnenSea.includes(this.chainId) ? +'/'+ this.openseaChainId : ''}`;
           console.log( this.link);

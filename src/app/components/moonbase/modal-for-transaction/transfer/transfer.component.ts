@@ -21,6 +21,7 @@ export class TransferComponent {
     private httpApi: HttpApiService) { }
 
   async transfer(userAddress: any, ArtistNFTAddress: any) {
+    debugger
     if (undefined === userAddress || userAddress == "") {
       this.httpApi.showToastr("You must fill in an address", false);
       return
@@ -40,12 +41,14 @@ export class TransferComponent {
 
       this.btnText = "Waiting for confirmation";
       var transferTxn = await this.walletConnectService.safeTransfer(this.data.walletAddress, userAddress, this.data.details.nftId, ArtistNFTAddress,this.data.details.contractStandard);
-        this.httpApi.transferNft({
+
+      this.httpApi.transferNft({
           fromAddress: this.data.walletAddress,
           toAddress: userAddress,
           nftId: this.data.details.nftId,
           amount: 1,
-          transactionHash: transferTxn.hash
+          transactionHash: transferTxn.hash,
+          contractAddress:ArtistNFTAddress
         }).subscribe((response: any) => {
 
           this.httpApi.showToastr(response.data.message, response.isSuccess);
