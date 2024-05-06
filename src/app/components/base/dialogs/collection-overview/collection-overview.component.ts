@@ -111,9 +111,25 @@ export class CollectionOverviewComponent implements OnInit {
         const filenameWithoutExt = filename.slice(0, -ext.length - 1);
         const previewImage = `${partsBeforeFilename}/previews/${collectionName}/${filenameWithoutExt}.webp`;
         return previewImage;
-    } 
+    }
     return `${partsBeforeFilename}/previews/${collectionName}/${filename}`;
   }
-  
- 
+
+  checkFileType(url: string) {
+    const images = ["jpg", "gif", "png", "jpeg", "JPG", "GIF", "PNG", "JPEG"];
+    const videos = ["mp4", "3gp", "ogg", "MP4", "3GP", "OGG"];
+
+    const urltemp = new URL(url);
+    const extension = urltemp.pathname.substring(
+      urltemp.pathname.lastIndexOf(".") + 1
+    );
+
+    if (images.includes(extension)) {
+      return true;
+    } else if (videos.includes(extension)) {
+      return false;
+    }
+    return true;
+  }
+
 }
