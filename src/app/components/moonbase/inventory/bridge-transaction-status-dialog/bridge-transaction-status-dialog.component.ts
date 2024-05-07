@@ -40,7 +40,7 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.handleBridgeNft();
-    this.cs.listenToEvents().then((res: any) => {
+    this.cs.listenToEvents(this.data.fromChain).then((res: any) => {
       if (res) {
         this.successIcon4 = false;
         this.btn3Text = "Done";
@@ -52,10 +52,15 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
           this.successIcon7 = false;
           this.btn4Text = "Done";
           this.successIcon8 = true;
+
           this.txHashHref =
-            environment.explorerURLForEth + "tx/" + res.transactionHash;
+          this.data.fromChain == 1
+          ? environment.explorerURLForEth[0]
+          : environment.explorerURLForEth[1] + "tx/" + res.transactionHash;
           this.transactionHash =
-            environment.explorerURLForEth +
+          this.data.fromChain == 1
+          ? environment.explorerURLForEth[0]
+          : environment.explorerURLForEth[1] +
             "tx/" +
             res.transactionHash.substring(0, 4) +
             "..." +
@@ -96,6 +101,7 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
         srcContract: this.data.srcContract,
         destContract: this.data.destContract,
         userAddress: localStorage.getItem("address"),
+        fromChain:this.data.fromChain
       });
       await this.tx(result.data);
     } catch (error) {
@@ -112,7 +118,8 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
         localStorage.getItem("address"),
         this.data.srcContract,
         this.data.destContract,
-        signData
+        signData,
+        this.data.fromChain
       );
       await result.wait();
       this.successIcon = false;

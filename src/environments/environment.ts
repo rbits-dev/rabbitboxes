@@ -16,9 +16,9 @@ export const environment = {
   configFile: "testnet",
   adminPanelUrl: "http://codetentacles-006-site41.htempurl.com/",
   moralisChain: "bsc+testnet",
-  explorerURLForEth: "https://sepolia.etherscan.io/",
+  explorerURLForEth: ["https://sepolia.etherscan.io/","https://sepolia.basescan.org/"],
   assetBaseUrl: "/assets",
-  rabbitControllerAddress: "0x7ec3c38b171bf52191bf6dd3351da77efa523cee",
+  rabbitControllerAddress: ['0x7ec3c38b171bf52191bf6dd3351da77efa523cee','0x0662e60e08efbb32b376f1d5f82e26a1f680923d'],
 };
 
 /*

@@ -10,7 +10,11 @@
                     <ng-container *ngFor="let slide of slides; index as i">
                         <ng-template swiperSlide>
                             <div class="nft-image-container">
-                                <img src="{{slide.logo_path}}" alt="{{slide.nftId}}">
+                                <video *ngIf="!checkFileType(slide.logo_path)"  class="fade-in onvideo img-fluid" width="100%" height="auto"  playsinline muted autoplay  onloadedmetadata="this.muted = true">
+                                  <source src="{{slide.logo_path}}" type="video/mp4" />Browser not supported
+                                </video>
+
+                                <img *ngIf="checkFileType(slide.logo_path)" src="{{slide.logo_path}}" class="fade-in onvideo img-fluid" onError="this.src='./assets/media/images/nftnotfound.jpg';">
                             </div>
                         </ng-template>
                     </ng-container>

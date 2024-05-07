@@ -32,7 +32,7 @@ export class UpgrateNftSelectionDialogComponent implements OnInit {
   openBridgeNft(srcContractAddress:string,destContractAddress:string) {
     this.openDialog.open(UpgradeNftDialogComponent, {
       width: "800px",
-      data: {"nftData":this.nftData?.nftData[srcContractAddress],"srcContractAddress":srcContractAddress,destContractAddress:destContractAddress},
+      data: {"nftData":this.nftData?.nftData[srcContractAddress],"srcContractAddress":srcContractAddress,destContractAddress:destContractAddress,fromChain:this.nftData.fromChain},
       disableClose: true,
     });
   }

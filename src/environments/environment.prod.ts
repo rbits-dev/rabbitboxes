@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  chainId: [1, 56, 137, 1285, 2000],
+  chainId: [1, 56, 137, 1285, 2000,8453],
   openseaChainIds: [1, 3, 4,2,5],
   providerURL: "https://bsc-dataseed1.binance.org",
   baseURL: "https://rbits.xyz/boxes/backend/api/",
@@ -13,7 +13,7 @@ export const environment = {
   configFile: 'mainnet',
   assetBaseUrl: '/boxes/assets',
   adminPanelUrl : "https://rbits.xyz/boxes/admin/",
-  explorerURLForEth:"https://etherscan.io/",
-  rabbitControllerAddress:"0x5EFc9C4f6dde7f8be71d3BCfE8439333Ba845C4c"
+  explorerURLForEth:["https://etherscan.io/",'https://basescan.org/'],
+  rabbitControllerAddress:["0x5EFc9C4f6dde7f8be71d3BCfE8439333Ba845C4c","0xd9c77142e4b0e7b95aaB074AC66B056C6981F131"]
 
 };

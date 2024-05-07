@@ -24,6 +24,7 @@ const ArtistNFTAbi = require("./../../assets/abis/ArtistNFTAbi.json");
 const registorAbi = require("../../assets/abis/registorAbi.json");
 const config = require("./../../assets/configFiles/configFile.json");
 const MINT_NFT_ABI = require("./../../assets/abis/mintNFTAbi.json");
+const ERC721ABI = require("./../../assets/abis/ERC721ABI.json");
 
 import { CHAIN_CONFIGS } from "../components/base/wallet/connect/constants/blockchain.configs";
 
@@ -698,8 +699,7 @@ export class WalletConnectService {
     const spliSign = ethers.utils.splitSignature(signature);
     if (isArtist) {
       try {
-        //
-        debugger
+
         let txn: any = await this.artistLootBoxContract.redeemBulk(
           nftAddress,
           id,
@@ -731,7 +731,7 @@ export class WalletConnectService {
         return { hash: txn.hash, status: true };
       } catch (e) {
         console.log(e);
-        this.toastrService.error( e.reason );
+        this.toastrService.error(e.reason);
         return { hash: "", status: false, error: e };
       }
     }
@@ -872,29 +872,47 @@ export class WalletConnectService {
   }
 
   async safeTransfer(
-    address: string,
-    toAddress: string,
+    address: String,
+    toAddress: String,
     nftId: any,
-    ArtistNFTAddress: any
+    ArtistNFTAddress: any,
+    contractStandard :any
   ) {
     try {
-      let NFTContract = new ethers.Contract(
-        ArtistNFTAddress,
-        NFTAbi,
-        this.signer
-      );
+      if(contractStandard ==0){
 
-      let txn = await NFTContract.safeTransferFrom(
-        address,
-        toAddress,
-        nftId,
-        1,
-        "0x00"
-      );
-      await txn.wait(1);
-      return { hash: txn.hash, status: true };
+        let NFTContract = new ethers.Contract(
+          ArtistNFTAddress,
+          NFTAbi,
+          this.signer
+        );
+        var txn = await NFTContract.safeTransferFrom(
+          address,
+          toAddress,
+          nftId,
+          1,
+          "0x00"
+        );
+        await txn.wait(1);
+      }else{
+
+
+        let NFTContract = new ethers.Contract(
+          ArtistNFTAddress,
+          ERC721ABI,
+          this.signer
+        );
+        var txn = await NFTContract.transferFrom(
+          address,
+          toAddress,
+          nftId
+        );
+        await txn.wait(1);
+      }
+
+      return txn
     } catch (e) {
-      return { error: e, status: false };
+      throw e
     }
   }
 
@@ -1013,7 +1031,7 @@ export class WalletConnectService {
   }
 
   //SET APROVAL FOR BRIDGE NFT
-  async setApprovalBridgeNFT(contractAddress:string) {
+  async setApprovalBridgeNFT(contractAddress: string) {
     //var chainId = this.chainId.value;
     //let index = environment.chainId.indexOf(chainId ?? 56);
 
@@ -1131,60 +1149,62 @@ export class WalletConnectService {
     userAddress,
     srcContract,
     destContract,
-    signature
-) {
+    signature,
+    fromChain
+  ) {
     try {
-        const node = config[environment.configFile].find(
-            (chain: any) => chain.chainId == this.chainId.value
+      const node = config[environment.configFile].find(
+        (chain: any) => chain.chainId == this.chainId.value
+      );
+      if (node.destination === undefined) {
+        console.error(
+          "Error: destinationAddress not set for chain ",
+          this.chainId.value
         );
-        if (node.destination === undefined) {
-            console.error(
-                "Error: destinationAddress not set for chain ",
-                this.chainId.value
-            );
-        }
+      }
 
-        let EndpointId = node.destChainId;
-        let destination = node.destination;
-        let sign = [signature.v, signature.r, signature.s, signature.nonce];
+      let EndpointId = fromChain == 1 ? node.destChainId : node.destChainIdBase;
+      let destination =
+        fromChain == 1 ? node.destination : node.destinationBase;
+      let sign = [signature.v, signature.r, signature.s, signature.nonce];
 
-        const calculatedFees = await this.estimateFees({
-            EndpointId,
-            destination,
-            userAddress,
-            tokenIds,
-            amounts,
-            srcContract,
-            destContract,
-            sign,
-        });
+      const calculatedFees = await this.estimateFees({
+        EndpointId,
+        destination,
+        userAddress,
+        tokenIds,
+        amounts,
+        srcContract,
+        destContract,
+        sign,
+      });
 
-        // Calculate 10% extra fee
-        const extraFee = (Number(calculatedFees.nativeFee)* 0.15)
-        const totalFees = Number(calculatedFees.nativeFee) + extraFee;
-        // Convert fees to hexadecimal format
-        const hexFees = ethers.utils.parseUnits(totalFees.toString(), 'wei');
-        // Call the crossChain function with the calculated fees including 10% extra
-        let txn = await this.BridgeContract.crossChain(
-            node.destChainId,
-            node.destination,
-            tokenIds,
-            amounts,
-            srcContract,
-            destContract,
-            sign,
-            { value: hexFees } // Pass fees as value object
-        );
-        return txn;
+      // Calculate 10% extra fee
+      const extraFee = Math.ceil(Number(calculatedFees.nativeFee) * 0.15);
+      const totalFees = (Number(calculatedFees.nativeFee) + extraFee)
+      // Convert fees to hexadecimal format
+      const hexFees = ethers.utils.parseUnits(totalFees.toString(), "wei");
+      // Call the crossChain function with the calculated fees including 10% extra
+      let txn = await this.BridgeContract.crossChain(
+        EndpointId,
+        destination,
+        tokenIds,
+        amounts,
+        srcContract,
+        destContract,
+        sign,
+        { value: hexFees } // Pass fees as value object
+      );
+      return txn;
     } catch (error) {
-        throw error;
+      throw error;
     }
-}
+  }
   //LISTEN TO EVENTS OF MINT NFT CONTRACT
-  async listenToEvents() {
+  async listenToEvents(fromChain) {
     let provider;
     let providerIndex = 0;
-    let providerURLForEth = this.chainConfigs[environment.chainId[0]].rpcUrls
+    let providerURLForEth = this.chainConfigs[environment.chainId[0]].rpcUrls;
     while (!provider && providerIndex < providerURLForEth.length) {
       try {
         provider = new ethers.providers.JsonRpcProvider(
@@ -1199,22 +1219,28 @@ export class WalletConnectService {
     }
 
     if (!provider) {
-      this.toastrService.error('something went wrong please check on explorer your nft successfully bridge!!')
+      this.toastrService.error(
+        "something went wrong please check on explorer your nft successfully bridge!!"
+      );
       throw new Error("All JSON-RPC providers failed.");
     }
-console.log('listenevent on',
-  environment.rabbitControllerAddress,
-
-);
+    console.log(
+      "listenevent on",
+      fromChain == 1
+        ? environment.rabbitControllerAddress[0]
+        : environment.rabbitControllerAddress[1]
+    );
 
     const contract = new ethers.Contract(
-      environment.rabbitControllerAddress,
+      fromChain == 1
+        ? environment.rabbitControllerAddress[0]
+        : environment.rabbitControllerAddress[1],
       MINT_NFT_ABI,
       provider
     );
     return new Promise((resolve, reject) => {
       contract.on("ReceiveNFT", (from, to, id, amount, event) => {
-        console.log('event detected===========>',event);
+        console.log("event detected===========>", event);
         resolve(event);
       });
     });

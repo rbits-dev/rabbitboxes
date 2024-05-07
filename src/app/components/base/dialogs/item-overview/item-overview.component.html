@@ -17,11 +17,11 @@
 
                 <a href="javascript:void(0);"  class="outlined-button transfer-button mr10" (click)="openTransferDialog(item)">Transfer</a>
 
-                <p (click)="downloadImage(item)">
+                <a [href]="item.logo_path" target="_blank" download>
                     <svg xmlns="http://www.w3.org/2000/svg" class="interactable mr10" viewBox="0 0 49 49">
                         <path d="M24.5 0C11 0 0 11 0 24.5S11 49 24.5 49 49 38 49 24.5 38 0 24.5 0zM22 20.6V9.2h5v11.4h4.8l-7.3 9.2-7.3-9.2H22zm16.7 15.6H10.3v-10h4.3v6.3h19.7v-6.3h4.3v10z" fill="#5e2466"/>
                     </svg>
-                </p>
+                </a>
 
                 <p (click)="openSocialShareDialog(item)">
                     <svg class="interactable" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 49 49">

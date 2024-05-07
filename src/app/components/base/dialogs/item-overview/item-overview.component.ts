@@ -36,7 +36,9 @@ export class ItemOverviewComponent implements OnInit {
       openseaLink.forEach((element)=>{
         if(element.chainId == this.chainId){
           this.link = `${element.link}${this.item.ArtistNFTAddress}/${this.item.nftId}${this.notAvailableNetworkonOpnenSea.includes(this.chainId) ? +'/'+ this.openseaChainId : ''}`;
+          console.log( this.link);
         }
+
       })
 
 
