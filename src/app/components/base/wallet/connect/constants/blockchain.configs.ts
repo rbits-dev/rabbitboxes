@@ -231,7 +231,7 @@ export const CHAIN_CONFIGS: any = {
   "84532": {
     name: "Base Sepolia",
     explorerLink: "https://sepolia-explorer.base.org/address/",
-    icon: "/assets/media/images/blockchain/base.webp",
+    icon: "./assets/media/images/blockchain/base.webp",
     bg: "#000",
     symbol: "ETH",
     config: {
@@ -253,7 +253,7 @@ export const CHAIN_CONFIGS: any = {
   "8453": {
     name: "Base Mainnet",
     explorerLink: "https://explorer.base.org/address/",
-    icon: "/assets/media/images/blockchain/base.webp",
+    icon: "./assets/media/images/blockchain/base.webp",
     bg: "#000",
     symbol: "ETH",
     config: {
