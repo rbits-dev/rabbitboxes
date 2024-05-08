@@ -160,6 +160,11 @@ export class InventoryComponent implements OnInit {
       urltemp.pathname.lastIndexOf(".") + 1
     );
 
+    if (!extension) {
+      // without extension its a video
+      return false;
+    }
+
     if (images.includes(extension)) {
       return "true";
     } else if (videos.includes(extension)) {
