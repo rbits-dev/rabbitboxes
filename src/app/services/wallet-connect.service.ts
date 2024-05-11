@@ -1194,7 +1194,7 @@ export class WalletConnectService {
   async listenToEvents(fromChain) {
     let provider;
     let providerIndex = 0;
-    let providerURLForEth = this.chainConfigs[environment.chainId[0]].config.params[0].rpcUrls[0];
+    let providerURLForEth = this.chainConfigs[ fromChain ].config.params[0].rpcUrls[0];
     while (!provider && providerIndex < providerURLForEth.length) {
       try {
         provider = new ethers.providers.JsonRpcProvider(
@@ -1214,17 +1214,14 @@ export class WalletConnectService {
       );
       throw new Error("All JSON-RPC providers failed.");
     }
+
     console.log(
       "listenevent on",
-      fromChain == 1
-        ? environment.rabbitControllerAddress[0]
-        : environment.rabbitControllerAddress[1]
+      this.chainConfigs[ fromChain ].rabbitNFTController
     );
-
-    const contract = new ethers.Contract(
-      fromChain == 1
-        ? environment.rabbitControllerAddress[0]
-        : environment.rabbitControllerAddress[1],
+      
+    const contract = new ethers.Contract( 
+      this.chainConfigs[ fromChain ].rabbitNFTController,
       MINT_NFT_ABI,
       provider
     );

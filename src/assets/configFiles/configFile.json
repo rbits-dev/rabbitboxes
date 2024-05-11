@@ -4,7 +4,8 @@
     {
       "chainId":"11155111",
       "artistLootBoxAddress":"0x5164b8615C0c3aA4887fdE21a270bA1388020Bb2",
-      "RegisterMoonboxAddress":"0xC2581Bbc5cfc4279E3E4e1B6d0D9324e1121d96f"
+      "RegisterMoonboxAddress":"0xC2581Bbc5cfc4279E3E4e1B6d0D9324e1121d96f",
+      "rabbitNFTController": "0x0662e60e08eFBB32B376f1d5F82E26A1f680923D"
     },
     {
       "chainId": "97",
@@ -48,7 +49,8 @@
     {
       "chainId": "1",
       "artistLootBoxAddress": "0x63055BF4F90F671C007fDbfD0D39b3C62039F97F",
-      "RegisterMoonboxAddress":"0x101dc9f836703726dD1Bb0ae9a61A331764f3ddc"
+      "RegisterMoonboxAddress":"0x101dc9f836703726dD1Bb0ae9a61A331764f3ddc",
+      "rabbitNFTController": "0x5EFc9C4f6dde7f8be71d3BCfE8439333Ba845C4c"
     },
     {
       "chainId": "56",
@@ -79,7 +81,8 @@
     },
     {
       "chainId": "8453",
-      "artistLootBoxAddress": "0xF598BC8F74F40EE477F0b7f0417bc8f4176e9dDd"
+      "artistLootBoxAddress": "0xF598BC8F74F40EE477F0b7f0417bc8f4176e9dDd",
+      "rabbitNFTController": "0xd9c77142e4b0e7b95aaB074AC66B056C6981F131"
     }
   ]
 }
