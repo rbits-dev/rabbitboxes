@@ -53,7 +53,6 @@
     {
       "chainId": "56",
       "artistLootBoxAddress": "0x359bD3Eb9f0252221Af32734B604EB0905cef8ee",
-      "lootBoxAddress": "0x614A5DD989E5Fc086a0059D37F4EcDeaA6341216",
       "ArtistMoonBoxNftSwap": "0xcaEb93AD7a16fE96c8e085223D497E5e55C62cE8",
       "RegisterMoonboxAddress":"0x101dc9f836703726dD1Bb0ae9a61A331764f3ddc",
       "BridgeNftAddress":"0xa6EbCC4C5C0316191eA95BFC90F591DF23A03DFE",

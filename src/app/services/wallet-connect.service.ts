@@ -79,7 +79,7 @@ export class WalletConnectService {
   signer: ethers.providers.JsonRpcSigner;
   SilverContract: any;
   LootboxContract: any;
-  NFTContract: any;
+  NFTContract: any; // only on BSC
   artistLootBoxContract: any;
   artistLootBoxContractGet: any;
   LootBoxContractGet: any;
@@ -123,7 +123,7 @@ export class WalletConnectService {
 
       this.LootBoxContractGet = new web3.eth.Contract(
         lootBoxAbi,
-        environment.lootBoxAddress
+        config[environment.configFile][1].artistLootBoxAddress
       );
 
       this.swapContract = new web3.eth.Contract(
@@ -396,15 +396,7 @@ export class WalletConnectService {
             this.signer
           );
 
-          //FIXME: NFTContract should be defined in configuration file
-        }
-
-        if (node.lootBoxAddress) {
-          this.LootboxContract = new ethers.Contract(
-            node.lootBoxAddress,
-            lootBoxAbi,
-            this.signer
-          );
+          // NFTContract is used for NFT migration component ?
         }
 
         if (node.ArtistMoonBoxNftSwap) {
@@ -439,13 +431,13 @@ export class WalletConnectService {
           );
         }
 
-        if (node.RegisterMoonboxAddress) {
+      /*  if (node.RegisterMoonboxAddress) {
           this.registorContractAddressObj = new ethers.Contract(
             node.RegisterMoonboxAddress,
             registorAbi,
             this.signer
           );
-        }
+        } */
       } catch (e) {
         console.log(e);
       }
@@ -456,7 +448,6 @@ export class WalletConnectService {
       signer: this.signer,
       silverContract: this.SilverContract,
       LootboxContract: this.LootboxContract,
-      nftContract: this.NFTContract,
       address: address,
       networkId: network,
     };
@@ -505,7 +496,7 @@ export class WalletConnectService {
   }) {
     try {
       let transaction = await this.registorContractAddressObj.register(
-        environment.lootBoxAddress,
+        config[environment.configFile][1].artistLootBoxAddress,
         data.name,
         data.collectionName,
         data.symbol,
@@ -534,19 +525,19 @@ export class WalletConnectService {
   async getDetailsMoonboxlimit(isArtist = false) {
     const promise = new Promise((resolve, reject) => {
       try {
-        if (isArtist) {
+        //if (isArtist) {
           this.artistLootBoxContractGet.methods
             .getRabbitShootLimit()
             .call()
             .then((transactionHash: any) => resolve(transactionHash));
-        } else {
+        /*} else {
           this.LootBoxContractGet.methods
             .getMoonShootLimit()
             .call()
             .then((transactionHash: any) => {
               resolve(transactionHash);
             });
-        }
+        }*/
       } catch (e) {
         console.log(e);
         reject(false);
@@ -582,7 +573,7 @@ export class WalletConnectService {
         const params2 = (noOfBets * Number(lootboxPrice) * 1e9).toString();
 
         this.SilverContract.methods
-          .allowance(userAddress, environment.lootBoxAddress)
+          .allowance(userAddress, config[environment.configFile][1].artistLootBoxAddress)
           .call()
           .then(async (allowanceAmount: string) => {
             if (allowanceAmount >= params2)
@@ -608,7 +599,7 @@ export class WalletConnectService {
     const promise = new Promise(async (resolve, reject) => {
       try {
         const tx = await this.SilverContract.methods
-          .approve(environment.lootBoxAddress, params)
+          .approve(config[environment.configFile][1].artistLootBoxAddress, params)
           .call();
         resolve({ hash: tx, status: true, allowance: false });
       } catch (e) {
@@ -622,7 +613,7 @@ export class WalletConnectService {
   async getUserBalance(addr) {
     try {
       const web3 = new Web3(CHAIN_CONFIGS[1].rpcUrls[0]);
-      const RBITS = environment.tokenContractAddress
+      const RBITS =       environment.tokenContractAddress
       const abi = [
         {
             "constant": true,
@@ -868,41 +859,6 @@ export class WalletConnectService {
     return this.selectedChainId;
   }
 
-  /** Artist  **/
-  async claimRewardTransaction(
-    junkAmount: any,
-    nftId: any,
-    nftAmount: any,
-    betId: any,
-    seed: string,
-    signHash: any
-  ) {
-    const spliSign = ethers.utils.splitSignature(signHash);
-    const params: any = junkAmount.toString();
-
-    const promise = new Promise(async (resolve, reject) => {
-      try {
-        const txn = await this.LootboxContract.claimReward(
-          params,
-          environment.NFTAddress,
-          nftId,
-          nftAmount,
-          betId,
-          spliSign.v,
-          spliSign.r,
-          spliSign.s
-        ).catch((e: any) => {
-          reject({ hash: e, status: false });
-        });
-        resolve({ hash: txn, status: true });
-      } catch (e) {
-        reject({ hash: "", status: false });
-      }
-    });
-
-    return promise;
-  }
-
   async isApproved(address: string) {
     return await this.NFTContract.isApprovedForAll(address, address);
   }
@@ -981,7 +937,7 @@ export class WalletConnectService {
   }
 
   //Token based payments
-  async checkAllowance(tokenAddress: any, amount: any) {
+  async checkAllowance(tokenAddress: any, amount: any, artistNFTaddress: any) {
     let tokenContract = new ethers.Contract(
       tokenAddress,
       silverTokenAbi,
@@ -992,7 +948,7 @@ export class WalletConnectService {
       try {
         const params2 = 10 ** decimals * amount;
         tokenContract
-          .allowance(this.account, environment.artistNFTAddress)
+          .allowance(this.account, artistNFTaddress)
           .then(async function (allowanceAmount: any) {
             if (allowanceAmount >= params2) {
               resolve({ hash: "", status: true, allowance: true });
@@ -1007,7 +963,7 @@ export class WalletConnectService {
     return promise;
   }
 
-  async approveToken(amount: any, tokenAddress: any) {
+  async approveToken(amount: any, tokenAddress: any, artistNFTaddress: any) {
     let tokenContract = new ethers.Contract(
       tokenAddress,
       silverTokenAbi,
@@ -1019,7 +975,7 @@ export class WalletConnectService {
     var promise = new Promise(async (resolve, reject) => {
       try {
         let tx = await tokenContract.approve(
-          environment.artistNFTAddress,
+          artistNFTaddress,
           params2.toString()
         );
 

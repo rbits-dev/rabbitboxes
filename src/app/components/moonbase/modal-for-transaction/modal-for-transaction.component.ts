@@ -232,13 +232,15 @@ export class ModalForTransactionComponent implements OnInit {
       ) {
         let allowance: any = await this.walletConnectService.checkAllowance(
           this.data.artistDetails.tokenAddress,
+          this.data.artistDetails.address,
           this.data.artistDetails.price
         );
         if (allowance.status && !allowance.allowance) {
           this.btn1Text = "Approve Token...";
           let txn: any = await this.walletConnectService.approveToken(
             this.data.artistDetails.price,
-            this.data.artistDetails.tokenAddress
+            this.data.artistDetails.tokenAddress,
+            this.data.artistDetails.address
           );
           await txn.hash.wait(3);
         }
