@@ -38,7 +38,6 @@ export class HttpApiService {
   ) {
 
     this.chainId = localStorage.getItem('manual_chainId') ?? "1";
-
     this.headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('APPKEY', 'mTb+T!5!crBEQEL2!$PJ9&JSjeT3M6Hs*RytA-eaDSBS5UU@8-fCJHu6F?kp@s+JTu2-_-V8L#?5')
@@ -107,8 +106,16 @@ export class HttpApiService {
     const params = { userAddress };
     const url = `${baseURL}landingPageData`;
 
-    return this.httpClient.get(url, { headers: this.headers, params }).toPromise();
-  }
+    return new Promise((resolve, reject) => {
+        this.httpClient.get(url, { headers: this.headers, params }).toPromise()
+            .then((response: any) => {
+                resolve(response);
+            })
+            .catch((error: any) => {
+                this.toastrService.error(error.statusText);
+            });
+    });
+}
 
   /***** Artist pages apis *****/
   getAllCollections(NSFW: boolean, walletAddress: string): Observable<any> {
