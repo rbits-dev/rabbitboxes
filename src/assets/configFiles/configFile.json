@@ -77,6 +77,11 @@
       "chainId": "2000",
       "artistLootBoxAddress": "0x3D34d404173744c8eE31F391BB7b8FDEA86c5c84",
       "RegisterMoonboxAddress":""
+    },
+    {
+      "chainId": "8453",
+      "artistLootBoxAddress": "0xF598BC8F74F40EE477F0b7f0417bc8f4176e9dDd"
     }
   ]
 }
+
