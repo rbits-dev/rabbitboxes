@@ -72,9 +72,10 @@ export class FooterCountComponent implements OnInit {
 
     await this.getTier(balance);
 
-    this.moonCountData = (await this.httpApi.getMoonCount(this.data.address)).data;
 
     this.balance = this.walletConnectService.convertBalance(balance);
+
+    this.moonCountData = (await this.httpApi.getMoonCount(this.data.address)).data;
 
     const userData = new UserDetailsModel(this.data.address, balance);
 
