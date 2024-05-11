@@ -48,7 +48,7 @@ export class FooterCountComponent implements OnInit {
     });
   }
 
-  async getTier(moonBalance: number) {
+  async getTier(balance: number) {
     const tiers = [
       "Wood",
       "Silver",
@@ -56,11 +56,20 @@ export class FooterCountComponent implements OnInit {
       "Diamond"
     ];
 
+    const tierDefaults = [
+      0,50000000000,75000000000,100000000000
+    ];
+
     this.moonBoxLimitDetails = await this.walletConnectService.getDetailsMoonboxlimit();
     for (let i = 3; i >= 0; i--) {
-
-      if (moonBalance >= Number(this.moonBoxLimitDetails[i])) {
-        this.eligibleTier = tiers[i]
+      if(this.moonBoxLimitDetails[i] == 0) { // limit may not be set in contract
+        if(balance >= tierDefaults[i]) { // use default limit
+          this.eligibleTier = tiers[i];
+          break;
+        }
+      }
+      else if (balance >= Number(this.moonBoxLimitDetails[i])) {
+        this.eligibleTier = tiers[i];
         break;
       }
     }
