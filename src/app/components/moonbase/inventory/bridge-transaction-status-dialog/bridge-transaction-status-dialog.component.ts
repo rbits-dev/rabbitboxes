@@ -5,9 +5,11 @@ import {
   MatDialogRef,
 } from "@angular/material/dialog";
 import { ToastrService } from "ngx-toastr";
+import { CHAIN_CONFIGS } from "src/app/components/base/wallet/connect/constants/blockchain.configs";
 import { HttpApiService } from "src/app/services/http-api.service";
 import { WalletConnectService } from "src/app/services/wallet-connect.service";
 import { environment } from "src/environments/environment";
+
 
 @Component({
   selector: "app-bridge-transaction-status-dialog",
@@ -53,18 +55,11 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
           this.btn4Text = "Done";
           this.successIcon8 = true;
 
-          this.txHashHref =
-          this.data.fromChain == 1
-          ? environment.explorerURLForEth[0]
-          : environment.explorerURLForEth[1] + "tx/" + res.transactionHash;
+          this.txHashHref = CHAIN_CONFIGS[ this.data.fromChain ].config.params[0].blockExplorerUrls[0] + "tx/" + res.transactionHash;
           this.transactionHash =
-          this.data.fromChain == 1
-          ? environment.explorerURLForEth[0]
-          : environment.explorerURLForEth[1] +
-            "tx/" +
-            res.transactionHash.substring(0, 4) +
-            "..." +
-            res.transactionHash.substring(62, 66);
+                      res.transactionHash.substring(0, 4) +
+                      "..." +
+                      res.transactionHash.substring(62, 66);
         }, 30000);
       }
     });

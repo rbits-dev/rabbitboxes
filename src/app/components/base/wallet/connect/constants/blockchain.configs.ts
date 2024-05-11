@@ -14,6 +14,7 @@ export const CHAIN_CONFIGS: any = {
         {
           chainId: '0x1',
           rpcUrls: ['https://eth-mainnet.g.alchemy.com/v2/m8vauNqmfRzR_Hdrk_vMbxMOAJoZFW5Z','https://rpc.payload.de','https://rpc.mevblocker.io/noreverts','https://ethereum-rpc.publicnode.com'],
+          blockExplorerUrls: [ 'https://etherscan.io']
         },
       ],
     },
@@ -31,6 +32,7 @@ export const CHAIN_CONFIGS: any = {
         {
           chainId: '0xAA36A7',
           rpcUrls: ['https://ethereum-sepolia-rpc.publicnode.com'],
+          blockExplorerUrls: [ 'https://sepolia.etherscan.io']
         },
       ],
     },

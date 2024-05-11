@@ -12,7 +12,5 @@ export const environment = {
   configFile: 'mainnet',
   assetBaseUrl: '/boxes/assets',
   adminPanelUrl : "https://rbits.xyz/boxes/admin/",
-  explorerURLForEth:["https://etherscan.io/",'https://basescan.org/'],
-
 
 };

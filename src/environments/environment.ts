@@ -16,7 +16,6 @@ export const environment = {
   configFile: "testnet",
   adminPanelUrl: "http://codetentacles-006-site41.htempurl.com/",
   moralisChain: "bsc+testnet",
-  explorerURLForEth: ["https://sepolia.etherscan.io/","https://sepolia.basescan.org/"],
   assetBaseUrl: "/assets",
 
 };
