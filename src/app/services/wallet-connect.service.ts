@@ -618,6 +618,45 @@ export class WalletConnectService {
     return promise;
   }
 
+
+  async getUserBalance(addr) {
+    try {
+      const web3 = new Web3(CHAIN_CONFIGS[1].rpcUrls[0]);
+      const RBITS = environment.tokenContractAddress
+      const abi = [
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_owner",
+                    "type": "address"
+                }
+            ],
+            "name": "balanceOf",
+            "outputs": [
+                {
+                    "name": "balance",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+      ];
+  
+      const rabbitContract = new web3.eth.Contract(abi as any, RBITS);
+      const rabbitsBalance = await rabbitContract.methods.balanceOf(addr).call();
+
+      return Number(rabbitsBalance);
+
+    } catch (e) {
+      console.log("Unable to get balance:", e);
+    }
+
+    return Number(0);
+  }
+/*
   async getUserBalance(userAddress: string): Promise<number> {
     if (this.ChainId != 1) {
       return Number(0); // RBITS token is only deployed on ETH
@@ -627,6 +666,7 @@ export class WalletConnectService {
 
     return Number(num);
   }
+*/
 
   async getTransactionHashForBetSubmit(
     lootBoxId: any,
