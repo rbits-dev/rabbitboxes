@@ -172,16 +172,6 @@ export class HttpApiService {
     return this.httpClient.post(url, data, { headers: this.headers });
   }
 
-  claimRewardDetails(data: any): Observable<any> {
-    const url = `${baseURL}getReward`;
-    return this.httpClient.post(url, data, { headers: this.headers });
-  }
-
-  claimRewardTransactionHashUpdate(data: any): Observable<any> {
-    const url = `${baseURL}transactionHashForReward`;
-    return this.httpClient.post(url, data, { headers: this.headers });
-  }
-
   transferNft(data: any): Observable<any> {
     const url = `${baseURL}transferNft`;
     return this.httpClient.post(url, data, { headers: this.headers });
