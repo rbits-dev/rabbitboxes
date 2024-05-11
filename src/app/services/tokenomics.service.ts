@@ -5,6 +5,8 @@ import Web3 from 'web3';
 
 import uniswapABI from '../../assets/web3/router-abi.json';
 import tokenABI from '../../assets/web3/rbits-abi.json';
+import { CHAIN_CONFIGS } from "../components/base/wallet/connect/constants/blockchain.configs";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +18,7 @@ export class TokenomicsService {
   private serverError: boolean = false;
   public tokenomicsData: any;
   public oldPancakeAddress = true;
+
 
   onToggle(state?: boolean) {
     this.toggle.next(state);
@@ -46,20 +49,19 @@ export class TokenomicsService {
 
   async getTokenomicsData() {
       try {
-          const web3Provider = new Web3.providers.HttpProvider('https://eth.llamarpc.com');
+          const web3Provider = new Web3.providers.HttpProvider( CHAIN_CONFIGS[ 1 ].rpcUrls[0] );
           const web3 = new Web3(web3Provider);
 
           const uniswapRouter = new web3.eth.Contract(uniswapABI as any, "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D");
-          const ssRouter = new web3.eth.Contract(tokenABI as any, "0xa6EbCC4C5C0316191eA95BFC90F591DF23A03DFE");
+          const ssRouter = new web3.eth.Contract(tokenABI as any, environment.tokenContractAddress);
 
           const WETH = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2";
-          const RBITS = "0xa6EbCC4C5C0316191eA95BFC90F591DF23A03DFE";
           const USD = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
 
           const amount = web3.utils.toWei("1");
 
           const usdPAir = await uniswapRouter.methods.getAmountsOut(amount, [WETH, USD]).call();
-          const uniTotalOutputSell = await uniswapRouter.methods.getAmountsOut(amount, [WETH, RBITS]).call();
+          const uniTotalOutputSell = await uniswapRouter.methods.getAmountsOut(amount, [WETH, environment.tokenContractAddress]).call();
  
           const totalSupply = await ssRouter.methods.totalSupply().call();
           const deadBalance = await ssRouter.methods.balanceOf("0x000000000000000000000000000000000000dead").call();
