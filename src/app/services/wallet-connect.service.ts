@@ -606,7 +606,7 @@ export class WalletConnectService {
 
   async getUserBalance(addr) {
     try {
-      const web3 = new Web3(CHAIN_CONFIGS[1].config.params[0].config.params[0].rpcUrls[0]);
+      const web3 = new Web3(CHAIN_CONFIGS[1].config.params[0].rpcUrls[0]);
       const RBITS =       environment.tokenContractAddress
       const abi = [
         {
