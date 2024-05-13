@@ -323,10 +323,9 @@ export class NavComponent implements OnInit {
     }
   }
 
-  async changeChain(config: any, index: any) {
-    if (config !== undefined) {
+  async changeChain( index: any) {
+
       try {
-        await this.windowRef.nativeWindow.ethereum.request(config);
         this.walletConnectService.updateChainId(this.chains[index]);
         this.toastrService.success(
           `You are connected to ${
@@ -341,7 +340,7 @@ export class NavComponent implements OnInit {
         this.toastrService.error(`${error.message}`);
         this.walletConnectService.handleMetamaskError(error);
       }
-    }
+
     this.isTooltipActive = true;
   }
 
@@ -356,9 +355,11 @@ export class NavComponent implements OnInit {
           },
         ],
       });
+      this.changeChain(index)
     } catch (error) {
       if (error.code === 4902) {
-        this.changeChain(config, index); //add new chain
+        await this.windowRef.nativeWindow.ethereum.request(config);
+        this.changeChain(index); //add new chain
       } else {
         this.toastrService.error(`${error.message}`);
         this.walletConnectService.handleMetamaskError(error);
