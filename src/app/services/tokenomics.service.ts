@@ -49,7 +49,7 @@ export class TokenomicsService {
 
   async getTokenomicsData() {
       try {
-          const web3Provider = new Web3.providers.HttpProvider( CHAIN_CONFIGS[ 1 ].rpcUrls[0] );
+          const web3Provider = new Web3.providers.HttpProvider(CHAIN_CONFIGS[1]?.config.params[0].rpcUrls[0] );
           const web3 = new Web3(web3Provider);
 
           const uniswapRouter = new web3.eth.Contract(uniswapABI as any, "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D");
@@ -62,7 +62,7 @@ export class TokenomicsService {
 
           const usdPAir = await uniswapRouter.methods.getAmountsOut(amount, [WETH, USD]).call();
           const uniTotalOutputSell = await uniswapRouter.methods.getAmountsOut(amount, [WETH, environment.tokenContractAddress]).call();
- 
+
           const totalSupply = await ssRouter.methods.totalSupply().call();
           const deadBalance = await ssRouter.methods.balanceOf("0x000000000000000000000000000000000000dead").call();
           const vestedBalance = await ssRouter.methods.balanceOf("0xFafd585780Df0f500Ed9321676FA51fca872B419").call();
@@ -72,7 +72,7 @@ export class TokenomicsService {
           const deadSupplyBN = web3.utils.toBN(deadBalance);
           const vestedBalanceBN = web3.utils.toBN(vestedBalance);
           const deployerBalanceBN = web3.utils.toBN(deployerBalance);
-          
+
           const circSupply = totalSupplyBN.sub(deadSupplyBN).sub(vestedBalanceBN).sub(deployerBalanceBN);
 
           const circ = circSupply.div(web3.utils.toBN(1e9)).toNumber();
@@ -80,7 +80,7 @@ export class TokenomicsService {
           const oneETHinRBITS = (uniTotalOutputSell[1] / 1e9) * 0.95;
 
           const price1ETHinUSD = usdPAir[1] / 1e6;
-          
+
           const marketcap = circ * (price1ETHinUSD / oneETHinRBITS);
           const priceOf1RBITSInUSD = price1ETHinUSD / oneETHinRBITS;
 
