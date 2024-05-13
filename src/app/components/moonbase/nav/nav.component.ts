@@ -287,7 +287,7 @@ export class NavComponent implements OnInit {
     const target = event.target as HTMLElement;
     const dropdown = document.getElementById('myDropdown');
     const dropdownButton = document.getElementById('dropdwonButton');
-    
+
     if (!dropdownButton || !dropdownButton.contains(target)) {
       const dropdowns = document.getElementsByClassName('dropdown-content');
       let i;
@@ -299,7 +299,7 @@ export class NavComponent implements OnInit {
         }
       }
     }
-    
+
     if (dropdown && dropdownButton) {
       const isInsideDropdown = dropdown.contains(target) || dropdownButton.contains(target);
       if (!isInsideDropdown) {
@@ -307,7 +307,7 @@ export class NavComponent implements OnInit {
       }
     }
   }
-  
+
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {

@@ -13,6 +13,11 @@ export const CHAIN_CONFIGS: any = {
       params: [
         {
           chainId: '0x1',
+          chainName: 'Ethereum Mainet',
+          nativeCurrency: {
+            symbol: 'ETH',
+            decimals: 18,
+          },
           rpcUrls: ['https://eth-mainnet.g.alchemy.com/v2/m8vauNqmfRzR_Hdrk_vMbxMOAJoZFW5Z','https://rpc.payload.de','https://rpc.mevblocker.io/noreverts','https://ethereum-rpc.publicnode.com'],
           blockExplorerUrls: [ 'https://etherscan.io']
         },
@@ -31,6 +36,11 @@ export const CHAIN_CONFIGS: any = {
       params: [
         {
           chainId: '0xAA36A7',
+          chainName: 'Sepolia',
+          nativeCurrency: {
+            symbol: 'ETH',
+            decimals: 18,
+          },
           rpcUrls: ['https://ethereum-sepolia-rpc.publicnode.com'],
           blockExplorerUrls: [ 'https://sepolia.etherscan.io']
         },
