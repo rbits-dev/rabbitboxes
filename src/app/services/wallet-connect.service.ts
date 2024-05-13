@@ -40,9 +40,7 @@ const providerOptionsForRBITS = {
 // allow WalletConnectProvider to know which RPC endpoints to use for each supported network
 providerChainID.forEach((supportedChainId) => {
   providerOptionsForRBITS.walletconnect.rpc[supportedChainId] =
-    supportedChainId == 1 || supportedChainId == 11155111
-      ? CHAIN_CONFIGS[supportedChainId]?.rpcUrls[0]
-      : CHAIN_CONFIGS[supportedChainId]?.config.params[0].rpcUrls[0];
+      CHAIN_CONFIGS[supportedChainId]?.config.params[0].rpcUrls[0];
 });
 
 // const web3Modal = new Web3Modal({
@@ -105,7 +103,7 @@ export class WalletConnectService {
 
   initTokenCA() {
     // Token is on ETH
-    let providerRPC = this.chainConfigs[1].rpcUrls[0];
+    let providerRPC = this.chainConfigs[1].config.params[0].rpcUrls[0];
     var web3Provider = new Web3.providers.HttpProvider(providerRPC);
     var web3 = new Web3(web3Provider);
     this.SilverContract = new web3.eth.Contract(
@@ -479,12 +477,8 @@ export class WalletConnectService {
         return address; //spaceID on BSC
       }
 
-      let rpc =
-        chainId == 1 || chainId == 11155111
-          ? this.chainConfigs[chainId].rpcUrls[0]
-          : this.chainConfigs[chainId].config.params[0].rpcUrls[0];
+      let rpc = this.chainConfigs[chainId].config.params[0].rpcUrls[0];
       const provider = new Web3.providers.HttpProvider(rpc);
-
       this.sid = new SID({
         provider,
         sidAddress: SIDfunctions.getSidAddress(chainId),
@@ -621,7 +615,7 @@ export class WalletConnectService {
 
   async getUserBalance(addr) {
     try {
-      const web3 = new Web3(CHAIN_CONFIGS[1].rpcUrls[0]);
+      const web3 = new Web3(CHAIN_CONFIGS[1]?.config.params[0].rpcUrls[0]);
       const RBITS = environment.tokenContractAddress
       const abi = [
         {
@@ -644,7 +638,7 @@ export class WalletConnectService {
             "type": "function"
         },
       ];
-  
+
       const rabbitContract = new web3.eth.Contract(abi as any, RBITS);
       const rabbitsBalance = await rabbitContract.methods.balanceOf(addr).call();
 
@@ -1097,25 +1091,10 @@ export class WalletConnectService {
   }
   //CHECK APROVAL FOR BRIDGE NFT
   async isApprovalBridgeNFT(contractAddress: string) {
-    //var chainId = this.chainId.value;
-    //let index = environment.chainId.indexOf(chainId ?? 56);
-    //let address = config[environment.configFile][index].BridgeNftAddress;
 
     const node = config[environment.configFile].find(
       (chain: any) => chain.chainId == this.chainId.value
     );
-    // if (node.bridgeCollectionAddress === undefined) {
-    //   console.error(
-    //     "Error: bridgeCollectionAddress not set for chain ",
-    //     this.chainId.value
-    //   );
-    // }
-    if (node.destination === undefined) {
-      console.error(
-        "Error: destination not set for chain ",
-        this.chainId.value
-      );
-    }
 
     this.BridgeCollectionContract = new ethers.Contract(
       contractAddress,
@@ -1196,17 +1175,16 @@ export class WalletConnectService {
       const node = config[environment.configFile].find(
         (chain: any) => chain.chainId == this.chainId.value
       );
-      if (node.destination === undefined) {
+      if (node[fromChain].destination === undefined) {
         console.error(
           "Error: destinationAddress not set for chain ",
           this.chainId.value
         );
       }
 
-      let EndpointId = fromChain == 1 ? node.destChainId : node.destChainIdBase;
-      let destination =
-        fromChain == 1 ? node.destination : node.destinationBase;
-      let sign = [signature.v, signature.r, signature.s, signature.nonce];
+      const EndpointId =  node[fromChain].destChainId
+      const destination = node[fromChain].destination;
+      const sign = [signature.v, signature.r, signature.s, signature.nonce];
 
       const calculatedFees = await this.estimateFees({
         EndpointId,
@@ -1225,7 +1203,7 @@ export class WalletConnectService {
       // Convert fees to hexadecimal format
       const hexFees = ethers.utils.parseUnits(totalFees.toString(), "wei");
       // Call the crossChain function with the calculated fees including 10% extra
-      let txn = await this.BridgeContract.crossChain(
+      const txn = await this.BridgeContract.crossChain(
         EndpointId,
         destination,
         tokenIds,
@@ -1244,7 +1222,10 @@ export class WalletConnectService {
   async listenToEvents(fromChain) {
     let provider;
     let providerIndex = 0;
-    let providerURLForEth = this.chainConfigs[environment.chainId[0]].rpcUrls;
+    const node = config[environment.configFile].find(
+      (chain: any) => chain.chainId == this.chainId.value
+    );
+    let providerURLForEth = node[fromChain].rpcUrls;
     while (!provider && providerIndex < providerURLForEth.length) {
       try {
         provider = new ethers.providers.JsonRpcProvider(
@@ -1264,17 +1245,9 @@ export class WalletConnectService {
       );
       throw new Error("All JSON-RPC providers failed.");
     }
-    console.log(
-      "listenevent on",
-      fromChain == 1
-        ? environment.rabbitControllerAddress[0]
-        : environment.rabbitControllerAddress[1]
-    );
 
     const contract = new ethers.Contract(
-      fromChain == 1
-        ? environment.rabbitControllerAddress[0]
-        : environment.rabbitControllerAddress[1],
+     node[fromChain].rabbitControllerAddress,
       MINT_NFT_ABI,
       provider
     );

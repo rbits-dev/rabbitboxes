@@ -54,17 +54,17 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
           this.successIcon8 = true;
 
           this.txHashHref =
-          this.data.fromChain == 1
-          ? environment.explorerURLForEth[0]
-          : environment.explorerURLForEth[1] + "tx/" + res.transactionHash;
+            this.data.fromChain == 'eth'
+              ? environment.explorerURLForEth[0]
+              : environment.explorerURLForEth[1] + "tx/" + res.transactionHash;
           this.transactionHash =
-          this.data.fromChain == 1
-          ? environment.explorerURLForEth[0]
-          : environment.explorerURLForEth[1] +
-            "tx/" +
-            res.transactionHash.substring(0, 4) +
-            "..." +
-            res.transactionHash.substring(62, 66);
+            this.data.fromChain == 'eth'
+              ? environment.explorerURLForEth[0]
+              : environment.explorerURLForEth[1] +
+                "tx/" +
+                res.transactionHash.substring(0, 4) +
+                "..." +
+                res.transactionHash.substring(62, 66);
         }, 30000);
       }
     });
@@ -101,7 +101,7 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
         srcContract: this.data.srcContract,
         destContract: this.data.destContract,
         userAddress: localStorage.getItem("address"),
-        fromChain:this.data.fromChain
+        fromChain: this.data.fromChain === "eth" ? 1 : 2, //for backend use
       });
       await this.tx(result.data);
     } catch (error) {

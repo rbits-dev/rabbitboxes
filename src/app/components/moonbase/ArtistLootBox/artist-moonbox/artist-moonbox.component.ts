@@ -1,27 +1,31 @@
-import { ChangeDetectorRef, Component, OnInit, TemplateRef } from '@angular/core';
-import { WalletConnectService } from 'src/app/services/wallet-connect.service';
-import { MatDialog } from '@angular/material/dialog';
-import { HttpApiService } from 'src/app/services/http-api.service';
-import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute } from '@angular/router';
-import { ModalForTransactionComponent } from '../../modal-for-transaction/modal-for-transaction.component';
-import { environment } from 'src/environments/environment';
-import { WalletConnectComponent } from 'src/app/components/base/wallet/connect/connect.component';
-import { ArtistMoonbox, Supply } from 'src/app/models/artist-moonbox.model';
-import { MESSAGES } from 'src/app/messages.enum';
-import { UserDetailsProvider } from 'src/app/services/user-details.provider';
-import { SwiperOptions } from 'swiper';
-import { CollectionOverviewComponent } from 'src/app/components/base/dialogs/collection-overview/collection-overview.component';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  TemplateRef,
+} from "@angular/core";
+import { WalletConnectService } from "src/app/services/wallet-connect.service";
+import { MatDialog } from "@angular/material/dialog";
+import { HttpApiService } from "src/app/services/http-api.service";
+import { ToastrService } from "ngx-toastr";
+import { ActivatedRoute } from "@angular/router";
+import { ModalForTransactionComponent } from "../../modal-for-transaction/modal-for-transaction.component";
+import { environment } from "src/environments/environment";
+import { WalletConnectComponent } from "src/app/components/base/wallet/connect/connect.component";
+import { ArtistMoonbox, Supply } from "src/app/models/artist-moonbox.model";
+import { MESSAGES } from "src/app/messages.enum";
+import { UserDetailsProvider } from "src/app/services/user-details.provider";
+import { SwiperOptions } from "swiper";
+import { CollectionOverviewComponent } from "src/app/components/base/dialogs/collection-overview/collection-overview.component";
 
 @Component({
-  selector: 'app-artist-moonbox',
-  templateUrl: './artist-moonbox.component.html',
-  styleUrls: ['./artist-moonbox.component.scss']
+  selector: "app-artist-moonbox",
+  templateUrl: "./artist-moonbox.component.html",
+  styleUrls: ["./artist-moonbox.component.scss"],
 })
 export class ArtistMoonboxComponent implements OnInit {
-
-  static readonly routeName: string = 'artist/:artistAddress';
-  assetBaseUrl = environment.assetBaseUrl
+  static readonly routeName: string = "artist/:artistAddress";
+  assetBaseUrl = environment.assetBaseUrl;
   slides: any[] = [];
   artistData: any;
   removeitemIndex: any[] = [];
@@ -29,7 +33,7 @@ export class ArtistMoonboxComponent implements OnInit {
 
   swiperConfig: SwiperOptions = {
     slidesPerView: 1,
-    effect: 'fade',
+    effect: "fade",
     allowTouchMove: false,
     autoplay: {
       delay: 2500,
@@ -54,8 +58,8 @@ export class ArtistMoonboxComponent implements OnInit {
 
   swiperConfigMobile: SwiperOptions = {
     slidesPerView: 3,
-    effect: 'coverflow',
-    direction: 'horizontal',
+    effect: "coverflow",
+    direction: "horizontal",
     centeredSlides: true,
     autoplay: {
       delay: 2000,
@@ -91,17 +95,14 @@ export class ArtistMoonboxComponent implements OnInit {
       },
       200: {
         slidesPerView: 1.5,
-      }
-
-    }
-
+      },
+    },
   };
-
 
   readonly messages = MESSAGES;
   mainMessage: string = MESSAGES.IDLE;
 
-   boxTypes = ["wood", "silver", "gold", "diamond"]
+  boxTypes = ["wood", "silver", "gold", "diamond"];
 
   current = 0;
   supply: number[] = [];
@@ -119,25 +120,28 @@ export class ArtistMoonboxComponent implements OnInit {
   moonBoxLimitDetails: any;
   public infoHoverList: any[] = [
     {
-      "isHovered": false,
-      "tooltipText": "You need 0 RBITS token\nto open a Wood RabbitBox."
+      isHovered: false,
+      tooltipText: "You need 0 RBITS token\nto open a Wood RabbitBox.",
     },
     {
-      "isHovered": false,
-      "tooltipText": "You need 75,000,000,000 RBITS tokens to open a Silver RabbitBox."
+      isHovered: false,
+      tooltipText:
+        "You need 75,000,000,000 RBITS tokens to open a Silver RabbitBox.",
     },
     {
-      "isHovered": false,
-      "tooltipText": "You need 150,000,000,000 RBITS tokens to open a Gold RabbitBox."
+      isHovered: false,
+      tooltipText:
+        "You need 150,000,000,000 RBITS tokens to open a Gold RabbitBox.",
     },
     {
-      "isHovered": false,
-      "tooltipText": "You need 250,000,000,000 RBITS tokens to open a Diamond RabbitBox."
+      isHovered: false,
+      tooltipText:
+        "You need 250,000,000,000 RBITS tokens to open a Diamond RabbitBox.",
     },
   ];
   chainId: number;
 
-  pageLoader :boolean =false;
+  pageLoader: boolean = false;
   constructor(
     public walletConnectService: WalletConnectService,
     private toastrService: ToastrService,
@@ -155,9 +159,10 @@ export class ArtistMoonboxComponent implements OnInit {
   ngOnInit(): void {
     this.walletConnectService.init();
 
-    this.walletConnectService.onWalletStateChanged().subscribe((state: boolean) => this.isConnected = state);
+    this.walletConnectService
+      .onWalletStateChanged()
+      .subscribe((state: boolean) => (this.isConnected = state));
     this.walletConnectService.getData().subscribe((data) => {
-
       if (data === undefined || data.address === undefined) {
         this.mainMessage = MESSAGES.UNABLE_TO_CONNECT;
         return;
@@ -175,25 +180,25 @@ export class ArtistMoonboxComponent implements OnInit {
       this.chainId = data;
     });
 
-    this.userProvider.onReceive().subscribe((userData: any) => {
+    this.userProvider.onReceive().subscribe(
+      (userData: any) => {
+        this.balance = userData.balance;
 
-      this.balance = userData.balance;
-
-
-
-      this.getMoonboxTierLimits();
-    }, (error) => { console.log(error); });
+        this.getMoonboxTierLimits();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
 
     if (!this.isConnected) {
-
     }
     this.getMaxSupply();
   }
 
   hasEnoughRBITS(index: number) {
-
     if (this.balance != null && this.moonBoxLimitDetails != null) {
-      return (Number(this.balance) >= Number(this.moonBoxLimitDetails[index]));
+      return Number(this.balance) >= Number(this.moonBoxLimitDetails[index]);
     }
 
     return false;
@@ -201,20 +206,32 @@ export class ArtistMoonboxComponent implements OnInit {
 
   async getMoonboxTierLimits() {
     if (this.balance >= 0) {
-
-      this.moonBoxLimitDetails = await this.walletConnectService.getDetailsMoonboxlimit(this.artistDetails?.walletAddress == environment.ownerAddress ? false : true);
+      this.moonBoxLimitDetails = await this.walletConnectService.getDetailsMoonboxlimit(
+        this.artistDetails?.walletAddress == environment.ownerAddress
+          ? false
+          : true
+      );
       for (let i = 0; i < 4; i++) {
-        this.infoHoverList[i].tooltipText = "You need " + (this.moonBoxLimitDetails[i] / 1e18).toLocaleString('en-us', { minimumFractionDigits: 0 }) + " RBITS tokens\nto open a " + this.boxTypes[i] + " Rabbit Box.";
+        this.infoHoverList[i].tooltipText =
+          "You need " +
+          (this.moonBoxLimitDetails[i] / 1e18).toLocaleString("en-us", {
+            minimumFractionDigits: 0,
+          }) +
+          " RBITS tokens\nto open a " +
+          this.boxTypes[i] +
+          " Rabbit Box.";
       }
     }
-
   }
 
   onIncreaseSupplyInterestAmount(index: number) {
-    if(this.supplyDetails[index].limitPerTxn==this.supply[index]){
-      this.toastrService.warning(`You can buy at most ${this.supplyDetails[index].limitPerTxn} boxes.`)
-    }else{
-      this.supply[index] += this.supply[index] < this.supplyDetails[index].currentSupply ? 1 : 0;
+    if (this.supplyDetails[index].limitPerTxn == this.supply[index]) {
+      this.toastrService.warning(
+        `You can buy at most ${this.supplyDetails[index].limitPerTxn} boxes.`
+      );
+    } else {
+      this.supply[index] +=
+        this.supply[index] < this.supplyDetails[index].currentSupply ? 1 : 0;
     }
   }
 
@@ -224,58 +241,56 @@ export class ArtistMoonboxComponent implements OnInit {
 
   next(by: number) {
     const boxes = this.lootBoxDetails.length;
-    this.current = (this.current + by) - boxes * Math.floor((this.current + by) / boxes);
+    this.current =
+      this.current + by - boxes * Math.floor((this.current + by) / boxes);
   }
 
   openDialog(): void {
-    let dialogRef = this.dialog.open(WalletConnectComponent, { width: 'auto' });
+    let dialogRef = this.dialog.open(WalletConnectComponent, { width: "auto" });
 
     dialogRef.afterClosed().subscribe((_) => {
       this.walletConnectService.getData().subscribe((data) => {
         this.data = data;
         this.isConnected = this.data.address !== undefined;
-      })
+      });
     });
   }
 
   async getMaxSupply() {
+    await this.httpApi
+      .getArtistMoonboxData(
+        this.activatedRoute.snapshot.params["artistAddress"],
+        this.data?.address
+      )
+      .then((response: ArtistMoonbox) => {
+        if (response.isSuccess) {
+          this.artistDetails = response;
+          this.supplyDetails = this.artistDetails.data;
+          this.supplyDetails.forEach((item: Supply) => {
+            if (!item.isminted) {
+              const index = this.boxTypes.findIndex(
+                (box) =>
+                  box.toLocaleLowerCase() == item.type.toLocaleLowerCase()
+              );
+              this.removeitemIndex.push(index);
+            }
+            this.supply.push(item.hasSupply() ? 1 : 0);
+          });
 
-  await  this.httpApi.getArtistMoonboxData(
-      this.activatedRoute.snapshot.params['artistAddress'],
-      this.data?.address
-    ).then((response: ArtistMoonbox) => {
-      if (response.isSuccess) {
-
-        this.artistDetails = response;
-        this.supplyDetails = this.artistDetails.data;
-        this.supplyDetails.forEach((item: Supply) => {
-          if (!item.isminted) {
-            const index = this.boxTypes.findIndex(box => box.toLocaleLowerCase() == item.type.toLocaleLowerCase());
-            this.removeitemIndex.push(index);
-
+          if (this.removeitemIndex.length > 0) {
+            if (!this.isgetMaxSupplyCall) {
+              this.removeitem(this.removeitemIndex);
+            }
           }
-          this.supply.push(item.hasSupply() ? 1 : 0);
-
-
-        });
-
-        if (this.removeitemIndex.length > 0) {
-
-          if (!this.isgetMaxSupplyCall) {
-            this.removeitem(this.removeitemIndex);
-          }
+        } else {
+          this.mainMessage = MESSAGES.NO_SUPPLY;
         }
-      } else {
-        this.mainMessage = MESSAGES.NO_SUPPLY;
-      }
-    })
-    this.pageLoader=true;
+      });
+    this.pageLoader = true;
     this.changeDetectionRef.detectChanges();
   }
 
-
   removeitem(removeValFromIndex: any) {
-
     for (var i = removeValFromIndex.length - 1; i >= 0; i--) {
       this.boxTypes.splice(removeValFromIndex[i], 1);
       this.supplyDetails.splice(removeValFromIndex[i], 1);
@@ -286,18 +301,15 @@ export class ArtistMoonboxComponent implements OnInit {
 
   buyMoonBase(index: number) {
     if (!this.hasEnoughRBITS(index) || this.supply[index] === 0) {
-      return false
-    }
-    else if (this.data === undefined || this.data.address === undefined)
+      return false;
+    } else if (this.data === undefined || this.data.address === undefined)
       this.openDialog();
-    else
-      this.submitBetToContract(index);
+    else this.submitBetToContract(index);
 
     return false;
   }
 
   async submitBetToContract(index: number) {
-
     const item: Supply = this.supplyDetails[index];
 
     if (item.currentSupply === 0) {
@@ -312,59 +324,63 @@ export class ArtistMoonboxComponent implements OnInit {
 
     this.invisible = true;
     this.fadeOut = true;
-    this.dialog.open(ModalForTransactionComponent, {
-      width: 'auto',
-      disableClose: true,
-      data: {
-        inputNumber: this.supply[index],
-        lootBoxName: this.lootBoxDetails[index].name,
-        data: this.data,
-        index: index,
-        balance: this.balance,
-        isArtistLootBox: this.artistDetails.walletAddress == environment.ownerAddress ? false : true,
-        artistDetails: {
-          lootBoxId: this.supplyDetails[index].id,
-          price: this.supplyDetails[index].price,
-          address: this.artistDetails.walletAddress,
-          signature: this.supplyDetails[index].signature,
-          limit: this.supplyDetails[index].limitPerTxn,
-          tokenAddress: this.supplyDetails[index].tokenAddress,
-          ArtistNFTAddress: this.artistDetails.ArtistNFTAddress
-        }
-      },
-      panelClass: 'custom-modalbox'
-    }).afterClosed().subscribe(async result => {
-      this.pageLoader = false;
-      this.userProvider.onReceive().subscribe((userData: any) => {
-        this.balance = userData.balance;
-        // this.getMaxSupply();
-        // this.getMoonboxTierLimits();
-      }, (error) => {
-        console.log(error);
+    this.dialog
+      .open(ModalForTransactionComponent, {
+        width: "auto",
+        disableClose: true,
+        data: {
+          inputNumber: this.supply[index],
+          lootBoxName: this.lootBoxDetails[index].name,
+          data: this.data,
+          index: index,
+          balance: this.balance,
+          isArtistLootBox:
+            this.artistDetails.walletAddress == environment.ownerAddress
+              ? false
+              : true,
+          artistDetails: {
+            lootBoxId: this.supplyDetails[index].id,
+            price: this.supplyDetails[index].price,
+            address: this.artistDetails.walletAddress,
+            signature: this.supplyDetails[index].signature,
+            limit: this.supplyDetails[index].limitPerTxn,
+            tokenAddress: this.supplyDetails[index].tokenAddress,
+            ArtistNFTAddress: this.artistDetails.ArtistNFTAddress,
+          },
+        },
+        panelClass: "custom-modalbox",
+      })
+      .afterClosed()
+      .subscribe(async (result) => {
+        this.pageLoader = false;
+        this.userProvider.onReceive().subscribe(
+          (userData: any) => {
+            this.balance = userData.balance;
+            // this.getMaxSupply();
+            // this.getMoonboxTierLimits();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+        this.invisible = false;
+        this.fadeOut = result;
+        this.popupClosed = true;
+        this.getMoonboxTierLimits();
+        this.resetMaxSupplyCalldata();
+        await this.getMaxSupply();
+        this.pageLoader = true;
+        this.walletConnectService.getAccountAddress();
       });
-      this.invisible = false;
-      this.fadeOut = result;
-      this.popupClosed = true;
-      this.getMoonboxTierLimits();
-      this.resetMaxSupplyCalldata();
-       await this.getMaxSupply()
-      this.pageLoader = true;
-      this.walletConnectService.getAccountAddress();
-
-    }
-
-    );
-
 
     return true;
   }
 
-  resetMaxSupplyCalldata()
-  {
+  resetMaxSupplyCalldata() {
     this.boxTypes = ["wood", "silver", "gold", "diamond"];
     this.isgetMaxSupplyCall = false;
-    this.supply=[];
-    this.removeitemIndex=[];
+    this.supply = [];
+    this.removeitemIndex = [];
   }
 
   openDialogWithTemplateRef(templateRef: TemplateRef<any>) {
@@ -380,25 +396,23 @@ export class ArtistMoonboxComponent implements OnInit {
   }
 
   viewDetails(): void {
-    if (this.slides === null || this.artistData === null)
-      return;
+    if (this.slides.length == 0 || this.artistData === null) return;
 
-    this.dialog.open(
-      CollectionOverviewComponent,
-      {
-        width: '100%',
-        maxWidth: '1000px',
-        data: { "slides": this.slides, "artistData": this.artistData },
-        panelClass: 'collection-info-popup-panel',
-      }
-    );
+    this.dialog.open(CollectionOverviewComponent, {
+      width: "100%",
+      maxWidth: "1000px",
+      data: { slides: this.slides, artistData: this.artistData },
+      panelClass: "collection-info-popup-panel",
+    });
   }
 
-  getSliderImages = () => this.httpApi.getRandomCollectionImageListFromArtist(
-    this.activatedRoute.snapshot.params['artistAddress']).then((res) => {
-      this.slides = res.data;
-      this.artistData = res.artistData;
-    });
-
+  getSliderImages = () =>
+    this.httpApi
+      .getRandomCollectionImageListFromArtist(
+        this.activatedRoute.snapshot.params["artistAddress"]
+      )
+      .then((res) => {
+        this.slides = res.data;
+        this.artistData = res.artistData;
+      });
 }
-

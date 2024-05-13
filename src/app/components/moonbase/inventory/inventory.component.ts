@@ -351,11 +351,11 @@ export class InventoryComponent implements OnInit {
   }
 
   //UPGRADE NFT DIALOG BOX
-  openUpgradeNftDialog(fromChain: Number) {
+  openUpgradeNftDialog(fromChain: String) {
     this.dialog
       .open(UpgrateNftSelectionDialogComponent, {
         width: "800px",
-        data: fromChain === 1 ? {...this.nftData,fromChain:fromChain }: {...this.nftDataForBase,fromChain:fromChain},
+        data: fromChain === 'eth' ? {...this.nftData,fromChain:fromChain }: {...this.nftDataForBase,fromChain:fromChain},
       })
       .afterClosed()
       .subscribe((_) => {

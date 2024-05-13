@@ -34,24 +34,26 @@ export class UpgradeNftDialogComponent implements OnInit {
 
   async getMetaData() {
     try {
-      this.isLoading=true
+      this.isLoading = true;
       const baseUrl = await this.httpApi.getMetadataUrl();
       for (let item of this.nftList.nftData) {
         item.isSelected = true;
         this.tokenIds.push(item.token_id);
         this.amounts.push(item.amount);
-
-        const result: any = await this.httpApi.getTokenUriData(
-          item.token_id,
-          baseUrl.baseUrl
-        );
-
-        item.image_path = result.image;
+        try {
+          const result: any = await this.httpApi.getTokenUriData(
+            item.token_id,
+            baseUrl.baseUrl
+          );
+          item.image_path = result.image;
+        } catch (error) {
+          console.log(error);
+        }
         this.cd.detectChanges();
       }
-      this.isLoading = false
+      this.isLoading = false;
     } catch (error) {
-      this.isLoading = false
+      this.isLoading = false;
       console.log(error);
     }
   }
@@ -92,7 +94,7 @@ export class UpgradeNftDialogComponent implements OnInit {
         amounts: this.amounts,
         srcContract: srcContract,
         destContract: destContract,
-        fromChain:this.nftList.fromChain
+        fromChain: this.nftList.fromChain,
       },
       disableClose: true,
     });
