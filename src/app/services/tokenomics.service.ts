@@ -49,7 +49,7 @@ export class TokenomicsService {
 
   async getTokenomicsData() {
       try {
-          const web3Provider = new Web3.providers.HttpProvider(CHAIN_CONFIGS[1]?.config.params[0].rpcUrls[0] );
+          const web3Provider = new Web3.providers.HttpProvider( CHAIN_CONFIGS[ 1 ].rpcUrls[0] );
           const web3 = new Web3(web3Provider);
 
           const uniswapRouter = new web3.eth.Contract(uniswapABI as any, "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D");

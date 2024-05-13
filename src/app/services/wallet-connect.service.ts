@@ -40,7 +40,9 @@ const providerOptionsForRBITS = {
 // allow WalletConnectProvider to know which RPC endpoints to use for each supported network
 providerChainID.forEach((supportedChainId) => {
   providerOptionsForRBITS.walletconnect.rpc[supportedChainId] =
-      CHAIN_CONFIGS[supportedChainId]?.config.params[0].rpcUrls[0];
+    supportedChainId == 1 || supportedChainId == 11155111
+      ? CHAIN_CONFIGS[supportedChainId]?.rpcUrls[0]
+      : CHAIN_CONFIGS[supportedChainId]?.config.params[0].rpcUrls[0];
 });
 
 // const web3Modal = new Web3Modal({
@@ -103,7 +105,7 @@ export class WalletConnectService {
 
   initTokenCA() {
     // Token is on ETH
-    let providerRPC = this.chainConfigs[1].config.params[0].rpcUrls[0];
+    let providerRPC = this.chainConfigs[1].rpcUrls[0];
     var web3Provider = new Web3.providers.HttpProvider(providerRPC);
     var web3 = new Web3(web3Provider);
     this.SilverContract = new web3.eth.Contract(
@@ -476,7 +478,6 @@ export class WalletConnectService {
         console.log("No ENS lookup for chain ", chainId);
         return address; //spaceID on BSC
       }
-
       let rpc = this.chainConfigs[chainId].config.params[0].rpcUrls[0];
       const provider = new Web3.providers.HttpProvider(rpc);
       this.sid = new SID({
@@ -615,7 +616,7 @@ export class WalletConnectService {
 
   async getUserBalance(addr) {
     try {
-      const web3 = new Web3(CHAIN_CONFIGS[1]?.config.params[0].rpcUrls[0]);
+      const web3 = new Web3(CHAIN_CONFIGS[1].rpcUrls[0]);
       const RBITS = environment.tokenContractAddress
       const abi = [
         {
