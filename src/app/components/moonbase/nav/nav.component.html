@@ -38,7 +38,7 @@
               </div>
             </div>
             <div id="myDropdown" class="dropdown-content">
-              <a *ngFor="let chain of chains;let i=index" (click)="changeChain(chainConfigs[chain].config,i)"
+              <a *ngFor="let chain of chains;let i=index" (click)="handleSwitchNetwork(chainConfigs[chain].config,i)"
                 [class.active]="ChainId == chain">
                 {{ chainConfigs[chain]?.name ?? '' }}
               </a>

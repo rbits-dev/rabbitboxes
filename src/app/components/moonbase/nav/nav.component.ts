@@ -1,23 +1,27 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { WalletConnectService } from 'src/app/services/wallet-connect.service';
-import { Router, NavigationStart, Event as NavigationEvent } from '@angular/router';
-import { Location } from '@angular/common';
-import { environment } from 'src/environments/environment';
-import { TokenomicsService } from 'src/app/services/tokenomics.service';
-import { MoonbaseComponent } from '../moonbase.component';
-import { WalletConnectComponent } from '../../base/wallet/connect/connect.component';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { NetworkComponent } from '../../base/wallet/connect/network/network.component';
-import { CHAIN_CONFIGS } from '../../base/wallet/connect/constants/blockchain.configs';
-import { ErrorDialogComponent } from '../../base/wallet/connect/error-dialog/error-dialog.component';
-import { ToastrService } from 'ngx-toastr';
-import { WindowRefService } from 'src/app/services/window-ref.service';
+import { Component, HostListener, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { WalletConnectService } from "src/app/services/wallet-connect.service";
+import {
+  Router,
+  NavigationStart,
+  Event as NavigationEvent,
+} from "@angular/router";
+import { Location } from "@angular/common";
+import { environment } from "src/environments/environment";
+import { TokenomicsService } from "src/app/services/tokenomics.service";
+import { MoonbaseComponent } from "../moonbase.component";
+import { WalletConnectComponent } from "../../base/wallet/connect/connect.component";
+import { LocalStorageService } from "src/app/services/local-storage.service";
+import { NetworkComponent } from "../../base/wallet/connect/network/network.component";
+import { CHAIN_CONFIGS } from "../../base/wallet/connect/constants/blockchain.configs";
+import { ErrorDialogComponent } from "../../base/wallet/connect/error-dialog/error-dialog.component";
+import { ToastrService } from "ngx-toastr";
+import { WindowRefService } from "src/app/services/window-ref.service";
 
 @Component({
-  selector: 'app-nav',
-  templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.scss'],
+  selector: "app-nav",
+  templateUrl: "./nav.component.html",
+  styleUrls: ["./nav.component.scss"],
 })
 export class NavComponent implements OnInit {
   data: any;
@@ -30,7 +34,7 @@ export class NavComponent implements OnInit {
   chainName: any;
   selectedChainId: number = 1;
   ChainId: number = 1; // default is ETH chain
-  event$
+  event$;
   public navItems: any[] = [
     // {
     //   'name': 'MoonBoxes',
@@ -41,58 +45,57 @@ export class NavComponent implements OnInit {
   chainConfigs = CHAIN_CONFIGS;
   currentChainId: number = 1;
   isMultiChainDropdownActive: boolean = false;
-  address: string = '';
+  address: string = "";
 
   public navSubItems: any[] = [
     {
-      icon: './assets/media/icons/moonbase/nav/Menu_return_black.svg',
-      alt: 'return back',
-      tooltip: 'Back',
+      icon: "./assets/media/icons/moonbase/nav/Menu_return_black.svg",
+      alt: "return back",
+      tooltip: "Back",
       click: () => {},
       routerLink: null, // [''],
-      route: '/',
+      route: "/",
     },
     {
-      icon: './assets/media/icons/moonbase/nav/Menu_drops_black.svg',
-      alt: 'drops',
+      icon: "./assets/media/icons/moonbase/nav/Menu_drops_black.svg",
+      alt: "drops",
+      tooltip: "Archived, Now and Next NFT drops.",
+      click: null,
+      routerLink: ["/upcoming"],
+      route: "/upcoming",
+    },
+    {
+      icon: "./assets/media/icons/moonbase/nav/Menu_inventory_black.svg",
+      alt: "inventory",
       tooltip:
-        'Archived, Now and Next NFT drops.',
+        "This is your wallet inventory: an overview of all NFTs you received from the Rabbit Boxes.",
       click: null,
-      routerLink: ['/upcoming'],
-      route: '/upcoming',
+      routerLink: ["/inventory"],
+      route: "/inventory",
     },
     {
-      icon: './assets/media/icons/moonbase/nav/Menu_inventory_black.svg',
-      alt: 'inventory',
-      tooltip:
-        'This is your wallet inventory: an overview of all NFTs you received from the Rabbit Boxes.',
+      icon: "./assets/media/icons/moonbase/nav/Menu_history_black.svg",
+      alt: "history",
+      tooltip: "This is your history: an overview of your Rabbit NFT claims.",
       click: null,
-      routerLink: ['/inventory'],
-      route: '/inventory',
+      routerLink: ["/history"],
+      route: "/history",
     },
     {
-      icon: './assets/media/icons/moonbase/nav/Menu_history_black.svg',
-      alt: 'history',
-      tooltip: 'This is your history: an overview of your Rabbit NFT claims.',
+      icon: "./assets/media/icons/moonbase/nav/Menu_info_black.svg",
+      alt: "info",
+      tooltip: "Here you can find more information about the tier system.",
       click: null,
-      routerLink: ['/history'],
-      route: '/history',
+      routerLink: ["/info"],
+      route: "/info",
     },
     {
-      icon: './assets/media/icons/moonbase/nav/Menu_info_black.svg',
-      alt: 'info',
-      tooltip: 'Here you can find more information about the tier system.',
+      icon: "./assets/media/icons/game-hub.svg",
+      alt: "game",
+      tooltip: "This is our Game Hub: an overview of all Rabbit Games",
       click: null,
-      routerLink: ['/info'],
-      route: '/info',
-    },
-    {
-      icon: './assets/media/icons/game-hub.svg',
-      alt: 'game',
-      tooltip: 'This is our Game Hub: an overview of all Rabbit Games',
-      click: null,
-      routerLink: ['/games'],
-      route: '/games',
+      routerLink: ["/games"],
+      route: "/games",
     },
   ];
 
@@ -100,23 +103,23 @@ export class NavComponent implements OnInit {
   showMultiChainDialog: boolean = true;
 
   backButton: any = {
-    icon: './assets/media/icons/moonbase/nav/Menu_return_black.svg',
-    alt: 'return back',
-    tooltip: 'Back',
+    icon: "./assets/media/icons/moonbase/nav/Menu_return_black.svg",
+    alt: "return back",
+    tooltip: "Back",
     click: () => this.goBack(),
     routerLink: null, // [''],
-    route: '/',
+    route: "/",
   };
 
   homeButton: any = {
-    icon: './assets/media/icons/moonbase/nav/Home.svg',
-    alt: 'return home',
-    tooltip: 'Home',
+    icon: "./assets/media/icons/moonbase/nav/Home.svg",
+    alt: "return home",
+    tooltip: "Home",
     click: () => {
-      this.router.navigate(['/'], { replaceUrl: true })
+      this.router.navigate(["/"], { replaceUrl: true });
     },
     routerLink: null,
-    route: '/',
+    route: "/",
   };
 
   constructor(
@@ -127,15 +130,13 @@ export class NavComponent implements OnInit {
     private toastrService: ToastrService,
     public router: Router,
     private location: Location,
-    private windowRef: WindowRefService,
-
+    private windowRef: WindowRefService
   ) {
     this.event$ = location.onUrlChange((val) => {
       this.isMultiChain();
-    })
+    });
 
-    this.changeNavBarBackButton(window.innerWidth < 1148)
-
+    this.changeNavBarBackButton(window.innerWidth < 1148);
   }
 
   ngOnInit(): void {
@@ -145,10 +146,10 @@ export class NavComponent implements OnInit {
 
     let manualChainId = localStorage.getItem("manual_chainId");
 
-    this.ChainId = manualChainId as unknown as number ?? 1;
+    this.ChainId = ((manualChainId as unknown) as number) ?? 1;
     this.walletConnectService.getSelectedChainId().subscribe((id) => {
       // Lots of vars for the same thing
-      if ( id !== undefined && id > 0) {
+      if (id !== undefined && id > 0) {
         this.selectedChainId = id;
         this.currentChainId = id;
         this.ChainId = id;
@@ -158,10 +159,9 @@ export class NavComponent implements OnInit {
     });
 
     this.walletConnectService.getChainId().subscribe((response) => {
-      if( response !== undefined && response > 0 )
-      {
-          this.ChainId = response;
-          this.checkNetwork();
+      if (response !== undefined && response > 0) {
+        this.ChainId = response;
+        this.checkNetwork();
       }
     });
 
@@ -175,23 +175,22 @@ export class NavComponent implements OnInit {
           this.getRBITSBalance();
         }
       } else {
-        this.balance = 'Awaiting Connection';
+        this.balance = "Awaiting Connection";
         this.isConnected = false;
       }
     });
 
     this.walletConnectService.onWalletStateChanged().subscribe((state) => {
       this.isConnected = state;
-    })
-
+    });
   }
 
   openDialog(): void {
     let dialogRef = this.dialog.open(WalletConnectComponent, {
-      width: 'auto',
+      width: "auto",
     });
 
-    dialogRef.afterClosed().subscribe((result) => { });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 
   async getRBITSBalance() {
@@ -214,7 +213,7 @@ export class NavComponent implements OnInit {
   }
 
   goBack() {
-    if (this.router.url.replace('/', '') !== MoonbaseComponent.routeName)
+    if (this.router.url.replace("/", "") !== MoonbaseComponent.routeName)
       this.location.back();
   }
   toggleTokenomics() {
@@ -232,10 +231,10 @@ export class NavComponent implements OnInit {
 
   network() {
     let dialogRef = this.dialog.open(NetworkComponent, {
-      width: '100%',
+      width: "100%",
     });
 
-    dialogRef.afterClosed().subscribe((result) => { });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 
   changeAccountDetected(accounts: any) {
@@ -252,10 +251,9 @@ export class NavComponent implements OnInit {
   }
 
   checkNetwork() {
-    if( this.ChainId !== undefined && this.ChainId > 0) {
+    if (this.ChainId !== undefined && this.ChainId > 0) {
       this.chainName = CHAIN_CONFIGS[this.ChainId].name;
-    }
-    else {
+    } else {
       this.chainName = "Unknown";
     }
   }
@@ -268,10 +266,13 @@ export class NavComponent implements OnInit {
   }
 
   isMultiChain() {
-    if (this.router.url === '/live' || this.router.url === '/inventory' || this.router.url === '/history') {
+    if (
+      this.router.url === "/live" ||
+      this.router.url === "/inventory" ||
+      this.router.url === "/history"
+    ) {
       this.showMultiChainDialog = false;
-    }
-    else {
+    } else {
       this.showMultiChainDialog = true;
     }
   }
@@ -282,36 +283,36 @@ export class NavComponent implements OnInit {
     this.isTooltipActive = !this.isMultiChainDropdownActive;
   }
 
-  @HostListener('document:click', ['$event'])
+  @HostListener("document:click", ["$event"])
   onDocumentClick(event: any) {
     const target = event.target as HTMLElement;
-    const dropdown = document.getElementById('myDropdown');
-    const dropdownButton = document.getElementById('dropdwonButton');
+    const dropdown = document.getElementById("myDropdown");
+    const dropdownButton = document.getElementById("dropdwonButton");
 
     if (!dropdownButton || !dropdownButton.contains(target)) {
-      const dropdowns = document.getElementsByClassName('dropdown-content');
+      const dropdowns = document.getElementsByClassName("dropdown-content");
       let i;
       for (i = 0; i < dropdowns.length; i++) {
         const openDropdown = dropdowns[i] as HTMLElement;
-        if (openDropdown.classList.contains('show')) {
-          openDropdown.classList.remove('show');
+        if (openDropdown.classList.contains("show")) {
+          openDropdown.classList.remove("show");
           this.isMultiChainDropdownActive = false;
         }
       }
     }
 
     if (dropdown && dropdownButton) {
-      const isInsideDropdown = dropdown.contains(target) || dropdownButton.contains(target);
+      const isInsideDropdown =
+        dropdown.contains(target) || dropdownButton.contains(target);
       if (!isInsideDropdown) {
         this.isTooltipActive = true;
       }
     }
   }
 
-
-  @HostListener('window:resize', ['$event'])
+  @HostListener("window:resize", ["$event"])
   onResize(event) {
-    this.changeNavBarBackButton(event.target.innerWidth < 1148)
+    this.changeNavBarBackButton(event.target.innerWidth < 1148);
   }
 
   changeNavBarBackButton(isMobile: boolean) {
@@ -323,22 +324,45 @@ export class NavComponent implements OnInit {
   }
 
   async changeChain(config: any, index: any) {
-
     if (config !== undefined) {
       try {
         await this.windowRef.nativeWindow.ethereum.request(config);
         this.walletConnectService.updateChainId(this.chains[index]);
-        this.toastrService.success(`You are connected to ${this.chainConfigs[this.chains[index]].name}, please wait while loading data`);
-        setTimeout( () => {
+        this.toastrService.success(
+          `You are connected to ${
+            this.chainConfigs[this.chains[index]].name
+          }, please wait while loading data`
+        );
+        setTimeout(() => {
           location.reload();
-        },1000);
+        }, 1000);
       } catch (error) {
         console.log(error);
         this.toastrService.error(`${error.message}`);
         this.walletConnectService.handleMetamaskError(error);
-
       }
     }
     this.isTooltipActive = true;
+  }
+
+  //handle to switch chain
+  async handleSwitchNetwork(config: any, index: any) {
+    try {
+      await this.windowRef.nativeWindow.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [
+          {
+            chainId: config.params[0].chainId,
+          },
+        ],
+      });
+    } catch (error) {
+      if (error.code === 4902) {
+        this.changeChain(config, index); //add new chain
+      } else {
+        this.toastrService.error(`${error.message}`);
+        this.walletConnectService.handleMetamaskError(error);
+      }
+    }
   }
 }
