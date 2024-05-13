@@ -9,7 +9,7 @@ export const CHAIN_CONFIGS: any = {
     bg: 'white',
     symbol: 'ETH',
     config: {
-      method: 'wallet_switchEthereumChain',
+      method: 'wallet_addEthereumChain',
       params: [
         {
           chainId: '0x1',
@@ -27,7 +27,7 @@ export const CHAIN_CONFIGS: any = {
     bg: 'white',
     symbol: 'ETH',
     config: {
-      method: 'wallet_switchEthereumChain',
+      method: 'wallet_addEthereumChain',
       params: [
         {
           chainId: '0xAA36A7',
@@ -36,7 +36,7 @@ export const CHAIN_CONFIGS: any = {
         },
       ],
     },
-    
+
   },
   '1285': {
     name: 'Moonriver',
