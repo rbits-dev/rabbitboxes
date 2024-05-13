@@ -629,7 +629,7 @@ export class WalletConnectService {
             "type": "function"
         },
       ];
-  
+
       const rabbitContract = new web3.eth.Contract(abi as any, RBITS);
       const rabbitsBalance = await rabbitContract.methods.balanceOf(addr).call();
 
@@ -1028,12 +1028,12 @@ export class WalletConnectService {
     const node = config[environment.configFile].find(
       (chain: any) => chain.chainId == this.chainId.value
     );
-    if (node.BridgeNftAddress === undefined) {
-      console.log(
-        "Error: BridgeNftAddress not set for chain ",
-        this.chainId.value
-      );
-    }
+    // if (node.BridgeNftAddress === undefined) {
+    //   console.log(
+    //     "Error: BridgeNftAddress not set for chain ",
+    //     this.chainId.value
+    //   );
+    // }
     this.BridgeCollectionContract = new ethers.Contract(
       contractAddress,
       BRIDGE_COLLECTION_ABI,
@@ -1060,12 +1060,12 @@ export class WalletConnectService {
     //     this.chainId.value
     //   );
     // }
-    if (node.destination === undefined) {
-      console.error(
-        "Error: destination not set for chain ",
-        this.chainId.value
-      );
-    }
+    // if (node.destination === undefined) {
+    //   console.error(
+    //     "Error: destination not set for chain ",
+    //     this.chainId.value
+    //   );
+    // }
 
     this.BridgeCollectionContract = new ethers.Contract(
       contractAddress,
@@ -1144,19 +1144,18 @@ export class WalletConnectService {
   ) {
     try {
       const node = config[environment.configFile].find(
-        (chain: any) => chain.chainId == this.chainId.value
+        (chain: any) => chain.chainId == fromChain
       );
-      if (node.destination === undefined) {
-        console.error(
-          "Error: destinationAddress not set for chain ",
-          this.chainId.value
-        );
-      }
+      // if (node.destination === undefined) {
+      //   console.error(
+      //     "Error: destinationAddress not set for chain ",
+      //     this.chainId.value
+      //   );
+      // }
 
-      let EndpointId = fromChain == 1 ? node.destChainId : node.destChainIdBase;
-      let destination =
-        fromChain == 1 ? node.destination : node.destinationBase;
-      let sign = [signature.v, signature.r, signature.s, signature.nonce];
+      const EndpointId =  node.destChainId
+      const destination = node.destination
+      const sign = [signature.v, signature.r, signature.s, signature.nonce];
 
       const calculatedFees = await this.estimateFees({
         EndpointId,
@@ -1192,9 +1191,12 @@ export class WalletConnectService {
   }
   //LISTEN TO EVENTS OF MINT NFT CONTRACT
   async listenToEvents(fromChain) {
+    const node = config[environment.configFile].find(
+      (chain: any) => chain.chainId == fromChain
+    );
     let provider;
     let providerIndex = 0;
-    let providerURLForEth = this.chainConfigs[ fromChain ].config.params[0].rpcUrls[0];
+    let providerURLForEth = this.chainConfigs[fromChain].config.params[0].rpcUrls;
     while (!provider && providerIndex < providerURLForEth.length) {
       try {
         provider = new ethers.providers.JsonRpcProvider(
@@ -1217,11 +1219,11 @@ export class WalletConnectService {
 
     console.log(
       "listenevent on",
-      this.chainConfigs[ fromChain ].rabbitNFTController
+      node.rabbitNFTController
     );
-      
-    const contract = new ethers.Contract( 
-      this.chainConfigs[ fromChain ].rabbitNFTController,
+
+    const contract = new ethers.Contract(
+      node.rabbitNFTController,
       MINT_NFT_ABI,
       provider
     );

@@ -9,7 +9,6 @@ import { MESSAGES } from "src/app/messages.enum";
 import { WalletConnectComponent } from "../../base/wallet/connect/connect.component";
 import { ItemOverviewComponent } from "../../base/dialogs/item-overview/item-overview.component";
 import { NftMigrationComponent } from "../dialogs/nft-migration/nft-migration.component";
-import { UpgradeNftDialogComponent } from "./upgrade-nft-dialog/upgrade-nft-dialog.component";
 import { UpgrateNftSelectionDialogComponent } from "./upgrate-nft-selection-dialog/upgrate-nft-selection-dialog.component";
 import { environment } from "src/environments/environment";
 
@@ -355,7 +354,7 @@ export class InventoryComponent implements OnInit {
     this.dialog
       .open(UpgrateNftSelectionDialogComponent, {
         width: "800px",
-        data: fromChain === 1 ? {...this.nftData,fromChain:fromChain }: {...this.nftDataForBase,fromChain:fromChain},
+        data: fromChain === 1 ? {...this.nftData,fromChain:environment.production ? 1 : 11155111 }: {...this.nftDataForBase,fromChain:environment.production ? 8453 : 84532},
       })
       .afterClosed()
       .subscribe((_) => {

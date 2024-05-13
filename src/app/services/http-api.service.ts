@@ -235,11 +235,11 @@ export class HttpApiService {
 
   //GET META DATA FOR DEPLOY CONTRACT
   getMetadataUrl():Promise<any>{
-    return this.httpClient.get(baseURL + 'getMetadataUrl', { headers: this.headers }).toPromise()
+    return this.httpClient.get(baseURL + 'getMetadataUrlOld', { headers: this.headers }).toPromise()
   }
 
   getTokenUriData(tokenID:any,baseUrl:string){
-    const url = `${baseUrl}${tokenID}`;
+    const url = `${baseUrl}/${tokenID}`;
    return this.httpClient.get(url, { headers: this.headers }).toPromise()
   }
 
