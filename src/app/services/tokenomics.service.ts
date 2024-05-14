@@ -47,9 +47,28 @@ export class TokenomicsService {
     }
   }
 
+  async getProvider() {
+    let urls = CHAIN_CONFIGS[1].config.params[0].rpcUrls;
+    const n = urls.length;
+  
+    for (let i = 0; i < n; i++) {
+      try {
+        const provider = new Web3.providers.HttpProvider(urls[i]);
+        await new Web3(provider).eth.getBlockNumber();
+        return provider;
+      } catch (e) {
+        console.log(urls[i] + " doesn't give a valid block: " + e.message);
+      }
+    }
+    return null;
+  }
+  
   async getTokenomicsData() {
       try {
-          const web3Provider = new Web3.providers.HttpProvider( CHAIN_CONFIGS[ 1 ].config.params[0].rpcUrls[0] );
+          const web3Provider = await this.getProvider();
+          if( web3Provider == null ) {
+            return;
+          }
           const web3 = new Web3(web3Provider);
 
           const uniswapRouter = new web3.eth.Contract(uniswapABI as any, "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D");
