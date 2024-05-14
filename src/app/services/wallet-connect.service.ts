@@ -21,6 +21,7 @@ const NFTAbi = require("./../../assets/abis/NFTAbi.json");
 const BRIDGE_ABI = require("./../../assets/abis/BridgeAbi.json");
 const BRIDGE_COLLECTION_ABI = require("./../../assets/abis/BridgeCollectionAddressAbi.json");
 const ArtistNFTAbi = require("./../../assets/abis/ArtistNFTAbi.json");
+const latestArtistABI = require("./../../assets/abis/latestArtistABI.json");
 const registorAbi = require("../../assets/abis/registorAbi.json");
 const config = require("./../../assets/configFiles/configFile.json");
 const MINT_NFT_ABI = require("./../../assets/abis/mintNFTAbi.json");
@@ -39,7 +40,8 @@ const providerOptionsForRBITS = {
 
 // allow WalletConnectProvider to know which RPC endpoints to use for each supported network
 providerChainID.forEach((supportedChainId) => {
-  providerOptionsForRBITS.walletconnect.rpc[supportedChainId] = CHAIN_CONFIGS[supportedChainId]?.config.params[0].rpcUrls[0];
+  providerOptionsForRBITS.walletconnect.rpc[supportedChainId] =
+    CHAIN_CONFIGS[supportedChainId]?.config.params[0].rpcUrls[0];
 });
 
 // const web3Modal = new Web3Modal({
@@ -127,10 +129,9 @@ export class WalletConnectService {
         swapContractAbi,
         config[environment.configFile][1].ArtistMoonBoxNftSwap
       );
-
       //MultiChain contracts
       this.artistLootBoxContractGet = new web3.eth.Contract(
-        ArtistNFTAbi,
+        latestArtistABI,
         config[environment.configFile][1].artistLootBoxAddress
       );
     } catch (e) {
@@ -428,7 +429,7 @@ export class WalletConnectService {
           );
         }
 
-      /*  if (node.RegisterMoonboxAddress) {
+        /*  if (node.RegisterMoonboxAddress) {
           this.registorContractAddressObj = new ethers.Contract(
             node.RegisterMoonboxAddress,
             registorAbi,
@@ -517,28 +518,16 @@ export class WalletConnectService {
   }
 
   async getDetailsMoonboxlimit(isArtist = false) {
-    const promise = new Promise((resolve, reject) => {
-      try {
-        //if (isArtist) {
-          this.artistLootBoxContractGet.methods
-            .getRabbitShootLimit()
-            .call()
-            .then((transactionHash: any) => resolve(transactionHash));
-        /*} else {
-          this.LootBoxContractGet.methods
-            .getMoonShootLimit()
-            .call()
-            .then((transactionHash: any) => {
-              resolve(transactionHash);
-            });
-        }*/
-      } catch (e) {
-        console.log(e);
-        reject(false);
-      }
-    });
+    try {
+      const tnx = await this.artistLootBoxContractGet.methods
+        .getRabbitLimit()
+        .call();
+      return tnx;
+    } catch (error) {
+      console.log(error);
 
-    return promise;
+      return false;
+    }
   }
 
   async getDetailsLootboxAddress(lootBoxId: any) {
@@ -567,7 +556,10 @@ export class WalletConnectService {
         const params2 = (noOfBets * Number(lootboxPrice) * 1e9).toString();
 
         this.SilverContract.methods
-          .allowance(userAddress, config[environment.configFile][1].artistLootBoxAddress)
+          .allowance(
+            userAddress,
+            config[environment.configFile][1].artistLootBoxAddress
+          )
           .call()
           .then(async (allowanceAmount: string) => {
             if (allowanceAmount >= params2)
@@ -593,7 +585,10 @@ export class WalletConnectService {
     const promise = new Promise(async (resolve, reject) => {
       try {
         const tx = await this.SilverContract.methods
-          .approve(config[environment.configFile][1].artistLootBoxAddress, params)
+          .approve(
+            config[environment.configFile][1].artistLootBoxAddress,
+            params
+          )
           .call();
         resolve({ hash: tx, status: true, allowance: false });
       } catch (e) {
@@ -603,45 +598,45 @@ export class WalletConnectService {
     return promise;
   }
 
-
   async getUserBalance(addr) {
     try {
       const web3 = new Web3(CHAIN_CONFIGS[1].config.params[0].rpcUrls[0]);
-      const RBITS =       environment.tokenContractAddress
+      const RBITS = environment.tokenContractAddress;
       const abi = [
         {
-            "constant": true,
-            "inputs": [
-                {
-                    "name": "_owner",
-                    "type": "address"
-                }
-            ],
-            "name": "balanceOf",
-            "outputs": [
-                {
-                    "name": "balance",
-                    "type": "uint256"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
+          constant: true,
+          inputs: [
+            {
+              name: "_owner",
+              type: "address",
+            },
+          ],
+          name: "balanceOf",
+          outputs: [
+            {
+              name: "balance",
+              type: "uint256",
+            },
+          ],
+          payable: false,
+          stateMutability: "view",
+          type: "function",
         },
       ];
 
       const rabbitContract = new web3.eth.Contract(abi as any, RBITS);
-      const rabbitsBalance = await rabbitContract.methods.balanceOf(addr).call();
+      const rabbitsBalance = await rabbitContract.methods
+        .balanceOf(addr)
+        .call();
 
       return Number(rabbitsBalance);
-
     } catch (e) {
       console.log("Unable to get balance:", e);
     }
 
     return Number(0);
   }
-/*
+  /*
   async getUserBalance(userAddress: string): Promise<number> {
     if (this.ChainId != 1) {
       return Number(0); // RBITS token is only deployed on ETH
@@ -724,7 +719,6 @@ export class WalletConnectService {
     const spliSign = ethers.utils.splitSignature(signature);
     if (isArtist) {
       try {
-
         let txn: any = await this.artistLootBoxContract.redeemBulk(
           nftAddress,
           id,
@@ -866,11 +860,10 @@ export class WalletConnectService {
     toAddress: String,
     nftId: any,
     ArtistNFTAddress: any,
-    contractStandard :any
+    contractStandard: any
   ) {
     try {
-      if(contractStandard ==0){
-
+      if (contractStandard == 0) {
         let NFTContract = new ethers.Contract(
           ArtistNFTAddress,
           NFTAbi,
@@ -884,25 +877,19 @@ export class WalletConnectService {
           "0x00"
         );
         await txn.wait(1);
-      }else{
-
-
+      } else {
         let NFTContract = new ethers.Contract(
           ArtistNFTAddress,
           ERC721ABI,
           this.signer
         );
-        var txn = await NFTContract.transferFrom(
-          address,
-          toAddress,
-          nftId
-        );
+        var txn = await NFTContract.transferFrom(address, toAddress, nftId);
         await txn.wait(1);
       }
 
-      return txn
+      return txn;
     } catch (e) {
-      throw e
+      throw e;
     }
   }
 
@@ -1153,8 +1140,8 @@ export class WalletConnectService {
       //   );
       // }
 
-      const EndpointId =  node.destChainId
-      const destination = node.destination
+      const EndpointId = node.destChainId;
+      const destination = node.destination;
       const sign = [signature.v, signature.r, signature.s, signature.nonce];
 
       const calculatedFees = await this.estimateFees({
@@ -1170,7 +1157,7 @@ export class WalletConnectService {
 
       // Calculate 10% extra fee
       const extraFee = Math.ceil(Number(calculatedFees.nativeFee) * 0.15);
-      const totalFees = (Number(calculatedFees.nativeFee) + extraFee)
+      const totalFees = Number(calculatedFees.nativeFee) + extraFee;
       // Convert fees to hexadecimal format
       const hexFees = ethers.utils.parseUnits(totalFees.toString(), "wei");
       // Call the crossChain function with the calculated fees including 10% extra
@@ -1196,7 +1183,8 @@ export class WalletConnectService {
     );
     let provider;
     let providerIndex = 0;
-    let providerURLForEth = this.chainConfigs[fromChain].config.params[0].rpcUrls;
+    let providerURLForEth = this.chainConfigs[fromChain].config.params[0]
+      .rpcUrls;
     while (!provider && providerIndex < providerURLForEth.length) {
       try {
         provider = new ethers.providers.JsonRpcProvider(
@@ -1217,10 +1205,7 @@ export class WalletConnectService {
       throw new Error("All JSON-RPC providers failed.");
     }
 
-    console.log(
-      "listenevent on",
-      node.rabbitNFTController
-    );
+    console.log("listenevent on", node.rabbitNFTController);
 
     const contract = new ethers.Contract(
       node.rabbitNFTController,
