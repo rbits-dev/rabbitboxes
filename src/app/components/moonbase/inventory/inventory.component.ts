@@ -88,7 +88,8 @@ export class InventoryComponent implements OnInit {
         localStorage.getItem("manual_chainId") == "56")
     ) {
       this.getNFTData();
-      this.getUserData01();
+      // This api we use for swapping nft to old contract address erc 1155 (V1)to transfer nft contract erc 1155 (V2) but its not useful in our current flow cz we are using 721 .
+      // this.getUserData01();
       this.getNFTDataForBase();
     }
   }
