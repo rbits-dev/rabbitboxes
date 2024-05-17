@@ -30,7 +30,7 @@
                         </div>
                         <div class="steps__details">
                             <div class="steps__info">Minting NFT</div>
-                            <div class="steps__text">Minting NFT on Ethereum</div>
+                            <div class="steps__text">Minting NFT on {{(data.fromChain==1 || data.fromChain==11155111)?'Ethereum':'Base'}}</div>
                         </div>
                     </div>
                     <button  class="button disabled-button steps__button disabled wp100 border-0">{{btn3Text}}</button>
