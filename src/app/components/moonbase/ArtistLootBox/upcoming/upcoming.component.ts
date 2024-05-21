@@ -81,7 +81,7 @@ export class UpcomingComponent implements OnInit,OnDestroy {
       this.NSFWToggleState = NSFWToggleState;
     });
 
-    this.route.data.subscribe((data) => { this.currentCategory = data.activeTab ?? 2; });
+    this.route.data.subscribe((data) => { this.currentCategory = data.activeTab ?? 1; });
     this.getConnectedAccount();
 
     this.route.url.subscribe(url => {
