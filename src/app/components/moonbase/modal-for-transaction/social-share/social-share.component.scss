@@ -9,3 +9,13 @@
     padding: 2rem;
     margin: auto;
 }
+
+.info-text {
+    font-family: $primary-font;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.69;
+    letter-spacing: normal;
+    text-align: left;
+    color: $text-color;
+}
