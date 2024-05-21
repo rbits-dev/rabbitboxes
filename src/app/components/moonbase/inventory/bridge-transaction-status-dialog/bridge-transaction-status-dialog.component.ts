@@ -57,9 +57,9 @@ export class BridgeTransactionStatusDialogComponent implements OnInit {
 
           this.txHashHref = CHAIN_CONFIGS[ this.data.fromChain ].config.params[0].blockExplorerUrls[0] + "tx/" + res.transactionHash;
           this.transactionHash =
-                      res.transactionHash.substring(0, 4) +
+          (res.transactionHash && res.transactionHash.substring(0, 4)) +
                       "..." +
-                      res.transactionHash.substring(62, 66);
+                      (res.transactionHash && res.transactionHash.substring(62, 66));
         }, 30000);
       }
     });
