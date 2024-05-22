@@ -1,4 +1,10 @@
 <div class="modal-box">
-    <share-buttons [url]="'\n'+data?.imageUrl+ '\n' +'\nGet yours at rbits.xyz/live 🎁\n#NFT #NFTs #RBITS #RbitsOfficial'" [theme]="'modern-dark'" [include]="['twitter']" [show]="1" [autoSetMeta]="false" [description]="'I just opened one of the #RABBITBOXES 👀\nGot the ' + data?.name">
+    <p class="info-text">Share your NFT 👇</p>
+    <share-buttons 
+        [url]="'\n'+data?.imageUrl+ '\n' +'\nGet yours at rbits.xyz/live 🎁\n#NFT #NFTs #RBITS @RbitsOfficial'" 
+        [theme]="'modern-dark'" 
+        [include]="['twitter']" 
+        [show]="1" [autoSetMeta]="false" 
+        [description]="'I just opened one of the #RABBITBOXES 👀\nGot the ' + data?.name">
     </share-buttons>
 </div>

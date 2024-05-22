@@ -364,7 +364,7 @@ export class InventoryComponent implements OnInit {
   }
 
   // Function to fetch NFTs for a specific contract
-  async fetchNFTsForContract(contract: string) {
+  async fetchNFTsForContract(contract: string): Promise<any> {
     const headers = new HttpHeaders()
       .set("Content-Type", "application/json")
       .set(
