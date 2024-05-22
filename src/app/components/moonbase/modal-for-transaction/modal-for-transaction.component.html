@@ -24,7 +24,7 @@
                           <source src="{{nftImgRevealed[current].logo_path}}" type="video/mp4" />Browser not supported
                         </video>
 
-                        <img *ngIf="nftrevealed && checkFileType(nftImgRevealed[current].logo_path)" src="{{nftImgRevealed[current].logo_path}}" class="fade-in onvideo img-fluid" onError="this.src='./assets/media/images/nftnotfound.jpg';">
+                        <img *ngIf="nftrevealed && checkFileType(nftImgRevealed[current].logo_path)" src="{{nftImgRevealed[current].logo_path}}" class="fade-in onvideo img-fluid" (error)="handleImageError($event)">
                     </div>
                     <div [ngClass]="{'opacity1': nftrevealed}" class="opacity0 flex justify-space-between">
                         <a href="javascript:void(0);"  class="fade-in flex1 mr10 outlined-button text-inherit mt10" (click)="closeDialog()" [routerLink]="['/inventory']">Go to Inventory</a>

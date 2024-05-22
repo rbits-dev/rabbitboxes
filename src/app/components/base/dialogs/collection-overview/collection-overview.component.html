@@ -14,7 +14,7 @@
                                   <source src="{{slide.logo_path}}" type="video/mp4" />Browser not supported
                                 </video>
 
-                                <img *ngIf="checkFileType(slide.logo_path)" src="{{slide.logo_path}}" class="fade-in onvideo img-fluid" onError="this.src='./assets/media/images/nftnotfound.jpg';">
+                                <img *ngIf="checkFileType(slide.logo_path)" src="{{slide.logo_path}}" class="fade-in onvideo img-fluid" (error)="handleImageError($event)">
                             </div>
                         </ng-template>
                     </ng-container>

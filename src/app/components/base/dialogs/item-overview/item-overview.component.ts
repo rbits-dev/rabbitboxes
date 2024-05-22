@@ -65,7 +65,7 @@ export class ItemOverviewComponent implements OnInit {
 
     const urltemp = new URL(url)
     const extension = urltemp.pathname.substring(urltemp.pathname.lastIndexOf('.') + 1)
-    
+
     if (!extension) {
       // without extension its a video
       return false;
@@ -151,7 +151,11 @@ export class ItemOverviewComponent implements OnInit {
   trackByFn(index, item) {
     return item.title;
   }
-
+ //handle Image Error
+ handleImageError(event: Event): void {
+  const element = event.target as HTMLImageElement;
+  element.src = `${environment.assetBaseUrl}/media/images/nftnotfound.jpg`;
+}
 
 
 }

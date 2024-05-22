@@ -97,7 +97,7 @@
       </li>
     </ul>
   </div>
-  
+
   <div class="inner flex-wrap">
     <ng-container
       *ngFor="let item of inventoryList; let i = index; trackBy: trackByFn;"
@@ -111,7 +111,7 @@
             [src]="item['logo_path'] ? item['logo_path'] : './assets/media/images/nftnotfound.jpg'"
             class="img-fluid"
             alt=""
-            onError="this.src='./assets/media/images/nftnotfound.jpg';"
+            (error)="handleImageError($event)"
           />
         </div>
 

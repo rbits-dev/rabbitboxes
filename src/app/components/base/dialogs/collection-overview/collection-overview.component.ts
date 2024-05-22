@@ -1,6 +1,7 @@
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
 import { SwiperOptions } from 'swiper';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-collection-overview',
@@ -131,5 +132,11 @@ export class CollectionOverviewComponent implements OnInit {
     }
     return true;
   }
+
+   //handle Image Error
+ handleImageError(event: Event): void {
+  const element = event.target as HTMLImageElement;
+  element.src = `${environment.assetBaseUrl}/media/images/nftnotfound.jpg`;
+}
 
 }

@@ -10,6 +10,7 @@ import {
 import { HttpApiService } from "src/app/services/http-api.service";
 import { ToastrService } from "ngx-toastr";
 import { Subscription } from "rxjs";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-modal-for-transaction",
@@ -354,4 +355,14 @@ export class ModalForTransactionComponent implements OnInit {
   clearMessages(): void {
     this.httpApi.clearMessages();
   }
+
+ //handle Image Error
+ handleImageError(event: Event): void {
+  const element = event.target as HTMLImageElement;
+  element.src = `${environment.assetBaseUrl}/media/images/nftnotfound.jpg`;
+}
+
+
+
+
 }

@@ -374,4 +374,11 @@ export class InventoryComponent implements OnInit {
     const apiUrl = `https://deep-index.moralis.io/api/v2/${this.userAddress}/nft/${contract}?chain=${environment.moralisChain}&format=decimal`;
     return await this.httpClient.get(apiUrl, { headers: headers }).toPromise();
   }
+
+//handle Image Error
+  handleImageError(event: Event): void {
+    const element = event.target as HTMLImageElement;
+    element.src = `${environment.assetBaseUrl}/media/images/nftnotfound.jpg`;
+  }
+
 }
