@@ -38,14 +38,14 @@
                                     {{item.DateNFT.split(' ')[0]}}<br>{{item.DateNFT.split(' ')[1]}}
                                 </td>
                                 <td style="min-width:85px;">{{item.BetTier}}</td>
-                                <td class="text-center">{{item.nftData.length}}</td>
+                                <td class="text-center">{{item.nftData?.length}}</td>
                                 <!-- <td>14849534</td> -->
                                 <td class="">
                                     <button class="button claim-button" (click)="onClaimNFT(item,i)" *ngIf="!item.isClaimed">Claim</button>
                                     <p class="success p-10" *ngIf="item.isClaimed">Claimed</p>
                                 </td>
                             </tr>
-                            <tr *ngIf = "buyHistoryData.length == 0" >
+                            <tr *ngIf = "buyHistoryData?.length == 0" >
                                 <td colspan="3" >Data Not Found</td>
                             </tr>
                         </tbody>
@@ -53,7 +53,7 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="historyData && currentCategory === tabsCategory.UNBOXINGS && buyHistoryData && buyHistoryData.length > 0" class="flex1 flex-center">
+        <div *ngIf="historyData && currentCategory === tabsCategory.UNBOXINGS && buyHistoryData && buyHistoryData?.length > 0" class="flex1 flex-center">
             <pagination-controls class="my-pagination" (pageChange)="page = $event" [maxSize]="maxSize">
             </pagination-controls>
         </div>
@@ -80,7 +80,7 @@
                                     <a class="outlined-button  claim-button" href="{{'https://bscscan.com/tx/'+item.transactionHash}}" target="__blank">BSC Scan</a>
                                 </td>
                             </tr>
-                            <tr *ngIf = "transferHistoryData.length == 0" >
+                            <tr *ngIf = "transferHistoryData?.length == 0" >
                                 <td colspan="3" >Data Not Found</td>
                             </tr>
                         </tbody>
@@ -89,12 +89,12 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="historyData && currentCategory === tabsCategory.TRANSFERS && transferHistoryData && transferHistoryData.length > 0" class="flex1 flex-center">
+        <div *ngIf="historyData && currentCategory === tabsCategory.TRANSFERS && transferHistoryData && transferHistoryData?.length > 0" class="flex1 flex-center">
             <pagination-controls class="my-pagination" (pageChange)="page = $event" [maxSize]="maxSize">
             </pagination-controls>
         </div>
 
-        <p *ngIf="historyData.length === 0" class="absolute-center">No history data found</p>
+        <p *ngIf="historyData?.length === 0" class="absolute-center">No history data found</p>
     </div>
 
 </section>
