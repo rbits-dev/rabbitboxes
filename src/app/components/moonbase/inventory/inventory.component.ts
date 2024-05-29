@@ -372,7 +372,7 @@ export class InventoryComponent implements OnInit {
         "X-API-Key",
         "mPiHvsoVqeqlQTF6FkXslLhgtTgL3OKDrsp29tQPHDtyOKyuj5GlMCIfWKtOfOPC"
       );
-    const apiUrl = `https://deep-index.moralis.io/api/v2/${this.userAddress}/nft/${contract}?chain=${environment.moralisChain}&format=decimal&limit=5`;
+    const apiUrl = `https://deep-index.moralis.io/api/v2/${this.userAddress}/nft/${contract}?chain=${environment.moralisChain}&format=decimal&limit=20`;
     return await this.httpClient.get(apiUrl, { headers: headers }).toPromise();
   }
 

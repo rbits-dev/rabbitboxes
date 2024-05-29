@@ -79,7 +79,7 @@ export class UpgradeNftDialogComponent implements OnInit {
           "X-API-Key",
           "mPiHvsoVqeqlQTF6FkXslLhgtTgL3OKDrsp29tQPHDtyOKyuj5GlMCIfWKtOfOPC"
         );
-      const apiUrl = `https://deep-index.moralis.io/api/v2/${this.userAddress}/nft/${this.nftList.srcContractAddress}?chain=${environment.moralisChain}&format=decimal&cursor=${this.cursor}&limit=5`;
+      const apiUrl = `https://deep-index.moralis.io/api/v2/${this.userAddress}/nft/${this.nftList.srcContractAddress}?chain=${environment.moralisChain}&format=decimal&cursor=${this.cursor}&limit=20`;
       var res: any = await this.http
         .get(apiUrl, { headers: headers })
         .toPromise();
