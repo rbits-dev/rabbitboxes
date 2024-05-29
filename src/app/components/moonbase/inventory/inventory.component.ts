@@ -303,7 +303,7 @@ export class InventoryComponent implements OnInit {
       for (let item of this.nftData.NftList) {
         try {
           const nfts: any = await this.fetchNFTsForContract(item.BSCAddress);
-          this.nftData.nftData[item.BSCAddress] = nfts.result;
+          this.nftData.nftData[item.BSCAddress] = nfts;
           if (nfts.result.length > 0) {
             item.isDisplay = true;
             this.isShowBridgeButton = true;
@@ -325,6 +325,7 @@ export class InventoryComponent implements OnInit {
       const res: any = await this.httpApi.upgradeNftInfoForBase({
         walletAddress: this.userAddress,
       });
+
       this.nftDataForBase.NftList = res.data.map((nft: any) => ({
         ...nft,
         isDisplay: false,
@@ -333,7 +334,7 @@ export class InventoryComponent implements OnInit {
       for (let item of this.nftDataForBase.NftList) {
         try {
           const nfts: any = await this.fetchNFTsForContract(item.BSCAddress);
-          this.nftDataForBase.nftData[item.BSCAddress] = nfts.result;
+          this.nftDataForBase.nftData[item.BSCAddress] = nfts;
           if (nfts.result.length > 0) {
             item.isDisplay = true;
             this.isShowBridgeToBase = true;
@@ -371,7 +372,7 @@ export class InventoryComponent implements OnInit {
         "X-API-Key",
         "mPiHvsoVqeqlQTF6FkXslLhgtTgL3OKDrsp29tQPHDtyOKyuj5GlMCIfWKtOfOPC"
       );
-    const apiUrl = `https://deep-index.moralis.io/api/v2/${this.userAddress}/nft/${contract}?chain=${environment.moralisChain}&format=decimal`;
+    const apiUrl = `https://deep-index.moralis.io/api/v2/${this.userAddress}/nft/${contract}?chain=${environment.moralisChain}&format=decimal&limit=20`;
     return await this.httpClient.get(apiUrl, { headers: headers }).toPromise();
   }
 

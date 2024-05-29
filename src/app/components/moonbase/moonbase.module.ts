@@ -42,6 +42,7 @@ import { UpgradeNftDialogComponent } from './inventory/upgrade-nft-dialog/upgrad
 import { BridgeTransactionStatusDialogComponent } from './inventory/bridge-transaction-status-dialog/bridge-transaction-status-dialog.component';
 import { ItemOverviewComponent } from '../base/dialogs/item-overview/item-overview.component';
 import { UpgrateNftSelectionDialogComponent } from './inventory/upgrate-nft-selection-dialog/upgrate-nft-selection-dialog.component';
+import { LazyLoadDirective } from './lazy-load.directive';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { UpgrateNftSelectionDialogComponent } from './inventory/upgrate-nft-sele
     BridgeTransactionStatusDialogComponent,
     ItemOverviewComponent,
     UpgrateNftSelectionDialogComponent,
+    LazyLoadDirective,
   ],
   imports: [
     MatIconModule,
