@@ -19,6 +19,9 @@
     <ng-container *ngFor="let item of nftList.nftData;index as i">
 
       <div class="box flex-center col pb100">
+        <div class="upgradenftid">
+          {{item.token_id}}
+        </div>
         <div  class="check-box-contianer" >
           <input  type="checkbox" (change)="handleSingleChange($event,i)" [checked]="item.isSelected"><span >
           </span>
@@ -27,7 +30,7 @@
           <img src="{{ item['image_path'] }}" class="img-fluid"  onError="this.src='./assets/media/videos/Loading.gif';" alt="Image"  />
         </div>
         <div class="item-details text-center">
-          <p class="item-name p-white-span-primary p16d14m  mt20" style="margin-bottom: 15px;">{{ item["name"] }}</p>
+          <p class="item-name p-white-span-primary p16d14m  mt20" >{{ item["name"] }}</p>
         </div>
       </div>
     </ng-container>
