@@ -520,12 +520,11 @@ export class WalletConnectService {
   async getDetailsMoonboxlimit(isArtist = false) {
     try {
       const tnx = await this.artistLootBoxContractGet.methods
-        .getRabbitLimit()
+        .getRabbitShootLimit()
         .call();
       return tnx;
     } catch (error) {
       console.log(error);
-
       return false;
     }
   }

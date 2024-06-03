@@ -191,7 +191,6 @@ export class ArtistMoonboxComponent implements OnInit {
   }
 
   hasEnoughRBITS(index: number) {
-
     if (this.balance != null && this.moonBoxLimitDetails != null) {
       return (Number(this.balance) >= Number(this.moonBoxLimitDetails[index]));
     }
