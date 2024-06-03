@@ -131,7 +131,7 @@ export class WalletConnectService {
       );
       //MultiChain contracts
       this.artistLootBoxContractGet = new web3.eth.Contract(
-        latestArtistABI,
+        environment.configFile=='testnet' ? ArtistNFTAbi:latestArtistABI,
         config[environment.configFile][1].artistLootBoxAddress
       );
     } catch (e) {
