@@ -84,7 +84,6 @@ export class UpgradeNftDialogComponent implements OnInit {
         .get(apiUrl, { headers: headers })
         .toPromise();
       this.cursor = res.cursor;
-debugger
       for (let item of res.result) {
         if (this.isSelectAll) {
           item.isSelected = true;
