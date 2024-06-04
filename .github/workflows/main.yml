@@ -28,15 +28,17 @@ jobs:
 
       - name: Build project
         run: NODE_OPTIONS=--openssl-legacy-provider ng build --base-href=/boxes/
-      - name: Deploy to windows server
-        run: |
-          sudo apt-get install -y lftp
-          lftp -u ${{ secrets.USERNAME }},${{ secrets.PASSWORD }} -e "set ssl:verify-certificate no; mirror -R ./dist/boxes ./boxes" ${{ secrets.HOSTNAME }}
-        env:
-          USERNAME: ${{ secrets.USERNAME }}
-          PASSWORD: ${{ secrets.PASSWORD }}
-          HOSTNAME: ${{ secrets.HOSTNAME }}
-          
+
+
+      - name: Deploy to main server
+        uses: cross-the-world/ssh-scp-ssh-pipelines@v1.1.4
+        with:
+          pass: ${{ secrets.PASSWORD }}
+          user: ${{ secrets.USERNAME }}
+          host: ${{ secrets.HOSTNAME }}
+          scp: |
+            ./dist/boxes/* => /var/www/html/boxes
+
   build-and-deploy-on-dev-server:
     runs-on: ubuntu-latest
     timeout-minutes: 15

@@ -131,7 +131,7 @@ export class WalletConnectService {
       );
       //MultiChain contracts
       this.artistLootBoxContractGet = new web3.eth.Contract(
-        latestArtistABI,
+        environment.configFile=='testnet' ? ArtistNFTAbi:latestArtistABI,
         config[environment.configFile][1].artistLootBoxAddress
       );
     } catch (e) {
@@ -519,9 +519,16 @@ export class WalletConnectService {
 
   async getDetailsMoonboxlimit(isArtist = false) {
     try {
-      const tnx = await this.artistLootBoxContractGet.methods
+      var tnx:any
+      if(environment.configFile==='testnet'){
+        tnx = await this.artistLootBoxContractGet.methods
+         .getRabbitShootLimit()
+         .call();
+      }else{
+        tnx = await this.artistLootBoxContractGet.methods
         .getRabbitLimit()
         .call();
+      }
       return tnx;
     } catch (error) {
       console.log(error);
