@@ -22,7 +22,7 @@
             </section>
         </div>
 
-        <div class="right flex1 ml20 flex flex-col">
+        <div class="right flex1 ml20 flex flex-col justify-space-between">
 
             <div class="flex justify-space-between flex-align-start border-bottom">
                 <div class="flex flex-col clipboard">
@@ -47,7 +47,7 @@
 
             <textarea readonly class="mt20 justify-space-between flex description p16">{{artistData?.description}}</textarea>
 
-            <ul class="social-icons-container flex-center flex-wrap justify-space-between w-100">
+            <ul class="social-icons-container flex-center flex-wrap justify-space-between ">
                 <li>
                     <a href="javascript:void(0);" *ngIf="artistData.discord == ''" class="disabled-icon">
                         <img  src="./assets/media/icons/moonbase/discord.svg" alt="">
