@@ -61,11 +61,12 @@ jobs:
 
       - name: Build project
         run: NODE_OPTIONS=--openssl-legacy-provider ng build --configuration=development
-      - name: Deploy to smater server
-        run: |
-          sudo apt-get install -y lftp
-          lftp -u ${{ secrets.DEVUSERNAME }},${{ secrets.DEVPASSWORD }} -e "set ssl:verify-certificate no; mirror -R ./dist/boxes ." ${{ secrets.DEVHOSTNAME }}
-        env:
-          USERNAME: ${{ secrets.DEVUSERNAME }}
-          PASSWORD: ${{ secrets.DEVPASSWORD }}
-          HOSTNAME: ${{ secrets.DEVHOSTNAME }}
+
+      - name: Deploy to main server
+        uses: cross-the-world/ssh-scp-ssh-pipelines@v1.1.4
+        with:
+          pass: ${{ secrets.DEVPASSWORD }}
+          user: ${{ secrets.DEVUSERNAME }}
+          host: ${{ secrets.DEVHOSTNAME }}
+          scp: |
+            ./dist/boxes/* => /var/www/html/rbitsdevnet
