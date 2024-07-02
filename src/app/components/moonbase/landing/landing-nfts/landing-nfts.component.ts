@@ -6,6 +6,7 @@ import 'swiper/scss';
 import { nftSlider } from '../consts/nft-slider.const';
 import { LandingSliderModel } from 'src/app/models/landing-slider.model';
 import { LandingSliderProvider } from 'src/app/services/providers/landing-slider.provider';
+import { environment } from 'src/environments/environment';
 SwiperCore.use([EffectCoverflow]);
 SwiperCore.use([Autoplay]);
 
@@ -81,4 +82,9 @@ export class LandingNftsComponent implements OnInit {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   }
+   //handle Image Error
+ handleImageError(event: Event): void {
+  const element = event.target as HTMLImageElement;
+  element.src = `${environment.assetBaseUrl}/media/images/nftnotfound.jpg`;
+}
 }
