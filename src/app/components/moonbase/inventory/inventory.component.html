@@ -108,7 +108,7 @@
           *ngIf="fileTypeIsImage(item['logo_path'])"
         >
           <img
-            [src]="item['logo_path'] ? item['logo_path'] : './assets/media/images/nftnotfound.jpg'"
+            [src]="item['logo_path']"
             class="img-fluid"
             alt=""
             (error)="handleImageError($event)"
