@@ -1,70 +1,81 @@
-import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
 import { TransferComponent } from 'src/app/components/moonbase/modal-for-transaction/transfer/transfer.component';
 import { Observable, Observer } from 'rxjs';
 import { SocialShareComponent } from 'src/app/components/moonbase/modal-for-transaction/social-share/social-share.component';
 import { WalletConnectService } from 'src/app/services/wallet-connect.service';
 import { environment } from 'src/environments/environment';
-import openseaLink from '../../../../../assets/abis/openseaLink.json'
+import openseaLink from '../../../../../assets/abis/openseaLink.json';
+import { BridgeTransactionStatusDialogComponent } from 'src/app/components/moonbase/inventory/bridge-transaction-status-dialog/bridge-transaction-status-dialog.component';
 
 @Component({
   selector: 'app-item-overview',
   templateUrl: './item-overview.component.html',
-  styleUrls: ['./item-overview.component.scss']
+  styleUrls: ['./item-overview.component.scss'],
 })
 export class ItemOverviewComponent implements OnInit {
-
   item: any;
   chainId: number;
   openseaChainId: number;
-  openseaList :any[] = openseaLink;
-  link :any='';
-  notAvailableNetworkonOpnenSea = [287,4,568,1285,2000,1]
+  openseaList: any[] = openseaLink;
+  link: any = '';
+  notAvailableNetworkonOpnenSea = [287, 4, 568, 1285, 2000, 1];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<ItemOverviewComponent>,
-    public walletConnectService: WalletConnectService,
+    public walletConnectService: WalletConnectService
   ) {
     this.item = data;
+    console.log(data);
+    
   }
 
   ngOnInit(): void {
     this.walletConnectService.init();
     this.walletConnectService.getChainId().subscribe((data) => {
       this.chainId = data;
-      openseaLink.forEach((element)=>{
-        if(element.chainId == this.chainId){
-          this.link = `${element.link}${this.item.ArtistNFTAddress}/${this.item.nftId}${this.notAvailableNetworkonOpnenSea.includes(this.chainId) ? +'/'+ this.openseaChainId : ''}`;
-          console.log( this.link);
+      openseaLink.forEach((element) => {
+        if (element.chainId == this.chainId) {
+          this.link = `${element.link}${this.item.ArtistNFTAddress}/${
+            this.item.nftId
+          }${
+            this.notAvailableNetworkonOpnenSea.includes(this.chainId)
+              ? +'/' + this.openseaChainId
+              : ''
+          }`;
+          console.log(this.link);
         }
-
-      })
-
+      });
 
       //
 
       if (environment.chainId.indexOf(this.chainId) == -1) {
-        this.openseaChainId=1;
+        this.openseaChainId = 1;
         //
-      }
-      else
-      {
+      } else {
         let index = environment.chainId.indexOf(this.chainId);
-        this.openseaChainId=environment.openseaChainIds[index];
+        this.openseaChainId = environment.openseaChainIds[index];
         //
       }
     });
   }
 
   fileTypeIsImage(url: string) {
-    if( !url ) return false;
 
-    const images = ['jpg', 'gif', 'png', 'jpeg', 'JPG', 'GIF', 'PNG', 'JPEG']
-    const videos = ['mp4', '3gp', 'ogg', 'MP4', '3GP', 'OGG']
+    if (!url) return false;
 
-    const urltemp = new URL(url)
-    const extension = urltemp.pathname.substring(urltemp.pathname.lastIndexOf('.') + 1)
+    const images = ['jpg', 'gif', 'png', 'jpeg', 'JPG', 'GIF', 'PNG', 'JPEG'];
+    const videos = ['mp4', '3gp', 'ogg', 'MP4', '3GP', 'OGG'];
+    
+    const urltemp = new URL(url);
+    const extension = urltemp.pathname.substring(
+      urltemp.pathname.lastIndexOf('.') + 1
+    );
 
     if (!extension) {
       // without extension its a video
@@ -72,7 +83,7 @@ export class ItemOverviewComponent implements OnInit {
     }
 
     if (images.includes(extension)) {
-      return "true"
+      return 'true';
     } else if (videos.includes(extension)) {
       return false;
     }
@@ -80,20 +91,19 @@ export class ItemOverviewComponent implements OnInit {
   }
 
   downloadImage(data: any) {
-    this.getBase64ImageFromURL(data.logo_path).subscribe(base64data => {
-
+    this.getBase64ImageFromURL(data.logo_path).subscribe((base64data) => {
       const base64Image = 'data:image/jpg;base64,' + base64data;
 
-      const link = document.createElement("a");
+      const link = document.createElement('a');
 
       document.body.appendChild(link); // for Firefox
 
       if (data.logo_path.slice(-3) == 'gif') {
-        link.setAttribute("href", data.logo_path);
-        link.setAttribute("download", `${data.name}.gif`);
+        link.setAttribute('href', data.logo_path);
+        link.setAttribute('download', `${data.name}.gif`);
       } else {
-        link.setAttribute("href", base64Image);
-        link.setAttribute("download", `${data.name}.jpg`);
+        link.setAttribute('href', base64Image);
+        link.setAttribute('download', `${data.name}.jpg`);
       }
 
       link.click();
@@ -103,14 +113,14 @@ export class ItemOverviewComponent implements OnInit {
   getBase64ImageFromURL(url: string) {
     return Observable.create((observer: Observer<string>) => {
       const img: HTMLImageElement = new Image();
-      img.crossOrigin = "Anonymous";
+      img.crossOrigin = 'Anonymous';
       img.src = url;
       if (!img.complete) {
         img.onload = () => {
           observer.next(this.getBase64Image(img));
           observer.complete();
         };
-        img.onerror = err => {
+        img.onerror = (err) => {
           observer.error(err);
         };
       } else {
@@ -121,20 +131,20 @@ export class ItemOverviewComponent implements OnInit {
   }
 
   getBase64Image(img: HTMLImageElement) {
-    const canvas: HTMLCanvasElement = document.createElement("canvas");
+    const canvas: HTMLCanvasElement = document.createElement('canvas');
     canvas.width = img.width;
     canvas.height = img.height;
-    const ctx: CanvasRenderingContext2D = canvas.getContext("2d");
+    const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
     ctx.drawImage(img, 0, 0);
-    const dataURL: string = canvas.toDataURL("image/png");
+    const dataURL: string = canvas.toDataURL('image/png');
 
-    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, '');
   }
 
   openSocialShareDialog(data: any) {
     this.dialog.open(SocialShareComponent, {
       width: 'auto',
-      data: { imageUrl: data.logo_path, name: data.name, url: '' }
+      data: { imageUrl: data.logo_path, name: data.name, url: '' },
     });
   }
 
@@ -143,20 +153,40 @@ export class ItemOverviewComponent implements OnInit {
       width: 'auto',
       data: {
         details: data,
-        walletAddress: this.data.address
-      }
+        walletAddress: this.data.address,
+      },
     });
   }
 
   trackByFn(index, item) {
     return item.title;
   }
- //handle Image Error
- handleImageError(event: Event): void {
-  const element = event.target as HTMLImageElement;
-  element.src = `${environment.assetBaseUrl}/media/images/nftnotfound.jpg`;
+
+  //handle Image Error
+  handleImageError(event: Event): void {
+    const element = event.target as HTMLImageElement;
+    element.src = `${environment.assetBaseUrl}/media/images/nftnotfound.jpg`;
+  }
+
+   //handle bridge nft status dialog
+   openBridgeNftStatusDialog(type:string) {
+    const body = {
+      tokenIds: [this.item['nftId']],
+      amounts: [1],
+      srcContract: this.item['ArtistNFTAddress'],
+      destContract:type==='eth' ? this.item['ethAddress'] : this.item['baseAddress'],
+      fromChain:type==='eth' ? (environment.production?1:11155111) : environment.production ? 8453 : 84532,
+    }
+    this.dialog.open(BridgeTransactionStatusDialogComponent, {
+      width: "500px",
+      data: {
+        tokenIds: [this.item['nftId']],
+        amounts: [1],
+        srcContract: this.item['ArtistNFTAddress'],
+        destContract:type==='eth' ? this.item['ethAddress'] : this.item['baseAddress'],
+        fromChain:type==='eth' ? (environment.production?1:11155111) : environment.production ? 8453 : 84532,
+      },
+      disableClose: true,
+    });
+  }
 }
-
-
-}
-

@@ -15,7 +15,7 @@
       "lootBoxAddress": "0x017792D0692591FF66686092293295ef245deD3b",
       "ArtistMoonBoxNftSwap": "0xF08821acb2FBB234099c0282bD6ea18d877d287a",
       "RegisterMoonboxAddress":"0x25Ced152A8d2ff7Da922bFc7A1bc348d2644A49B",
-      "BridgeNftAddress":"0xCd8bcAF4056b3E4fe5714FF237D2e62811d9d721"
+      "BridgeNftAddress":"0xEf2871933be50Ab59C6b15564527ac7D169fE0E6"
 
     },
     {
@@ -41,9 +41,9 @@
     {
       "chainId":"84532",
       "artistLootBoxAddress":"0x3Ea63B70Bfaf43FC1B1D25CC485898beDffB5b0D",
-      "destination":"0x0662e60e08efbb32b376f1d5f82e26a1f680923dcd8bcaf4056b3e4fe5714ff237d2e62811d9d721",
+      "destination":"0x45aa55cb37c0c7ac3023e2c2e76434269bf381b0ef2871933be50ab59c6b15564527ac7d169fe0e6",
       "destChainId":"10245",
-      "rabbitNFTController": "0x0662e60e08eFBB32B376f1d5F82E26A1f680923D"
+      "rabbitNFTController": "0x45aa55cb37c0c7ac3023e2c2e76434269bf381b0"
   }
 
   ],
