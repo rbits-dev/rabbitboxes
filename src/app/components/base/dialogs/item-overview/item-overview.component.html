@@ -5,7 +5,7 @@
     <div class="flex1 flex-center flex-col flex-align-start">
 
         <div class="relative flex-col attribute-img">
-            <img class="mb30" (error)="handleImageError($event)" *ngIf="fileTypeIsImage(item['logo_path'])" [src]="item['logo_path'] ? item['logo_path'] : './assets/media/images/nftnotfound.jpg'" alt="img" />
+            <img class="mb30" (error)="handleImageError($event)" *ngIf="fileTypeIsImage(item['logo_path'])" [src]="item['logo_path']" alt="img" />
             <video class="img-fluid mb30" alt="" *ngIf="!fileTypeIsImage(item['logo_path'])" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true">
                 <source src="{{ item['logo_path'] }}" />
             </video>

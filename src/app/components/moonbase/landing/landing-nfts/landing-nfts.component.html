@@ -4,7 +4,7 @@
             <ng-container *ngFor="let slide of slides; index as i">
                 <ng-template swiperSlide>
                     <div class="nft-image-container" [routerLink]="['/'+slide.url]" routerLinkActive="router-link-active">
-                        <img src="{{slide.img}}"  onError="this.src='/assets/media/images/nftnotfound.jpg';" alt="{{slide.name}}">
+                        <img src="{{slide.img}}"  (error)="handleImageError($event)" alt="{{slide.name}}">
                     </div>
                 </ng-template>
             </ng-container>
