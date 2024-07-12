@@ -27,7 +27,7 @@
           </span>
         </div>
         <div class="relative nft_img">
-          <img appLazyLoad="{{ item['image_path'] }}" class="img-fluid"  onError="this.src='./assets/media/videos/Loading.gif';" alt="Image"  />
+          <img appLazyLoad="{{ item['image_path'] }}" class="img-fluid"  (error)="handleImageError($event)" alt="Image"  />
         </div>
         <div class="item-details text-center">
           <p class="item-name p-white-span-primary p16d14m  mt20" >{{item['nftName']|| item["name"]}}</p>

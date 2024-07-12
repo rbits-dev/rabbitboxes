@@ -151,4 +151,12 @@ export class UpgradeNftDialogComponent implements OnInit {
       disableClose: true,
     });
   }
+
+  
+//handle Image Error
+handleImageError(event: Event): void {
+  const element = event.target as HTMLImageElement;
+  element.src = `${environment.assetBaseUrl}/media/images/nftnotfound.jpg`;
+}
+
 }
